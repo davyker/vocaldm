@@ -947,8 +947,8 @@ class VocaLDMModule(pl.LightningModule):
                 else:
                     generated_audio_np = generated_audio[i]
                 
-                # Save to disk
-                from scipy.io import wavfile
+                # Import soundfile for saving audio (same as AudioLDM)
+                import soundfile as sf
                 
                 # Format filenames
                 epoch_str = f"epoch_{self.current_epoch:03d}"
@@ -956,33 +956,43 @@ class VocaLDMModule(pl.LightningModule):
                 reference_path = os.path.join(audio_dir, f"{epoch_str}_sample{i}_reference.wav")
                 generated_path = os.path.join(audio_dir, f"{epoch_str}_sample{i}_generated.wav")
                 
-                # Normalize the generated audio by dividing by max absolute value
+                # Print diagnostic info before processing
                 max_abs_val = np.max(np.abs(generated_audio_np))
                 print(f"Generated audio max abs value: {max_abs_val:.4f}")
-                if max_abs_val > 1.0:
-                    print(f"Normalizing generated audio by dividing by {max_abs_val:.4f}")
-                    generated_audio_norm = generated_audio_np / max_abs_val
+                
+                # AudioLDM approach: Scale to int16 range or clip to [-1,1] and use soundfile
+                
+                # Handle dimensions for generated audio (make sure we have the right shape)
+                if len(generated_audio_np.shape) >= 2:
+                    # Extract the actual waveform from [channel, time] format
+                    waveform = generated_audio_np[0]
                 else:
-                    generated_audio_norm = generated_audio_np
+                    waveform = generated_audio_np
                 
-                # Also normalize imitation and reference audio to avoid WAV errors
-                # Use a safety threshold of 0.95 to be conservative
-                if np.max(np.abs(imitation_audio)) > 0.95:
-                    print(f"Normalizing imitation audio - max: {np.max(np.abs(imitation_audio)):.4f}")
-                    imitation_audio = imitation_audio / np.max(np.abs(imitation_audio)) * 0.95
+                # Exactly match AudioLDM's approach: Convert directly to int16 without clipping
                 
-                if np.max(np.abs(reference_audio)) > 0.95:
-                    print(f"Normalizing reference audio - max: {np.max(np.abs(reference_audio)):.4f}")
-                    reference_audio = reference_audio / np.max(np.abs(reference_audio)) * 0.95
+                # Convert to int16 - EXACTLY like in vocoder_infer in hifigan/utilities.py
+                waveform_int16 = (waveform * 32768).astype(np.int16)
+                # Use soundfile with explicitly specifying format='WAV'
+                sf.write(generated_path, waveform_int16, sample_rate, format='WAV')
                 
-                # Also ensure generated audio doesn't exceed the threshold
-                if np.max(np.abs(generated_audio_norm)) > 0.95:
-                    generated_audio_norm = generated_audio_norm * (0.95 / np.max(np.abs(generated_audio_norm)))
+                # Handle imitation audio with identical approach
+                if len(imitation_audio.shape) >= 2:
+                    imitation_waveform = imitation_audio[0]
+                else:
+                    imitation_waveform = imitation_audio
                 
-                # Save files
-                wavfile.write(imitation_path, sample_rate, imitation_audio.astype(np.float32))
-                wavfile.write(reference_path, sample_rate, reference_audio.astype(np.float32))
-                wavfile.write(generated_path, sample_rate, generated_audio_norm.astype(np.float32))
+                imitation_int16 = (imitation_waveform * 32768).astype(np.int16)
+                sf.write(imitation_path, imitation_int16, sample_rate, format='WAV')
+                
+                # Handle reference audio with identical approach
+                if len(reference_audio.shape) >= 2:
+                    reference_waveform = reference_audio[0]
+                else:
+                    reference_waveform = reference_audio
+                
+                reference_int16 = (reference_waveform * 32768).astype(np.int16)
+                sf.write(reference_path, reference_int16, sample_rate, format='WAV')
                 
                 print(f"Saved audio files for epoch {self.current_epoch}, sample {i} to {audio_dir}")
                 
