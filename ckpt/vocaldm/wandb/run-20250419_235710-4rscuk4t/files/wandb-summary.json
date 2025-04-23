@@ -1,0 +1,1 @@
+{"train/mse_loss":0.06391024589538574,"_timestamp":1.7451046044222324e+09,"lr-AdamW/pg2":9.77975432332841e-06,"_runtime":1173.827598115,"_step":89,"trainer/global_step":179,"_wandb":{"runtime":1220},"epoch":0,"train/adapter_lr":9.757730003912002e-05,"lr-AdamW/pg1":9.757729755661256e-05,"train/loss":0.06391024589538574,"train/cosine_loss":0,"train/film_lr":9.779754691408016e-06}

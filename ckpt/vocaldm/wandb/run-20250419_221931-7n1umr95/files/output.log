@@ -1,0 +1,26 @@
+/root/miniconda3/envs/qvim-baseline/lib/python3.10/site-packages/pytorch_lightning/callbacks/model_checkpoint.py:654: Checkpoint directory /mnt/c/Users/Davy/Documents/Code/QM/CC/AudioLDM/ckpt/vocaldm exists and is not empty.
+LOCAL_RANK: 0 - CUDA_VISIBLE_DEVICES: [0]
+
+  | Name       | Type            | Params | Mode
+-------------------------------------------------------
+0 | qvim_model | QVIMModule      | 9.8 M  | eval
+1 | adapter    | QVIMAdapter     | 1.5 M  | train
+2 | audioldm   | LatentDiffusion | 726 M  | eval
+-------------------------------------------------------
+2.6 M     Trainable params
+734 M     Non-trainable params
+737 M     Total params
+2,949.710 Total estimated model params size (MB)
+12        Modules in train mode
+2245      Modules in eval mode
+Sanity Checking DataLoader 0:   0%|                                                                                                                                                            | 0/2 [00:00<?, ?it/s]Skipping audio logging to avoid format issues
+DDIM Sampler: 100%|██████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 50/50 [00:14<00:00,  3.41it/s]
+DDIM Sampler: 100%|██████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 50/50 [00:14<00:00,  4.29it/s]
+Sanity Checking DataLoader 0: 100%|████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 2/2 [00:41<00:00,  0.05it/s]
+Saved improved adapter to ckpt/vocaldm/qvim_adapter_val_loss_0.0780.pt
+Epoch 0:   0%|                                                                                                                                                                               | 0/701 [00:00<?, ?it/s]diffusion_loss requires_grad: True
+Checking gradient paths:
+Component requires_grad check: {'squared_diff': True, 'model_output': True, 'target': False}
+Training loss: 0.071744
+Epoch 0:   0%|▎                                                                                                                    | 2/701 [01:35<9:14:22,  0.02it/s, v_num=mr95, train/loss=0.0582, train/lr=0.0001]Resources cleaned up
+Detected KeyboardInterrupt, attempting graceful shutdown ...

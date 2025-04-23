@@ -1,0 +1,52 @@
+{
+  "os": "Linux-5.15.167.4-microsoft-standard-WSL2-x86_64-with-glibc2.39",
+  "python": "CPython 3.10.16",
+  "startedAt": "2025-04-17T23:41:23.845780Z",
+  "args": [
+    "--model_save_path=models_vimsketch_longer",
+    "--max_lr",
+    "0.0003",
+    "--min_lr",
+    "0.000025",
+    "--rampdown_epochs",
+    "17",
+    "--early_stopping_patience",
+    "20",
+    "--early_stopping_min_delta",
+    "0.0"
+  ],
+  "program": "-m qvim_mn_baseline.ex_qvim",
+  "git": {
+    "remote": "https://github.com/qvim-aes/qvim-baseline.git",
+    "commit": "ce80b5751d97e74467dbb1d8b2b17576aa331f9c"
+  },
+  "email": "davyker1@gmail.com",
+  "root": ".",
+  "host": "DKNL",
+  "executable": "/root/miniconda3/envs/qvim-baseline/bin/python",
+  "cpu_count": 8,
+  "cpu_count_logical": 16,
+  "gpu": "NVIDIA GeForce RTX 4060 Laptop GPU",
+  "gpu_count": 1,
+  "disk": {
+    "/": {
+      "total": "1081101176832",
+      "used": "88761036800"
+    }
+  },
+  "memory": {
+    "total": "16345546752"
+  },
+  "cpu": {
+    "count": 8,
+    "countLogical": 16
+  },
+  "gpu_nvidia": [
+    {
+      "name": "NVIDIA GeForce RTX 4060 Laptop GPU",
+      "memoryTotal": "8585740288",
+      "architecture": "Ada"
+    }
+  ],
+  "cudaVersion": "12.6"
+}

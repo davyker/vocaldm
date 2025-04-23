@@ -1,0 +1,16 @@
+{"time":"2025-04-18T20:34:14.493086126+01:00","level":"INFO","msg":"stream: starting","core version":"0.19.9","symlink path":"ckpt/vocaldm/wandb/run-20250418_203414-ia370flu/logs/debug-core.log"}
+{"time":"2025-04-18T20:34:14.952959286+01:00","level":"INFO","msg":"created new stream","id":"ia370flu"}
+{"time":"2025-04-18T20:34:14.953251376+01:00","level":"INFO","msg":"stream: started","id":"ia370flu"}
+{"time":"2025-04-18T20:34:14.953289226+01:00","level":"INFO","msg":"writer: Do: started","stream_id":"ia370flu"}
+{"time":"2025-04-18T20:34:14.953324567+01:00","level":"INFO","msg":"sender: started","stream_id":"ia370flu"}
+{"time":"2025-04-18T20:34:14.953339014+01:00","level":"INFO","msg":"handler: started","stream_id":"ia370flu"}
+{"time":"2025-04-18T20:34:15.39626416+01:00","level":"INFO","msg":"Starting system monitor"}
+{"time":"2025-04-18T20:34:24.820370182+01:00","level":"INFO","msg":"Stopping system monitor"}
+{"time":"2025-04-18T20:34:24.821076224+01:00","level":"INFO","msg":"Stopped system monitor"}
+{"time":"2025-04-18T20:34:25.55960251+01:00","level":"INFO","msg":"fileTransfer: Close: file transfer manager closed"}
+{"time":"2025-04-18T20:34:25.831517524+01:00","level":"INFO","msg":"handler: operation stats","stats":{"operations":[{"desc":"uploading summary, console lines 1-56","runtime_seconds":0.271544219}],"total_operations":1}}
+{"time":"2025-04-18T20:34:25.863036588+01:00","level":"INFO","msg":"stream: closing","id":"ia370flu"}
+{"time":"2025-04-18T20:34:25.863254163+01:00","level":"INFO","msg":"handler: closed","stream_id":"ia370flu"}
+{"time":"2025-04-18T20:34:25.863333628+01:00","level":"INFO","msg":"writer: Close: closed","stream_id":"ia370flu"}
+{"time":"2025-04-18T20:34:25.863377837+01:00","level":"INFO","msg":"sender: closed","stream_id":"ia370flu"}
+{"time":"2025-04-18T20:34:25.867243579+01:00","level":"INFO","msg":"stream: closed","id":"ia370flu"}

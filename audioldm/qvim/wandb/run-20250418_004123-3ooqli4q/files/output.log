@@ -1,0 +1,96 @@
+Using 16bit Automatic Mixed Precision (AMP)
+GPU available: True (cuda), used: True
+TPU available: False, using: 0 TPU cores
+HPU available: False, using: 0 HPUs
+LOCAL_RANK: 0 - CUDA_VISIBLE_DEVICES: [0]
+Validation DataLoader 0: 100%|██████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 117/117 [00:33<00:00,  3.50it/s]
+──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+     Validate metric           DataLoader 0
+──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+        val/loss             2.304413318634033
+         val/mrr            0.11452038586139679
+        val/ndcg            0.25151342153549194
+         val/tau            0.0700000748038292
+──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+LOCAL_RANK: 0 - CUDA_VISIBLE_DEVICES: [0]
+
+  | Name              | Type           | Params | Mode
+-------------------------------------------------------------
+0 | mel               | AugmentMelSTFT | 0      | train
+1 | imitation_encoder | MobileNetV3    | 4.9 M  | train
+2 | reference_encoder | MobileNetV3    | 4.9 M  | train
+  | other params      | n/a            | 1      | n/a
+-------------------------------------------------------------
+9.8 M     Trainable params
+1         Non-trainable params
+9.8 M     Total params
+39.015    Total estimated model params size (MB)
+531       Modules in train mode
+0         Modules in eval mode
+Epoch 10: 100%|██████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 662/662 [04:08<00:00,  2.66it/s, v_num=li4q, train/loss=0.0247, lr=0.000125, val/loss=0.753, val/mrr=0.380, val/ndcg=0.507]
+                                                                                                                                                                                                                                                                                                                      
+Metric val/loss improved. New best score: 1.237
+Epoch 0, global step 662: 'val/loss' reached 1.23742 (best 1.23742), saving model to '/mnt/c/Users/Davy/Documents/Code/QM/qvim-baseline/models_vimsketch_longer/dulcet-leaf-31/best-loss-checkpoint.ckpt' as top 1
+Epoch 0, global step 662: 'val/mrr' reached 0.24653 (best 0.24653), saving model to '/mnt/c/Users/Davy/Documents/Code/QM/qvim-baseline/models_vimsketch_longer/dulcet-leaf-31/best-mrr-checkpoint.ckpt' as top 1
+Metric val/loss improved by 0.220 >= min_delta = 0.0. New best score: 1.017
+Epoch 1, global step 1324: 'val/loss' reached 1.01707 (best 1.01707), saving model to '/mnt/c/Users/Davy/Documents/Code/QM/qvim-baseline/models_vimsketch_longer/dulcet-leaf-31/best-loss-checkpoint.ckpt' as top 1
+Epoch 1, global step 1324: 'val/mrr' reached 0.29914 (best 0.29914), saving model to '/mnt/c/Users/Davy/Documents/Code/QM/qvim-baseline/models_vimsketch_longer/dulcet-leaf-31/best-mrr-checkpoint.ckpt' as top 1
+Metric val/loss improved by 0.100 >= min_delta = 0.0. New best score: 0.917
+Epoch 2, global step 1986: 'val/loss' reached 0.91736 (best 0.91736), saving model to '/mnt/c/Users/Davy/Documents/Code/QM/qvim-baseline/models_vimsketch_longer/dulcet-leaf-31/best-loss-checkpoint.ckpt' as top 1
+Epoch 2, global step 1986: 'val/mrr' reached 0.32844 (best 0.32844), saving model to '/mnt/c/Users/Davy/Documents/Code/QM/qvim-baseline/models_vimsketch_longer/dulcet-leaf-31/best-mrr-checkpoint.ckpt' as top 1
+Metric val/loss improved by 0.057 >= min_delta = 0.0. New best score: 0.860
+Epoch 3, global step 2648: 'val/loss' reached 0.86041 (best 0.86041), saving model to '/mnt/c/Users/Davy/Documents/Code/QM/qvim-baseline/models_vimsketch_longer/dulcet-leaf-31/best-loss-checkpoint.ckpt' as top 1
+Epoch 3, global step 2648: 'val/mrr' reached 0.35242 (best 0.35242), saving model to '/mnt/c/Users/Davy/Documents/Code/QM/qvim-baseline/models_vimsketch_longer/dulcet-leaf-31/best-mrr-checkpoint.ckpt' as top 1
+Metric val/loss improved by 0.000 >= min_delta = 0.0. New best score: 0.860
+Epoch 4, global step 3310: 'val/loss' reached 0.86034 (best 0.86034), saving model to '/mnt/c/Users/Davy/Documents/Code/QM/qvim-baseline/models_vimsketch_longer/dulcet-leaf-31/best-loss-checkpoint.ckpt' as top 1
+Epoch 4, global step 3310: 'val/mrr' was not in top 1
+Metric val/loss improved by 0.036 >= min_delta = 0.0. New best score: 0.824
+Epoch 5, global step 3972: 'val/loss' reached 0.82430 (best 0.82430), saving model to '/mnt/c/Users/Davy/Documents/Code/QM/qvim-baseline/models_vimsketch_longer/dulcet-leaf-31/best-loss-checkpoint.ckpt' as top 1
+Epoch 5, global step 3972: 'val/mrr' was not in top 1
+Metric val/loss improved by 0.039 >= min_delta = 0.0. New best score: 0.785
+Epoch 6, global step 4634: 'val/loss' reached 0.78535 (best 0.78535), saving model to '/mnt/c/Users/Davy/Documents/Code/QM/qvim-baseline/models_vimsketch_longer/dulcet-leaf-31/best-loss-checkpoint.ckpt' as top 1
+Epoch 6, global step 4634: 'val/mrr' reached 0.36029 (best 0.36029), saving model to '/mnt/c/Users/Davy/Documents/Code/QM/qvim-baseline/models_vimsketch_longer/dulcet-leaf-31/best-mrr-checkpoint.ckpt' as top 1
+Metric val/loss improved by 0.013 >= min_delta = 0.0. New best score: 0.772
+Epoch 7, global step 5296: 'val/loss' reached 0.77223 (best 0.77223), saving model to '/mnt/c/Users/Davy/Documents/Code/QM/qvim-baseline/models_vimsketch_longer/dulcet-leaf-31/best-loss-checkpoint.ckpt' as top 1
+Epoch 7, global step 5296: 'val/mrr' reached 0.37904 (best 0.37904), saving model to '/mnt/c/Users/Davy/Documents/Code/QM/qvim-baseline/models_vimsketch_longer/dulcet-leaf-31/best-mrr-checkpoint.ckpt' as top 1
+Epoch 8, global step 5958: 'val/loss' was not in top 1
+Epoch 8, global step 5958: 'val/mrr' was not in top 1
+Metric val/loss improved by 0.025 >= min_delta = 0.0. New best score: 0.747
+Epoch 9, global step 6620: 'val/loss' reached 0.74689 (best 0.74689), saving model to '/mnt/c/Users/Davy/Documents/Code/QM/qvim-baseline/models_vimsketch_longer/dulcet-leaf-31/best-loss-checkpoint.ckpt' as top 1
+Epoch 9, global step 6620: 'val/mrr' was not in top 1
+Epoch 10, global step 7282: 'val/loss' was not in top 1
+Epoch 10, global step 7282: 'val/mrr' reached 0.38040 (best 0.38040), saving model to '/mnt/c/Users/Davy/Documents/Code/QM/qvim-baseline/models_vimsketch_longer/dulcet-leaf-31/best-mrr-checkpoint.ckpt' as top 1
+Metric val/loss improved by 0.013 >= min_delta = 0.0. New best score: 0.734
+Epoch 11, global step 7944: 'val/loss' reached 0.73437 (best 0.73437), saving model to '/mnt/c/Users/Davy/Documents/Code/QM/qvim-baseline/models_vimsketch_longer/dulcet-leaf-31/best-loss-checkpoint.ckpt' as top 1
+Epoch 11, global step 7944: 'val/mrr' reached 0.39161 (best 0.39161), saving model to '/mnt/c/Users/Davy/Documents/Code/QM/qvim-baseline/models_vimsketch_longer/dulcet-leaf-31/best-mrr-checkpoint.ckpt' as top 1
+Epoch 12, global step 8606: 'val/loss' was not in top 1
+Epoch 12, global step 8606: 'val/mrr' was not in top 1
+Metric val/loss improved by 0.007 >= min_delta = 0.0. New best score: 0.728
+Epoch 13, global step 9268: 'val/loss' reached 0.72760 (best 0.72760), saving model to '/mnt/c/Users/Davy/Documents/Code/QM/qvim-baseline/models_vimsketch_longer/dulcet-leaf-31/best-loss-checkpoint.ckpt' as top 1
+Epoch 13, global step 9268: 'val/mrr' was not in top 1
+Epoch 14, global step 9930: 'val/loss' was not in top 1
+Epoch 14, global step 9930: 'val/mrr' was not in top 1
+Metric val/loss improved by 0.004 >= min_delta = 0.0. New best score: 0.724
+Epoch 15, global step 10592: 'val/loss' reached 0.72358 (best 0.72358), saving model to '/mnt/c/Users/Davy/Documents/Code/QM/qvim-baseline/models_vimsketch_longer/dulcet-leaf-31/best-loss-checkpoint.ckpt' as top 1
+Epoch 15, global step 10592: 'val/mrr' reached 0.39350 (best 0.39350), saving model to '/mnt/c/Users/Davy/Documents/Code/QM/qvim-baseline/models_vimsketch_longer/dulcet-leaf-31/best-mrr-checkpoint.ckpt' as top 1
+Epoch 16, global step 11254: 'val/loss' was not in top 1
+Epoch 16, global step 11254: 'val/mrr' was not in top 1
+Epoch 17, global step 11916: 'val/loss' was not in top 1
+Epoch 17, global step 11916: 'val/mrr' reached 0.39720 (best 0.39720), saving model to '/mnt/c/Users/Davy/Documents/Code/QM/qvim-baseline/models_vimsketch_longer/dulcet-leaf-31/best-mrr-checkpoint.ckpt' as top 1
+Epoch 18, global step 12578: 'val/loss' was not in top 1
+Epoch 18, global step 12578: 'val/mrr' was not in top 1
+Metric val/loss improved by 0.002 >= min_delta = 0.0. New best score: 0.722
+Epoch 19, global step 13240: 'val/loss' reached 0.72154 (best 0.72154), saving model to '/mnt/c/Users/Davy/Documents/Code/QM/qvim-baseline/models_vimsketch_longer/dulcet-leaf-31/best-loss-checkpoint.ckpt' as top 1
+Epoch 19, global step 13240: 'val/mrr' was not in top 1
+Epoch 20, global step 13902: 'val/loss' was not in top 1
+Epoch 20, global step 13902: 'val/mrr' was not in top 1
+Epoch 21, global step 14564: 'val/loss' was not in top 1
+Epoch 21, global step 14564: 'val/mrr' was not in top 1
+Epoch 22, global step 15226: 'val/loss' was not in top 1
+Epoch 22, global step 15226: 'val/mrr' reached 0.40211 (best 0.40211), saving model to '/mnt/c/Users/Davy/Documents/Code/QM/qvim-baseline/models_vimsketch_longer/dulcet-leaf-31/best-mrr-checkpoint.ckpt' as top 1
+Epoch 23, global step 15888: 'val/loss' was not in top 1
+Epoch 23, global step 15888: 'val/mrr' was not in top 1
+Epoch 24, global step 16550: 'val/loss' was not in top 1
+Epoch 24, global step 16550: 'val/mrr' was not in top 1
+
+Detected KeyboardInterrupt, attempting graceful shutdown ...

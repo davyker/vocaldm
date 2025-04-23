@@ -1,0 +1,57 @@
+/root/miniconda3/envs/qvim-baseline/lib/python3.10/site-packages/pytorch_lightning/callbacks/model_checkpoint.py:654: Checkpoint directory /mnt/c/Users/Davy/Documents/Code/QM/CC/AudioLDM/ckpt/vocaldm exists and is not empty.
+LOCAL_RANK: 0 - CUDA_VISIBLE_DEVICES: [0]
+
+  | Name       | Type            | Params | Mode
+------------------------------------------------------
+0 | qvim_model | QVIMModule      | 9.8 M  | eval
+1 | adapter    | QVIMAdapter     | 1.5 M  | eval
+2 | audioldm   | LatentDiffusion | 726 M  | eval
+------------------------------------------------------
+2.6 M     Trainable params
+734 M     Non-trainable params
+737 M     Total params
+2,949.710 Total estimated model params size (MB)
+0         Modules in train mode
+2257      Modules in eval mode
+Sanity Checking DataLoader 0:   0%|                                                                                                                              | 0/2 [00:00<?, ?it/s]Reference shape before processing: torch.Size([8, 160000])
+Converted to mel spectrogram with shape: torch.Size([8, 1, 256, 256])
+Training failed with error: 'list' object has no attribute 'shape'
+Traceback (most recent call last):
+  File "/mnt/c/Users/Davy/Documents/Code/QM/CC/AudioLDM/train_vocaldm.py", line 705, in train_vocaldm
+    trainer.fit(
+  File "/root/miniconda3/envs/qvim-baseline/lib/python3.10/site-packages/pytorch_lightning/trainer/trainer.py", line 561, in fit
+    call._call_and_handle_interrupt(
+  File "/root/miniconda3/envs/qvim-baseline/lib/python3.10/site-packages/pytorch_lightning/trainer/call.py", line 48, in _call_and_handle_interrupt
+    return trainer_fn(*args, **kwargs)
+  File "/root/miniconda3/envs/qvim-baseline/lib/python3.10/site-packages/pytorch_lightning/trainer/trainer.py", line 599, in _fit_impl
+    self._run(model, ckpt_path=ckpt_path)
+  File "/root/miniconda3/envs/qvim-baseline/lib/python3.10/site-packages/pytorch_lightning/trainer/trainer.py", line 1012, in _run
+    results = self._run_stage()
+  File "/root/miniconda3/envs/qvim-baseline/lib/python3.10/site-packages/pytorch_lightning/trainer/trainer.py", line 1054, in _run_stage
+    self._run_sanity_check()
+  File "/root/miniconda3/envs/qvim-baseline/lib/python3.10/site-packages/pytorch_lightning/trainer/trainer.py", line 1083, in _run_sanity_check
+    val_loop.run()
+  File "/root/miniconda3/envs/qvim-baseline/lib/python3.10/site-packages/pytorch_lightning/loops/utilities.py", line 179, in _decorator
+    return loop_run(self, *args, **kwargs)
+  File "/root/miniconda3/envs/qvim-baseline/lib/python3.10/site-packages/pytorch_lightning/loops/evaluation_loop.py", line 145, in run
+    self._evaluation_step(batch, batch_idx, dataloader_idx, dataloader_iter)
+  File "/root/miniconda3/envs/qvim-baseline/lib/python3.10/site-packages/pytorch_lightning/loops/evaluation_loop.py", line 437, in _evaluation_step
+    output = call._call_strategy_hook(trainer, hook_name, *step_args)
+  File "/root/miniconda3/envs/qvim-baseline/lib/python3.10/site-packages/pytorch_lightning/trainer/call.py", line 328, in _call_strategy_hook
+    output = fn(*args, **kwargs)
+  File "/root/miniconda3/envs/qvim-baseline/lib/python3.10/site-packages/pytorch_lightning/strategies/strategy.py", line 412, in validation_step
+    return self.lightning_module.validation_step(*args, **kwargs)
+  File "/mnt/c/Users/Davy/Documents/Code/QM/CC/AudioLDM/train_vocaldm.py", line 368, in validation_step
+    generated_audio = self.forward(subset_imitation)
+  File "/mnt/c/Users/Davy/Documents/Code/QM/CC/AudioLDM/train_vocaldm.py", line 194, in forward
+    samples = self.audioldm.sample_log(
+  File "/root/miniconda3/envs/qvim-baseline/lib/python3.10/site-packages/torch/utils/_contextlib.py", line 116, in decorate_context
+    return func(*args, **kwargs)
+  File "/mnt/c/Users/Davy/Documents/Code/QM/CC/AudioLDM/audioldm/ldm.py", line 627, in sample_log
+    samples, intermediates = ddim_sampler.sample(
+  File "/root/miniconda3/envs/qvim-baseline/lib/python3.10/site-packages/torch/utils/_contextlib.py", line 116, in decorate_context
+    return func(*args, **kwargs)
+  File "/mnt/c/Users/Davy/Documents/Code/QM/CC/AudioLDM/audioldm/latent_diffusion/ddim.py", line 122, in sample
+    if conditioning.shape[0] != batch_size:
+AttributeError: 'list' object has no attribute 'shape'
+Resources cleaned up

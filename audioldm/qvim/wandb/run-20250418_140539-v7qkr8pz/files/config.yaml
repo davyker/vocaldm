@@ -1,0 +1,143 @@
+wandb_version: 1
+
+_wandb:
+  desc: null
+  value:
+    cli_version: 0.13.5
+    framework: huggingface
+    huggingface_version: 4.29.0
+    is_jupyter_run: false
+    is_kaggle_kernel: false
+    m:
+    - 1: trainer/global_step
+      6:
+      - 3
+    python_version: 3.8.20
+    start_time: 1744981539.492866
+    t:
+      1:
+      - 1
+      - 5
+      - 9
+      - 11
+      - 41
+      - 49
+      - 53
+      - 55
+      2:
+      - 1
+      - 5
+      - 9
+      - 11
+      - 41
+      - 49
+      - 53
+      - 55
+      3:
+      - 7
+      - 16
+      - 23
+      4: 3.8.20
+      5: 0.13.5
+      6: 4.29.0
+      8:
+      - 5
+batch_size:
+  desc: null
+  value: 16
+continue_from:
+  desc: null
+  value: null
+dataset_path:
+  desc: null
+  value: data
+duration:
+  desc: null
+  value: 10.0
+early_stopping_min_delta:
+  desc: null
+  value: 0.0
+early_stopping_patience:
+  desc: null
+  value: 10
+final_eval_dataset:
+  desc: null
+  value: val
+fmax:
+  desc: null
+  value: null
+fmax_aug_range:
+  desc: null
+  value: 2000
+fmin:
+  desc: null
+  value: 0
+fmin_aug_range:
+  desc: null
+  value: 10
+freqm:
+  desc: null
+  value: 8
+hop_size:
+  desc: null
+  value: 320
+initial_tau:
+  desc: null
+  value: 0.07
+lr_schedule:
+  desc: null
+  value: cosine
+max_lr:
+  desc: null
+  value: 0.0003
+min_lr:
+  desc: null
+  value: 0.0001
+model_save_path:
+  desc: null
+  value: null
+n_epochs:
+  desc: null
+  value: 100
+n_fft:
+  desc: null
+  value: 1024
+n_mels:
+  desc: null
+  value: 128
+num_gpus:
+  desc: null
+  value: 1
+num_workers:
+  desc: null
+  value: 2
+pretrained_name:
+  desc: null
+  value: mn10_as
+project:
+  desc: null
+  value: qvim
+rampdown_epochs:
+  desc: null
+  value: 7
+random_seed:
+  desc: null
+  value: null
+sample_rate:
+  desc: null
+  value: 32000
+tau_trainable:
+  desc: null
+  value: false
+timem:
+  desc: null
+  value: 300
+warmup_epochs:
+  desc: null
+  value: 1
+weight_decay:
+  desc: null
+  value: 0.0001
+window_size:
+  desc: null
+  value: 800

@@ -1,0 +1,161 @@
+_wandb:
+    value:
+        cli_version: 0.19.9
+        m:
+            - "1": trainer/global_step
+              "6":
+                - 3
+              "7": []
+            - "1": val/tau
+              "5": 1
+              "6":
+                - 1
+                - 3
+              "7": []
+            - "1": epoch
+              "5": 1
+              "6":
+                - 1
+                - 3
+              "7": []
+            - "1": lr
+              "5": 1
+              "6":
+                - 1
+                - 3
+              "7": []
+            - "1": val/loss
+              "5": 1
+              "6":
+                - 1
+                - 3
+              "7": []
+            - "1": val/ndcg
+              "5": 1
+              "6":
+                - 1
+                - 3
+              "7": []
+            - "1": val/mrr
+              "5": 1
+              "6":
+                - 1
+                - 3
+              "7": []
+            - "1": lr-AdamW
+              "5": 1
+              "6":
+                - 1
+                - 3
+              "7": []
+            - "1": train/tau
+              "5": 1
+              "6":
+                - 1
+                - 3
+              "7": []
+            - "1": train/lr
+              "5": 1
+              "6":
+                - 1
+                - 3
+              "7": []
+            - "1": train/loss
+              "5": 1
+              "6":
+                - 1
+                - 3
+              "7": []
+        python_version: 3.10.16
+        t:
+            "1":
+                - 1
+                - 9
+                - 41
+                - 55
+                - 103
+            "2":
+                - 1
+                - 9
+                - 41
+                - 53
+                - 55
+                - 103
+            "3":
+                - 7
+                - 16
+                - 23
+                - 55
+                - 66
+            "4": 3.10.16
+            "5": 0.19.9
+            "8":
+                - 5
+            "12": 0.19.9
+            "13": linux-x86_64
+batch_size:
+    value: 16
+continue_from:
+    value: null
+dataset_path:
+    value: data
+duration:
+    value: 10
+early_stopping_min_delta:
+    value: 0
+early_stopping_patience:
+    value: 20
+final_eval_dataset:
+    value: val
+fmax:
+    value: null
+fmax_aug_range:
+    value: 2000
+fmin:
+    value: 0
+fmin_aug_range:
+    value: 10
+freqm:
+    value: 8
+hop_size:
+    value: 320
+initial_tau:
+    value: 0.07
+lr_schedule:
+    value: cosine
+max_lr:
+    value: 0.0003
+min_lr:
+    value: 2.5e-05
+model_save_path:
+    value: models_vimsketch_longer
+n_epochs:
+    value: 100
+n_fft:
+    value: 1024
+n_mels:
+    value: 128
+num_gpus:
+    value: 1
+num_workers:
+    value: 2
+pretrained_name:
+    value: mn10_as
+project:
+    value: qvim
+rampdown_epochs:
+    value: 17
+random_seed:
+    value: null
+sample_rate:
+    value: 32000
+tau_trainable:
+    value: false
+timem:
+    value: 300
+warmup_epochs:
+    value: 1
+weight_decay:
+    value: 0.0001
+window_size:
+    value: 800

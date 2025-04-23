@@ -1,0 +1,35 @@
+Training with 10586 samples, validating with 1867 samples from same distribution
+Total number of imitations:  979
+Total number of references:  121
+Found 979 pairs.
+Warning: FMAX is None setting to 15000
+/root/miniconda3/envs/audioldm/lib/python3.8/site-packages/torchvision/ops/misc.py:120: UserWarning: Don't use ConvNormActivation directly, please use Conv2dNormActivation and Conv3dNormActivation instead.
+  warnings.warn(
+Traceback (most recent call last):
+  File "src/qvim_mn_baseline/ex_qvim.py", line 573, in <module>
+    train(args)
+  File "src/qvim_mn_baseline/ex_qvim.py", line 439, in train
+    trainer = pl.Trainer(
+  File "/root/miniconda3/envs/audioldm/lib/python3.8/site-packages/pytorch_lightning/utilities/argparse.py", line 348, in insert_env_defaults
+    return fn(self, **kwargs)
+  File "/root/miniconda3/envs/audioldm/lib/python3.8/site-packages/pytorch_lightning/trainer/trainer.py", line 420, in __init__
+    self._accelerator_connector = AcceleratorConnector(
+  File "/root/miniconda3/envs/audioldm/lib/python3.8/site-packages/pytorch_lightning/trainer/connectors/accelerator_connector.py", line 183, in __init__
+    self._check_config_and_set_final_flags(
+  File "/root/miniconda3/envs/audioldm/lib/python3.8/site-packages/pytorch_lightning/trainer/connectors/accelerator_connector.py", line 317, in _check_config_and_set_final_flags
+    raise MisconfigurationException(
+lightning_fabric.utilities.exceptions.MisconfigurationException: Precision '16-mixed' is invalid. Allowed precision values: ('64', '32', '16', 'bf16', 64, 32, 16)
+Traceback (most recent call last):
+  File "src/qvim_mn_baseline/ex_qvim.py", line 573, in <module>
+    train(args)
+  File "src/qvim_mn_baseline/ex_qvim.py", line 439, in train
+    trainer = pl.Trainer(
+  File "/root/miniconda3/envs/audioldm/lib/python3.8/site-packages/pytorch_lightning/utilities/argparse.py", line 348, in insert_env_defaults
+    return fn(self, **kwargs)
+  File "/root/miniconda3/envs/audioldm/lib/python3.8/site-packages/pytorch_lightning/trainer/trainer.py", line 420, in __init__
+    self._accelerator_connector = AcceleratorConnector(
+  File "/root/miniconda3/envs/audioldm/lib/python3.8/site-packages/pytorch_lightning/trainer/connectors/accelerator_connector.py", line 183, in __init__
+    self._check_config_and_set_final_flags(
+  File "/root/miniconda3/envs/audioldm/lib/python3.8/site-packages/pytorch_lightning/trainer/connectors/accelerator_connector.py", line 317, in _check_config_and_set_final_flags
+    raise MisconfigurationException(
+lightning_fabric.utilities.exceptions.MisconfigurationException: Precision '16-mixed' is invalid. Allowed precision values: ('64', '32', '16', 'bf16', 64, 32, 16)

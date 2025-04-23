@@ -1,0 +1,3 @@
+Imitation: 05493_296Source_ambiguous sounds_Generic impact sounds_Whip.wav
+True reference: 297_296Source_ambiguous sounds_Generic impact sounds_Whip.wav
+True match ranked: 1 out of 20

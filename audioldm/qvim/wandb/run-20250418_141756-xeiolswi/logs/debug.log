@@ -1,0 +1,26 @@
+2025-04-18 14:17:56,428 INFO    MainThread:882 [wandb_setup.py:_flush():68] Configure stats pid to 882
+2025-04-18 14:17:56,429 INFO    MainThread:882 [wandb_setup.py:_flush():68] Loading settings from /root/.config/wandb/settings
+2025-04-18 14:17:56,429 INFO    MainThread:882 [wandb_setup.py:_flush():68] Loading settings from /mnt/c/Users/Davy/Documents/Code/QM/CC/AudioLDM/audioldm/qvim-baseline/wandb/settings
+2025-04-18 14:17:56,429 INFO    MainThread:882 [wandb_setup.py:_flush():68] Loading settings from environment variables: {'_require_service': 'True'}
+2025-04-18 14:17:56,429 INFO    MainThread:882 [wandb_setup.py:_flush():68] Inferring run settings from compute environment: {'program_relpath': 'src/qvim_mn_baseline/ex_qvim.py', 'program': 'src/qvim_mn_baseline/ex_qvim.py'}
+2025-04-18 14:17:56,430 INFO    MainThread:882 [wandb_init.py:_log_setup():476] Logging user logs to ./wandb/run-20250418_141756-xeiolswi/logs/debug.log
+2025-04-18 14:17:56,430 INFO    MainThread:882 [wandb_init.py:_log_setup():477] Logging internal logs to ./wandb/run-20250418_141756-xeiolswi/logs/debug-internal.log
+2025-04-18 14:17:56,431 INFO    MainThread:882 [wandb_init.py:init():516] calling init triggers
+2025-04-18 14:17:56,431 INFO    MainThread:882 [wandb_init.py:init():519] wandb.init called with sweep_config: {}
+config: {'project': 'qvim', 'num_workers': 2, 'num_gpus': 1, 'model_save_path': None, 'dataset_path': 'data', 'pretrained_name': 'mn10_as', 'random_seed': None, 'continue_from': None, 'final_eval_dataset': 'val', 'batch_size': 16, 'n_epochs': 100, 'early_stopping_patience': 10, 'early_stopping_min_delta': 0.0, 'weight_decay': 0.0001, 'max_lr': 0.0003, 'min_lr': 0.0001, 'warmup_epochs': 1, 'rampdown_epochs': 7, 'initial_tau': 0.07, 'tau_trainable': False, 'lr_schedule': 'cosine', 'duration': 10.0, 'sample_rate': 32000, 'window_size': 800, 'hop_size': 320, 'n_fft': 1024, 'n_mels': 128, 'freqm': 8, 'timem': 300, 'fmin': 0, 'fmax': None, 'fmin_aug_range': 10, 'fmax_aug_range': 2000}
+2025-04-18 14:17:56,431 INFO    MainThread:882 [wandb_init.py:init():569] starting backend
+2025-04-18 14:17:56,431 INFO    MainThread:882 [wandb_init.py:init():573] setting up manager
+2025-04-18 14:17:56,436 INFO    MainThread:882 [backend.py:_multiprocessing_setup():102] multiprocessing start_methods=fork,spawn,forkserver, using: spawn
+2025-04-18 14:17:56,440 INFO    MainThread:882 [wandb_init.py:init():580] backend started and connected
+2025-04-18 14:17:56,444 INFO    MainThread:882 [wandb_init.py:init():658] updated telemetry
+2025-04-18 14:17:56,535 INFO    MainThread:882 [wandb_init.py:init():693] communicating run to backend with 60 second timeout
+2025-04-18 14:17:57,699 INFO    MainThread:882 [wandb_run.py:_on_init():2000] communicating current version
+2025-04-18 14:17:57,891 INFO    MainThread:882 [wandb_run.py:_on_init():2004] got version response upgrade_message: "wandb version 0.19.9 is available!  To upgrade, please run:\n $ pip install wandb --upgrade"
+
+2025-04-18 14:17:57,891 INFO    MainThread:882 [wandb_init.py:init():728] starting run threads in backend
+2025-04-18 14:18:00,577 INFO    MainThread:882 [wandb_run.py:_console_start():1980] atexit reg
+2025-04-18 14:18:00,577 INFO    MainThread:882 [wandb_run.py:_redirect():1838] redirect: SettingsConsole.WRAP_RAW
+2025-04-18 14:18:00,579 INFO    MainThread:882 [wandb_run.py:_redirect():1903] Wrapping output streams.
+2025-04-18 14:18:00,579 INFO    MainThread:882 [wandb_run.py:_redirect():1925] Redirects installed.
+2025-04-18 14:18:00,579 INFO    MainThread:882 [wandb_init.py:init():765] run started, returning control to user process
+2025-04-18 14:22:08,778 WARNING MsgRouterThr:882 [router.py:message_loop():77] message_loop has been closed

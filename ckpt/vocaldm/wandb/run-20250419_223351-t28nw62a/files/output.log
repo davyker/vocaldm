@@ -1,0 +1,28 @@
+/root/miniconda3/envs/qvim-baseline/lib/python3.10/site-packages/pytorch_lightning/callbacks/model_checkpoint.py:654: Checkpoint directory /mnt/c/Users/Davy/Documents/Code/QM/CC/AudioLDM/ckpt/vocaldm exists and is not empty.
+LOCAL_RANK: 0 - CUDA_VISIBLE_DEVICES: [0]
+
+  | Name       | Type            | Params | Mode
+-------------------------------------------------------
+0 | qvim_model | QVIMModule      | 9.8 M  | eval
+1 | adapter    | QVIMAdapter     | 1.5 M  | train
+2 | audioldm   | LatentDiffusion | 726 M  | eval
+-------------------------------------------------------
+2.6 M     Trainable params
+734 M     Non-trainable params
+737 M     Total params
+2,949.710 Total estimated model params size (MB)
+12        Modules in train mode
+2245      Modules in eval mode
+Sanity Checking DataLoader 0:   0%|                                                                                                                                                            | 0/2 [00:00<?, ?it/s]Skipping audio logging to avoid format issues
+DDIM Sampler: 100%|██████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 50/50 [00:04<00:00, 10.09it/s]
+DDIM Sampler: 100%|█████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 50/50 [00:12<00:00,  3.96it/s]██████▌      | 48/50 [00:04<00:00, 32.97it/s]
+Sanity Checking DataLoader 0: 100%|████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 2/2 [00:16<00:00,  0.12it/s]
+Saved improved adapter to ckpt/vocaldm/qvim_adapter_val_loss_0.0267.pt
+Epoch 0:   0%|                                                                                                                                                                              | 0/2802 [00:00<?, ?it/s]diffusion_loss requires_grad: True
+Checking gradient paths:
+Component requires_grad check: {'squared_diff': True, 'model_output': True, 'target': False}
+Epoch 0: 100%|██████████████████████████████████████████████████████████████████████| 2802/2802 [57:42<00:00,  0.81it/s, v_num=w62a, train/loss=0.0151, train/lr=0.0001]Skipping audio logging to avoid format issues
+Epoch 0: 100%|███████████████████████████████████████████████████| 2802/2802 [1:00:52<00:00,  0.77it/s, v_num=w62a, train/loss=0.0151, train/lr=0.0001, val/loss=0.0391]
+Metric val/loss improved. New best score: 0.039
+Epoch 0, global step 1401: 'val/loss' reached 0.03908 (best 0.03908), saving model to '/mnt/c/Users/Davy/Documents/Code/QM/CC/AudioLDM/ckpt/vocaldm/vocaldm-epoch=00-val_loss=0.0391.ckpt' as top 3
+                                                                                                                                                                        

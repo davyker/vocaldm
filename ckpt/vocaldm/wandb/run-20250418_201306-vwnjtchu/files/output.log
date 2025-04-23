@@ -1,0 +1,18 @@
+/root/miniconda3/envs/qvim-baseline/lib/python3.10/site-packages/pytorch_lightning/callbacks/model_checkpoint.py:654: Checkpoint directory /mnt/c/Users/Davy/Documents/Code/QM/CC/AudioLDM/ckpt/vocaldm exists and is not empty.
+LOCAL_RANK: 0 - CUDA_VISIBLE_DEVICES: [0]
+
+  | Name       | Type            | Params | Mode
+------------------------------------------------------
+0 | qvim_model | QVIMModule      | 9.8 M  | eval
+1 | adapter    | QVIMAdapter     | 1.5 M  | eval
+2 | audioldm   | LatentDiffusion | 726 M  | eval
+------------------------------------------------------
+1.5 M     Trainable params
+735 M     Non-trainable params
+737 M     Total params
+2,949.710 Total estimated model params size (MB)
+0         Modules in train mode
+2257      Modules in eval mode
+Sanity Checking: |                                                                                                                                               | 0/? [00:00<?, ?it/s]Resources cleaned up
+
+Detected KeyboardInterrupt, attempting graceful shutdown ...

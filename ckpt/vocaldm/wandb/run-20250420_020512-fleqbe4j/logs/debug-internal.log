@@ -1,0 +1,16 @@
+{"time":"2025-04-20T02:05:12.581938973+01:00","level":"INFO","msg":"stream: starting","core version":"0.19.9","symlink path":"ckpt/vocaldm/wandb/run-20250420_020512-fleqbe4j/logs/debug-core.log"}
+{"time":"2025-04-20T02:05:13.207071427+01:00","level":"INFO","msg":"created new stream","id":"fleqbe4j"}
+{"time":"2025-04-20T02:05:13.207317727+01:00","level":"INFO","msg":"stream: started","id":"fleqbe4j"}
+{"time":"2025-04-20T02:05:13.207355421+01:00","level":"INFO","msg":"writer: Do: started","stream_id":"fleqbe4j"}
+{"time":"2025-04-20T02:05:13.207400079+01:00","level":"INFO","msg":"sender: started","stream_id":"fleqbe4j"}
+{"time":"2025-04-20T02:05:13.207443557+01:00","level":"INFO","msg":"handler: started","stream_id":"fleqbe4j"}
+{"time":"2025-04-20T02:05:13.601379323+01:00","level":"INFO","msg":"Starting system monitor"}
+{"time":"2025-04-20T02:05:38.491007614+01:00","level":"INFO","msg":"Stopping system monitor"}
+{"time":"2025-04-20T02:05:38.491306361+01:00","level":"INFO","msg":"Stopped system monitor"}
+{"time":"2025-04-20T02:05:39.354883362+01:00","level":"INFO","msg":"fileTransfer: Close: file transfer manager closed"}
+{"time":"2025-04-20T02:05:39.504876723+01:00","level":"INFO","msg":"handler: operation stats","stats":{"operations":[{"desc":"uploading history steps 0-0, summary, console lines 13-25","runtime_seconds":0.149552621}],"total_operations":1}}
+{"time":"2025-04-20T02:05:39.700795465+01:00","level":"INFO","msg":"stream: closing","id":"fleqbe4j"}
+{"time":"2025-04-20T02:05:39.70104282+01:00","level":"INFO","msg":"handler: closed","stream_id":"fleqbe4j"}
+{"time":"2025-04-20T02:05:39.701077522+01:00","level":"INFO","msg":"writer: Close: closed","stream_id":"fleqbe4j"}
+{"time":"2025-04-20T02:05:39.701100596+01:00","level":"INFO","msg":"sender: closed","stream_id":"fleqbe4j"}
+{"time":"2025-04-20T02:05:39.704372574+01:00","level":"INFO","msg":"stream: closed","id":"fleqbe4j"}

@@ -1,0 +1,123 @@
+/root/miniconda3/envs/qvim-baseline/lib/python3.10/site-packages/pytorch_lightning/callbacks/model_checkpoint.py:654: Checkpoint directory /mnt/c/Users/Davy/Documents/Code/QM/CC/AudioLDM/ckpt/vocaldm exists and is not empty.
+LOCAL_RANK: 0 - CUDA_VISIBLE_DEVICES: [0]
+
+  | Name       | Type            | Params | Mode
+-------------------------------------------------------
+0 | qvim_model | QVIMModule      | 9.8 M  | eval
+1 | adapter    | QVIMAdapter     | 1.5 M  | train
+2 | audioldm   | LatentDiffusion | 726 M  | eval
+-------------------------------------------------------
+2.6 M     Trainable params
+734 M     Non-trainable params
+737 M     Total params
+2,949.710 Total estimated model params size (MB)
+12        Modules in train mode
+2245      Modules in eval mode
+Sanity Checking DataLoader 0:   0%|                                                                                                                                                                                                    | 0/2 [00:00<?, ?it/s]Skipping audio logging to avoid format issues
+DDIM Sampler: 100%|██████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 50/50 [00:18<00:00,  2.74it/s]
+/root/miniconda3/envs/qvim-baseline/lib/python3.10/site-packages/torch/nn/modules/module.py:1830: FutureWarning: Using a non-full backward hook when the forward contains multiple autograd Nodes is deprecated and will be removed in future versions. This hook will be missing some grad_input. Please use register_full_backward_hook to get the documented behavior.
+Sanity Checking DataLoader 0: 100%|████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 2/2 [00:21<00:00,  0.09it/s]
+Saved improved adapter to ckpt/vocaldm/qvim_adapter_val_loss_0.0154.pt
+Epoch 0:   0%|                                                                                                                                                                                                                        | 0/32 [00:00<?, ?it/s]z_noisy requires_grad: True
+t requires_grad: False
+adapted_embedding requires_grad: True
+Trainable parameters: ['adapter.adapter.0.weight', 'adapter.adapter.0.bias', 'adapter.adapter.1.weight', 'adapter.adapter.1.bias', 'adapter.adapter.3.weight', 'adapter.adapter.3.bias', 'adapter.adapter.4.weight', 'adapter.adapter.4.bias', 'audioldm.model.diffusion_model.time_embed.0.weight', 'audioldm.model.diffusion_model.time_embed.0.bias', 'audioldm.model.diffusion_model.time_embed.2.weight', 'audioldm.model.diffusion_model.time_embed.2.bias', 'audioldm.model.diffusion_model.film_emb.weight', 'audioldm.model.diffusion_model.film_emb.bias']
+  self._maybe_warn_non_full_backward_hook(args, result, grad_fn)
+model_output shape: torch.Size([1, 8, 64, 64]), requires_grad: True
+target shape: torch.Size([1, 8, 64, 64]), requires_grad: False
+Error computing gradient for adapter.adapter.0.weight: One of the differentiated Tensors does not require grad
+Error computing gradient for adapter.adapter.0.bias: One of the differentiated Tensors does not require grad
+Error computing gradient for adapter.adapter.1.weight: One of the differentiated Tensors does not require grad
+Error computing gradient for adapter.adapter.1.bias: One of the differentiated Tensors does not require grad
+Error computing gradient for adapter.adapter.3.weight: One of the differentiated Tensors does not require grad
+Error computing gradient for adapter.adapter.3.bias: One of the differentiated Tensors does not require grad
+Error computing gradient for adapter.adapter.4.weight: One of the differentiated Tensors does not require grad
+Error computing gradient for adapter.adapter.4.bias: One of the differentiated Tensors does not require grad
+Error computing gradient for audioldm.model.diffusion_model.time_embed.0.weight: One of the differentiated Tensors does not require grad
+Error computing gradient for audioldm.model.diffusion_model.time_embed.0.bias: One of the differentiated Tensors does not require grad
+Error computing gradient for audioldm.model.diffusion_model.time_embed.2.weight: One of the differentiated Tensors does not require grad
+Error computing gradient for audioldm.model.diffusion_model.time_embed.2.bias: One of the differentiated Tensors does not require grad
+Error computing gradient for audioldm.model.diffusion_model.film_emb.weight: One of the differentiated Tensors does not require grad
+Error computing gradient for audioldm.model.diffusion_model.film_emb.bias: One of the differentiated Tensors does not require grad
+Visualizing autograd computation graph...
+Autograd graph saved to debug/autograd_graph.png
+FiLM conditioning graph saved to debug/film_conditioning_graph.png
+Training loss: 0.005934
+Training failed with error: One of the differentiated Tensors does not require grad
+Traceback (most recent call last):
+  File "/mnt/c/Users/Davy/Documents/Code/QM/CC/AudioLDM/train_vocaldm.py", line 1043, in train_vocaldm
+    trainer.fit(
+  File "/root/miniconda3/envs/qvim-baseline/lib/python3.10/site-packages/pytorch_lightning/trainer/trainer.py", line 561, in fit
+    call._call_and_handle_interrupt(
+  File "/root/miniconda3/envs/qvim-baseline/lib/python3.10/site-packages/pytorch_lightning/trainer/call.py", line 48, in _call_and_handle_interrupt
+    return trainer_fn(*args, **kwargs)
+  File "/root/miniconda3/envs/qvim-baseline/lib/python3.10/site-packages/pytorch_lightning/trainer/trainer.py", line 599, in _fit_impl
+    self._run(model, ckpt_path=ckpt_path)
+  File "/root/miniconda3/envs/qvim-baseline/lib/python3.10/site-packages/pytorch_lightning/trainer/trainer.py", line 1012, in _run
+    results = self._run_stage()
+  File "/root/miniconda3/envs/qvim-baseline/lib/python3.10/site-packages/pytorch_lightning/trainer/trainer.py", line 1056, in _run_stage
+    self.fit_loop.run()
+  File "/root/miniconda3/envs/qvim-baseline/lib/python3.10/site-packages/pytorch_lightning/loops/fit_loop.py", line 216, in run
+    self.advance()
+  File "/root/miniconda3/envs/qvim-baseline/lib/python3.10/site-packages/pytorch_lightning/loops/fit_loop.py", line 455, in advance
+    self.epoch_loop.run(self._data_fetcher)
+  File "/root/miniconda3/envs/qvim-baseline/lib/python3.10/site-packages/pytorch_lightning/loops/training_epoch_loop.py", line 150, in run
+    self.advance(data_fetcher)
+  File "/root/miniconda3/envs/qvim-baseline/lib/python3.10/site-packages/pytorch_lightning/loops/training_epoch_loop.py", line 320, in advance
+    batch_output = self.automatic_optimization.run(trainer.optimizers[0], batch_idx, kwargs)
+  File "/root/miniconda3/envs/qvim-baseline/lib/python3.10/site-packages/pytorch_lightning/loops/optimization/automatic.py", line 192, in run
+    self._optimizer_step(batch_idx, closure)
+  File "/root/miniconda3/envs/qvim-baseline/lib/python3.10/site-packages/pytorch_lightning/loops/optimization/automatic.py", line 270, in _optimizer_step
+    call._call_lightning_module_hook(
+  File "/root/miniconda3/envs/qvim-baseline/lib/python3.10/site-packages/pytorch_lightning/trainer/call.py", line 176, in _call_lightning_module_hook
+    output = fn(*args, **kwargs)
+  File "/root/miniconda3/envs/qvim-baseline/lib/python3.10/site-packages/pytorch_lightning/core/module.py", line 1302, in optimizer_step
+    optimizer.step(closure=optimizer_closure)
+  File "/root/miniconda3/envs/qvim-baseline/lib/python3.10/site-packages/pytorch_lightning/core/optimizer.py", line 154, in step
+    step_output = self._strategy.optimizer_step(self._optimizer, closure, **kwargs)
+  File "/root/miniconda3/envs/qvim-baseline/lib/python3.10/site-packages/pytorch_lightning/strategies/strategy.py", line 239, in optimizer_step
+    return self.precision_plugin.optimizer_step(optimizer, model=model, closure=closure, **kwargs)
+  File "/root/miniconda3/envs/qvim-baseline/lib/python3.10/site-packages/pytorch_lightning/plugins/precision/precision.py", line 123, in optimizer_step
+    return optimizer.step(closure=closure, **kwargs)
+  File "/root/miniconda3/envs/qvim-baseline/lib/python3.10/site-packages/torch/optim/lr_scheduler.py", line 140, in wrapper
+    return func.__get__(opt, opt.__class__)(*args, **kwargs)
+  File "/root/miniconda3/envs/qvim-baseline/lib/python3.10/site-packages/torch/optim/optimizer.py", line 493, in wrapper
+    out = func(*args, **kwargs)
+  File "/root/miniconda3/envs/qvim-baseline/lib/python3.10/site-packages/torch/optim/optimizer.py", line 91, in _use_grad
+    ret = func(self, *args, **kwargs)
+  File "/root/miniconda3/envs/qvim-baseline/lib/python3.10/site-packages/torch/optim/adamw.py", line 220, in step
+    loss = closure()
+  File "/root/miniconda3/envs/qvim-baseline/lib/python3.10/site-packages/pytorch_lightning/plugins/precision/precision.py", line 109, in _wrap_closure
+    closure_result = closure()
+  File "/root/miniconda3/envs/qvim-baseline/lib/python3.10/site-packages/pytorch_lightning/loops/optimization/automatic.py", line 146, in __call__
+    self._result = self.closure(*args, **kwargs)
+  File "/root/miniconda3/envs/qvim-baseline/lib/python3.10/site-packages/torch/utils/_contextlib.py", line 116, in decorate_context
+    return func(*args, **kwargs)
+  File "/root/miniconda3/envs/qvim-baseline/lib/python3.10/site-packages/pytorch_lightning/loops/optimization/automatic.py", line 140, in closure
+    self._backward_fn(step_output.closure_loss)
+  File "/root/miniconda3/envs/qvim-baseline/lib/python3.10/site-packages/pytorch_lightning/loops/optimization/automatic.py", line 241, in backward_fn
+    call._call_strategy_hook(self.trainer, "backward", loss, optimizer)
+  File "/root/miniconda3/envs/qvim-baseline/lib/python3.10/site-packages/pytorch_lightning/trainer/call.py", line 328, in _call_strategy_hook
+    output = fn(*args, **kwargs)
+  File "/root/miniconda3/envs/qvim-baseline/lib/python3.10/site-packages/pytorch_lightning/strategies/strategy.py", line 213, in backward
+    self.precision_plugin.backward(closure_loss, self.lightning_module, optimizer, *args, **kwargs)
+  File "/root/miniconda3/envs/qvim-baseline/lib/python3.10/site-packages/pytorch_lightning/plugins/precision/precision.py", line 73, in backward
+    model.backward(tensor, *args, **kwargs)
+  File "/root/miniconda3/envs/qvim-baseline/lib/python3.10/site-packages/pytorch_lightning/core/module.py", line 1097, in backward
+    loss.backward(*args, **kwargs)
+  File "/root/miniconda3/envs/qvim-baseline/lib/python3.10/site-packages/torch/_tensor.py", line 626, in backward
+    torch.autograd.backward(
+  File "/root/miniconda3/envs/qvim-baseline/lib/python3.10/site-packages/torch/autograd/__init__.py", line 347, in backward
+    _engine_run_backward(
+  File "/root/miniconda3/envs/qvim-baseline/lib/python3.10/site-packages/torch/autograd/graph.py", line 823, in _engine_run_backward
+    return Variable._execution_engine.run_backward(  # Calls into the C++ engine to run the backward pass
+  File "/root/miniconda3/envs/qvim-baseline/lib/python3.10/site-packages/torch/autograd/function.py", line 307, in apply
+    return user_fn(self, *args)
+  File "/mnt/c/Users/Davy/Documents/Code/QM/CC/AudioLDM/audioldm/latent_diffusion/util.py", line 161, in backward
+    input_grads = torch.autograd.grad(
+  File "/root/miniconda3/envs/qvim-baseline/lib/python3.10/site-packages/torch/autograd/__init__.py", line 496, in grad
+    result = _engine_run_backward(
+  File "/root/miniconda3/envs/qvim-baseline/lib/python3.10/site-packages/torch/autograd/graph.py", line 823, in _engine_run_backward
+    return Variable._execution_engine.run_backward(  # Calls into the C++ engine to run the backward pass
+RuntimeError: One of the differentiated Tensors does not require grad
+Resources cleaned up

@@ -1,0 +1,172 @@
+_wandb:
+    value:
+        cli_version: 0.19.9
+        m:
+            - "1": global_step
+              "5": 2
+              "6":
+                - 1
+                - 3
+              "7": []
+            - "1": trainer/global_step
+              "6":
+                - 3
+              "7": []
+            - "1": train/epoch_loss
+              "5": 2
+              "6":
+                - 1
+                - 3
+              "7": []
+            - "1": val_loss
+              "5": 2
+              "6":
+                - 1
+                - 3
+              "7": []
+            - "1": val/cosine_loss
+              "5": 2
+              "6":
+                - 1
+                - 3
+              "7": []
+            - "1": val/mse_loss
+              "5": 2
+              "6":
+                - 1
+                - 3
+              "7": []
+            - "1": val/epoch_loss
+              "5": 2
+              "6":
+                - 1
+                - 3
+              "7": []
+            - "1": initial/val_loss
+              "5": 2
+              "6":
+                - 1
+                - 3
+              "7": []
+            - "1": val/loss
+              "5": 2
+              "6":
+                - 1
+                - 3
+              "7": []
+            - "1": epoch
+              "5": 2
+              "6":
+                - 1
+                - 3
+              "7": []
+        python_version: 3.10.16
+        t:
+            "1":
+                - 1
+                - 5
+                - 9
+                - 11
+                - 41
+                - 49
+                - 53
+                - 55
+                - 103
+                - 105
+            "2":
+                - 1
+                - 5
+                - 9
+                - 11
+                - 41
+                - 49
+                - 53
+                - 55
+                - 103
+                - 105
+            "3":
+                - 2
+                - 7
+                - 16
+                - 23
+                - 55
+                - 66
+            "4": 3.10.16
+            "5": 0.19.9
+            "6": 4.29.0
+            "8":
+                - 5
+            "12": 0.19.9
+            "13": linux-x86_64
+adapter_lr:
+    value: 0.0001
+audioldm_checkpoint:
+    value: null
+audioldm_dim:
+    value: 512
+audioldm_model:
+    value: audioldm-m-full
+audioldm_sample_rate:
+    value: 16000
+batch_size:
+    value: 4
+checkpoint_dir:
+    value: ckpt/vocaldm
+dataset_path:
+    value: audioldm/qvim/data
+ddim_steps:
+    value: 50
+debug_autograd:
+    value: false
+disable_checkpointing:
+    value: true
+duration:
+    value: 10
+film_lr:
+    value: 1e-05
+generate_every_n_epochs:
+    value: 1
+gradient_accumulation_steps:
+    value: 4
+guidance_scale:
+    value: 3
+log_audio:
+    value: true
+lr_rampdown_epochs:
+    value: 10
+lr_scheduler:
+    value: cosine
+max_epochs:
+    value: 30
+max_items:
+    value: 8
+min_lr:
+    value: 1e-06
+num_workers:
+    value: 4
+patience:
+    value: 5
+pin_memory:
+    value: false
+project:
+    value: vocaldm
+qvim_checkpoint:
+    value: audioldm/qvim/models_vimsketch_longer/dulcet-leaf-31/best-mrr-checkpoint.ckpt
+qvim_dim:
+    value: 960
+resume_from:
+    value: null
+run_name:
+    value: null
+sample_rate:
+    value: 32000
+seed:
+    value: 42
+val_check_interval:
+    value: 1
+val_split:
+    value: 0.1
+wandb_log_model:
+    value: false
+weight_decay:
+    value: 1e-06

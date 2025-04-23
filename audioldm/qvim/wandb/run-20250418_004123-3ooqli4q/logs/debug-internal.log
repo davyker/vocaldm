@@ -1,0 +1,17 @@
+{"time":"2025-04-18T00:41:23.849909582+01:00","level":"INFO","msg":"stream: starting","core version":"0.19.9","symlink path":"wandb/run-20250418_004123-3ooqli4q/logs/debug-core.log"}
+{"time":"2025-04-18T00:41:24.320307174+01:00","level":"INFO","msg":"created new stream","id":"3ooqli4q"}
+{"time":"2025-04-18T00:41:24.320534497+01:00","level":"INFO","msg":"stream: started","id":"3ooqli4q"}
+{"time":"2025-04-18T00:41:24.320554025+01:00","level":"INFO","msg":"writer: Do: started","stream_id":"3ooqli4q"}
+{"time":"2025-04-18T00:41:24.320628627+01:00","level":"INFO","msg":"handler: started","stream_id":"3ooqli4q"}
+{"time":"2025-04-18T00:41:24.320624589+01:00","level":"INFO","msg":"sender: started","stream_id":"3ooqli4q"}
+{"time":"2025-04-18T00:41:24.864583206+01:00","level":"INFO","msg":"Starting system monitor"}
+{"time":"2025-04-18T01:05:37.752999964+01:00","level":"INFO","msg":"api: retrying error","error":"Post \"https://api.wandb.ai/graphql\": context deadline exceeded (Client.Timeout exceeded while awaiting headers)"}
+{"time":"2025-04-18T03:26:45.637060464+01:00","level":"INFO","msg":"api: retrying HTTP error","status":502,"url":"https://api.wandb.ai/files/davyker-queen-mary-university-of-london/qvim/3ooqli4q/file_stream","body":"\n<html><head>\n<meta http-equiv=\"content-type\" content=\"text/html;charset=utf-8\">\n<title>502 Server Error</title>\n</head>\n<body text=#000000 bgcolor=#ffffff>\n<h1>Error: Server Error</h1>\n<h2>The server encountered a temporary error and could not complete your request.<p>Please try again in 30 seconds.</h2>\n<h2></h2>\n</body></html>\n"}
+{"time":"2025-04-18T11:00:23.938464929+01:00","level":"INFO","msg":"stream: closing","id":"3ooqli4q"}
+{"time":"2025-04-18T11:00:23.938544442+01:00","level":"INFO","msg":"Stopping system monitor"}
+{"time":"2025-04-18T11:00:23.939175293+01:00","level":"INFO","msg":"Stopped system monitor"}
+{"time":"2025-04-18T11:00:24.634232823+01:00","level":"INFO","msg":"fileTransfer: Close: file transfer manager closed"}
+{"time":"2025-04-18T11:00:24.874288608+01:00","level":"INFO","msg":"handler: closed","stream_id":"3ooqli4q"}
+{"time":"2025-04-18T11:00:24.874427683+01:00","level":"INFO","msg":"sender: closed","stream_id":"3ooqli4q"}
+{"time":"2025-04-18T11:00:24.874349556+01:00","level":"INFO","msg":"writer: Close: closed","stream_id":"3ooqli4q"}
+{"time":"2025-04-18T11:00:24.879491713+01:00","level":"INFO","msg":"stream: closed","id":"3ooqli4q"}

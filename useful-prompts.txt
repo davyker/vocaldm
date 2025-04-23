@@ -1,0 +1,5 @@
+# Make a clean requirements.txt
+pip freeze | sed 's/ @ file.*//' > requirements.txt
+
+# Transfer VimSketch.zip to lambdalabs
+scp "C:\Users\Davy\Documents\Code\QM\CC\AudioLDM\audioldm\qvim\data\VimSketch.zip" ubuntu@192-222-53-245:~/vocaldm/audioldm/qvim/data/

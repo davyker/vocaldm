@@ -1,0 +1,3145 @@
+/root/miniconda3/envs/qvim-baseline/lib/python3.10/site-packages/pytorch_lightning/callbacks/model_checkpoint.py:654: Checkpoint directory /mnt/c/Users/Davy/Documents/Code/QM/CC/AudioLDM/ckpt/vocaldm exists and is not empty.
+LOCAL_RANK: 0 - CUDA_VISIBLE_DEVICES: [0]
+
+  | Name       | Type            | Params | Mode
+-------------------------------------------------------
+0 | qvim_model | QVIMModule      | 9.8 M  | eval
+1 | adapter    | QVIMAdapter     | 1.5 M  | train
+2 | audioldm   | LatentDiffusion | 726 M  | eval
+-------------------------------------------------------
+2.6 M     Trainable params
+734 M     Non-trainable params
+737 M     Total params
+2,949.710 Total estimated model params size (MB)
+12        Modules in train mode
+2245      Modules in eval mode
+Sanity Checking DataLoader 0:   0%|                                                                                                                                           | 0/2 [00:00<?, ?it/s]Skipping audio logging to avoid format issues
+DDIM Sampler: 100%|█████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 50/50 [00:14<00:00,  3.49it/s]
+/root/miniconda3/envs/qvim-baseline/lib/python3.10/site-packages/pytorch_lightning/loops/fit_loop.py:310: The number of training batches (8) is smaller than the logging interval Trainer(log_every_n_steps=10). Set a lower value for log_every_n_steps if you want to see logs for the training epoch.
+Sanity Checking DataLoader 0: 100%|███████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 2/2 [00:17<00:00,  0.11it/s]
+Saved improved adapter to ckpt/vocaldm/qvim_adapter_val_loss_0.0287.pt
+Epoch 0:   0%|                                                                                                                                                                | 0/8 [00:00<?, ?it/s]z_noisy requires_grad: True
+t requires_grad: False
+adapted_embedding requires_grad: True
+Trainable parameters: ['adapter.adapter.0.weight', 'adapter.adapter.0.bias', 'adapter.adapter.1.weight', 'adapter.adapter.1.bias', 'adapter.adapter.3.weight', 'adapter.adapter.3.bias', 'adapter.adapter.4.weight', 'adapter.adapter.4.bias', 'audioldm.model.diffusion_model.time_embed.0.weight', 'audioldm.model.diffusion_model.time_embed.0.bias', 'audioldm.model.diffusion_model.time_embed.2.weight', 'audioldm.model.diffusion_model.time_embed.2.bias', 'audioldm.model.diffusion_model.film_emb.weight', 'audioldm.model.diffusion_model.film_emb.bias']
+/root/miniconda3/envs/qvim-baseline/lib/python3.10/site-packages/torch/nn/modules/module.py:1830: FutureWarning: Using a non-full backward hook when the forward contains multiple autograd Nodes is deprecated and will be removed in future versions. This hook will be missing some grad_input. Please use register_full_backward_hook to get the documented behavior.
+  self._maybe_warn_non_full_backward_hook(args, result, grad_fn)
+model_output shape: torch.Size([4, 8, 64, 64]), requires_grad: True
+target shape: torch.Size([4, 8, 64, 64]), requires_grad: False
+Conditioning structure (cond): <class 'dict'>
+  Key: c_film, Value type: List with 1 items
+    Item 0: Tensor shape=torch.Size([4, 512]), requires_grad=True
+Model conditioning key: film
+Model parameterization: eps
+
+-------- Entering patched torch.autograd.grad --------
+Output tensor: requires_grad=True, shape=torch.Size([])
+Single input tensor: requires_grad=True, shape=torch.Size([1024, 960])
+Filtered inputs from 1 to 1 tensors
+
+-------- Entering patched torch.autograd.grad --------
+Output tensor: requires_grad=True, shape=torch.Size([4, 1024, 384])
+Number of input tensors: 1
+Input tensor 0: requires_grad=True, shape=torch.Size([4, 1024, 384])
+-------- Exiting patched grad function --------
+
+Filtered inputs from 1 to 1 tensors
+
+-------- Entering patched torch.autograd.grad --------
+Output tensor: requires_grad=True, shape=torch.Size([4, 1024, 384])
+Number of input tensors: 1
+Input tensor 0: requires_grad=True, shape=torch.Size([4, 1024, 384])
+-------- Exiting patched grad function --------
+
+Filtered inputs from 1 to 1 tensors
+
+-------- Entering patched torch.autograd.grad --------
+Output tensor: requires_grad=True, shape=torch.Size([4, 1024, 384])
+Number of input tensors: 1
+Input tensor 0: requires_grad=True, shape=torch.Size([4, 1024, 384])
+-------- Exiting patched grad function --------
+
+Filtered inputs from 1 to 1 tensors
+
+-------- Entering patched torch.autograd.grad --------
+Output tensor: requires_grad=True, shape=torch.Size([4, 256, 576])
+Number of input tensors: 1
+Input tensor 0: requires_grad=True, shape=torch.Size([4, 256, 576])
+-------- Exiting patched grad function --------
+
+Filtered inputs from 1 to 1 tensors
+
+-------- Entering patched torch.autograd.grad --------
+Output tensor: requires_grad=True, shape=torch.Size([4, 256, 576])
+Number of input tensors: 1
+Input tensor 0: requires_grad=True, shape=torch.Size([4, 256, 576])
+-------- Exiting patched grad function --------
+
+Filtered inputs from 1 to 1 tensors
+
+-------- Entering patched torch.autograd.grad --------
+Output tensor: requires_grad=True, shape=torch.Size([4, 256, 576])
+Number of input tensors: 1
+Input tensor 0: requires_grad=True, shape=torch.Size([4, 256, 576])
+-------- Exiting patched grad function --------
+
+Filtered inputs from 1 to 1 tensors
+
+-------- Entering patched torch.autograd.grad --------
+Output tensor: requires_grad=True, shape=torch.Size([4, 64, 960])
+Number of input tensors: 1
+Input tensor 0: requires_grad=True, shape=torch.Size([4, 64, 960])
+-------- Exiting patched grad function --------
+
+Filtered inputs from 1 to 1 tensors
+
+-------- Entering patched torch.autograd.grad --------
+Output tensor: requires_grad=True, shape=torch.Size([4, 64, 960])
+Number of input tensors: 1
+Input tensor 0: requires_grad=True, shape=torch.Size([4, 64, 960])
+-------- Exiting patched grad function --------
+
+Filtered inputs from 1 to 1 tensors
+
+-------- Entering patched torch.autograd.grad --------
+Output tensor: requires_grad=True, shape=torch.Size([4, 64, 960])
+Number of input tensors: 1
+Input tensor 0: requires_grad=True, shape=torch.Size([4, 64, 960])
+-------- Exiting patched grad function --------
+
+Filtered inputs from 1 to 1 tensors
+
+-------- Entering patched torch.autograd.grad --------
+Output tensor: requires_grad=True, shape=torch.Size([4, 64, 960])
+Number of input tensors: 1
+Input tensor 0: requires_grad=True, shape=torch.Size([4, 64, 960])
+-------- Exiting patched grad function --------
+
+Filtered inputs from 1 to 1 tensors
+
+-------- Entering patched torch.autograd.grad --------
+Output tensor: requires_grad=True, shape=torch.Size([4, 64, 960])
+Number of input tensors: 1
+Input tensor 0: requires_grad=True, shape=torch.Size([4, 64, 960])
+-------- Exiting patched grad function --------
+
+Filtered inputs from 1 to 1 tensors
+
+-------- Entering patched torch.autograd.grad --------
+Output tensor: requires_grad=True, shape=torch.Size([4, 64, 960])
+Number of input tensors: 1
+Input tensor 0: requires_grad=True, shape=torch.Size([4, 64, 960])
+-------- Exiting patched grad function --------
+
+Filtered inputs from 1 to 1 tensors
+
+-------- Entering patched torch.autograd.grad --------
+Output tensor: requires_grad=True, shape=torch.Size([4, 256, 576])
+Number of input tensors: 1
+Input tensor 0: requires_grad=True, shape=torch.Size([4, 256, 576])
+-------- Exiting patched grad function --------
+
+Filtered inputs from 1 to 1 tensors
+
+-------- Entering patched torch.autograd.grad --------
+Output tensor: requires_grad=True, shape=torch.Size([4, 256, 576])
+Number of input tensors: 1
+Input tensor 0: requires_grad=True, shape=torch.Size([4, 256, 576])
+-------- Exiting patched grad function --------
+
+Filtered inputs from 1 to 1 tensors
+
+-------- Entering patched torch.autograd.grad --------
+Output tensor: requires_grad=True, shape=torch.Size([4, 1024, 384])
+Number of input tensors: 1
+Input tensor 0: requires_grad=True, shape=torch.Size([4, 1024, 384])
+-------- Exiting patched grad function --------
+
+Filtered inputs from 1 to 1 tensors
+
+-------- Entering patched torch.autograd.grad --------
+Output tensor: requires_grad=True, shape=torch.Size([4, 1024, 384])
+Number of input tensors: 1
+Input tensor 0: requires_grad=True, shape=torch.Size([4, 1024, 384])
+-------- Exiting patched grad function --------
+
+Module Linear received input 1 that doesn't require_grad
+Module Linear produced output 0 that doesn't require_grad
+-------- Exiting patched grad function --------
+
+Parameter adapter.adapter.0.weight is properly connected to computation graph
+
+-------- Entering patched torch.autograd.grad --------
+Output tensor: requires_grad=True, shape=torch.Size([])
+Single input tensor: requires_grad=True, shape=torch.Size([1024])
+Filtered inputs from 1 to 1 tensors
+
+-------- Entering patched torch.autograd.grad --------
+Output tensor: requires_grad=True, shape=torch.Size([4, 1024, 384])
+Number of input tensors: 1
+Input tensor 0: requires_grad=True, shape=torch.Size([4, 1024, 384])
+-------- Exiting patched grad function --------
+
+Filtered inputs from 1 to 1 tensors
+
+-------- Entering patched torch.autograd.grad --------
+Output tensor: requires_grad=True, shape=torch.Size([4, 1024, 384])
+Number of input tensors: 1
+Input tensor 0: requires_grad=True, shape=torch.Size([4, 1024, 384])
+-------- Exiting patched grad function --------
+
+Filtered inputs from 1 to 1 tensors
+
+-------- Entering patched torch.autograd.grad --------
+Output tensor: requires_grad=True, shape=torch.Size([4, 1024, 384])
+Number of input tensors: 1
+Input tensor 0: requires_grad=True, shape=torch.Size([4, 1024, 384])
+-------- Exiting patched grad function --------
+
+Filtered inputs from 1 to 1 tensors
+
+-------- Entering patched torch.autograd.grad --------
+Output tensor: requires_grad=True, shape=torch.Size([4, 256, 576])
+Number of input tensors: 1
+Input tensor 0: requires_grad=True, shape=torch.Size([4, 256, 576])
+-------- Exiting patched grad function --------
+
+Filtered inputs from 1 to 1 tensors
+
+-------- Entering patched torch.autograd.grad --------
+Output tensor: requires_grad=True, shape=torch.Size([4, 256, 576])
+Number of input tensors: 1
+Input tensor 0: requires_grad=True, shape=torch.Size([4, 256, 576])
+-------- Exiting patched grad function --------
+
+Filtered inputs from 1 to 1 tensors
+
+-------- Entering patched torch.autograd.grad --------
+Output tensor: requires_grad=True, shape=torch.Size([4, 256, 576])
+Number of input tensors: 1
+Input tensor 0: requires_grad=True, shape=torch.Size([4, 256, 576])
+-------- Exiting patched grad function --------
+
+Filtered inputs from 1 to 1 tensors
+
+-------- Entering patched torch.autograd.grad --------
+Output tensor: requires_grad=True, shape=torch.Size([4, 64, 960])
+Number of input tensors: 1
+Input tensor 0: requires_grad=True, shape=torch.Size([4, 64, 960])
+-------- Exiting patched grad function --------
+
+Filtered inputs from 1 to 1 tensors
+
+-------- Entering patched torch.autograd.grad --------
+Output tensor: requires_grad=True, shape=torch.Size([4, 64, 960])
+Number of input tensors: 1
+Input tensor 0: requires_grad=True, shape=torch.Size([4, 64, 960])
+-------- Exiting patched grad function --------
+
+Filtered inputs from 1 to 1 tensors
+
+-------- Entering patched torch.autograd.grad --------
+Output tensor: requires_grad=True, shape=torch.Size([4, 64, 960])
+Number of input tensors: 1
+Input tensor 0: requires_grad=True, shape=torch.Size([4, 64, 960])
+-------- Exiting patched grad function --------
+
+Filtered inputs from 1 to 1 tensors
+
+-------- Entering patched torch.autograd.grad --------
+Output tensor: requires_grad=True, shape=torch.Size([4, 64, 960])
+Number of input tensors: 1
+Input tensor 0: requires_grad=True, shape=torch.Size([4, 64, 960])
+-------- Exiting patched grad function --------
+
+Filtered inputs from 1 to 1 tensors
+
+-------- Entering patched torch.autograd.grad --------
+Output tensor: requires_grad=True, shape=torch.Size([4, 64, 960])
+Number of input tensors: 1
+Input tensor 0: requires_grad=True, shape=torch.Size([4, 64, 960])
+-------- Exiting patched grad function --------
+
+Filtered inputs from 1 to 1 tensors
+
+-------- Entering patched torch.autograd.grad --------
+Output tensor: requires_grad=True, shape=torch.Size([4, 64, 960])
+Number of input tensors: 1
+Input tensor 0: requires_grad=True, shape=torch.Size([4, 64, 960])
+-------- Exiting patched grad function --------
+
+Filtered inputs from 1 to 1 tensors
+
+-------- Entering patched torch.autograd.grad --------
+Output tensor: requires_grad=True, shape=torch.Size([4, 256, 576])
+Number of input tensors: 1
+Input tensor 0: requires_grad=True, shape=torch.Size([4, 256, 576])
+-------- Exiting patched grad function --------
+
+Filtered inputs from 1 to 1 tensors
+
+-------- Entering patched torch.autograd.grad --------
+Output tensor: requires_grad=True, shape=torch.Size([4, 256, 576])
+Number of input tensors: 1
+Input tensor 0: requires_grad=True, shape=torch.Size([4, 256, 576])
+-------- Exiting patched grad function --------
+
+Filtered inputs from 1 to 1 tensors
+
+-------- Entering patched torch.autograd.grad --------
+Output tensor: requires_grad=True, shape=torch.Size([4, 1024, 384])
+Number of input tensors: 1
+Input tensor 0: requires_grad=True, shape=torch.Size([4, 1024, 384])
+-------- Exiting patched grad function --------
+
+Filtered inputs from 1 to 1 tensors
+
+-------- Entering patched torch.autograd.grad --------
+Output tensor: requires_grad=True, shape=torch.Size([4, 1024, 384])
+Number of input tensors: 1
+Input tensor 0: requires_grad=True, shape=torch.Size([4, 1024, 384])
+-------- Exiting patched grad function --------
+
+Module Linear received input 1 that doesn't require_grad
+Module Linear produced output 0 that doesn't require_grad
+-------- Exiting patched grad function --------
+
+Parameter adapter.adapter.0.bias is properly connected to computation graph
+
+-------- Entering patched torch.autograd.grad --------
+Output tensor: requires_grad=True, shape=torch.Size([])
+Single input tensor: requires_grad=True, shape=torch.Size([1024])
+Filtered inputs from 1 to 1 tensors
+
+-------- Entering patched torch.autograd.grad --------
+Output tensor: requires_grad=True, shape=torch.Size([4, 1024, 384])
+Number of input tensors: 1
+Input tensor 0: requires_grad=True, shape=torch.Size([4, 1024, 384])
+-------- Exiting patched grad function --------
+
+Filtered inputs from 1 to 1 tensors
+
+-------- Entering patched torch.autograd.grad --------
+Output tensor: requires_grad=True, shape=torch.Size([4, 1024, 384])
+Number of input tensors: 1
+Input tensor 0: requires_grad=True, shape=torch.Size([4, 1024, 384])
+-------- Exiting patched grad function --------
+
+Filtered inputs from 1 to 1 tensors
+
+-------- Entering patched torch.autograd.grad --------
+Output tensor: requires_grad=True, shape=torch.Size([4, 1024, 384])
+Number of input tensors: 1
+Input tensor 0: requires_grad=True, shape=torch.Size([4, 1024, 384])
+-------- Exiting patched grad function --------
+
+Filtered inputs from 1 to 1 tensors
+
+-------- Entering patched torch.autograd.grad --------
+Output tensor: requires_grad=True, shape=torch.Size([4, 256, 576])
+Number of input tensors: 1
+Input tensor 0: requires_grad=True, shape=torch.Size([4, 256, 576])
+-------- Exiting patched grad function --------
+
+Filtered inputs from 1 to 1 tensors
+
+-------- Entering patched torch.autograd.grad --------
+Output tensor: requires_grad=True, shape=torch.Size([4, 256, 576])
+Number of input tensors: 1
+Input tensor 0: requires_grad=True, shape=torch.Size([4, 256, 576])
+-------- Exiting patched grad function --------
+
+Filtered inputs from 1 to 1 tensors
+
+-------- Entering patched torch.autograd.grad --------
+Output tensor: requires_grad=True, shape=torch.Size([4, 256, 576])
+Number of input tensors: 1
+Input tensor 0: requires_grad=True, shape=torch.Size([4, 256, 576])
+-------- Exiting patched grad function --------
+
+Filtered inputs from 1 to 1 tensors
+
+-------- Entering patched torch.autograd.grad --------
+Output tensor: requires_grad=True, shape=torch.Size([4, 64, 960])
+Number of input tensors: 1
+Input tensor 0: requires_grad=True, shape=torch.Size([4, 64, 960])
+-------- Exiting patched grad function --------
+
+Filtered inputs from 1 to 1 tensors
+
+-------- Entering patched torch.autograd.grad --------
+Output tensor: requires_grad=True, shape=torch.Size([4, 64, 960])
+Number of input tensors: 1
+Input tensor 0: requires_grad=True, shape=torch.Size([4, 64, 960])
+-------- Exiting patched grad function --------
+
+Filtered inputs from 1 to 1 tensors
+
+-------- Entering patched torch.autograd.grad --------
+Output tensor: requires_grad=True, shape=torch.Size([4, 64, 960])
+Number of input tensors: 1
+Input tensor 0: requires_grad=True, shape=torch.Size([4, 64, 960])
+-------- Exiting patched grad function --------
+
+Filtered inputs from 1 to 1 tensors
+
+-------- Entering patched torch.autograd.grad --------
+Output tensor: requires_grad=True, shape=torch.Size([4, 64, 960])
+Number of input tensors: 1
+Input tensor 0: requires_grad=True, shape=torch.Size([4, 64, 960])
+-------- Exiting patched grad function --------
+
+Filtered inputs from 1 to 1 tensors
+
+-------- Entering patched torch.autograd.grad --------
+Output tensor: requires_grad=True, shape=torch.Size([4, 64, 960])
+Number of input tensors: 1
+Input tensor 0: requires_grad=True, shape=torch.Size([4, 64, 960])
+-------- Exiting patched grad function --------
+
+Filtered inputs from 1 to 1 tensors
+
+-------- Entering patched torch.autograd.grad --------
+Output tensor: requires_grad=True, shape=torch.Size([4, 64, 960])
+Number of input tensors: 1
+Input tensor 0: requires_grad=True, shape=torch.Size([4, 64, 960])
+-------- Exiting patched grad function --------
+
+Filtered inputs from 1 to 1 tensors
+
+-------- Entering patched torch.autograd.grad --------
+Output tensor: requires_grad=True, shape=torch.Size([4, 256, 576])
+Number of input tensors: 1
+Input tensor 0: requires_grad=True, shape=torch.Size([4, 256, 576])
+-------- Exiting patched grad function --------
+
+Filtered inputs from 1 to 1 tensors
+
+-------- Entering patched torch.autograd.grad --------
+Output tensor: requires_grad=True, shape=torch.Size([4, 256, 576])
+Number of input tensors: 1
+Input tensor 0: requires_grad=True, shape=torch.Size([4, 256, 576])
+-------- Exiting patched grad function --------
+
+Filtered inputs from 1 to 1 tensors
+
+-------- Entering patched torch.autograd.grad --------
+Output tensor: requires_grad=True, shape=torch.Size([4, 1024, 384])
+Number of input tensors: 1
+Input tensor 0: requires_grad=True, shape=torch.Size([4, 1024, 384])
+-------- Exiting patched grad function --------
+
+Filtered inputs from 1 to 1 tensors
+
+-------- Entering patched torch.autograd.grad --------
+Output tensor: requires_grad=True, shape=torch.Size([4, 1024, 384])
+Number of input tensors: 1
+Input tensor 0: requires_grad=True, shape=torch.Size([4, 1024, 384])
+-------- Exiting patched grad function --------
+
+Module Linear received input 1 that doesn't require_grad
+Module Linear produced output 0 that doesn't require_grad
+-------- Exiting patched grad function --------
+
+Parameter adapter.adapter.1.weight is properly connected to computation graph
+
+-------- Entering patched torch.autograd.grad --------
+Output tensor: requires_grad=True, shape=torch.Size([])
+Single input tensor: requires_grad=True, shape=torch.Size([1024])
+Filtered inputs from 1 to 1 tensors
+
+-------- Entering patched torch.autograd.grad --------
+Output tensor: requires_grad=True, shape=torch.Size([4, 1024, 384])
+Number of input tensors: 1
+Input tensor 0: requires_grad=True, shape=torch.Size([4, 1024, 384])
+-------- Exiting patched grad function --------
+
+Filtered inputs from 1 to 1 tensors
+
+-------- Entering patched torch.autograd.grad --------
+Output tensor: requires_grad=True, shape=torch.Size([4, 1024, 384])
+Number of input tensors: 1
+Input tensor 0: requires_grad=True, shape=torch.Size([4, 1024, 384])
+-------- Exiting patched grad function --------
+
+Filtered inputs from 1 to 1 tensors
+
+-------- Entering patched torch.autograd.grad --------
+Output tensor: requires_grad=True, shape=torch.Size([4, 1024, 384])
+Number of input tensors: 1
+Input tensor 0: requires_grad=True, shape=torch.Size([4, 1024, 384])
+-------- Exiting patched grad function --------
+
+Filtered inputs from 1 to 1 tensors
+
+-------- Entering patched torch.autograd.grad --------
+Output tensor: requires_grad=True, shape=torch.Size([4, 256, 576])
+Number of input tensors: 1
+Input tensor 0: requires_grad=True, shape=torch.Size([4, 256, 576])
+-------- Exiting patched grad function --------
+
+Filtered inputs from 1 to 1 tensors
+
+-------- Entering patched torch.autograd.grad --------
+Output tensor: requires_grad=True, shape=torch.Size([4, 256, 576])
+Number of input tensors: 1
+Input tensor 0: requires_grad=True, shape=torch.Size([4, 256, 576])
+-------- Exiting patched grad function --------
+
+Filtered inputs from 1 to 1 tensors
+
+-------- Entering patched torch.autograd.grad --------
+Output tensor: requires_grad=True, shape=torch.Size([4, 256, 576])
+Number of input tensors: 1
+Input tensor 0: requires_grad=True, shape=torch.Size([4, 256, 576])
+-------- Exiting patched grad function --------
+
+Filtered inputs from 1 to 1 tensors
+
+-------- Entering patched torch.autograd.grad --------
+Output tensor: requires_grad=True, shape=torch.Size([4, 64, 960])
+Number of input tensors: 1
+Input tensor 0: requires_grad=True, shape=torch.Size([4, 64, 960])
+-------- Exiting patched grad function --------
+
+Filtered inputs from 1 to 1 tensors
+
+-------- Entering patched torch.autograd.grad --------
+Output tensor: requires_grad=True, shape=torch.Size([4, 64, 960])
+Number of input tensors: 1
+Input tensor 0: requires_grad=True, shape=torch.Size([4, 64, 960])
+-------- Exiting patched grad function --------
+
+Filtered inputs from 1 to 1 tensors
+
+-------- Entering patched torch.autograd.grad --------
+Output tensor: requires_grad=True, shape=torch.Size([4, 64, 960])
+Number of input tensors: 1
+Input tensor 0: requires_grad=True, shape=torch.Size([4, 64, 960])
+-------- Exiting patched grad function --------
+
+Filtered inputs from 1 to 1 tensors
+
+-------- Entering patched torch.autograd.grad --------
+Output tensor: requires_grad=True, shape=torch.Size([4, 64, 960])
+Number of input tensors: 1
+Input tensor 0: requires_grad=True, shape=torch.Size([4, 64, 960])
+-------- Exiting patched grad function --------
+
+Filtered inputs from 1 to 1 tensors
+
+-------- Entering patched torch.autograd.grad --------
+Output tensor: requires_grad=True, shape=torch.Size([4, 64, 960])
+Number of input tensors: 1
+Input tensor 0: requires_grad=True, shape=torch.Size([4, 64, 960])
+-------- Exiting patched grad function --------
+
+Filtered inputs from 1 to 1 tensors
+
+-------- Entering patched torch.autograd.grad --------
+Output tensor: requires_grad=True, shape=torch.Size([4, 64, 960])
+Number of input tensors: 1
+Input tensor 0: requires_grad=True, shape=torch.Size([4, 64, 960])
+-------- Exiting patched grad function --------
+
+Filtered inputs from 1 to 1 tensors
+
+-------- Entering patched torch.autograd.grad --------
+Output tensor: requires_grad=True, shape=torch.Size([4, 256, 576])
+Number of input tensors: 1
+Input tensor 0: requires_grad=True, shape=torch.Size([4, 256, 576])
+-------- Exiting patched grad function --------
+
+Filtered inputs from 1 to 1 tensors
+
+-------- Entering patched torch.autograd.grad --------
+Output tensor: requires_grad=True, shape=torch.Size([4, 256, 576])
+Number of input tensors: 1
+Input tensor 0: requires_grad=True, shape=torch.Size([4, 256, 576])
+-------- Exiting patched grad function --------
+
+Filtered inputs from 1 to 1 tensors
+
+-------- Entering patched torch.autograd.grad --------
+Output tensor: requires_grad=True, shape=torch.Size([4, 1024, 384])
+Number of input tensors: 1
+Input tensor 0: requires_grad=True, shape=torch.Size([4, 1024, 384])
+-------- Exiting patched grad function --------
+
+Filtered inputs from 1 to 1 tensors
+
+-------- Entering patched torch.autograd.grad --------
+Output tensor: requires_grad=True, shape=torch.Size([4, 1024, 384])
+Number of input tensors: 1
+Input tensor 0: requires_grad=True, shape=torch.Size([4, 1024, 384])
+-------- Exiting patched grad function --------
+
+Module Linear received input 1 that doesn't require_grad
+Module Linear produced output 0 that doesn't require_grad
+-------- Exiting patched grad function --------
+
+Parameter adapter.adapter.1.bias is properly connected to computation graph
+
+-------- Entering patched torch.autograd.grad --------
+Output tensor: requires_grad=True, shape=torch.Size([])
+Single input tensor: requires_grad=True, shape=torch.Size([512, 1024])
+Filtered inputs from 1 to 1 tensors
+
+-------- Entering patched torch.autograd.grad --------
+Output tensor: requires_grad=True, shape=torch.Size([4, 1024, 384])
+Number of input tensors: 1
+Input tensor 0: requires_grad=True, shape=torch.Size([4, 1024, 384])
+-------- Exiting patched grad function --------
+
+Filtered inputs from 1 to 1 tensors
+
+-------- Entering patched torch.autograd.grad --------
+Output tensor: requires_grad=True, shape=torch.Size([4, 1024, 384])
+Number of input tensors: 1
+Input tensor 0: requires_grad=True, shape=torch.Size([4, 1024, 384])
+-------- Exiting patched grad function --------
+
+Filtered inputs from 1 to 1 tensors
+
+-------- Entering patched torch.autograd.grad --------
+Output tensor: requires_grad=True, shape=torch.Size([4, 1024, 384])
+Number of input tensors: 1
+Input tensor 0: requires_grad=True, shape=torch.Size([4, 1024, 384])
+-------- Exiting patched grad function --------
+
+Filtered inputs from 1 to 1 tensors
+
+-------- Entering patched torch.autograd.grad --------
+Output tensor: requires_grad=True, shape=torch.Size([4, 256, 576])
+Number of input tensors: 1
+Input tensor 0: requires_grad=True, shape=torch.Size([4, 256, 576])
+-------- Exiting patched grad function --------
+
+Filtered inputs from 1 to 1 tensors
+
+-------- Entering patched torch.autograd.grad --------
+Output tensor: requires_grad=True, shape=torch.Size([4, 256, 576])
+Number of input tensors: 1
+Input tensor 0: requires_grad=True, shape=torch.Size([4, 256, 576])
+-------- Exiting patched grad function --------
+
+Filtered inputs from 1 to 1 tensors
+
+-------- Entering patched torch.autograd.grad --------
+Output tensor: requires_grad=True, shape=torch.Size([4, 256, 576])
+Number of input tensors: 1
+Input tensor 0: requires_grad=True, shape=torch.Size([4, 256, 576])
+-------- Exiting patched grad function --------
+
+Filtered inputs from 1 to 1 tensors
+
+-------- Entering patched torch.autograd.grad --------
+Output tensor: requires_grad=True, shape=torch.Size([4, 64, 960])
+Number of input tensors: 1
+Input tensor 0: requires_grad=True, shape=torch.Size([4, 64, 960])
+-------- Exiting patched grad function --------
+
+Filtered inputs from 1 to 1 tensors
+
+-------- Entering patched torch.autograd.grad --------
+Output tensor: requires_grad=True, shape=torch.Size([4, 64, 960])
+Number of input tensors: 1
+Input tensor 0: requires_grad=True, shape=torch.Size([4, 64, 960])
+-------- Exiting patched grad function --------
+
+Filtered inputs from 1 to 1 tensors
+
+-------- Entering patched torch.autograd.grad --------
+Output tensor: requires_grad=True, shape=torch.Size([4, 64, 960])
+Number of input tensors: 1
+Input tensor 0: requires_grad=True, shape=torch.Size([4, 64, 960])
+-------- Exiting patched grad function --------
+
+Filtered inputs from 1 to 1 tensors
+
+-------- Entering patched torch.autograd.grad --------
+Output tensor: requires_grad=True, shape=torch.Size([4, 64, 960])
+Number of input tensors: 1
+Input tensor 0: requires_grad=True, shape=torch.Size([4, 64, 960])
+-------- Exiting patched grad function --------
+
+Filtered inputs from 1 to 1 tensors
+
+-------- Entering patched torch.autograd.grad --------
+Output tensor: requires_grad=True, shape=torch.Size([4, 64, 960])
+Number of input tensors: 1
+Input tensor 0: requires_grad=True, shape=torch.Size([4, 64, 960])
+-------- Exiting patched grad function --------
+
+Filtered inputs from 1 to 1 tensors
+
+-------- Entering patched torch.autograd.grad --------
+Output tensor: requires_grad=True, shape=torch.Size([4, 64, 960])
+Number of input tensors: 1
+Input tensor 0: requires_grad=True, shape=torch.Size([4, 64, 960])
+-------- Exiting patched grad function --------
+
+Filtered inputs from 1 to 1 tensors
+
+-------- Entering patched torch.autograd.grad --------
+Output tensor: requires_grad=True, shape=torch.Size([4, 256, 576])
+Number of input tensors: 1
+Input tensor 0: requires_grad=True, shape=torch.Size([4, 256, 576])
+-------- Exiting patched grad function --------
+
+Filtered inputs from 1 to 1 tensors
+
+-------- Entering patched torch.autograd.grad --------
+Output tensor: requires_grad=True, shape=torch.Size([4, 256, 576])
+Number of input tensors: 1
+Input tensor 0: requires_grad=True, shape=torch.Size([4, 256, 576])
+-------- Exiting patched grad function --------
+
+Filtered inputs from 1 to 1 tensors
+
+-------- Entering patched torch.autograd.grad --------
+Output tensor: requires_grad=True, shape=torch.Size([4, 1024, 384])
+Number of input tensors: 1
+Input tensor 0: requires_grad=True, shape=torch.Size([4, 1024, 384])
+-------- Exiting patched grad function --------
+
+Filtered inputs from 1 to 1 tensors
+
+-------- Entering patched torch.autograd.grad --------
+Output tensor: requires_grad=True, shape=torch.Size([4, 1024, 384])
+Number of input tensors: 1
+Input tensor 0: requires_grad=True, shape=torch.Size([4, 1024, 384])
+-------- Exiting patched grad function --------
+
+Module Linear received input 1 that doesn't require_grad
+Module Linear produced output 0 that doesn't require_grad
+-------- Exiting patched grad function --------
+
+Parameter adapter.adapter.3.weight is properly connected to computation graph
+
+-------- Entering patched torch.autograd.grad --------
+Output tensor: requires_grad=True, shape=torch.Size([])
+Single input tensor: requires_grad=True, shape=torch.Size([512])
+Filtered inputs from 1 to 1 tensors
+
+-------- Entering patched torch.autograd.grad --------
+Output tensor: requires_grad=True, shape=torch.Size([4, 1024, 384])
+Number of input tensors: 1
+Input tensor 0: requires_grad=True, shape=torch.Size([4, 1024, 384])
+-------- Exiting patched grad function --------
+
+Filtered inputs from 1 to 1 tensors
+
+-------- Entering patched torch.autograd.grad --------
+Output tensor: requires_grad=True, shape=torch.Size([4, 1024, 384])
+Number of input tensors: 1
+Input tensor 0: requires_grad=True, shape=torch.Size([4, 1024, 384])
+-------- Exiting patched grad function --------
+
+Filtered inputs from 1 to 1 tensors
+
+-------- Entering patched torch.autograd.grad --------
+Output tensor: requires_grad=True, shape=torch.Size([4, 1024, 384])
+Number of input tensors: 1
+Input tensor 0: requires_grad=True, shape=torch.Size([4, 1024, 384])
+-------- Exiting patched grad function --------
+
+Filtered inputs from 1 to 1 tensors
+
+-------- Entering patched torch.autograd.grad --------
+Output tensor: requires_grad=True, shape=torch.Size([4, 256, 576])
+Number of input tensors: 1
+Input tensor 0: requires_grad=True, shape=torch.Size([4, 256, 576])
+-------- Exiting patched grad function --------
+
+Filtered inputs from 1 to 1 tensors
+
+-------- Entering patched torch.autograd.grad --------
+Output tensor: requires_grad=True, shape=torch.Size([4, 256, 576])
+Number of input tensors: 1
+Input tensor 0: requires_grad=True, shape=torch.Size([4, 256, 576])
+-------- Exiting patched grad function --------
+
+Filtered inputs from 1 to 1 tensors
+
+-------- Entering patched torch.autograd.grad --------
+Output tensor: requires_grad=True, shape=torch.Size([4, 256, 576])
+Number of input tensors: 1
+Input tensor 0: requires_grad=True, shape=torch.Size([4, 256, 576])
+-------- Exiting patched grad function --------
+
+Filtered inputs from 1 to 1 tensors
+
+-------- Entering patched torch.autograd.grad --------
+Output tensor: requires_grad=True, shape=torch.Size([4, 64, 960])
+Number of input tensors: 1
+Input tensor 0: requires_grad=True, shape=torch.Size([4, 64, 960])
+-------- Exiting patched grad function --------
+
+Filtered inputs from 1 to 1 tensors
+
+-------- Entering patched torch.autograd.grad --------
+Output tensor: requires_grad=True, shape=torch.Size([4, 64, 960])
+Number of input tensors: 1
+Input tensor 0: requires_grad=True, shape=torch.Size([4, 64, 960])
+-------- Exiting patched grad function --------
+
+Filtered inputs from 1 to 1 tensors
+
+-------- Entering patched torch.autograd.grad --------
+Output tensor: requires_grad=True, shape=torch.Size([4, 64, 960])
+Number of input tensors: 1
+Input tensor 0: requires_grad=True, shape=torch.Size([4, 64, 960])
+-------- Exiting patched grad function --------
+
+Filtered inputs from 1 to 1 tensors
+
+-------- Entering patched torch.autograd.grad --------
+Output tensor: requires_grad=True, shape=torch.Size([4, 64, 960])
+Number of input tensors: 1
+Input tensor 0: requires_grad=True, shape=torch.Size([4, 64, 960])
+-------- Exiting patched grad function --------
+
+Filtered inputs from 1 to 1 tensors
+
+-------- Entering patched torch.autograd.grad --------
+Output tensor: requires_grad=True, shape=torch.Size([4, 64, 960])
+Number of input tensors: 1
+Input tensor 0: requires_grad=True, shape=torch.Size([4, 64, 960])
+-------- Exiting patched grad function --------
+
+Filtered inputs from 1 to 1 tensors
+
+-------- Entering patched torch.autograd.grad --------
+Output tensor: requires_grad=True, shape=torch.Size([4, 64, 960])
+Number of input tensors: 1
+Input tensor 0: requires_grad=True, shape=torch.Size([4, 64, 960])
+-------- Exiting patched grad function --------
+
+Filtered inputs from 1 to 1 tensors
+
+-------- Entering patched torch.autograd.grad --------
+Output tensor: requires_grad=True, shape=torch.Size([4, 256, 576])
+Number of input tensors: 1
+Input tensor 0: requires_grad=True, shape=torch.Size([4, 256, 576])
+-------- Exiting patched grad function --------
+
+Filtered inputs from 1 to 1 tensors
+
+-------- Entering patched torch.autograd.grad --------
+Output tensor: requires_grad=True, shape=torch.Size([4, 256, 576])
+Number of input tensors: 1
+Input tensor 0: requires_grad=True, shape=torch.Size([4, 256, 576])
+-------- Exiting patched grad function --------
+
+Filtered inputs from 1 to 1 tensors
+
+-------- Entering patched torch.autograd.grad --------
+Output tensor: requires_grad=True, shape=torch.Size([4, 1024, 384])
+Number of input tensors: 1
+Input tensor 0: requires_grad=True, shape=torch.Size([4, 1024, 384])
+-------- Exiting patched grad function --------
+
+Filtered inputs from 1 to 1 tensors
+
+-------- Entering patched torch.autograd.grad --------
+Output tensor: requires_grad=True, shape=torch.Size([4, 1024, 384])
+Number of input tensors: 1
+Input tensor 0: requires_grad=True, shape=torch.Size([4, 1024, 384])
+-------- Exiting patched grad function --------
+
+Module Linear received input 1 that doesn't require_grad
+Module Linear produced output 0 that doesn't require_grad
+-------- Exiting patched grad function --------
+
+Parameter adapter.adapter.3.bias is properly connected to computation graph
+
+-------- Entering patched torch.autograd.grad --------
+Output tensor: requires_grad=True, shape=torch.Size([])
+Single input tensor: requires_grad=True, shape=torch.Size([512])
+Filtered inputs from 1 to 1 tensors
+
+-------- Entering patched torch.autograd.grad --------
+Output tensor: requires_grad=True, shape=torch.Size([4, 1024, 384])
+Number of input tensors: 1
+Input tensor 0: requires_grad=True, shape=torch.Size([4, 1024, 384])
+-------- Exiting patched grad function --------
+
+Filtered inputs from 1 to 1 tensors
+
+-------- Entering patched torch.autograd.grad --------
+Output tensor: requires_grad=True, shape=torch.Size([4, 1024, 384])
+Number of input tensors: 1
+Input tensor 0: requires_grad=True, shape=torch.Size([4, 1024, 384])
+-------- Exiting patched grad function --------
+
+Filtered inputs from 1 to 1 tensors
+
+-------- Entering patched torch.autograd.grad --------
+Output tensor: requires_grad=True, shape=torch.Size([4, 1024, 384])
+Number of input tensors: 1
+Input tensor 0: requires_grad=True, shape=torch.Size([4, 1024, 384])
+-------- Exiting patched grad function --------
+
+Filtered inputs from 1 to 1 tensors
+
+-------- Entering patched torch.autograd.grad --------
+Output tensor: requires_grad=True, shape=torch.Size([4, 256, 576])
+Number of input tensors: 1
+Input tensor 0: requires_grad=True, shape=torch.Size([4, 256, 576])
+-------- Exiting patched grad function --------
+
+Filtered inputs from 1 to 1 tensors
+
+-------- Entering patched torch.autograd.grad --------
+Output tensor: requires_grad=True, shape=torch.Size([4, 256, 576])
+Number of input tensors: 1
+Input tensor 0: requires_grad=True, shape=torch.Size([4, 256, 576])
+-------- Exiting patched grad function --------
+
+Filtered inputs from 1 to 1 tensors
+
+-------- Entering patched torch.autograd.grad --------
+Output tensor: requires_grad=True, shape=torch.Size([4, 256, 576])
+Number of input tensors: 1
+Input tensor 0: requires_grad=True, shape=torch.Size([4, 256, 576])
+-------- Exiting patched grad function --------
+
+Filtered inputs from 1 to 1 tensors
+
+-------- Entering patched torch.autograd.grad --------
+Output tensor: requires_grad=True, shape=torch.Size([4, 64, 960])
+Number of input tensors: 1
+Input tensor 0: requires_grad=True, shape=torch.Size([4, 64, 960])
+-------- Exiting patched grad function --------
+
+Filtered inputs from 1 to 1 tensors
+
+-------- Entering patched torch.autograd.grad --------
+Output tensor: requires_grad=True, shape=torch.Size([4, 64, 960])
+Number of input tensors: 1
+Input tensor 0: requires_grad=True, shape=torch.Size([4, 64, 960])
+-------- Exiting patched grad function --------
+
+Filtered inputs from 1 to 1 tensors
+
+-------- Entering patched torch.autograd.grad --------
+Output tensor: requires_grad=True, shape=torch.Size([4, 64, 960])
+Number of input tensors: 1
+Input tensor 0: requires_grad=True, shape=torch.Size([4, 64, 960])
+-------- Exiting patched grad function --------
+
+Filtered inputs from 1 to 1 tensors
+
+-------- Entering patched torch.autograd.grad --------
+Output tensor: requires_grad=True, shape=torch.Size([4, 64, 960])
+Number of input tensors: 1
+Input tensor 0: requires_grad=True, shape=torch.Size([4, 64, 960])
+-------- Exiting patched grad function --------
+
+Filtered inputs from 1 to 1 tensors
+
+-------- Entering patched torch.autograd.grad --------
+Output tensor: requires_grad=True, shape=torch.Size([4, 64, 960])
+Number of input tensors: 1
+Input tensor 0: requires_grad=True, shape=torch.Size([4, 64, 960])
+-------- Exiting patched grad function --------
+
+Filtered inputs from 1 to 1 tensors
+
+-------- Entering patched torch.autograd.grad --------
+Output tensor: requires_grad=True, shape=torch.Size([4, 64, 960])
+Number of input tensors: 1
+Input tensor 0: requires_grad=True, shape=torch.Size([4, 64, 960])
+-------- Exiting patched grad function --------
+
+Filtered inputs from 1 to 1 tensors
+
+-------- Entering patched torch.autograd.grad --------
+Output tensor: requires_grad=True, shape=torch.Size([4, 256, 576])
+Number of input tensors: 1
+Input tensor 0: requires_grad=True, shape=torch.Size([4, 256, 576])
+-------- Exiting patched grad function --------
+
+Filtered inputs from 1 to 1 tensors
+
+-------- Entering patched torch.autograd.grad --------
+Output tensor: requires_grad=True, shape=torch.Size([4, 256, 576])
+Number of input tensors: 1
+Input tensor 0: requires_grad=True, shape=torch.Size([4, 256, 576])
+-------- Exiting patched grad function --------
+
+Filtered inputs from 1 to 1 tensors
+
+-------- Entering patched torch.autograd.grad --------
+Output tensor: requires_grad=True, shape=torch.Size([4, 1024, 384])
+Number of input tensors: 1
+Input tensor 0: requires_grad=True, shape=torch.Size([4, 1024, 384])
+-------- Exiting patched grad function --------
+
+Filtered inputs from 1 to 1 tensors
+
+-------- Entering patched torch.autograd.grad --------
+Output tensor: requires_grad=True, shape=torch.Size([4, 1024, 384])
+Number of input tensors: 1
+Input tensor 0: requires_grad=True, shape=torch.Size([4, 1024, 384])
+-------- Exiting patched grad function --------
+
+Module Linear received input 1 that doesn't require_grad
+Module Linear produced output 0 that doesn't require_grad
+-------- Exiting patched grad function --------
+
+Parameter adapter.adapter.4.weight is properly connected to computation graph
+
+-------- Entering patched torch.autograd.grad --------
+Output tensor: requires_grad=True, shape=torch.Size([])
+Single input tensor: requires_grad=True, shape=torch.Size([512])
+Filtered inputs from 1 to 1 tensors
+
+-------- Entering patched torch.autograd.grad --------
+Output tensor: requires_grad=True, shape=torch.Size([4, 1024, 384])
+Number of input tensors: 1
+Input tensor 0: requires_grad=True, shape=torch.Size([4, 1024, 384])
+-------- Exiting patched grad function --------
+
+Filtered inputs from 1 to 1 tensors
+
+-------- Entering patched torch.autograd.grad --------
+Output tensor: requires_grad=True, shape=torch.Size([4, 1024, 384])
+Number of input tensors: 1
+Input tensor 0: requires_grad=True, shape=torch.Size([4, 1024, 384])
+-------- Exiting patched grad function --------
+
+Filtered inputs from 1 to 1 tensors
+
+-------- Entering patched torch.autograd.grad --------
+Output tensor: requires_grad=True, shape=torch.Size([4, 1024, 384])
+Number of input tensors: 1
+Input tensor 0: requires_grad=True, shape=torch.Size([4, 1024, 384])
+-------- Exiting patched grad function --------
+
+Filtered inputs from 1 to 1 tensors
+
+-------- Entering patched torch.autograd.grad --------
+Output tensor: requires_grad=True, shape=torch.Size([4, 256, 576])
+Number of input tensors: 1
+Input tensor 0: requires_grad=True, shape=torch.Size([4, 256, 576])
+-------- Exiting patched grad function --------
+
+Filtered inputs from 1 to 1 tensors
+
+-------- Entering patched torch.autograd.grad --------
+Output tensor: requires_grad=True, shape=torch.Size([4, 256, 576])
+Number of input tensors: 1
+Input tensor 0: requires_grad=True, shape=torch.Size([4, 256, 576])
+-------- Exiting patched grad function --------
+
+Filtered inputs from 1 to 1 tensors
+
+-------- Entering patched torch.autograd.grad --------
+Output tensor: requires_grad=True, shape=torch.Size([4, 256, 576])
+Number of input tensors: 1
+Input tensor 0: requires_grad=True, shape=torch.Size([4, 256, 576])
+-------- Exiting patched grad function --------
+
+Filtered inputs from 1 to 1 tensors
+
+-------- Entering patched torch.autograd.grad --------
+Output tensor: requires_grad=True, shape=torch.Size([4, 64, 960])
+Number of input tensors: 1
+Input tensor 0: requires_grad=True, shape=torch.Size([4, 64, 960])
+-------- Exiting patched grad function --------
+
+Filtered inputs from 1 to 1 tensors
+
+-------- Entering patched torch.autograd.grad --------
+Output tensor: requires_grad=True, shape=torch.Size([4, 64, 960])
+Number of input tensors: 1
+Input tensor 0: requires_grad=True, shape=torch.Size([4, 64, 960])
+-------- Exiting patched grad function --------
+
+Filtered inputs from 1 to 1 tensors
+
+-------- Entering patched torch.autograd.grad --------
+Output tensor: requires_grad=True, shape=torch.Size([4, 64, 960])
+Number of input tensors: 1
+Input tensor 0: requires_grad=True, shape=torch.Size([4, 64, 960])
+-------- Exiting patched grad function --------
+
+Filtered inputs from 1 to 1 tensors
+
+-------- Entering patched torch.autograd.grad --------
+Output tensor: requires_grad=True, shape=torch.Size([4, 64, 960])
+Number of input tensors: 1
+Input tensor 0: requires_grad=True, shape=torch.Size([4, 64, 960])
+-------- Exiting patched grad function --------
+
+Filtered inputs from 1 to 1 tensors
+
+-------- Entering patched torch.autograd.grad --------
+Output tensor: requires_grad=True, shape=torch.Size([4, 64, 960])
+Number of input tensors: 1
+Input tensor 0: requires_grad=True, shape=torch.Size([4, 64, 960])
+-------- Exiting patched grad function --------
+
+Filtered inputs from 1 to 1 tensors
+
+-------- Entering patched torch.autograd.grad --------
+Output tensor: requires_grad=True, shape=torch.Size([4, 64, 960])
+Number of input tensors: 1
+Input tensor 0: requires_grad=True, shape=torch.Size([4, 64, 960])
+-------- Exiting patched grad function --------
+
+Filtered inputs from 1 to 1 tensors
+
+-------- Entering patched torch.autograd.grad --------
+Output tensor: requires_grad=True, shape=torch.Size([4, 256, 576])
+Number of input tensors: 1
+Input tensor 0: requires_grad=True, shape=torch.Size([4, 256, 576])
+-------- Exiting patched grad function --------
+
+Filtered inputs from 1 to 1 tensors
+
+-------- Entering patched torch.autograd.grad --------
+Output tensor: requires_grad=True, shape=torch.Size([4, 256, 576])
+Number of input tensors: 1
+Input tensor 0: requires_grad=True, shape=torch.Size([4, 256, 576])
+-------- Exiting patched grad function --------
+
+Filtered inputs from 1 to 1 tensors
+
+-------- Entering patched torch.autograd.grad --------
+Output tensor: requires_grad=True, shape=torch.Size([4, 1024, 384])
+Number of input tensors: 1
+Input tensor 0: requires_grad=True, shape=torch.Size([4, 1024, 384])
+-------- Exiting patched grad function --------
+
+Filtered inputs from 1 to 1 tensors
+
+-------- Entering patched torch.autograd.grad --------
+Output tensor: requires_grad=True, shape=torch.Size([4, 1024, 384])
+Number of input tensors: 1
+Input tensor 0: requires_grad=True, shape=torch.Size([4, 1024, 384])
+-------- Exiting patched grad function --------
+
+Module Linear received input 1 that doesn't require_grad
+Module Linear produced output 0 that doesn't require_grad
+-------- Exiting patched grad function --------
+
+Parameter adapter.adapter.4.bias is properly connected to computation graph
+
+-------- Entering patched torch.autograd.grad --------
+Output tensor: requires_grad=True, shape=torch.Size([])
+Single input tensor: requires_grad=True, shape=torch.Size([768, 192])
+Filtered inputs from 1 to 1 tensors
+
+-------- Entering patched torch.autograd.grad --------
+Output tensor: requires_grad=True, shape=torch.Size([4, 1024, 384])
+Number of input tensors: 1
+Input tensor 0: requires_grad=True, shape=torch.Size([4, 1024, 384])
+-------- Exiting patched grad function --------
+
+Filtered inputs from 1 to 1 tensors
+
+-------- Entering patched torch.autograd.grad --------
+Output tensor: requires_grad=True, shape=torch.Size([4, 1024, 384])
+Number of input tensors: 1
+Input tensor 0: requires_grad=True, shape=torch.Size([4, 1024, 384])
+-------- Exiting patched grad function --------
+
+Filtered inputs from 1 to 1 tensors
+
+-------- Entering patched torch.autograd.grad --------
+Output tensor: requires_grad=True, shape=torch.Size([4, 1024, 384])
+Number of input tensors: 1
+Input tensor 0: requires_grad=True, shape=torch.Size([4, 1024, 384])
+-------- Exiting patched grad function --------
+
+Filtered inputs from 1 to 1 tensors
+
+-------- Entering patched torch.autograd.grad --------
+Output tensor: requires_grad=True, shape=torch.Size([4, 256, 576])
+Number of input tensors: 1
+Input tensor 0: requires_grad=True, shape=torch.Size([4, 256, 576])
+-------- Exiting patched grad function --------
+
+Filtered inputs from 1 to 1 tensors
+
+-------- Entering patched torch.autograd.grad --------
+Output tensor: requires_grad=True, shape=torch.Size([4, 256, 576])
+Number of input tensors: 1
+Input tensor 0: requires_grad=True, shape=torch.Size([4, 256, 576])
+-------- Exiting patched grad function --------
+
+Filtered inputs from 1 to 1 tensors
+
+-------- Entering patched torch.autograd.grad --------
+Output tensor: requires_grad=True, shape=torch.Size([4, 256, 576])
+Number of input tensors: 1
+Input tensor 0: requires_grad=True, shape=torch.Size([4, 256, 576])
+-------- Exiting patched grad function --------
+
+Filtered inputs from 1 to 1 tensors
+
+-------- Entering patched torch.autograd.grad --------
+Output tensor: requires_grad=True, shape=torch.Size([4, 64, 960])
+Number of input tensors: 1
+Input tensor 0: requires_grad=True, shape=torch.Size([4, 64, 960])
+-------- Exiting patched grad function --------
+
+Filtered inputs from 1 to 1 tensors
+
+-------- Entering patched torch.autograd.grad --------
+Output tensor: requires_grad=True, shape=torch.Size([4, 64, 960])
+Number of input tensors: 1
+Input tensor 0: requires_grad=True, shape=torch.Size([4, 64, 960])
+-------- Exiting patched grad function --------
+
+Filtered inputs from 1 to 1 tensors
+
+-------- Entering patched torch.autograd.grad --------
+Output tensor: requires_grad=True, shape=torch.Size([4, 64, 960])
+Number of input tensors: 1
+Input tensor 0: requires_grad=True, shape=torch.Size([4, 64, 960])
+-------- Exiting patched grad function --------
+
+Filtered inputs from 1 to 1 tensors
+
+-------- Entering patched torch.autograd.grad --------
+Output tensor: requires_grad=True, shape=torch.Size([4, 64, 960])
+Number of input tensors: 1
+Input tensor 0: requires_grad=True, shape=torch.Size([4, 64, 960])
+-------- Exiting patched grad function --------
+
+Filtered inputs from 1 to 1 tensors
+
+-------- Entering patched torch.autograd.grad --------
+Output tensor: requires_grad=True, shape=torch.Size([4, 64, 960])
+Number of input tensors: 1
+Input tensor 0: requires_grad=True, shape=torch.Size([4, 64, 960])
+-------- Exiting patched grad function --------
+
+Filtered inputs from 1 to 1 tensors
+
+-------- Entering patched torch.autograd.grad --------
+Output tensor: requires_grad=True, shape=torch.Size([4, 64, 960])
+Number of input tensors: 1
+Input tensor 0: requires_grad=True, shape=torch.Size([4, 64, 960])
+-------- Exiting patched grad function --------
+
+Filtered inputs from 1 to 1 tensors
+
+-------- Entering patched torch.autograd.grad --------
+Output tensor: requires_grad=True, shape=torch.Size([4, 256, 576])
+Number of input tensors: 1
+Input tensor 0: requires_grad=True, shape=torch.Size([4, 256, 576])
+-------- Exiting patched grad function --------
+
+Filtered inputs from 1 to 1 tensors
+
+-------- Entering patched torch.autograd.grad --------
+Output tensor: requires_grad=True, shape=torch.Size([4, 256, 576])
+Number of input tensors: 1
+Input tensor 0: requires_grad=True, shape=torch.Size([4, 256, 576])
+-------- Exiting patched grad function --------
+
+Filtered inputs from 1 to 1 tensors
+
+-------- Entering patched torch.autograd.grad --------
+Output tensor: requires_grad=True, shape=torch.Size([4, 1024, 384])
+Number of input tensors: 1
+Input tensor 0: requires_grad=True, shape=torch.Size([4, 1024, 384])
+-------- Exiting patched grad function --------
+
+Filtered inputs from 1 to 1 tensors
+
+-------- Entering patched torch.autograd.grad --------
+Output tensor: requires_grad=True, shape=torch.Size([4, 1024, 384])
+Number of input tensors: 1
+Input tensor 0: requires_grad=True, shape=torch.Size([4, 1024, 384])
+-------- Exiting patched grad function --------
+
+Module Linear received input 1 that doesn't require_grad
+Module Linear produced output 0 that doesn't require_grad
+Module Sequential received input 1 that doesn't require_grad
+Module Sequential produced output 0 that doesn't require_grad
+Module SiLU received input 0 that doesn't require_grad
+Module SiLU produced output 0 that doesn't require_grad
+Module Linear received input 2 that doesn't require_grad
+Module Linear produced output 0 that doesn't require_grad
+-------- Exiting patched grad function --------
+
+Parameter audioldm.model.diffusion_model.time_embed.0.weight is properly connected to computation graph
+
+-------- Entering patched torch.autograd.grad --------
+Output tensor: requires_grad=True, shape=torch.Size([])
+Single input tensor: requires_grad=True, shape=torch.Size([768])
+Filtered inputs from 1 to 1 tensors
+
+-------- Entering patched torch.autograd.grad --------
+Output tensor: requires_grad=True, shape=torch.Size([4, 1024, 384])
+Number of input tensors: 1
+Input tensor 0: requires_grad=True, shape=torch.Size([4, 1024, 384])
+-------- Exiting patched grad function --------
+
+Filtered inputs from 1 to 1 tensors
+
+-------- Entering patched torch.autograd.grad --------
+Output tensor: requires_grad=True, shape=torch.Size([4, 1024, 384])
+Number of input tensors: 1
+Input tensor 0: requires_grad=True, shape=torch.Size([4, 1024, 384])
+-------- Exiting patched grad function --------
+
+Filtered inputs from 1 to 1 tensors
+
+-------- Entering patched torch.autograd.grad --------
+Output tensor: requires_grad=True, shape=torch.Size([4, 1024, 384])
+Number of input tensors: 1
+Input tensor 0: requires_grad=True, shape=torch.Size([4, 1024, 384])
+-------- Exiting patched grad function --------
+
+Filtered inputs from 1 to 1 tensors
+
+-------- Entering patched torch.autograd.grad --------
+Output tensor: requires_grad=True, shape=torch.Size([4, 256, 576])
+Number of input tensors: 1
+Input tensor 0: requires_grad=True, shape=torch.Size([4, 256, 576])
+-------- Exiting patched grad function --------
+
+Filtered inputs from 1 to 1 tensors
+
+-------- Entering patched torch.autograd.grad --------
+Output tensor: requires_grad=True, shape=torch.Size([4, 256, 576])
+Number of input tensors: 1
+Input tensor 0: requires_grad=True, shape=torch.Size([4, 256, 576])
+-------- Exiting patched grad function --------
+
+Filtered inputs from 1 to 1 tensors
+
+-------- Entering patched torch.autograd.grad --------
+Output tensor: requires_grad=True, shape=torch.Size([4, 256, 576])
+Number of input tensors: 1
+Input tensor 0: requires_grad=True, shape=torch.Size([4, 256, 576])
+-------- Exiting patched grad function --------
+
+Filtered inputs from 1 to 1 tensors
+
+-------- Entering patched torch.autograd.grad --------
+Output tensor: requires_grad=True, shape=torch.Size([4, 64, 960])
+Number of input tensors: 1
+Input tensor 0: requires_grad=True, shape=torch.Size([4, 64, 960])
+-------- Exiting patched grad function --------
+
+Filtered inputs from 1 to 1 tensors
+
+-------- Entering patched torch.autograd.grad --------
+Output tensor: requires_grad=True, shape=torch.Size([4, 64, 960])
+Number of input tensors: 1
+Input tensor 0: requires_grad=True, shape=torch.Size([4, 64, 960])
+-------- Exiting patched grad function --------
+
+Filtered inputs from 1 to 1 tensors
+
+-------- Entering patched torch.autograd.grad --------
+Output tensor: requires_grad=True, shape=torch.Size([4, 64, 960])
+Number of input tensors: 1
+Input tensor 0: requires_grad=True, shape=torch.Size([4, 64, 960])
+-------- Exiting patched grad function --------
+
+Filtered inputs from 1 to 1 tensors
+
+-------- Entering patched torch.autograd.grad --------
+Output tensor: requires_grad=True, shape=torch.Size([4, 64, 960])
+Number of input tensors: 1
+Input tensor 0: requires_grad=True, shape=torch.Size([4, 64, 960])
+-------- Exiting patched grad function --------
+
+Filtered inputs from 1 to 1 tensors
+
+-------- Entering patched torch.autograd.grad --------
+Output tensor: requires_grad=True, shape=torch.Size([4, 64, 960])
+Number of input tensors: 1
+Input tensor 0: requires_grad=True, shape=torch.Size([4, 64, 960])
+-------- Exiting patched grad function --------
+
+Filtered inputs from 1 to 1 tensors
+
+-------- Entering patched torch.autograd.grad --------
+Output tensor: requires_grad=True, shape=torch.Size([4, 64, 960])
+Number of input tensors: 1
+Input tensor 0: requires_grad=True, shape=torch.Size([4, 64, 960])
+-------- Exiting patched grad function --------
+
+Filtered inputs from 1 to 1 tensors
+
+-------- Entering patched torch.autograd.grad --------
+Output tensor: requires_grad=True, shape=torch.Size([4, 256, 576])
+Number of input tensors: 1
+Input tensor 0: requires_grad=True, shape=torch.Size([4, 256, 576])
+-------- Exiting patched grad function --------
+
+Filtered inputs from 1 to 1 tensors
+
+-------- Entering patched torch.autograd.grad --------
+Output tensor: requires_grad=True, shape=torch.Size([4, 256, 576])
+Number of input tensors: 1
+Input tensor 0: requires_grad=True, shape=torch.Size([4, 256, 576])
+-------- Exiting patched grad function --------
+
+Filtered inputs from 1 to 1 tensors
+
+-------- Entering patched torch.autograd.grad --------
+Output tensor: requires_grad=True, shape=torch.Size([4, 1024, 384])
+Number of input tensors: 1
+Input tensor 0: requires_grad=True, shape=torch.Size([4, 1024, 384])
+-------- Exiting patched grad function --------
+
+Filtered inputs from 1 to 1 tensors
+
+-------- Entering patched torch.autograd.grad --------
+Output tensor: requires_grad=True, shape=torch.Size([4, 1024, 384])
+Number of input tensors: 1
+Input tensor 0: requires_grad=True, shape=torch.Size([4, 1024, 384])
+-------- Exiting patched grad function --------
+
+Module Linear received input 1 that doesn't require_grad
+Module Linear produced output 0 that doesn't require_grad
+Module Sequential received input 1 that doesn't require_grad
+Module Sequential produced output 0 that doesn't require_grad
+Module SiLU received input 0 that doesn't require_grad
+Module SiLU produced output 0 that doesn't require_grad
+Module Linear received input 0 that doesn't require_grad
+Module Linear produced output 0 that doesn't require_grad
+-------- Exiting patched grad function --------
+
+Parameter audioldm.model.diffusion_model.time_embed.0.bias is properly connected to computation graph
+
+-------- Entering patched torch.autograd.grad --------
+Output tensor: requires_grad=True, shape=torch.Size([])
+Single input tensor: requires_grad=True, shape=torch.Size([768, 768])
+Filtered inputs from 1 to 1 tensors
+
+-------- Entering patched torch.autograd.grad --------
+Output tensor: requires_grad=True, shape=torch.Size([4, 1024, 384])
+Number of input tensors: 1
+Input tensor 0: requires_grad=True, shape=torch.Size([4, 1024, 384])
+-------- Exiting patched grad function --------
+
+Filtered inputs from 1 to 1 tensors
+
+-------- Entering patched torch.autograd.grad --------
+Output tensor: requires_grad=True, shape=torch.Size([4, 1024, 384])
+Number of input tensors: 1
+Input tensor 0: requires_grad=True, shape=torch.Size([4, 1024, 384])
+-------- Exiting patched grad function --------
+
+Filtered inputs from 1 to 1 tensors
+
+-------- Entering patched torch.autograd.grad --------
+Output tensor: requires_grad=True, shape=torch.Size([4, 1024, 384])
+Number of input tensors: 1
+Input tensor 0: requires_grad=True, shape=torch.Size([4, 1024, 384])
+-------- Exiting patched grad function --------
+
+Filtered inputs from 1 to 1 tensors
+
+-------- Entering patched torch.autograd.grad --------
+Output tensor: requires_grad=True, shape=torch.Size([4, 256, 576])
+Number of input tensors: 1
+Input tensor 0: requires_grad=True, shape=torch.Size([4, 256, 576])
+-------- Exiting patched grad function --------
+
+Filtered inputs from 1 to 1 tensors
+
+-------- Entering patched torch.autograd.grad --------
+Output tensor: requires_grad=True, shape=torch.Size([4, 256, 576])
+Number of input tensors: 1
+Input tensor 0: requires_grad=True, shape=torch.Size([4, 256, 576])
+-------- Exiting patched grad function --------
+
+Filtered inputs from 1 to 1 tensors
+
+-------- Entering patched torch.autograd.grad --------
+Output tensor: requires_grad=True, shape=torch.Size([4, 256, 576])
+Number of input tensors: 1
+Input tensor 0: requires_grad=True, shape=torch.Size([4, 256, 576])
+-------- Exiting patched grad function --------
+
+Filtered inputs from 1 to 1 tensors
+
+-------- Entering patched torch.autograd.grad --------
+Output tensor: requires_grad=True, shape=torch.Size([4, 64, 960])
+Number of input tensors: 1
+Input tensor 0: requires_grad=True, shape=torch.Size([4, 64, 960])
+-------- Exiting patched grad function --------
+
+Filtered inputs from 1 to 1 tensors
+
+-------- Entering patched torch.autograd.grad --------
+Output tensor: requires_grad=True, shape=torch.Size([4, 64, 960])
+Number of input tensors: 1
+Input tensor 0: requires_grad=True, shape=torch.Size([4, 64, 960])
+-------- Exiting patched grad function --------
+
+Filtered inputs from 1 to 1 tensors
+
+-------- Entering patched torch.autograd.grad --------
+Output tensor: requires_grad=True, shape=torch.Size([4, 64, 960])
+Number of input tensors: 1
+Input tensor 0: requires_grad=True, shape=torch.Size([4, 64, 960])
+-------- Exiting patched grad function --------
+
+Filtered inputs from 1 to 1 tensors
+
+-------- Entering patched torch.autograd.grad --------
+Output tensor: requires_grad=True, shape=torch.Size([4, 64, 960])
+Number of input tensors: 1
+Input tensor 0: requires_grad=True, shape=torch.Size([4, 64, 960])
+-------- Exiting patched grad function --------
+
+Filtered inputs from 1 to 1 tensors
+
+-------- Entering patched torch.autograd.grad --------
+Output tensor: requires_grad=True, shape=torch.Size([4, 64, 960])
+Number of input tensors: 1
+Input tensor 0: requires_grad=True, shape=torch.Size([4, 64, 960])
+-------- Exiting patched grad function --------
+
+Filtered inputs from 1 to 1 tensors
+
+-------- Entering patched torch.autograd.grad --------
+Output tensor: requires_grad=True, shape=torch.Size([4, 64, 960])
+Number of input tensors: 1
+Input tensor 0: requires_grad=True, shape=torch.Size([4, 64, 960])
+-------- Exiting patched grad function --------
+
+Filtered inputs from 1 to 1 tensors
+
+-------- Entering patched torch.autograd.grad --------
+Output tensor: requires_grad=True, shape=torch.Size([4, 256, 576])
+Number of input tensors: 1
+Input tensor 0: requires_grad=True, shape=torch.Size([4, 256, 576])
+-------- Exiting patched grad function --------
+
+Filtered inputs from 1 to 1 tensors
+
+-------- Entering patched torch.autograd.grad --------
+Output tensor: requires_grad=True, shape=torch.Size([4, 256, 576])
+Number of input tensors: 1
+Input tensor 0: requires_grad=True, shape=torch.Size([4, 256, 576])
+-------- Exiting patched grad function --------
+
+Filtered inputs from 1 to 1 tensors
+
+-------- Entering patched torch.autograd.grad --------
+Output tensor: requires_grad=True, shape=torch.Size([4, 1024, 384])
+Number of input tensors: 1
+Input tensor 0: requires_grad=True, shape=torch.Size([4, 1024, 384])
+-------- Exiting patched grad function --------
+
+Filtered inputs from 1 to 1 tensors
+
+-------- Entering patched torch.autograd.grad --------
+Output tensor: requires_grad=True, shape=torch.Size([4, 1024, 384])
+Number of input tensors: 1
+Input tensor 0: requires_grad=True, shape=torch.Size([4, 1024, 384])
+-------- Exiting patched grad function --------
+
+Module Linear received input 2 that doesn't require_grad
+Module Linear produced output 0 that doesn't require_grad
+Module Sequential received input 2 that doesn't require_grad
+Module Sequential produced output 0 that doesn't require_grad
+-------- Exiting patched grad function --------
+
+Parameter audioldm.model.diffusion_model.time_embed.2.weight is properly connected to computation graph
+
+-------- Entering patched torch.autograd.grad --------
+Output tensor: requires_grad=True, shape=torch.Size([])
+Single input tensor: requires_grad=True, shape=torch.Size([768])
+Filtered inputs from 1 to 1 tensors
+
+-------- Entering patched torch.autograd.grad --------
+Output tensor: requires_grad=True, shape=torch.Size([4, 1024, 384])
+Number of input tensors: 1
+Input tensor 0: requires_grad=True, shape=torch.Size([4, 1024, 384])
+-------- Exiting patched grad function --------
+
+Filtered inputs from 1 to 1 tensors
+
+-------- Entering patched torch.autograd.grad --------
+Output tensor: requires_grad=True, shape=torch.Size([4, 1024, 384])
+Number of input tensors: 1
+Input tensor 0: requires_grad=True, shape=torch.Size([4, 1024, 384])
+-------- Exiting patched grad function --------
+
+Filtered inputs from 1 to 1 tensors
+
+-------- Entering patched torch.autograd.grad --------
+Output tensor: requires_grad=True, shape=torch.Size([4, 1024, 384])
+Number of input tensors: 1
+Input tensor 0: requires_grad=True, shape=torch.Size([4, 1024, 384])
+-------- Exiting patched grad function --------
+
+Filtered inputs from 1 to 1 tensors
+
+-------- Entering patched torch.autograd.grad --------
+Output tensor: requires_grad=True, shape=torch.Size([4, 256, 576])
+Number of input tensors: 1
+Input tensor 0: requires_grad=True, shape=torch.Size([4, 256, 576])
+-------- Exiting patched grad function --------
+
+Filtered inputs from 1 to 1 tensors
+
+-------- Entering patched torch.autograd.grad --------
+Output tensor: requires_grad=True, shape=torch.Size([4, 256, 576])
+Number of input tensors: 1
+Input tensor 0: requires_grad=True, shape=torch.Size([4, 256, 576])
+-------- Exiting patched grad function --------
+
+Filtered inputs from 1 to 1 tensors
+
+-------- Entering patched torch.autograd.grad --------
+Output tensor: requires_grad=True, shape=torch.Size([4, 256, 576])
+Number of input tensors: 1
+Input tensor 0: requires_grad=True, shape=torch.Size([4, 256, 576])
+-------- Exiting patched grad function --------
+
+Filtered inputs from 1 to 1 tensors
+
+-------- Entering patched torch.autograd.grad --------
+Output tensor: requires_grad=True, shape=torch.Size([4, 64, 960])
+Number of input tensors: 1
+Input tensor 0: requires_grad=True, shape=torch.Size([4, 64, 960])
+-------- Exiting patched grad function --------
+
+Filtered inputs from 1 to 1 tensors
+
+-------- Entering patched torch.autograd.grad --------
+Output tensor: requires_grad=True, shape=torch.Size([4, 64, 960])
+Number of input tensors: 1
+Input tensor 0: requires_grad=True, shape=torch.Size([4, 64, 960])
+-------- Exiting patched grad function --------
+
+Filtered inputs from 1 to 1 tensors
+
+-------- Entering patched torch.autograd.grad --------
+Output tensor: requires_grad=True, shape=torch.Size([4, 64, 960])
+Number of input tensors: 1
+Input tensor 0: requires_grad=True, shape=torch.Size([4, 64, 960])
+-------- Exiting patched grad function --------
+
+Filtered inputs from 1 to 1 tensors
+
+-------- Entering patched torch.autograd.grad --------
+Output tensor: requires_grad=True, shape=torch.Size([4, 64, 960])
+Number of input tensors: 1
+Input tensor 0: requires_grad=True, shape=torch.Size([4, 64, 960])
+-------- Exiting patched grad function --------
+
+Filtered inputs from 1 to 1 tensors
+
+-------- Entering patched torch.autograd.grad --------
+Output tensor: requires_grad=True, shape=torch.Size([4, 64, 960])
+Number of input tensors: 1
+Input tensor 0: requires_grad=True, shape=torch.Size([4, 64, 960])
+-------- Exiting patched grad function --------
+
+Filtered inputs from 1 to 1 tensors
+
+-------- Entering patched torch.autograd.grad --------
+Output tensor: requires_grad=True, shape=torch.Size([4, 64, 960])
+Number of input tensors: 1
+Input tensor 0: requires_grad=True, shape=torch.Size([4, 64, 960])
+-------- Exiting patched grad function --------
+
+Filtered inputs from 1 to 1 tensors
+
+-------- Entering patched torch.autograd.grad --------
+Output tensor: requires_grad=True, shape=torch.Size([4, 256, 576])
+Number of input tensors: 1
+Input tensor 0: requires_grad=True, shape=torch.Size([4, 256, 576])
+-------- Exiting patched grad function --------
+
+Filtered inputs from 1 to 1 tensors
+
+-------- Entering patched torch.autograd.grad --------
+Output tensor: requires_grad=True, shape=torch.Size([4, 256, 576])
+Number of input tensors: 1
+Input tensor 0: requires_grad=True, shape=torch.Size([4, 256, 576])
+-------- Exiting patched grad function --------
+
+Filtered inputs from 1 to 1 tensors
+
+-------- Entering patched torch.autograd.grad --------
+Output tensor: requires_grad=True, shape=torch.Size([4, 1024, 384])
+Number of input tensors: 1
+Input tensor 0: requires_grad=True, shape=torch.Size([4, 1024, 384])
+-------- Exiting patched grad function --------
+
+Filtered inputs from 1 to 1 tensors
+
+-------- Entering patched torch.autograd.grad --------
+Output tensor: requires_grad=True, shape=torch.Size([4, 1024, 384])
+Number of input tensors: 1
+Input tensor 0: requires_grad=True, shape=torch.Size([4, 1024, 384])
+-------- Exiting patched grad function --------
+
+Module Linear received input 0 that doesn't require_grad
+Module Linear produced output 0 that doesn't require_grad
+Module Sequential received input 0 that doesn't require_grad
+Module Sequential produced output 0 that doesn't require_grad
+-------- Exiting patched grad function --------
+
+Parameter audioldm.model.diffusion_model.time_embed.2.bias is properly connected to computation graph
+
+-------- Entering patched torch.autograd.grad --------
+Output tensor: requires_grad=True, shape=torch.Size([])
+Single input tensor: requires_grad=True, shape=torch.Size([768, 512])
+Filtered inputs from 1 to 1 tensors
+
+-------- Entering patched torch.autograd.grad --------
+Output tensor: requires_grad=True, shape=torch.Size([4, 1024, 384])
+Number of input tensors: 1
+Input tensor 0: requires_grad=True, shape=torch.Size([4, 1024, 384])
+-------- Exiting patched grad function --------
+
+Filtered inputs from 1 to 1 tensors
+
+-------- Entering patched torch.autograd.grad --------
+Output tensor: requires_grad=True, shape=torch.Size([4, 1024, 384])
+Number of input tensors: 1
+Input tensor 0: requires_grad=True, shape=torch.Size([4, 1024, 384])
+-------- Exiting patched grad function --------
+
+Filtered inputs from 1 to 1 tensors
+
+-------- Entering patched torch.autograd.grad --------
+Output tensor: requires_grad=True, shape=torch.Size([4, 1024, 384])
+Number of input tensors: 1
+Input tensor 0: requires_grad=True, shape=torch.Size([4, 1024, 384])
+-------- Exiting patched grad function --------
+
+Filtered inputs from 1 to 1 tensors
+
+-------- Entering patched torch.autograd.grad --------
+Output tensor: requires_grad=True, shape=torch.Size([4, 256, 576])
+Number of input tensors: 1
+Input tensor 0: requires_grad=True, shape=torch.Size([4, 256, 576])
+-------- Exiting patched grad function --------
+
+Filtered inputs from 1 to 1 tensors
+
+-------- Entering patched torch.autograd.grad --------
+Output tensor: requires_grad=True, shape=torch.Size([4, 256, 576])
+Number of input tensors: 1
+Input tensor 0: requires_grad=True, shape=torch.Size([4, 256, 576])
+-------- Exiting patched grad function --------
+
+Filtered inputs from 1 to 1 tensors
+
+-------- Entering patched torch.autograd.grad --------
+Output tensor: requires_grad=True, shape=torch.Size([4, 256, 576])
+Number of input tensors: 1
+Input tensor 0: requires_grad=True, shape=torch.Size([4, 256, 576])
+-------- Exiting patched grad function --------
+
+Filtered inputs from 1 to 1 tensors
+
+-------- Entering patched torch.autograd.grad --------
+Output tensor: requires_grad=True, shape=torch.Size([4, 64, 960])
+Number of input tensors: 1
+Input tensor 0: requires_grad=True, shape=torch.Size([4, 64, 960])
+-------- Exiting patched grad function --------
+
+Filtered inputs from 1 to 1 tensors
+
+-------- Entering patched torch.autograd.grad --------
+Output tensor: requires_grad=True, shape=torch.Size([4, 64, 960])
+Number of input tensors: 1
+Input tensor 0: requires_grad=True, shape=torch.Size([4, 64, 960])
+-------- Exiting patched grad function --------
+
+Filtered inputs from 1 to 1 tensors
+
+-------- Entering patched torch.autograd.grad --------
+Output tensor: requires_grad=True, shape=torch.Size([4, 64, 960])
+Number of input tensors: 1
+Input tensor 0: requires_grad=True, shape=torch.Size([4, 64, 960])
+-------- Exiting patched grad function --------
+
+Filtered inputs from 1 to 1 tensors
+
+-------- Entering patched torch.autograd.grad --------
+Output tensor: requires_grad=True, shape=torch.Size([4, 64, 960])
+Number of input tensors: 1
+Input tensor 0: requires_grad=True, shape=torch.Size([4, 64, 960])
+-------- Exiting patched grad function --------
+
+Filtered inputs from 1 to 1 tensors
+
+-------- Entering patched torch.autograd.grad --------
+Output tensor: requires_grad=True, shape=torch.Size([4, 64, 960])
+Number of input tensors: 1
+Input tensor 0: requires_grad=True, shape=torch.Size([4, 64, 960])
+-------- Exiting patched grad function --------
+
+Filtered inputs from 1 to 1 tensors
+
+-------- Entering patched torch.autograd.grad --------
+Output tensor: requires_grad=True, shape=torch.Size([4, 64, 960])
+Number of input tensors: 1
+Input tensor 0: requires_grad=True, shape=torch.Size([4, 64, 960])
+-------- Exiting patched grad function --------
+
+Filtered inputs from 1 to 1 tensors
+
+-------- Entering patched torch.autograd.grad --------
+Output tensor: requires_grad=True, shape=torch.Size([4, 256, 576])
+Number of input tensors: 1
+Input tensor 0: requires_grad=True, shape=torch.Size([4, 256, 576])
+-------- Exiting patched grad function --------
+
+Filtered inputs from 1 to 1 tensors
+
+-------- Entering patched torch.autograd.grad --------
+Output tensor: requires_grad=True, shape=torch.Size([4, 256, 576])
+Number of input tensors: 1
+Input tensor 0: requires_grad=True, shape=torch.Size([4, 256, 576])
+-------- Exiting patched grad function --------
+
+Filtered inputs from 1 to 1 tensors
+
+-------- Entering patched torch.autograd.grad --------
+Output tensor: requires_grad=True, shape=torch.Size([4, 1024, 384])
+Number of input tensors: 1
+Input tensor 0: requires_grad=True, shape=torch.Size([4, 1024, 384])
+-------- Exiting patched grad function --------
+
+Filtered inputs from 1 to 1 tensors
+
+-------- Entering patched torch.autograd.grad --------
+Output tensor: requires_grad=True, shape=torch.Size([4, 1024, 384])
+Number of input tensors: 1
+Input tensor 0: requires_grad=True, shape=torch.Size([4, 1024, 384])
+-------- Exiting patched grad function --------
+
+Module Linear received input 2 that doesn't require_grad
+Module Linear produced output 0 that doesn't require_grad
+-------- Exiting patched grad function --------
+
+Parameter audioldm.model.diffusion_model.film_emb.weight is properly connected to computation graph
+
+-------- Entering patched torch.autograd.grad --------
+Output tensor: requires_grad=True, shape=torch.Size([])
+Single input tensor: requires_grad=True, shape=torch.Size([768])
+Filtered inputs from 1 to 1 tensors
+
+-------- Entering patched torch.autograd.grad --------
+Output tensor: requires_grad=True, shape=torch.Size([4, 1024, 384])
+Number of input tensors: 1
+Input tensor 0: requires_grad=True, shape=torch.Size([4, 1024, 384])
+-------- Exiting patched grad function --------
+
+Filtered inputs from 1 to 1 tensors
+
+-------- Entering patched torch.autograd.grad --------
+Output tensor: requires_grad=True, shape=torch.Size([4, 1024, 384])
+Number of input tensors: 1
+Input tensor 0: requires_grad=True, shape=torch.Size([4, 1024, 384])
+-------- Exiting patched grad function --------
+
+Filtered inputs from 1 to 1 tensors
+
+-------- Entering patched torch.autograd.grad --------
+Output tensor: requires_grad=True, shape=torch.Size([4, 1024, 384])
+Number of input tensors: 1
+Input tensor 0: requires_grad=True, shape=torch.Size([4, 1024, 384])
+-------- Exiting patched grad function --------
+
+Filtered inputs from 1 to 1 tensors
+
+-------- Entering patched torch.autograd.grad --------
+Output tensor: requires_grad=True, shape=torch.Size([4, 256, 576])
+Number of input tensors: 1
+Input tensor 0: requires_grad=True, shape=torch.Size([4, 256, 576])
+-------- Exiting patched grad function --------
+
+Filtered inputs from 1 to 1 tensors
+
+-------- Entering patched torch.autograd.grad --------
+Output tensor: requires_grad=True, shape=torch.Size([4, 256, 576])
+Number of input tensors: 1
+Input tensor 0: requires_grad=True, shape=torch.Size([4, 256, 576])
+-------- Exiting patched grad function --------
+
+Filtered inputs from 1 to 1 tensors
+
+-------- Entering patched torch.autograd.grad --------
+Output tensor: requires_grad=True, shape=torch.Size([4, 256, 576])
+Number of input tensors: 1
+Input tensor 0: requires_grad=True, shape=torch.Size([4, 256, 576])
+-------- Exiting patched grad function --------
+
+Filtered inputs from 1 to 1 tensors
+
+-------- Entering patched torch.autograd.grad --------
+Output tensor: requires_grad=True, shape=torch.Size([4, 64, 960])
+Number of input tensors: 1
+Input tensor 0: requires_grad=True, shape=torch.Size([4, 64, 960])
+-------- Exiting patched grad function --------
+
+Filtered inputs from 1 to 1 tensors
+
+-------- Entering patched torch.autograd.grad --------
+Output tensor: requires_grad=True, shape=torch.Size([4, 64, 960])
+Number of input tensors: 1
+Input tensor 0: requires_grad=True, shape=torch.Size([4, 64, 960])
+-------- Exiting patched grad function --------
+
+Filtered inputs from 1 to 1 tensors
+
+-------- Entering patched torch.autograd.grad --------
+Output tensor: requires_grad=True, shape=torch.Size([4, 64, 960])
+Number of input tensors: 1
+Input tensor 0: requires_grad=True, shape=torch.Size([4, 64, 960])
+-------- Exiting patched grad function --------
+
+Filtered inputs from 1 to 1 tensors
+
+-------- Entering patched torch.autograd.grad --------
+Output tensor: requires_grad=True, shape=torch.Size([4, 64, 960])
+Number of input tensors: 1
+Input tensor 0: requires_grad=True, shape=torch.Size([4, 64, 960])
+-------- Exiting patched grad function --------
+
+Filtered inputs from 1 to 1 tensors
+
+-------- Entering patched torch.autograd.grad --------
+Output tensor: requires_grad=True, shape=torch.Size([4, 64, 960])
+Number of input tensors: 1
+Input tensor 0: requires_grad=True, shape=torch.Size([4, 64, 960])
+-------- Exiting patched grad function --------
+
+Filtered inputs from 1 to 1 tensors
+
+-------- Entering patched torch.autograd.grad --------
+Output tensor: requires_grad=True, shape=torch.Size([4, 64, 960])
+Number of input tensors: 1
+Input tensor 0: requires_grad=True, shape=torch.Size([4, 64, 960])
+-------- Exiting patched grad function --------
+
+Filtered inputs from 1 to 1 tensors
+
+-------- Entering patched torch.autograd.grad --------
+Output tensor: requires_grad=True, shape=torch.Size([4, 256, 576])
+Number of input tensors: 1
+Input tensor 0: requires_grad=True, shape=torch.Size([4, 256, 576])
+-------- Exiting patched grad function --------
+
+Filtered inputs from 1 to 1 tensors
+
+-------- Entering patched torch.autograd.grad --------
+Output tensor: requires_grad=True, shape=torch.Size([4, 256, 576])
+Number of input tensors: 1
+Input tensor 0: requires_grad=True, shape=torch.Size([4, 256, 576])
+-------- Exiting patched grad function --------
+
+Filtered inputs from 1 to 1 tensors
+
+-------- Entering patched torch.autograd.grad --------
+Output tensor: requires_grad=True, shape=torch.Size([4, 1024, 384])
+Number of input tensors: 1
+Input tensor 0: requires_grad=True, shape=torch.Size([4, 1024, 384])
+-------- Exiting patched grad function --------
+
+Filtered inputs from 1 to 1 tensors
+
+-------- Entering patched torch.autograd.grad --------
+Output tensor: requires_grad=True, shape=torch.Size([4, 1024, 384])
+Number of input tensors: 1
+Input tensor 0: requires_grad=True, shape=torch.Size([4, 1024, 384])
+-------- Exiting patched grad function --------
+
+Module Linear received input 0 that doesn't require_grad
+Module Linear produced output 0 that doesn't require_grad
+-------- Exiting patched grad function --------
+
+Parameter audioldm.model.diffusion_model.film_emb.bias is properly connected to computation graph
+diffusion_loss requires_grad: True
+Checking gradient paths:
+Component requires_grad check: {'squared_diff': True, 'model_output': True, 'target': False}
+Visualizing autograd computation graph...
+Autograd graph saved to debug/autograd_graph.png
+FiLM conditioning graph saved to debug/film_conditioning_graph.png
+Training loss: 0.026290
+Filtered inputs from 1 to 1 tensors
+
+-------- Entering patched torch.autograd.grad --------
+Output tensor: requires_grad=True, shape=torch.Size([4, 1024, 384])
+Number of input tensors: 1
+Input tensor 0: requires_grad=True, shape=torch.Size([4, 1024, 384])
+-------- Exiting patched grad function --------
+
+Filtered inputs from 1 to 1 tensors
+
+-------- Entering patched torch.autograd.grad --------
+Output tensor: requires_grad=True, shape=torch.Size([4, 1024, 384])
+Number of input tensors: 1
+Input tensor 0: requires_grad=True, shape=torch.Size([4, 1024, 384])
+-------- Exiting patched grad function --------
+
+Filtered inputs from 1 to 1 tensors
+
+-------- Entering patched torch.autograd.grad --------
+Output tensor: requires_grad=True, shape=torch.Size([4, 1024, 384])
+Number of input tensors: 1
+Input tensor 0: requires_grad=True, shape=torch.Size([4, 1024, 384])
+-------- Exiting patched grad function --------
+
+Filtered inputs from 1 to 1 tensors
+
+-------- Entering patched torch.autograd.grad --------
+Output tensor: requires_grad=True, shape=torch.Size([4, 256, 576])
+Number of input tensors: 1
+Input tensor 0: requires_grad=True, shape=torch.Size([4, 256, 576])
+-------- Exiting patched grad function --------
+
+Filtered inputs from 1 to 1 tensors
+
+-------- Entering patched torch.autograd.grad --------
+Output tensor: requires_grad=True, shape=torch.Size([4, 256, 576])
+Number of input tensors: 1
+Input tensor 0: requires_grad=True, shape=torch.Size([4, 256, 576])
+-------- Exiting patched grad function --------
+
+Filtered inputs from 1 to 1 tensors
+
+-------- Entering patched torch.autograd.grad --------
+Output tensor: requires_grad=True, shape=torch.Size([4, 256, 576])
+Number of input tensors: 1
+Input tensor 0: requires_grad=True, shape=torch.Size([4, 256, 576])
+-------- Exiting patched grad function --------
+
+Filtered inputs from 1 to 1 tensors
+
+-------- Entering patched torch.autograd.grad --------
+Output tensor: requires_grad=True, shape=torch.Size([4, 64, 960])
+Number of input tensors: 1
+Input tensor 0: requires_grad=True, shape=torch.Size([4, 64, 960])
+-------- Exiting patched grad function --------
+
+Filtered inputs from 1 to 1 tensors
+
+-------- Entering patched torch.autograd.grad --------
+Output tensor: requires_grad=True, shape=torch.Size([4, 64, 960])
+Number of input tensors: 1
+Input tensor 0: requires_grad=True, shape=torch.Size([4, 64, 960])
+-------- Exiting patched grad function --------
+
+Filtered inputs from 1 to 1 tensors
+
+-------- Entering patched torch.autograd.grad --------
+Output tensor: requires_grad=True, shape=torch.Size([4, 64, 960])
+Number of input tensors: 1
+Input tensor 0: requires_grad=True, shape=torch.Size([4, 64, 960])
+-------- Exiting patched grad function --------
+
+Filtered inputs from 1 to 1 tensors
+
+-------- Entering patched torch.autograd.grad --------
+Output tensor: requires_grad=True, shape=torch.Size([4, 64, 960])
+Number of input tensors: 1
+Input tensor 0: requires_grad=True, shape=torch.Size([4, 64, 960])
+-------- Exiting patched grad function --------
+
+Filtered inputs from 1 to 1 tensors
+
+-------- Entering patched torch.autograd.grad --------
+Output tensor: requires_grad=True, shape=torch.Size([4, 64, 960])
+Number of input tensors: 1
+Input tensor 0: requires_grad=True, shape=torch.Size([4, 64, 960])
+-------- Exiting patched grad function --------
+
+Filtered inputs from 1 to 1 tensors
+
+-------- Entering patched torch.autograd.grad --------
+Output tensor: requires_grad=True, shape=torch.Size([4, 64, 960])
+Number of input tensors: 1
+Input tensor 0: requires_grad=True, shape=torch.Size([4, 64, 960])
+-------- Exiting patched grad function --------
+
+Filtered inputs from 1 to 1 tensors
+
+-------- Entering patched torch.autograd.grad --------
+Output tensor: requires_grad=True, shape=torch.Size([4, 256, 576])
+Number of input tensors: 1
+Input tensor 0: requires_grad=True, shape=torch.Size([4, 256, 576])
+-------- Exiting patched grad function --------
+
+Filtered inputs from 1 to 1 tensors
+
+-------- Entering patched torch.autograd.grad --------
+Output tensor: requires_grad=True, shape=torch.Size([4, 256, 576])
+Number of input tensors: 1
+Input tensor 0: requires_grad=True, shape=torch.Size([4, 256, 576])
+-------- Exiting patched grad function --------
+
+Filtered inputs from 1 to 1 tensors
+
+-------- Entering patched torch.autograd.grad --------
+Output tensor: requires_grad=True, shape=torch.Size([4, 1024, 384])
+Number of input tensors: 1
+Input tensor 0: requires_grad=True, shape=torch.Size([4, 1024, 384])
+-------- Exiting patched grad function --------
+
+Filtered inputs from 1 to 1 tensors
+
+-------- Entering patched torch.autograd.grad --------
+Output tensor: requires_grad=True, shape=torch.Size([4, 1024, 384])
+Number of input tensors: 1
+Input tensor 0: requires_grad=True, shape=torch.Size([4, 1024, 384])
+-------- Exiting patched grad function --------
+
+Module Linear received input 0 that doesn't require_grad
+Module Linear received input 1 that doesn't require_grad
+Module Linear received input 2 that doesn't require_grad
+Module Linear produced output 0 that doesn't require_grad
+Module Linear received input 0 that doesn't require_grad
+Module Linear received input 1 that doesn't require_grad
+Module Linear received input 2 that doesn't require_grad
+Module Linear produced output 0 that doesn't require_grad
+Module Sequential received input 0 that doesn't require_grad
+Module Sequential received input 1 that doesn't require_grad
+Module Sequential received input 2 that doesn't require_grad
+Module Sequential produced output 0 that doesn't require_grad
+Module SiLU received input 0 that doesn't require_grad
+Module SiLU produced output 0 that doesn't require_grad
+Module Linear received input 0 that doesn't require_grad
+Module Linear received input 2 that doesn't require_grad
+Module Linear produced output 0 that doesn't require_grad
+Epoch 0:  12%|█████████████                                                                                           | 1/8 [01:23<09:46,  0.01it/s, v_num=f73i, train/loss=0.0263, train/lr=0.0001]Filtered inputs from 1 to 1 tensors
+/root/miniconda3/envs/qvim-baseline/lib/python3.10/site-packages/torch/nn/modules/module.py:1830: FutureWarning: Using a non-full backward hook when the forward contains multiple autograd Nodes is deprecated and will be removed in future versions. This hook will be missing some grad_input. Please use register_full_backward_hook to get the documented behavior.
+  self._maybe_warn_non_full_backward_hook(args, result, grad_fn)
+
+-------- Entering patched torch.autograd.grad --------
+Output tensor: requires_grad=True, shape=torch.Size([4, 1024, 384])
+Number of input tensors: 1
+Input tensor 0: requires_grad=True, shape=torch.Size([4, 1024, 384])
+-------- Exiting patched grad function --------
+
+Filtered inputs from 1 to 1 tensors
+
+-------- Entering patched torch.autograd.grad --------
+Output tensor: requires_grad=True, shape=torch.Size([4, 1024, 384])
+Number of input tensors: 1
+Input tensor 0: requires_grad=True, shape=torch.Size([4, 1024, 384])
+-------- Exiting patched grad function --------
+
+Filtered inputs from 1 to 1 tensors
+
+-------- Entering patched torch.autograd.grad --------
+Output tensor: requires_grad=True, shape=torch.Size([4, 1024, 384])
+Number of input tensors: 1
+Input tensor 0: requires_grad=True, shape=torch.Size([4, 1024, 384])
+-------- Exiting patched grad function --------
+
+Filtered inputs from 1 to 1 tensors
+
+-------- Entering patched torch.autograd.grad --------
+Output tensor: requires_grad=True, shape=torch.Size([4, 256, 576])
+Number of input tensors: 1
+Input tensor 0: requires_grad=True, shape=torch.Size([4, 256, 576])
+-------- Exiting patched grad function --------
+
+Filtered inputs from 1 to 1 tensors
+
+-------- Entering patched torch.autograd.grad --------
+Output tensor: requires_grad=True, shape=torch.Size([4, 256, 576])
+Number of input tensors: 1
+Input tensor 0: requires_grad=True, shape=torch.Size([4, 256, 576])
+-------- Exiting patched grad function --------
+
+Filtered inputs from 1 to 1 tensors
+
+-------- Entering patched torch.autograd.grad --------
+Output tensor: requires_grad=True, shape=torch.Size([4, 256, 576])
+Number of input tensors: 1
+Input tensor 0: requires_grad=True, shape=torch.Size([4, 256, 576])
+-------- Exiting patched grad function --------
+
+Filtered inputs from 1 to 1 tensors
+
+-------- Entering patched torch.autograd.grad --------
+Output tensor: requires_grad=True, shape=torch.Size([4, 64, 960])
+Number of input tensors: 1
+Input tensor 0: requires_grad=True, shape=torch.Size([4, 64, 960])
+-------- Exiting patched grad function --------
+
+Filtered inputs from 1 to 1 tensors
+
+-------- Entering patched torch.autograd.grad --------
+Output tensor: requires_grad=True, shape=torch.Size([4, 64, 960])
+Number of input tensors: 1
+Input tensor 0: requires_grad=True, shape=torch.Size([4, 64, 960])
+-------- Exiting patched grad function --------
+
+Filtered inputs from 1 to 1 tensors
+
+-------- Entering patched torch.autograd.grad --------
+Output tensor: requires_grad=True, shape=torch.Size([4, 64, 960])
+Number of input tensors: 1
+Input tensor 0: requires_grad=True, shape=torch.Size([4, 64, 960])
+-------- Exiting patched grad function --------
+
+Filtered inputs from 1 to 1 tensors
+
+-------- Entering patched torch.autograd.grad --------
+Output tensor: requires_grad=True, shape=torch.Size([4, 64, 960])
+Number of input tensors: 1
+Input tensor 0: requires_grad=True, shape=torch.Size([4, 64, 960])
+-------- Exiting patched grad function --------
+
+Filtered inputs from 1 to 1 tensors
+
+-------- Entering patched torch.autograd.grad --------
+Output tensor: requires_grad=True, shape=torch.Size([4, 64, 960])
+Number of input tensors: 1
+Input tensor 0: requires_grad=True, shape=torch.Size([4, 64, 960])
+-------- Exiting patched grad function --------
+
+Filtered inputs from 1 to 1 tensors
+
+-------- Entering patched torch.autograd.grad --------
+Output tensor: requires_grad=True, shape=torch.Size([4, 64, 960])
+Number of input tensors: 1
+Input tensor 0: requires_grad=True, shape=torch.Size([4, 64, 960])
+-------- Exiting patched grad function --------
+
+Filtered inputs from 1 to 1 tensors
+
+-------- Entering patched torch.autograd.grad --------
+Output tensor: requires_grad=True, shape=torch.Size([4, 256, 576])
+Number of input tensors: 1
+Input tensor 0: requires_grad=True, shape=torch.Size([4, 256, 576])
+-------- Exiting patched grad function --------
+
+Filtered inputs from 1 to 1 tensors
+
+-------- Entering patched torch.autograd.grad --------
+Output tensor: requires_grad=True, shape=torch.Size([4, 256, 576])
+Number of input tensors: 1
+Input tensor 0: requires_grad=True, shape=torch.Size([4, 256, 576])
+-------- Exiting patched grad function --------
+
+Filtered inputs from 1 to 1 tensors
+
+-------- Entering patched torch.autograd.grad --------
+Output tensor: requires_grad=True, shape=torch.Size([4, 1024, 384])
+Number of input tensors: 1
+Input tensor 0: requires_grad=True, shape=torch.Size([4, 1024, 384])
+-------- Exiting patched grad function --------
+
+Filtered inputs from 1 to 1 tensors
+
+-------- Entering patched torch.autograd.grad --------
+Output tensor: requires_grad=True, shape=torch.Size([4, 1024, 384])
+Number of input tensors: 1
+Input tensor 0: requires_grad=True, shape=torch.Size([4, 1024, 384])
+-------- Exiting patched grad function --------
+
+Module Linear received input 0 that doesn't require_grad
+Module Linear received input 1 that doesn't require_grad
+Module Linear received input 2 that doesn't require_grad
+Module Linear produced output 0 that doesn't require_grad
+Module Linear received input 0 that doesn't require_grad
+Module Linear received input 1 that doesn't require_grad
+Module Linear received input 2 that doesn't require_grad
+Module Linear produced output 0 that doesn't require_grad
+Module Sequential received input 0 that doesn't require_grad
+Module Sequential received input 1 that doesn't require_grad
+Module Sequential received input 2 that doesn't require_grad
+Module Sequential produced output 0 that doesn't require_grad
+Module SiLU received input 0 that doesn't require_grad
+Module SiLU produced output 0 that doesn't require_grad
+Module Linear received input 0 that doesn't require_grad
+Module Linear received input 2 that doesn't require_grad
+Module Linear produced output 0 that doesn't require_grad
+Epoch 0:  25%|██████████████████████████▎                                                                              | 2/8 [01:26<04:20,  0.02it/s, v_num=f73i, train/loss=0.324, train/lr=0.0001]Filtered inputs from 1 to 1 tensors
+
+-------- Entering patched torch.autograd.grad --------
+Output tensor: requires_grad=True, shape=torch.Size([4, 1024, 384])
+Number of input tensors: 1
+Input tensor 0: requires_grad=True, shape=torch.Size([4, 1024, 384])
+-------- Exiting patched grad function --------
+
+Filtered inputs from 1 to 1 tensors
+
+-------- Entering patched torch.autograd.grad --------
+Output tensor: requires_grad=True, shape=torch.Size([4, 1024, 384])
+Number of input tensors: 1
+Input tensor 0: requires_grad=True, shape=torch.Size([4, 1024, 384])
+-------- Exiting patched grad function --------
+
+Filtered inputs from 1 to 1 tensors
+
+-------- Entering patched torch.autograd.grad --------
+Output tensor: requires_grad=True, shape=torch.Size([4, 1024, 384])
+Number of input tensors: 1
+Input tensor 0: requires_grad=True, shape=torch.Size([4, 1024, 384])
+-------- Exiting patched grad function --------
+
+Filtered inputs from 1 to 1 tensors
+
+-------- Entering patched torch.autograd.grad --------
+Output tensor: requires_grad=True, shape=torch.Size([4, 256, 576])
+Number of input tensors: 1
+Input tensor 0: requires_grad=True, shape=torch.Size([4, 256, 576])
+-------- Exiting patched grad function --------
+
+Filtered inputs from 1 to 1 tensors
+
+-------- Entering patched torch.autograd.grad --------
+Output tensor: requires_grad=True, shape=torch.Size([4, 256, 576])
+Number of input tensors: 1
+Input tensor 0: requires_grad=True, shape=torch.Size([4, 256, 576])
+-------- Exiting patched grad function --------
+
+Filtered inputs from 1 to 1 tensors
+
+-------- Entering patched torch.autograd.grad --------
+Output tensor: requires_grad=True, shape=torch.Size([4, 256, 576])
+Number of input tensors: 1
+Input tensor 0: requires_grad=True, shape=torch.Size([4, 256, 576])
+-------- Exiting patched grad function --------
+
+Filtered inputs from 1 to 1 tensors
+
+-------- Entering patched torch.autograd.grad --------
+Output tensor: requires_grad=True, shape=torch.Size([4, 64, 960])
+Number of input tensors: 1
+Input tensor 0: requires_grad=True, shape=torch.Size([4, 64, 960])
+-------- Exiting patched grad function --------
+
+Filtered inputs from 1 to 1 tensors
+
+-------- Entering patched torch.autograd.grad --------
+Output tensor: requires_grad=True, shape=torch.Size([4, 64, 960])
+Number of input tensors: 1
+Input tensor 0: requires_grad=True, shape=torch.Size([4, 64, 960])
+-------- Exiting patched grad function --------
+
+Filtered inputs from 1 to 1 tensors
+
+-------- Entering patched torch.autograd.grad --------
+Output tensor: requires_grad=True, shape=torch.Size([4, 64, 960])
+Number of input tensors: 1
+Input tensor 0: requires_grad=True, shape=torch.Size([4, 64, 960])
+-------- Exiting patched grad function --------
+
+Filtered inputs from 1 to 1 tensors
+
+-------- Entering patched torch.autograd.grad --------
+Output tensor: requires_grad=True, shape=torch.Size([4, 64, 960])
+Number of input tensors: 1
+Input tensor 0: requires_grad=True, shape=torch.Size([4, 64, 960])
+-------- Exiting patched grad function --------
+
+Filtered inputs from 1 to 1 tensors
+
+-------- Entering patched torch.autograd.grad --------
+Output tensor: requires_grad=True, shape=torch.Size([4, 64, 960])
+Number of input tensors: 1
+Input tensor 0: requires_grad=True, shape=torch.Size([4, 64, 960])
+-------- Exiting patched grad function --------
+
+Filtered inputs from 1 to 1 tensors
+
+-------- Entering patched torch.autograd.grad --------
+Output tensor: requires_grad=True, shape=torch.Size([4, 64, 960])
+Number of input tensors: 1
+Input tensor 0: requires_grad=True, shape=torch.Size([4, 64, 960])
+-------- Exiting patched grad function --------
+
+Filtered inputs from 1 to 1 tensors
+
+-------- Entering patched torch.autograd.grad --------
+Output tensor: requires_grad=True, shape=torch.Size([4, 256, 576])
+Number of input tensors: 1
+Input tensor 0: requires_grad=True, shape=torch.Size([4, 256, 576])
+-------- Exiting patched grad function --------
+
+Filtered inputs from 1 to 1 tensors
+
+-------- Entering patched torch.autograd.grad --------
+Output tensor: requires_grad=True, shape=torch.Size([4, 256, 576])
+Number of input tensors: 1
+Input tensor 0: requires_grad=True, shape=torch.Size([4, 256, 576])
+-------- Exiting patched grad function --------
+
+Filtered inputs from 1 to 1 tensors
+
+-------- Entering patched torch.autograd.grad --------
+Output tensor: requires_grad=True, shape=torch.Size([4, 1024, 384])
+Number of input tensors: 1
+Input tensor 0: requires_grad=True, shape=torch.Size([4, 1024, 384])
+-------- Exiting patched grad function --------
+
+Filtered inputs from 1 to 1 tensors
+
+-------- Entering patched torch.autograd.grad --------
+Output tensor: requires_grad=True, shape=torch.Size([4, 1024, 384])
+Number of input tensors: 1
+Input tensor 0: requires_grad=True, shape=torch.Size([4, 1024, 384])
+-------- Exiting patched grad function --------
+
+Module Linear received input 0 that doesn't require_grad
+Module Linear received input 1 that doesn't require_grad
+Module Linear received input 2 that doesn't require_grad
+Module Linear produced output 0 that doesn't require_grad
+Module Linear received input 0 that doesn't require_grad
+Module Linear received input 1 that doesn't require_grad
+Module Linear received input 2 that doesn't require_grad
+Module Linear produced output 0 that doesn't require_grad
+Module Sequential received input 0 that doesn't require_grad
+Module Sequential received input 1 that doesn't require_grad
+Module Sequential received input 2 that doesn't require_grad
+Module Sequential produced output 0 that doesn't require_grad
+Module SiLU received input 0 that doesn't require_grad
+Module SiLU produced output 0 that doesn't require_grad
+Module Linear received input 0 that doesn't require_grad
+Module Linear received input 2 that doesn't require_grad
+Module Linear produced output 0 that doesn't require_grad
+Epoch 0:  38%|███████████████████████████████████████                                                                 | 3/8 [01:29<02:29,  0.03it/s, v_num=f73i, train/loss=0.0297, train/lr=0.0001]Filtered inputs from 1 to 1 tensors
+
+-------- Entering patched torch.autograd.grad --------
+Output tensor: requires_grad=True, shape=torch.Size([4, 1024, 384])
+Number of input tensors: 1
+Input tensor 0: requires_grad=True, shape=torch.Size([4, 1024, 384])
+-------- Exiting patched grad function --------
+
+Filtered inputs from 1 to 1 tensors
+
+-------- Entering patched torch.autograd.grad --------
+Output tensor: requires_grad=True, shape=torch.Size([4, 1024, 384])
+Number of input tensors: 1
+Input tensor 0: requires_grad=True, shape=torch.Size([4, 1024, 384])
+-------- Exiting patched grad function --------
+
+Filtered inputs from 1 to 1 tensors
+
+-------- Entering patched torch.autograd.grad --------
+Output tensor: requires_grad=True, shape=torch.Size([4, 1024, 384])
+Number of input tensors: 1
+Input tensor 0: requires_grad=True, shape=torch.Size([4, 1024, 384])
+-------- Exiting patched grad function --------
+
+Filtered inputs from 1 to 1 tensors
+
+-------- Entering patched torch.autograd.grad --------
+Output tensor: requires_grad=True, shape=torch.Size([4, 256, 576])
+Number of input tensors: 1
+Input tensor 0: requires_grad=True, shape=torch.Size([4, 256, 576])
+-------- Exiting patched grad function --------
+
+Filtered inputs from 1 to 1 tensors
+
+-------- Entering patched torch.autograd.grad --------
+Output tensor: requires_grad=True, shape=torch.Size([4, 256, 576])
+Number of input tensors: 1
+Input tensor 0: requires_grad=True, shape=torch.Size([4, 256, 576])
+-------- Exiting patched grad function --------
+
+Filtered inputs from 1 to 1 tensors
+
+-------- Entering patched torch.autograd.grad --------
+Output tensor: requires_grad=True, shape=torch.Size([4, 256, 576])
+Number of input tensors: 1
+Input tensor 0: requires_grad=True, shape=torch.Size([4, 256, 576])
+-------- Exiting patched grad function --------
+
+Filtered inputs from 1 to 1 tensors
+
+-------- Entering patched torch.autograd.grad --------
+Output tensor: requires_grad=True, shape=torch.Size([4, 64, 960])
+Number of input tensors: 1
+Input tensor 0: requires_grad=True, shape=torch.Size([4, 64, 960])
+-------- Exiting patched grad function --------
+
+Filtered inputs from 1 to 1 tensors
+
+-------- Entering patched torch.autograd.grad --------
+Output tensor: requires_grad=True, shape=torch.Size([4, 64, 960])
+Number of input tensors: 1
+Input tensor 0: requires_grad=True, shape=torch.Size([4, 64, 960])
+-------- Exiting patched grad function --------
+
+Filtered inputs from 1 to 1 tensors
+
+-------- Entering patched torch.autograd.grad --------
+Output tensor: requires_grad=True, shape=torch.Size([4, 64, 960])
+Number of input tensors: 1
+Input tensor 0: requires_grad=True, shape=torch.Size([4, 64, 960])
+-------- Exiting patched grad function --------
+
+Filtered inputs from 1 to 1 tensors
+
+-------- Entering patched torch.autograd.grad --------
+Output tensor: requires_grad=True, shape=torch.Size([4, 64, 960])
+Number of input tensors: 1
+Input tensor 0: requires_grad=True, shape=torch.Size([4, 64, 960])
+-------- Exiting patched grad function --------
+
+Filtered inputs from 1 to 1 tensors
+
+-------- Entering patched torch.autograd.grad --------
+Output tensor: requires_grad=True, shape=torch.Size([4, 64, 960])
+Number of input tensors: 1
+Input tensor 0: requires_grad=True, shape=torch.Size([4, 64, 960])
+-------- Exiting patched grad function --------
+
+Filtered inputs from 1 to 1 tensors
+
+-------- Entering patched torch.autograd.grad --------
+Output tensor: requires_grad=True, shape=torch.Size([4, 64, 960])
+Number of input tensors: 1
+Input tensor 0: requires_grad=True, shape=torch.Size([4, 64, 960])
+-------- Exiting patched grad function --------
+
+Filtered inputs from 1 to 1 tensors
+
+-------- Entering patched torch.autograd.grad --------
+Output tensor: requires_grad=True, shape=torch.Size([4, 256, 576])
+Number of input tensors: 1
+Input tensor 0: requires_grad=True, shape=torch.Size([4, 256, 576])
+-------- Exiting patched grad function --------
+
+Filtered inputs from 1 to 1 tensors
+
+-------- Entering patched torch.autograd.grad --------
+Output tensor: requires_grad=True, shape=torch.Size([4, 256, 576])
+Number of input tensors: 1
+Input tensor 0: requires_grad=True, shape=torch.Size([4, 256, 576])
+-------- Exiting patched grad function --------
+
+Filtered inputs from 1 to 1 tensors
+
+-------- Entering patched torch.autograd.grad --------
+Output tensor: requires_grad=True, shape=torch.Size([4, 1024, 384])
+Number of input tensors: 1
+Input tensor 0: requires_grad=True, shape=torch.Size([4, 1024, 384])
+-------- Exiting patched grad function --------
+
+Filtered inputs from 1 to 1 tensors
+
+-------- Entering patched torch.autograd.grad --------
+Output tensor: requires_grad=True, shape=torch.Size([4, 1024, 384])
+Number of input tensors: 1
+Input tensor 0: requires_grad=True, shape=torch.Size([4, 1024, 384])
+-------- Exiting patched grad function --------
+
+Module Linear received input 0 that doesn't require_grad
+Module Linear received input 1 that doesn't require_grad
+Module Linear received input 2 that doesn't require_grad
+Module Linear produced output 0 that doesn't require_grad
+Module Linear received input 0 that doesn't require_grad
+Module Linear received input 1 that doesn't require_grad
+Module Linear received input 2 that doesn't require_grad
+Module Linear produced output 0 that doesn't require_grad
+Module Sequential received input 0 that doesn't require_grad
+Module Sequential received input 1 that doesn't require_grad
+Module Sequential received input 2 that doesn't require_grad
+Module Sequential produced output 0 that doesn't require_grad
+Module SiLU received input 0 that doesn't require_grad
+Module SiLU produced output 0 that doesn't require_grad
+Module Linear received input 0 that doesn't require_grad
+Module Linear received input 2 that doesn't require_grad
+Module Linear produced output 0 that doesn't require_grad
+Epoch 0:  50%|████████████████████████████████████████████████████                                                    | 4/8 [01:32<01:32,  0.04it/s, v_num=f73i, train/loss=0.0675, train/lr=0.0001]Filtered inputs from 1 to 1 tensors
+
+-------- Entering patched torch.autograd.grad --------
+Output tensor: requires_grad=True, shape=torch.Size([4, 1024, 384])
+Number of input tensors: 1
+Input tensor 0: requires_grad=True, shape=torch.Size([4, 1024, 384])
+-------- Exiting patched grad function --------
+
+Filtered inputs from 1 to 1 tensors
+
+-------- Entering patched torch.autograd.grad --------
+Output tensor: requires_grad=True, shape=torch.Size([4, 1024, 384])
+Number of input tensors: 1
+Input tensor 0: requires_grad=True, shape=torch.Size([4, 1024, 384])
+-------- Exiting patched grad function --------
+
+Filtered inputs from 1 to 1 tensors
+
+-------- Entering patched torch.autograd.grad --------
+Output tensor: requires_grad=True, shape=torch.Size([4, 1024, 384])
+Number of input tensors: 1
+Input tensor 0: requires_grad=True, shape=torch.Size([4, 1024, 384])
+-------- Exiting patched grad function --------
+
+Filtered inputs from 1 to 1 tensors
+
+-------- Entering patched torch.autograd.grad --------
+Output tensor: requires_grad=True, shape=torch.Size([4, 256, 576])
+Number of input tensors: 1
+Input tensor 0: requires_grad=True, shape=torch.Size([4, 256, 576])
+-------- Exiting patched grad function --------
+
+Filtered inputs from 1 to 1 tensors
+
+-------- Entering patched torch.autograd.grad --------
+Output tensor: requires_grad=True, shape=torch.Size([4, 256, 576])
+Number of input tensors: 1
+Input tensor 0: requires_grad=True, shape=torch.Size([4, 256, 576])
+-------- Exiting patched grad function --------
+
+Filtered inputs from 1 to 1 tensors
+
+-------- Entering patched torch.autograd.grad --------
+Output tensor: requires_grad=True, shape=torch.Size([4, 256, 576])
+Number of input tensors: 1
+Input tensor 0: requires_grad=True, shape=torch.Size([4, 256, 576])
+-------- Exiting patched grad function --------
+
+Filtered inputs from 1 to 1 tensors
+
+-------- Entering patched torch.autograd.grad --------
+Output tensor: requires_grad=True, shape=torch.Size([4, 64, 960])
+Number of input tensors: 1
+Input tensor 0: requires_grad=True, shape=torch.Size([4, 64, 960])
+-------- Exiting patched grad function --------
+
+Filtered inputs from 1 to 1 tensors
+
+-------- Entering patched torch.autograd.grad --------
+Output tensor: requires_grad=True, shape=torch.Size([4, 64, 960])
+Number of input tensors: 1
+Input tensor 0: requires_grad=True, shape=torch.Size([4, 64, 960])
+-------- Exiting patched grad function --------
+
+Filtered inputs from 1 to 1 tensors
+
+-------- Entering patched torch.autograd.grad --------
+Output tensor: requires_grad=True, shape=torch.Size([4, 64, 960])
+Number of input tensors: 1
+Input tensor 0: requires_grad=True, shape=torch.Size([4, 64, 960])
+-------- Exiting patched grad function --------
+
+Filtered inputs from 1 to 1 tensors
+
+-------- Entering patched torch.autograd.grad --------
+Output tensor: requires_grad=True, shape=torch.Size([4, 64, 960])
+Number of input tensors: 1
+Input tensor 0: requires_grad=True, shape=torch.Size([4, 64, 960])
+-------- Exiting patched grad function --------
+
+Filtered inputs from 1 to 1 tensors
+
+-------- Entering patched torch.autograd.grad --------
+Output tensor: requires_grad=True, shape=torch.Size([4, 64, 960])
+Number of input tensors: 1
+Input tensor 0: requires_grad=True, shape=torch.Size([4, 64, 960])
+-------- Exiting patched grad function --------
+
+Filtered inputs from 1 to 1 tensors
+
+-------- Entering patched torch.autograd.grad --------
+Output tensor: requires_grad=True, shape=torch.Size([4, 64, 960])
+Number of input tensors: 1
+Input tensor 0: requires_grad=True, shape=torch.Size([4, 64, 960])
+-------- Exiting patched grad function --------
+
+Filtered inputs from 1 to 1 tensors
+
+-------- Entering patched torch.autograd.grad --------
+Output tensor: requires_grad=True, shape=torch.Size([4, 256, 576])
+Number of input tensors: 1
+Input tensor 0: requires_grad=True, shape=torch.Size([4, 256, 576])
+-------- Exiting patched grad function --------
+
+Filtered inputs from 1 to 1 tensors
+
+-------- Entering patched torch.autograd.grad --------
+Output tensor: requires_grad=True, shape=torch.Size([4, 256, 576])
+Number of input tensors: 1
+Input tensor 0: requires_grad=True, shape=torch.Size([4, 256, 576])
+-------- Exiting patched grad function --------
+
+Filtered inputs from 1 to 1 tensors
+
+-------- Entering patched torch.autograd.grad --------
+Output tensor: requires_grad=True, shape=torch.Size([4, 1024, 384])
+Number of input tensors: 1
+Input tensor 0: requires_grad=True, shape=torch.Size([4, 1024, 384])
+-------- Exiting patched grad function --------
+
+Filtered inputs from 1 to 1 tensors
+
+-------- Entering patched torch.autograd.grad --------
+Output tensor: requires_grad=True, shape=torch.Size([4, 1024, 384])
+Number of input tensors: 1
+Input tensor 0: requires_grad=True, shape=torch.Size([4, 1024, 384])
+-------- Exiting patched grad function --------
+
+Module Linear received input 0 that doesn't require_grad
+Module Linear received input 1 that doesn't require_grad
+Module Linear received input 2 that doesn't require_grad
+Module Linear produced output 0 that doesn't require_grad
+Module Linear received input 0 that doesn't require_grad
+Module Linear received input 1 that doesn't require_grad
+Module Linear received input 2 that doesn't require_grad
+Module Linear produced output 0 that doesn't require_grad
+Module Sequential received input 0 that doesn't require_grad
+Module Sequential received input 1 that doesn't require_grad
+Module Sequential received input 2 that doesn't require_grad
+Module Sequential produced output 0 that doesn't require_grad
+Module SiLU received input 0 that doesn't require_grad
+Module SiLU produced output 0 that doesn't require_grad
+Module Linear received input 0 that doesn't require_grad
+Module Linear received input 2 that doesn't require_grad
+Module Linear produced output 0 that doesn't require_grad
+Epoch 0:  62%|█████████████████████████████████████████████████████████████████▋                                       | 5/8 [01:35<00:57,  0.05it/s, v_num=f73i, train/loss=0.302, train/lr=0.0001]Filtered inputs from 1 to 1 tensors
+
+-------- Entering patched torch.autograd.grad --------
+Output tensor: requires_grad=True, shape=torch.Size([4, 1024, 384])
+Number of input tensors: 1
+Input tensor 0: requires_grad=True, shape=torch.Size([4, 1024, 384])
+-------- Exiting patched grad function --------
+
+Filtered inputs from 1 to 1 tensors
+
+-------- Entering patched torch.autograd.grad --------
+Output tensor: requires_grad=True, shape=torch.Size([4, 1024, 384])
+Number of input tensors: 1
+Input tensor 0: requires_grad=True, shape=torch.Size([4, 1024, 384])
+-------- Exiting patched grad function --------
+
+Filtered inputs from 1 to 1 tensors
+
+-------- Entering patched torch.autograd.grad --------
+Output tensor: requires_grad=True, shape=torch.Size([4, 1024, 384])
+Number of input tensors: 1
+Input tensor 0: requires_grad=True, shape=torch.Size([4, 1024, 384])
+-------- Exiting patched grad function --------
+
+Filtered inputs from 1 to 1 tensors
+
+-------- Entering patched torch.autograd.grad --------
+Output tensor: requires_grad=True, shape=torch.Size([4, 256, 576])
+Number of input tensors: 1
+Input tensor 0: requires_grad=True, shape=torch.Size([4, 256, 576])
+-------- Exiting patched grad function --------
+
+Filtered inputs from 1 to 1 tensors
+
+-------- Entering patched torch.autograd.grad --------
+Output tensor: requires_grad=True, shape=torch.Size([4, 256, 576])
+Number of input tensors: 1
+Input tensor 0: requires_grad=True, shape=torch.Size([4, 256, 576])
+-------- Exiting patched grad function --------
+
+Filtered inputs from 1 to 1 tensors
+
+-------- Entering patched torch.autograd.grad --------
+Output tensor: requires_grad=True, shape=torch.Size([4, 256, 576])
+Number of input tensors: 1
+Input tensor 0: requires_grad=True, shape=torch.Size([4, 256, 576])
+-------- Exiting patched grad function --------
+
+Filtered inputs from 1 to 1 tensors
+
+-------- Entering patched torch.autograd.grad --------
+Output tensor: requires_grad=True, shape=torch.Size([4, 64, 960])
+Number of input tensors: 1
+Input tensor 0: requires_grad=True, shape=torch.Size([4, 64, 960])
+-------- Exiting patched grad function --------
+
+Filtered inputs from 1 to 1 tensors
+
+-------- Entering patched torch.autograd.grad --------
+Output tensor: requires_grad=True, shape=torch.Size([4, 64, 960])
+Number of input tensors: 1
+Input tensor 0: requires_grad=True, shape=torch.Size([4, 64, 960])
+-------- Exiting patched grad function --------
+
+Filtered inputs from 1 to 1 tensors
+
+-------- Entering patched torch.autograd.grad --------
+Output tensor: requires_grad=True, shape=torch.Size([4, 64, 960])
+Number of input tensors: 1
+Input tensor 0: requires_grad=True, shape=torch.Size([4, 64, 960])
+-------- Exiting patched grad function --------
+
+Filtered inputs from 1 to 1 tensors
+
+-------- Entering patched torch.autograd.grad --------
+Output tensor: requires_grad=True, shape=torch.Size([4, 64, 960])
+Number of input tensors: 1
+Input tensor 0: requires_grad=True, shape=torch.Size([4, 64, 960])
+-------- Exiting patched grad function --------
+
+Filtered inputs from 1 to 1 tensors
+
+-------- Entering patched torch.autograd.grad --------
+Output tensor: requires_grad=True, shape=torch.Size([4, 64, 960])
+Number of input tensors: 1
+Input tensor 0: requires_grad=True, shape=torch.Size([4, 64, 960])
+-------- Exiting patched grad function --------
+
+Filtered inputs from 1 to 1 tensors
+
+-------- Entering patched torch.autograd.grad --------
+Output tensor: requires_grad=True, shape=torch.Size([4, 64, 960])
+Number of input tensors: 1
+Input tensor 0: requires_grad=True, shape=torch.Size([4, 64, 960])
+-------- Exiting patched grad function --------
+
+Filtered inputs from 1 to 1 tensors
+
+-------- Entering patched torch.autograd.grad --------
+Output tensor: requires_grad=True, shape=torch.Size([4, 256, 576])
+Number of input tensors: 1
+Input tensor 0: requires_grad=True, shape=torch.Size([4, 256, 576])
+-------- Exiting patched grad function --------
+
+Filtered inputs from 1 to 1 tensors
+
+-------- Entering patched torch.autograd.grad --------
+Output tensor: requires_grad=True, shape=torch.Size([4, 256, 576])
+Number of input tensors: 1
+Input tensor 0: requires_grad=True, shape=torch.Size([4, 256, 576])
+-------- Exiting patched grad function --------
+
+Filtered inputs from 1 to 1 tensors
+
+-------- Entering patched torch.autograd.grad --------
+Output tensor: requires_grad=True, shape=torch.Size([4, 1024, 384])
+Number of input tensors: 1
+Input tensor 0: requires_grad=True, shape=torch.Size([4, 1024, 384])
+-------- Exiting patched grad function --------
+
+Filtered inputs from 1 to 1 tensors
+
+-------- Entering patched torch.autograd.grad --------
+Output tensor: requires_grad=True, shape=torch.Size([4, 1024, 384])
+Number of input tensors: 1
+Input tensor 0: requires_grad=True, shape=torch.Size([4, 1024, 384])
+-------- Exiting patched grad function --------
+
+Module Linear received input 0 that doesn't require_grad
+Module Linear received input 1 that doesn't require_grad
+Module Linear received input 2 that doesn't require_grad
+Module Linear produced output 0 that doesn't require_grad
+Module Linear received input 0 that doesn't require_grad
+Module Linear received input 1 that doesn't require_grad
+Module Linear received input 2 that doesn't require_grad
+Module Linear produced output 0 that doesn't require_grad
+Module Sequential received input 0 that doesn't require_grad
+Module Sequential received input 1 that doesn't require_grad
+Module Sequential received input 2 that doesn't require_grad
+Module Sequential produced output 0 that doesn't require_grad
+Module SiLU received input 0 that doesn't require_grad
+Module SiLU produced output 0 that doesn't require_grad
+Module Linear received input 0 that doesn't require_grad
+Module Linear received input 2 that doesn't require_grad
+Module Linear produced output 0 that doesn't require_grad
+Epoch 0:  75%|██████████████████████████████████████████████████████████████████████████████                          | 6/8 [01:38<00:32,  0.06it/s, v_num=f73i, train/loss=0.0695, train/lr=0.0001]Filtered inputs from 1 to 1 tensors
+
+-------- Entering patched torch.autograd.grad --------
+Output tensor: requires_grad=True, shape=torch.Size([4, 1024, 384])
+Number of input tensors: 1
+Input tensor 0: requires_grad=True, shape=torch.Size([4, 1024, 384])
+-------- Exiting patched grad function --------
+
+Filtered inputs from 1 to 1 tensors
+
+-------- Entering patched torch.autograd.grad --------
+Output tensor: requires_grad=True, shape=torch.Size([4, 1024, 384])
+Number of input tensors: 1
+Input tensor 0: requires_grad=True, shape=torch.Size([4, 1024, 384])
+-------- Exiting patched grad function --------
+
+Filtered inputs from 1 to 1 tensors
+
+-------- Entering patched torch.autograd.grad --------
+Output tensor: requires_grad=True, shape=torch.Size([4, 1024, 384])
+Number of input tensors: 1
+Input tensor 0: requires_grad=True, shape=torch.Size([4, 1024, 384])
+-------- Exiting patched grad function --------
+
+Filtered inputs from 1 to 1 tensors
+
+-------- Entering patched torch.autograd.grad --------
+Output tensor: requires_grad=True, shape=torch.Size([4, 256, 576])
+Number of input tensors: 1
+Input tensor 0: requires_grad=True, shape=torch.Size([4, 256, 576])
+-------- Exiting patched grad function --------
+
+Filtered inputs from 1 to 1 tensors
+
+-------- Entering patched torch.autograd.grad --------
+Output tensor: requires_grad=True, shape=torch.Size([4, 256, 576])
+Number of input tensors: 1
+Input tensor 0: requires_grad=True, shape=torch.Size([4, 256, 576])
+-------- Exiting patched grad function --------
+
+Filtered inputs from 1 to 1 tensors
+
+-------- Entering patched torch.autograd.grad --------
+Output tensor: requires_grad=True, shape=torch.Size([4, 256, 576])
+Number of input tensors: 1
+Input tensor 0: requires_grad=True, shape=torch.Size([4, 256, 576])
+-------- Exiting patched grad function --------
+
+Filtered inputs from 1 to 1 tensors
+
+-------- Entering patched torch.autograd.grad --------
+Output tensor: requires_grad=True, shape=torch.Size([4, 64, 960])
+Number of input tensors: 1
+Input tensor 0: requires_grad=True, shape=torch.Size([4, 64, 960])
+-------- Exiting patched grad function --------
+
+Filtered inputs from 1 to 1 tensors
+
+-------- Entering patched torch.autograd.grad --------
+Output tensor: requires_grad=True, shape=torch.Size([4, 64, 960])
+Number of input tensors: 1
+Input tensor 0: requires_grad=True, shape=torch.Size([4, 64, 960])
+-------- Exiting patched grad function --------
+
+Filtered inputs from 1 to 1 tensors
+
+-------- Entering patched torch.autograd.grad --------
+Output tensor: requires_grad=True, shape=torch.Size([4, 64, 960])
+Number of input tensors: 1
+Input tensor 0: requires_grad=True, shape=torch.Size([4, 64, 960])
+-------- Exiting patched grad function --------
+
+Filtered inputs from 1 to 1 tensors
+
+-------- Entering patched torch.autograd.grad --------
+Output tensor: requires_grad=True, shape=torch.Size([4, 64, 960])
+Number of input tensors: 1
+Input tensor 0: requires_grad=True, shape=torch.Size([4, 64, 960])
+-------- Exiting patched grad function --------
+
+Filtered inputs from 1 to 1 tensors
+
+-------- Entering patched torch.autograd.grad --------
+Output tensor: requires_grad=True, shape=torch.Size([4, 64, 960])
+Number of input tensors: 1
+Input tensor 0: requires_grad=True, shape=torch.Size([4, 64, 960])
+-------- Exiting patched grad function --------
+
+Filtered inputs from 1 to 1 tensors
+
+-------- Entering patched torch.autograd.grad --------
+Output tensor: requires_grad=True, shape=torch.Size([4, 64, 960])
+Number of input tensors: 1
+Input tensor 0: requires_grad=True, shape=torch.Size([4, 64, 960])
+-------- Exiting patched grad function --------
+
+Filtered inputs from 1 to 1 tensors
+
+-------- Entering patched torch.autograd.grad --------
+Output tensor: requires_grad=True, shape=torch.Size([4, 256, 576])
+Number of input tensors: 1
+Input tensor 0: requires_grad=True, shape=torch.Size([4, 256, 576])
+-------- Exiting patched grad function --------
+
+Filtered inputs from 1 to 1 tensors
+
+-------- Entering patched torch.autograd.grad --------
+Output tensor: requires_grad=True, shape=torch.Size([4, 256, 576])
+Number of input tensors: 1
+Input tensor 0: requires_grad=True, shape=torch.Size([4, 256, 576])
+-------- Exiting patched grad function --------
+
+Filtered inputs from 1 to 1 tensors
+
+-------- Entering patched torch.autograd.grad --------
+Output tensor: requires_grad=True, shape=torch.Size([4, 1024, 384])
+Number of input tensors: 1
+Input tensor 0: requires_grad=True, shape=torch.Size([4, 1024, 384])
+-------- Exiting patched grad function --------
+
+Filtered inputs from 1 to 1 tensors
+
+-------- Entering patched torch.autograd.grad --------
+Output tensor: requires_grad=True, shape=torch.Size([4, 1024, 384])
+Number of input tensors: 1
+Input tensor 0: requires_grad=True, shape=torch.Size([4, 1024, 384])
+-------- Exiting patched grad function --------
+
+Module Linear received input 0 that doesn't require_grad
+Module Linear received input 1 that doesn't require_grad
+Module Linear received input 2 that doesn't require_grad
+Module Linear produced output 0 that doesn't require_grad
+Module Linear received input 0 that doesn't require_grad
+Module Linear received input 1 that doesn't require_grad
+Module Linear received input 2 that doesn't require_grad
+Module Linear produced output 0 that doesn't require_grad
+Module Sequential received input 0 that doesn't require_grad
+Module Sequential received input 1 that doesn't require_grad
+Module Sequential received input 2 that doesn't require_grad
+Module Sequential produced output 0 that doesn't require_grad
+Module SiLU received input 0 that doesn't require_grad
+Module SiLU produced output 0 that doesn't require_grad
+Module Linear received input 0 that doesn't require_grad
+Module Linear received input 2 that doesn't require_grad
+Module Linear produced output 0 that doesn't require_grad
+Epoch 0:  88%|██████████████████████████████████████████████████████████████████████████████████████████▏            | 7/8 [01:41<00:14,  0.07it/s, v_num=f73i, train/loss=0.00538, train/lr=0.0001]Filtered inputs from 1 to 1 tensors
+
+-------- Entering patched torch.autograd.grad --------
+Output tensor: requires_grad=True, shape=torch.Size([4, 1024, 384])
+Number of input tensors: 1
+Input tensor 0: requires_grad=True, shape=torch.Size([4, 1024, 384])
+-------- Exiting patched grad function --------
+
+Filtered inputs from 1 to 1 tensors
+
+-------- Entering patched torch.autograd.grad --------
+Output tensor: requires_grad=True, shape=torch.Size([4, 1024, 384])
+Number of input tensors: 1
+Input tensor 0: requires_grad=True, shape=torch.Size([4, 1024, 384])
+-------- Exiting patched grad function --------
+
+Filtered inputs from 1 to 1 tensors
+
+-------- Entering patched torch.autograd.grad --------
+Output tensor: requires_grad=True, shape=torch.Size([4, 1024, 384])
+Number of input tensors: 1
+Input tensor 0: requires_grad=True, shape=torch.Size([4, 1024, 384])
+-------- Exiting patched grad function --------
+
+Filtered inputs from 1 to 1 tensors
+
+-------- Entering patched torch.autograd.grad --------
+Output tensor: requires_grad=True, shape=torch.Size([4, 256, 576])
+Number of input tensors: 1
+Input tensor 0: requires_grad=True, shape=torch.Size([4, 256, 576])
+-------- Exiting patched grad function --------
+
+Filtered inputs from 1 to 1 tensors
+
+-------- Entering patched torch.autograd.grad --------
+Output tensor: requires_grad=True, shape=torch.Size([4, 256, 576])
+Number of input tensors: 1
+Input tensor 0: requires_grad=True, shape=torch.Size([4, 256, 576])
+-------- Exiting patched grad function --------
+
+Filtered inputs from 1 to 1 tensors
+
+-------- Entering patched torch.autograd.grad --------
+Output tensor: requires_grad=True, shape=torch.Size([4, 256, 576])
+Number of input tensors: 1
+Input tensor 0: requires_grad=True, shape=torch.Size([4, 256, 576])
+-------- Exiting patched grad function --------
+
+Filtered inputs from 1 to 1 tensors
+
+-------- Entering patched torch.autograd.grad --------
+Output tensor: requires_grad=True, shape=torch.Size([4, 64, 960])
+Number of input tensors: 1
+Input tensor 0: requires_grad=True, shape=torch.Size([4, 64, 960])
+-------- Exiting patched grad function --------
+
+Filtered inputs from 1 to 1 tensors
+
+-------- Entering patched torch.autograd.grad --------
+Output tensor: requires_grad=True, shape=torch.Size([4, 64, 960])
+Number of input tensors: 1
+Input tensor 0: requires_grad=True, shape=torch.Size([4, 64, 960])
+-------- Exiting patched grad function --------
+
+Filtered inputs from 1 to 1 tensors
+
+-------- Entering patched torch.autograd.grad --------
+Output tensor: requires_grad=True, shape=torch.Size([4, 64, 960])
+Number of input tensors: 1
+Input tensor 0: requires_grad=True, shape=torch.Size([4, 64, 960])
+-------- Exiting patched grad function --------
+
+Filtered inputs from 1 to 1 tensors
+
+-------- Entering patched torch.autograd.grad --------
+Output tensor: requires_grad=True, shape=torch.Size([4, 64, 960])
+Number of input tensors: 1
+Input tensor 0: requires_grad=True, shape=torch.Size([4, 64, 960])
+-------- Exiting patched grad function --------
+
+Filtered inputs from 1 to 1 tensors
+
+-------- Entering patched torch.autograd.grad --------
+Output tensor: requires_grad=True, shape=torch.Size([4, 64, 960])
+Number of input tensors: 1
+Input tensor 0: requires_grad=True, shape=torch.Size([4, 64, 960])
+-------- Exiting patched grad function --------
+
+Filtered inputs from 1 to 1 tensors
+
+-------- Entering patched torch.autograd.grad --------
+Output tensor: requires_grad=True, shape=torch.Size([4, 64, 960])
+Number of input tensors: 1
+Input tensor 0: requires_grad=True, shape=torch.Size([4, 64, 960])
+-------- Exiting patched grad function --------
+
+Filtered inputs from 1 to 1 tensors
+
+-------- Entering patched torch.autograd.grad --------
+Output tensor: requires_grad=True, shape=torch.Size([4, 256, 576])
+Number of input tensors: 1
+Input tensor 0: requires_grad=True, shape=torch.Size([4, 256, 576])
+-------- Exiting patched grad function --------
+
+Filtered inputs from 1 to 1 tensors
+
+-------- Entering patched torch.autograd.grad --------
+Output tensor: requires_grad=True, shape=torch.Size([4, 256, 576])
+Number of input tensors: 1
+Input tensor 0: requires_grad=True, shape=torch.Size([4, 256, 576])
+-------- Exiting patched grad function --------
+
+Filtered inputs from 1 to 1 tensors
+
+-------- Entering patched torch.autograd.grad --------
+Output tensor: requires_grad=True, shape=torch.Size([4, 1024, 384])
+Number of input tensors: 1
+Input tensor 0: requires_grad=True, shape=torch.Size([4, 1024, 384])
+-------- Exiting patched grad function --------
+
+Filtered inputs from 1 to 1 tensors
+
+-------- Entering patched torch.autograd.grad --------
+Output tensor: requires_grad=True, shape=torch.Size([4, 1024, 384])
+Number of input tensors: 1
+Input tensor 0: requires_grad=True, shape=torch.Size([4, 1024, 384])
+-------- Exiting patched grad function --------
+
+Module Linear received input 0 that doesn't require_grad
+Module Linear received input 1 that doesn't require_grad
+Module Linear received input 2 that doesn't require_grad
+Module Linear produced output 0 that doesn't require_grad
+Module Linear received input 0 that doesn't require_grad
+Module Linear received input 1 that doesn't require_grad
+Module Linear received input 2 that doesn't require_grad
+Module Linear produced output 0 that doesn't require_grad
+Module Sequential received input 0 that doesn't require_grad
+Module Sequential received input 1 that doesn't require_grad
+Module Sequential received input 2 that doesn't require_grad
+Module Sequential produced output 0 that doesn't require_grad
+Module SiLU received input 0 that doesn't require_grad
+Module SiLU produced output 0 that doesn't require_grad
+Module Linear received input 0 that doesn't require_grad
+Module Linear received input 2 that doesn't require_grad
+Module Linear produced output 0 that doesn't require_grad
+Epoch 0: 100%|███████████████████████████████████████████████████████████████████████████████████████████████████████| 8/8 [01:44<00:00,  0.08it/s, v_num=f73i, train/loss=0.00248, train/lr=0.0001]Skipping audio logging to avoid format issues
+Epoch 0: 100%|██████████████████████████████████████████████████████████████████████████████████████| 8/8 [04:10<00:00,  0.03it/s, v_num=f73i, train/loss=0.00248, train/lr=0.0001, val/loss=0.0417]
+DDIM Sampler: 100%|█████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 50/50 [00:12<00:00,  3.88it/s]
+Metric val/loss improved. New best score: 0.042
+Epoch 0, global step 8: 'val/loss' reached 0.04173 (best 0.04173), saving model to '/mnt/c/Users/Davy/Documents/Code/QM/CC/AudioLDM/ckpt/vocaldm/vocaldm-epoch=00-val_loss=val_loss=0.0417.ckpt' as top 3
+Resources cleaned up                                                                                                                                                                                
+`Trainer.fit` stopped: `max_epochs=1` reached.
+
+Detected KeyboardInterrupt, attempting graceful shutdown ...

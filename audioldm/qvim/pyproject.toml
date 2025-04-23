@@ -1,0 +1,27 @@
+[build-system]
+requires = ["setuptools>=61.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "qvim-mn-baseline"
+version = "0.1.0"
+description = "Baseline system for the AES AIMLA AVIM Challenge"
+readme = "README.md"
+authors = [{ name = "Paul Primus", email = "paul.primus@jku.at" }]
+requires-python = ">=3.10"
+dependencies = [
+    "torch==2.6.0",
+    "torchvision==0.21.0",
+    "torchaudio==2.6.0",
+    "scikit-learn==1.6.1",
+    "matplotlib==3.10.1",
+    "lightning==2.5.1",
+    "pandas==2.2.3",
+    "librosa==0.11.0",
+    "notebook",
+    "wandb"
+]
+
+[tool.setuptools]
+packages = ["qvim_mn_baseline", "qvim_2dft_baseline"]
+package-dir = { "" = "src" }

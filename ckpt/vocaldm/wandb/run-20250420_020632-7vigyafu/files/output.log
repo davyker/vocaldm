@@ -1,0 +1,450 @@
+Saving checkpoints to run-specific directory: ckpt/vocaldm/7vigyafu
+GPU available: True (cuda), used: True
+TPU available: False, using: 0 TPU cores
+HPU available: False, using: 0 HPUs
+`Trainer(val_check_interval=1.0)` was configured so validation will run at the end of the training epoch..
+
+===== Running initial validation for baseline metrics =====
+LOCAL_RANK: 0 - CUDA_VISIBLE_DEVICES: [0]
+Validation DataLoader 0:   0%|                                                                                                                                                                                             | 0/1 [00:00<?, ?it/s]Processing audio batch with shape torch.Size([1, 320000]) on device cuda:0
+Resampling audio from 32000Hz to 16000Hz
+Resampled audio shape: torch.Size([160000])
+Generated mel spec for item 0: shape=torch.Size([1, 64, 1001])
+Before reshaping, mel shape: torch.Size([1, 1, 64, 1001]), target: (1, 64, 64)
+Mel tensor has 4 dimensions
+Using interpolation directly on 4D tensor
+Final mel spectrogram shape: torch.Size([1, 1, 64, 64])
+DDIM Sampler: 100%|██████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 50/50 [00:15<00:00,  3.32it/s]
+Traceback (most recent call last):███████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 50/50 [00:15<00:00,  4.77it/s]
+Error in audio logging: ushort format requires 0 <= number <= (0x7fff * 2 + 1)
+  File "/mnt/c/Users/Davy/Documents/Code/QM/CC/AudioLDM/train_vocaldm.py", line 919, in log_audio_examples
+    wavfile.write(generated_path, sample_rate, generated_audio_np.astype(np.float32))
+  File "/root/miniconda3/envs/qvim-baseline/lib/python3.10/site-packages/scipy/io/wavfile.py", line 824, in write
+    fmt_chunk_data = struct.pack('<HHIIHH', format_tag, channels, fs,
+struct.error: ushort format requires 0 <= number <= (0x7fff * 2 + 1)
+Validation DataLoader 0: 100%|█████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 1/1 [00:17<00:00,  0.06it/s]
+Saved improved adapter to ckpt/vocaldm/qvim_adapter_val_loss_0.4623.pt
+Validation DataLoader 0: 100%|█████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 1/1 [00:18<00:00,  0.05it/s]
+┏━━━━━━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
+┃[1m [0m[1m     Validate metric     [0m[1m [0m┃[1m [0m[1m      DataLoader 0       [0m[1m [0m┃
+┡━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━┩
+│[36m [0m[36m     val/cosine_loss     [0m[36m [0m│[35m [0m[35m           0.0           [0m[35m [0m│
+│[36m [0m[36m     val/epoch_loss      [0m[36m [0m│[35m [0m[35m   0.46228569746017456   [0m[35m [0m│
+│[36m [0m[36m        val/loss         [0m[36m [0m│[35m [0m[35m   0.46228569746017456   [0m[35m [0m│
+│[36m [0m[36m      val/mse_loss       [0m[36m [0m│[35m [0m[35m   0.46228569746017456   [0m[35m [0m│
+│[36m [0m[36m        val_loss         [0m[36m [0m│[35m [0m[35m   0.46228569746017456   [0m[35m [0m│
+└───────────────────────────┴───────────────────────────┘
+Initial validation loss: 0.462286
+===== Initial validation complete =====
+/root/miniconda3/envs/qvim-baseline/lib/python3.10/site-packages/pytorch_lightning/callbacks/model_checkpoint.py:654: Checkpoint directory /mnt/c/Users/Davy/Documents/Code/QM/CC/AudioLDM/ckpt/vocaldm/7vigyafu exists and is not empty.
+LOCAL_RANK: 0 - CUDA_VISIBLE_DEVICES: [0]
+
+  | Name       | Type            | Params | Mode
+-------------------------------------------------------
+0 | qvim_model | QVIMModule      | 9.8 M  | eval
+1 | adapter    | QVIMAdapter     | 1.5 M  | train
+2 | audioldm   | LatentDiffusion | 726 M  | eval
+-------------------------------------------------------
+2.6 M     Trainable params
+734 M     Non-trainable params
+737 M     Total params
+2,949.710 Total estimated model params size (MB)
+12        Modules in train mode
+2245      Modules in eval mode
+
+Sanity Checking DataLoader 0:   0%|                                                                                                                                                                                        | 0/1 [00:00<?, ?it/s]Processing audio batch with shape torch.Size([1, 320000]) on device cuda:0
+Resampling audio from 32000Hz to 16000Hz
+Resampled audio shape: torch.Size([160000])
+Generated mel spec for item 0: shape=torch.Size([1, 64, 1001])
+Before reshaping, mel shape: torch.Size([1, 1, 64, 1001]), target: (1, 64, 64)
+Mel tensor has 4 dimensions
+Using interpolation directly on 4D tensor
+Final mel spectrogram shape: torch.Size([1, 1, 64, 64])
+DDIM Sampler: 100%|██████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 50/50 [00:11<00:00,  4.46it/s]
+Traceback (most recent call last):███████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 50/50 [00:11<00:00,  4.79it/s]
+Error in audio logging: ushort format requires 0 <= number <= (0x7fff * 2 + 1)
+  File "/mnt/c/Users/Davy/Documents/Code/QM/CC/AudioLDM/train_vocaldm.py", line 919, in log_audio_examples
+    wavfile.write(generated_path, sample_rate, generated_audio_np.astype(np.float32))
+  File "/root/miniconda3/envs/qvim-baseline/lib/python3.10/site-packages/scipy/io/wavfile.py", line 824, in write
+    fmt_chunk_data = struct.pack('<HHIIHH', format_tag, channels, fs,
+struct.error: ushort format requires 0 <= number <= (0x7fff * 2 + 1)
+Epoch 0:   0%|                                                                                                                                                                                                             | 0/2 [00:00<?, ?it/s]Processing audio batch with shape torch.Size([4, 320000]) on device cuda:0
+/root/miniconda3/envs/qvim-baseline/lib/python3.10/site-packages/pytorch_lightning/loops/fit_loop.py:310: The number of training batches (2) is smaller than the logging interval Trainer(log_every_n_steps=10). Set a lower value for log_every_n_steps if you want to see logs for the training epoch.
+Resampling audio from 32000Hz to 16000Hz
+Resampled audio shape: torch.Size([160000])
+Generated mel spec for item 0: shape=torch.Size([1, 64, 1001])
+Resampling audio from 32000Hz to 16000Hz
+Resampled audio shape: torch.Size([160000])
+Generated mel spec for item 1: shape=torch.Size([1, 64, 1001])
+Resampling audio from 32000Hz to 16000Hz
+Resampled audio shape: torch.Size([160000])
+Generated mel spec for item 2: shape=torch.Size([1, 64, 1001])
+Resampling audio from 32000Hz to 16000Hz
+Resampled audio shape: torch.Size([160000])
+Generated mel spec for item 3: shape=torch.Size([1, 64, 1001])
+Before reshaping, mel shape: torch.Size([4, 1, 64, 1001]), target: (1, 64, 64)
+Mel tensor has 4 dimensions
+Using interpolation directly on 4D tensor
+Final mel spectrogram shape: torch.Size([4, 1, 64, 64])
+diffusion_loss requires_grad: True
+Checking gradient paths:
+Component requires_grad check: {'squared_diff': True, 'model_output': True, 'target': False}
+Epoch 0:  50%|█████████████████████████████████████████████████████████████                                                             | 1/2 [00:03<00:03,  0.31it/s, v_num=yafu, train/loss=0.789, train/adapter_lr=0.0001, train/film_lr=1e-5]Processing audio batch with shape torch.Size([4, 320000]) on device cuda:0
+Resampling audio from 32000Hz to 16000Hz
+Resampled audio shape: torch.Size([160000])
+Generated mel spec for item 0: shape=torch.Size([1, 64, 1001])
+Resampling audio from 32000Hz to 16000Hz
+Resampled audio shape: torch.Size([160000])
+Generated mel spec for item 1: shape=torch.Size([1, 64, 1001])
+Resampling audio from 32000Hz to 16000Hz
+Resampled audio shape: torch.Size([160000])
+Generated mel spec for item 2: shape=torch.Size([1, 64, 1001])
+Resampling audio from 32000Hz to 16000Hz
+Resampled audio shape: torch.Size([160000])
+Generated mel spec for item 3: shape=torch.Size([1, 64, 1001])
+Before reshaping, mel shape: torch.Size([4, 1, 64, 1001]), target: (1, 64, 64)
+Mel tensor has 4 dimensions
+Using interpolation directly on 4D tensor
+Final mel spectrogram shape: torch.Size([4, 1, 64, 64])
+Epoch 0: 100%|██████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 2/2 [00:04<00:00,  0.45it/s, v_num=yafu, train/loss=1.050, train/adapter_lr=0.0001, train/film_lr=1e-5]Processing audio batch with shape torch.Size([1, 320000]) on device cuda:0
+Resampling audio from 32000Hz to 16000Hz                                                                                                                                                                                   | 0/1 [00:00<?, ?it/s]
+Resampled audio shape: torch.Size([160000])
+Generated mel spec for item 0: shape=torch.Size([1, 64, 1001])
+Before reshaping, mel shape: torch.Size([1, 1, 64, 1001]), target: (1, 64, 64)
+Mel tensor has 4 dimensions
+Using interpolation directly on 4D tensor
+Final mel spectrogram shape: torch.Size([1, 1, 64, 64])
+DDIM Sampler: 100%|██████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 50/50 [00:11<00:00,  4.50it/s]
+Traceback (most recent call last):
+  File "/mnt/c/Users/Davy/Documents/Code/QM/CC/AudioLDM/train_vocaldm.py", line 919, in log_audio_examples███████████████████████████████████████████████████████████████████████████████████████████████████████| 50/50 [00:11<00:00,  4.58it/s]
+Error in audio logging: ushort format requires 0 <= number <= (0x7fff * 2 + 1)
+    wavfile.write(generated_path, sample_rate, generated_audio_np.astype(np.float32))
+  File "/root/miniconda3/envs/qvim-baseline/lib/python3.10/site-packages/scipy/io/wavfile.py", line 824, in write
+    fmt_chunk_data = struct.pack('<HHIIHH', format_tag, channels, fs,
+struct.error: ushort format requires 0 <= number <= (0x7fff * 2 + 1)
+Epoch 0: 100%|██████████████████████████████████████████████████████████████████████████████████████████████████████████| 2/2 [00:16<00:00,  0.12it/s, v_num=yafu, train/loss=1.050, train/adapter_lr=0.0001, train/film_lr=1e-5, val/loss=1.340]Cleaning up memory before validation...
+Epoch 1:   0%|                                                                                                                  | 0/2 [00:00<?, ?it/s, v_num=yafu, train/loss=1.050, train/adapter_lr=0.0001, train/film_lr=1e-5, val/loss=1.340]Processing audio batch with shape torch.Size([4, 320000]) on device cuda:0
+Metric val/loss improved. New best score: 1.343
+Epoch 0, global step 1: 'val/loss' reached 1.34267 (best 1.34267), saving model to '/mnt/c/Users/Davy/Documents/Code/QM/CC/AudioLDM/ckpt/vocaldm/7vigyafu/vocaldm-epoch=00-val_loss=1.3427.ckpt' as top 1
+Resampling audio from 32000Hz to 16000Hz
+Resampled audio shape: torch.Size([160000])
+Generated mel spec for item 0: shape=torch.Size([1, 64, 1001])
+Resampling audio from 32000Hz to 16000Hz
+Resampled audio shape: torch.Size([160000])
+Generated mel spec for item 1: shape=torch.Size([1, 64, 1001])
+Resampling audio from 32000Hz to 16000Hz
+Resampled audio shape: torch.Size([160000])
+Generated mel spec for item 2: shape=torch.Size([1, 64, 1001])
+Resampling audio from 32000Hz to 16000Hz
+Resampled audio shape: torch.Size([160000])
+Generated mel spec for item 3: shape=torch.Size([1, 64, 1001])
+Before reshaping, mel shape: torch.Size([4, 1, 64, 1001]), target: (1, 64, 64)
+Mel tensor has 4 dimensions
+Using interpolation directly on 4D tensor
+Final mel spectrogram shape: torch.Size([4, 1, 64, 64])
+Epoch 1:  50%|███████████████████████████████████████████████████                                                   | 1/2 [00:02<00:02,  0.34it/s, v_num=yafu, train/loss=0.791, train/adapter_lr=9.76e-5, train/film_lr=9.78e-6, val/loss=1.340]Processing audio batch with shape torch.Size([4, 320000]) on device cuda:0
+Resampling audio from 32000Hz to 16000Hz
+Resampled audio shape: torch.Size([160000])
+Generated mel spec for item 0: shape=torch.Size([1, 64, 1001])
+Resampling audio from 32000Hz to 16000Hz
+Resampled audio shape: torch.Size([160000])
+Generated mel spec for item 1: shape=torch.Size([1, 64, 1001])
+Resampling audio from 32000Hz to 16000Hz
+Resampled audio shape: torch.Size([160000])
+Generated mel spec for item 2: shape=torch.Size([1, 64, 1001])
+Resampling audio from 32000Hz to 16000Hz
+Resampled audio shape: torch.Size([160000])
+Generated mel spec for item 3: shape=torch.Size([1, 64, 1001])
+Before reshaping, mel shape: torch.Size([4, 1, 64, 1001]), target: (1, 64, 64)
+Mel tensor has 4 dimensions
+Using interpolation directly on 4D tensor
+Final mel spectrogram shape: torch.Size([4, 1, 64, 64])
+Epoch 1: 100%|██████████████████████████████████████████████████████████████████████████████████████████████████████| 2/2 [00:04<00:00,  0.50it/s, v_num=yafu, train/loss=0.582, train/adapter_lr=9.76e-5, train/film_lr=9.78e-6, val/loss=1.340]Processing audio batch with shape torch.Size([1, 320000]) on device cuda:0
+Resampling audio from 32000Hz to 16000Hz                                                                                                                                                                                   | 0/1 [00:00<?, ?it/s]
+Resampled audio shape: torch.Size([160000])
+Generated mel spec for item 0: shape=torch.Size([1, 64, 1001])
+Before reshaping, mel shape: torch.Size([1, 1, 64, 1001]), target: (1, 64, 64)
+Mel tensor has 4 dimensions
+Using interpolation directly on 4D tensor
+Final mel spectrogram shape: torch.Size([1, 1, 64, 64])
+DDIM Sampler: 100%|██████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 50/50 [00:10<00:00,  4.55it/s]
+Traceback (most recent call last):
+  File "/mnt/c/Users/Davy/Documents/Code/QM/CC/AudioLDM/train_vocaldm.py", line 919, in log_audio_examples███████████████████████████████████████████████████████████████████████████████████████████████████████| 50/50 [00:10<00:00,  4.37it/s]
+Error in audio logging: ushort format requires 0 <= number <= (0x7fff * 2 + 1)
+    wavfile.write(generated_path, sample_rate, generated_audio_np.astype(np.float32))
+  File "/root/miniconda3/envs/qvim-baseline/lib/python3.10/site-packages/scipy/io/wavfile.py", line 824, in write
+    fmt_chunk_data = struct.pack('<HHIIHH', format_tag, channels, fs,
+struct.error: ushort format requires 0 <= number <= (0x7fff * 2 + 1)
+
+Saved improved adapter to ckpt/vocaldm/qvim_adapter_val_loss_0.0073.pt█████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 1/1 [00:11<00:00,  0.08it/s]
+Epoch 1: 100%|█████████████████████████████████████████████████████████████████████████████████████████████████████| 2/2 [00:16<00:00,  0.12it/s, v_num=yafu, train/loss=0.582, train/adapter_lr=9.76e-5, train/film_lr=9.78e-6, val/loss=0.0073]Cleaning up memory before validation...
+Epoch 2:   0%|                                                                                                             | 0/2 [00:00<?, ?it/s, v_num=yafu, train/loss=0.582, train/adapter_lr=9.76e-5, train/film_lr=9.78e-6, val/loss=0.0073]Processing audio batch with shape torch.Size([4, 320000]) on device cuda:0
+Metric val/loss improved by 1.335 >= min_delta = 0.0. New best score: 0.007
+Epoch 1, global step 2: 'val/loss' reached 0.00730 (best 0.00730), saving model to '/mnt/c/Users/Davy/Documents/Code/QM/CC/AudioLDM/ckpt/vocaldm/7vigyafu/vocaldm-epoch=01-val_loss=0.0073.ckpt' as top 1
+Resampling audio from 32000Hz to 16000Hz
+Resampled audio shape: torch.Size([160000])
+Generated mel spec for item 0: shape=torch.Size([1, 64, 1001])
+Resampling audio from 32000Hz to 16000Hz
+Resampled audio shape: torch.Size([160000])
+Generated mel spec for item 1: shape=torch.Size([1, 64, 1001])
+Resampling audio from 32000Hz to 16000Hz
+Resampled audio shape: torch.Size([160000])
+Generated mel spec for item 2: shape=torch.Size([1, 64, 1001])
+Resampling audio from 32000Hz to 16000Hz
+Resampled audio shape: torch.Size([160000])
+Generated mel spec for item 3: shape=torch.Size([1, 64, 1001])
+Before reshaping, mel shape: torch.Size([4, 1, 64, 1001]), target: (1, 64, 64)
+Mel tensor has 4 dimensions
+Using interpolation directly on 4D tensor
+Final mel spectrogram shape: torch.Size([4, 1, 64, 64])
+Epoch 2:  50%|██████████████████████████████████████████████████▌                                                  | 1/2 [00:02<00:02,  0.34it/s, v_num=yafu, train/loss=0.984, train/adapter_lr=9.05e-5, train/film_lr=9.14e-6, val/loss=0.0073]Processing audio batch with shape torch.Size([4, 320000]) on device cuda:0
+Resampling audio from 32000Hz to 16000Hz
+Resampled audio shape: torch.Size([160000])
+Generated mel spec for item 0: shape=torch.Size([1, 64, 1001])
+Resampling audio from 32000Hz to 16000Hz
+Resampled audio shape: torch.Size([160000])
+Generated mel spec for item 1: shape=torch.Size([1, 64, 1001])
+Resampling audio from 32000Hz to 16000Hz
+Resampled audio shape: torch.Size([160000])
+Generated mel spec for item 2: shape=torch.Size([1, 64, 1001])
+Resampling audio from 32000Hz to 16000Hz
+Resampled audio shape: torch.Size([160000])
+Generated mel spec for item 3: shape=torch.Size([1, 64, 1001])
+Before reshaping, mel shape: torch.Size([4, 1, 64, 1001]), target: (1, 64, 64)
+Mel tensor has 4 dimensions
+Using interpolation directly on 4D tensor
+Final mel spectrogram shape: torch.Size([4, 1, 64, 64])
+Epoch 2: 100%|█████████████████████████████████████████████████████████████████████████████████████████████████████| 2/2 [00:03<00:00,  0.51it/s, v_num=yafu, train/loss=0.715, train/adapter_lr=9.05e-5, train/film_lr=9.14e-6, val/loss=0.0073]Processing audio batch with shape torch.Size([1, 320000]) on device cuda:0
+Resampling audio from 32000Hz to 16000Hz                                                                                                                                                                                   | 0/1 [00:00<?, ?it/s]
+Resampled audio shape: torch.Size([160000])
+Generated mel spec for item 0: shape=torch.Size([1, 64, 1001])
+Before reshaping, mel shape: torch.Size([1, 1, 64, 1001]), target: (1, 64, 64)
+Mel tensor has 4 dimensions
+Using interpolation directly on 4D tensor
+Final mel spectrogram shape: torch.Size([1, 1, 64, 64])
+DDIM Sampler: 100%|██████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 50/50 [00:10<00:00,  4.69it/s]
+Traceback (most recent call last):
+  File "/mnt/c/Users/Davy/Documents/Code/QM/CC/AudioLDM/train_vocaldm.py", line 919, in log_audio_examples███████████████████████████████████████████████████████████████████████████████████████████████████████| 50/50 [00:10<00:00,  4.83it/s]
+Error in audio logging: ushort format requires 0 <= number <= (0x7fff * 2 + 1)
+    wavfile.write(generated_path, sample_rate, generated_audio_np.astype(np.float32))
+  File "/root/miniconda3/envs/qvim-baseline/lib/python3.10/site-packages/scipy/io/wavfile.py", line 824, in write
+    fmt_chunk_data = struct.pack('<HHIIHH', format_tag, channels, fs,
+struct.error: ushort format requires 0 <= number <= (0x7fff * 2 + 1)
+Epoch 2: 100%|██████████████████████████████████████████████████████████████████████████████████████████████████████| 2/2 [00:15<00:00,  0.13it/s, v_num=yafu, train/loss=0.715, train/adapter_lr=9.05e-5, train/film_lr=9.14e-6, val/loss=1.580]Cleaning up memory before validation...
+Epoch 3:   0%|                                                                                                              | 0/2 [00:00<?, ?it/s, v_num=yafu, train/loss=0.715, train/adapter_lr=9.05e-5, train/film_lr=9.14e-6, val/loss=1.580]Processing audio batch with shape torch.Size([4, 320000]) on device cuda:0
+Epoch 2, global step 3: 'val/loss' was not in top 1
+Resampling audio from 32000Hz to 16000Hz
+Resampled audio shape: torch.Size([160000])
+Generated mel spec for item 0: shape=torch.Size([1, 64, 1001])
+Resampling audio from 32000Hz to 16000Hz
+Resampled audio shape: torch.Size([160000])
+Generated mel spec for item 1: shape=torch.Size([1, 64, 1001])
+Resampling audio from 32000Hz to 16000Hz
+Resampled audio shape: torch.Size([160000])
+Generated mel spec for item 2: shape=torch.Size([1, 64, 1001])
+Resampling audio from 32000Hz to 16000Hz
+Resampled audio shape: torch.Size([160000])
+Generated mel spec for item 3: shape=torch.Size([1, 64, 1001])
+Before reshaping, mel shape: torch.Size([4, 1, 64, 1001]), target: (1, 64, 64)
+Mel tensor has 4 dimensions
+Using interpolation directly on 4D tensor
+Final mel spectrogram shape: torch.Size([4, 1, 64, 64])
+Epoch 3:  50%|███████████████████████████████████████████████████                                                   | 1/2 [00:01<00:01,  0.80it/s, v_num=yafu, train/loss=0.673, train/adapter_lr=7.96e-5, train/film_lr=8.15e-6, val/loss=1.580]Processing audio batch with shape torch.Size([4, 320000]) on device cuda:0
+Resampling audio from 32000Hz to 16000Hz
+Resampled audio shape: torch.Size([160000])
+Generated mel spec for item 0: shape=torch.Size([1, 64, 1001])
+Resampling audio from 32000Hz to 16000Hz
+Resampled audio shape: torch.Size([160000])
+Generated mel spec for item 1: shape=torch.Size([1, 64, 1001])
+Resampling audio from 32000Hz to 16000Hz
+Resampled audio shape: torch.Size([160000])
+Generated mel spec for item 2: shape=torch.Size([1, 64, 1001])
+Resampling audio from 32000Hz to 16000Hz
+Resampled audio shape: torch.Size([160000])
+Generated mel spec for item 3: shape=torch.Size([1, 64, 1001])
+Before reshaping, mel shape: torch.Size([4, 1, 64, 1001]), target: (1, 64, 64)
+Mel tensor has 4 dimensions
+Using interpolation directly on 4D tensor
+Final mel spectrogram shape: torch.Size([4, 1, 64, 64])
+Epoch 3: 100%|██████████████████████████████████████████████████████████████████████████████████████████████████████| 2/2 [00:02<00:00,  0.80it/s, v_num=yafu, train/loss=0.572, train/adapter_lr=7.96e-5, train/film_lr=8.15e-6, val/loss=1.580]Processing audio batch with shape torch.Size([1, 320000]) on device cuda:0
+Resampling audio from 32000Hz to 16000Hz                                                                                                                                                                                   | 0/1 [00:00<?, ?it/s]
+Resampled audio shape: torch.Size([160000])
+Generated mel spec for item 0: shape=torch.Size([1, 64, 1001])
+Before reshaping, mel shape: torch.Size([1, 1, 64, 1001]), target: (1, 64, 64)
+Mel tensor has 4 dimensions
+Using interpolation directly on 4D tensor
+Final mel spectrogram shape: torch.Size([1, 1, 64, 64])
+DDIM Sampler: 100%|██████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 50/50 [00:11<00:00,  4.43it/s]
+Traceback (most recent call last):
+  File "/mnt/c/Users/Davy/Documents/Code/QM/CC/AudioLDM/train_vocaldm.py", line 919, in log_audio_examples███████████████████████████████████████████████████████████████████████████████████████████████████████| 50/50 [00:11<00:00,  4.59it/s]
+Error in audio logging: ushort format requires 0 <= number <= (0x7fff * 2 + 1)
+    wavfile.write(generated_path, sample_rate, generated_audio_np.astype(np.float32))
+  File "/root/miniconda3/envs/qvim-baseline/lib/python3.10/site-packages/scipy/io/wavfile.py", line 824, in write
+    fmt_chunk_data = struct.pack('<HHIIHH', format_tag, channels, fs,
+struct.error: ushort format requires 0 <= number <= (0x7fff * 2 + 1)
+Epoch 3: 100%|█████████████████████████████████████████████████████████████████████████████████████████████████████| 2/2 [00:14<00:00,  0.14it/s, v_num=yafu, train/loss=0.572, train/adapter_lr=7.96e-5, train/film_lr=8.15e-6, val/loss=0.0653]Cleaning up memory before validation...
+Epoch 4:   0%|                                                                                                             | 0/2 [00:00<?, ?it/s, v_num=yafu, train/loss=0.572, train/adapter_lr=7.96e-5, train/film_lr=8.15e-6, val/loss=0.0653]Processing audio batch with shape torch.Size([4, 320000]) on device cuda:0
+Epoch 3, global step 4: 'val/loss' was not in top 1
+Resampling audio from 32000Hz to 16000Hz
+Resampled audio shape: torch.Size([160000])
+Generated mel spec for item 0: shape=torch.Size([1, 64, 1001])
+Resampling audio from 32000Hz to 16000Hz
+Resampled audio shape: torch.Size([160000])
+Generated mel spec for item 1: shape=torch.Size([1, 64, 1001])
+Resampling audio from 32000Hz to 16000Hz
+Resampled audio shape: torch.Size([160000])
+Generated mel spec for item 2: shape=torch.Size([1, 64, 1001])
+Resampling audio from 32000Hz to 16000Hz
+Resampled audio shape: torch.Size([160000])
+Generated mel spec for item 3: shape=torch.Size([1, 64, 1001])
+Before reshaping, mel shape: torch.Size([4, 1, 64, 1001]), target: (1, 64, 64)
+Mel tensor has 4 dimensions
+Using interpolation directly on 4D tensor
+Final mel spectrogram shape: torch.Size([4, 1, 64, 64])
+Epoch 4:  50%|██████████████████████████████████████████████████▌                                                  | 1/2 [00:01<00:01,  0.60it/s, v_num=yafu, train/loss=0.599, train/adapter_lr=6.58e-5, train/film_lr=6.89e-6, val/loss=0.0653]Processing audio batch with shape torch.Size([4, 320000]) on device cuda:0
+Resampling audio from 32000Hz to 16000Hz
+Resampled audio shape: torch.Size([160000])
+Generated mel spec for item 0: shape=torch.Size([1, 64, 1001])
+Resampling audio from 32000Hz to 16000Hz
+Resampled audio shape: torch.Size([160000])
+Generated mel spec for item 1: shape=torch.Size([1, 64, 1001])
+Resampling audio from 32000Hz to 16000Hz
+Resampled audio shape: torch.Size([160000])
+Generated mel spec for item 2: shape=torch.Size([1, 64, 1001])
+Resampling audio from 32000Hz to 16000Hz
+Resampled audio shape: torch.Size([160000])
+Generated mel spec for item 3: shape=torch.Size([1, 64, 1001])
+Before reshaping, mel shape: torch.Size([4, 1, 64, 1001]), target: (1, 64, 64)
+Mel tensor has 4 dimensions
+Using interpolation directly on 4D tensor
+Final mel spectrogram shape: torch.Size([4, 1, 64, 64])
+Epoch 4: 100%|█████████████████████████████████████████████████████████████████████████████████████████████████████| 2/2 [00:02<00:00,  0.70it/s, v_num=yafu, train/loss=1.010, train/adapter_lr=6.58e-5, train/film_lr=6.89e-6, val/loss=0.0653]Processing audio batch with shape torch.Size([1, 320000]) on device cuda:0
+Resampling audio from 32000Hz to 16000Hz                                                                                                                                                                                   | 0/1 [00:00<?, ?it/s]
+Resampled audio shape: torch.Size([160000])
+Generated mel spec for item 0: shape=torch.Size([1, 64, 1001])
+Before reshaping, mel shape: torch.Size([1, 1, 64, 1001]), target: (1, 64, 64)
+Mel tensor has 4 dimensions
+Using interpolation directly on 4D tensor
+Final mel spectrogram shape: torch.Size([1, 1, 64, 64])
+DDIM Sampler: 100%|██████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 50/50 [00:10<00:00,  4.69it/s]
+Traceback (most recent call last):
+  File "/mnt/c/Users/Davy/Documents/Code/QM/CC/AudioLDM/train_vocaldm.py", line 919, in log_audio_examples███████████████████████████████████████████████████████████████████████████████████████████████████████| 50/50 [00:10<00:00,  4.56it/s]
+Error in audio logging: ushort format requires 0 <= number <= (0x7fff * 2 + 1)
+    wavfile.write(generated_path, sample_rate, generated_audio_np.astype(np.float32))
+  File "/root/miniconda3/envs/qvim-baseline/lib/python3.10/site-packages/scipy/io/wavfile.py", line 824, in write
+    fmt_chunk_data = struct.pack('<HHIIHH', format_tag, channels, fs,
+struct.error: ushort format requires 0 <= number <= (0x7fff * 2 + 1)
+Epoch 4: 100%|██████████████████████████████████████████████████████████████████████████████████████████████████████| 2/2 [00:14<00:00,  0.14it/s, v_num=yafu, train/loss=1.010, train/adapter_lr=6.58e-5, train/film_lr=6.89e-6, val/loss=1.200]Cleaning up memory before validation...
+Epoch 5:   0%|                                                                                                              | 0/2 [00:00<?, ?it/s, v_num=yafu, train/loss=1.010, train/adapter_lr=6.58e-5, train/film_lr=6.89e-6, val/loss=1.200]Processing audio batch with shape torch.Size([4, 320000]) on device cuda:0
+Epoch 4, global step 5: 'val/loss' was not in top 1
+Resampling audio from 32000Hz to 16000Hz
+Resampled audio shape: torch.Size([160000])
+Generated mel spec for item 0: shape=torch.Size([1, 64, 1001])
+Resampling audio from 32000Hz to 16000Hz
+Resampled audio shape: torch.Size([160000])
+Generated mel spec for item 1: shape=torch.Size([1, 64, 1001])
+Resampling audio from 32000Hz to 16000Hz
+Resampled audio shape: torch.Size([160000])
+Generated mel spec for item 2: shape=torch.Size([1, 64, 1001])
+Resampling audio from 32000Hz to 16000Hz
+Resampled audio shape: torch.Size([160000])
+Generated mel spec for item 3: shape=torch.Size([1, 64, 1001])
+Before reshaping, mel shape: torch.Size([4, 1, 64, 1001]), target: (1, 64, 64)
+Mel tensor has 4 dimensions
+Using interpolation directly on 4D tensor
+Final mel spectrogram shape: torch.Size([4, 1, 64, 64])
+Epoch 5:  50%|███████████████████████████████████████████████████▌                                                   | 1/2 [00:01<00:01,  0.99it/s, v_num=yafu, train/loss=1.060, train/adapter_lr=5.05e-5, train/film_lr=5.5e-6, val/loss=1.200]Processing audio batch with shape torch.Size([4, 320000]) on device cuda:0
+Resampling audio from 32000Hz to 16000Hz
+Resampled audio shape: torch.Size([160000])
+Generated mel spec for item 0: shape=torch.Size([1, 64, 1001])
+Resampling audio from 32000Hz to 16000Hz
+Resampled audio shape: torch.Size([160000])
+Generated mel spec for item 1: shape=torch.Size([1, 64, 1001])
+Resampling audio from 32000Hz to 16000Hz
+Resampled audio shape: torch.Size([160000])
+Generated mel spec for item 2: shape=torch.Size([1, 64, 1001])
+Resampling audio from 32000Hz to 16000Hz
+Resampled audio shape: torch.Size([160000])
+Generated mel spec for item 3: shape=torch.Size([1, 64, 1001])
+Before reshaping, mel shape: torch.Size([4, 1, 64, 1001]), target: (1, 64, 64)
+Mel tensor has 4 dimensions
+Using interpolation directly on 4D tensor
+Final mel spectrogram shape: torch.Size([4, 1, 64, 64])
+Epoch 5: 100%|███████████████████████████████████████████████████████████████████████████████████████████████████████| 2/2 [00:02<00:00,  0.99it/s, v_num=yafu, train/loss=0.594, train/adapter_lr=5.05e-5, train/film_lr=5.5e-6, val/loss=1.200]Processing audio batch with shape torch.Size([1, 320000]) on device cuda:0
+Resampling audio from 32000Hz to 16000Hz                                                                                                                                                                                   | 0/1 [00:00<?, ?it/s]
+Resampled audio shape: torch.Size([160000])
+Generated mel spec for item 0: shape=torch.Size([1, 64, 1001])
+Before reshaping, mel shape: torch.Size([1, 1, 64, 1001]), target: (1, 64, 64)
+Mel tensor has 4 dimensions
+Using interpolation directly on 4D tensor
+Final mel spectrogram shape: torch.Size([1, 1, 64, 64])
+DDIM Sampler: 100%|██████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 50/50 [00:11<00:00,  4.44it/s]
+Traceback (most recent call last):
+  File "/mnt/c/Users/Davy/Documents/Code/QM/CC/AudioLDM/train_vocaldm.py", line 919, in log_audio_examples███████████████████████████████████████████████████████████████████████████████████████████████████████| 50/50 [00:11<00:00,  4.82it/s]
+Error in audio logging: ushort format requires 0 <= number <= (0x7fff * 2 + 1)
+    wavfile.write(generated_path, sample_rate, generated_audio_np.astype(np.float32))
+  File "/root/miniconda3/envs/qvim-baseline/lib/python3.10/site-packages/scipy/io/wavfile.py", line 824, in write
+    fmt_chunk_data = struct.pack('<HHIIHH', format_tag, channels, fs,
+struct.error: ushort format requires 0 <= number <= (0x7fff * 2 + 1)
+Epoch 5: 100%|███████████████████████████████████████████████████████████████████████████████████████████████████████| 2/2 [00:14<00:00,  0.14it/s, v_num=yafu, train/loss=0.594, train/adapter_lr=5.05e-5, train/film_lr=5.5e-6, val/loss=0.873]Cleaning up memory before validation...
+Epoch 6:   0%|                                                                                                               | 0/2 [00:00<?, ?it/s, v_num=yafu, train/loss=0.594, train/adapter_lr=5.05e-5, train/film_lr=5.5e-6, val/loss=0.873]Processing audio batch with shape torch.Size([4, 320000]) on device cuda:0
+Epoch 5, global step 6: 'val/loss' was not in top 1
+Resampling audio from 32000Hz to 16000Hz
+Resampled audio shape: torch.Size([160000])
+Generated mel spec for item 0: shape=torch.Size([1, 64, 1001])
+Resampling audio from 32000Hz to 16000Hz
+Resampled audio shape: torch.Size([160000])
+Generated mel spec for item 1: shape=torch.Size([1, 64, 1001])
+Resampling audio from 32000Hz to 16000Hz
+Resampled audio shape: torch.Size([160000])
+Generated mel spec for item 2: shape=torch.Size([1, 64, 1001])
+Resampling audio from 32000Hz to 16000Hz
+Resampled audio shape: torch.Size([160000])
+Generated mel spec for item 3: shape=torch.Size([1, 64, 1001])
+Before reshaping, mel shape: torch.Size([4, 1, 64, 1001]), target: (1, 64, 64)
+Mel tensor has 4 dimensions
+Using interpolation directly on 4D tensor
+Final mel spectrogram shape: torch.Size([4, 1, 64, 64])
+Epoch 6:  50%|███████████████████████████████████████████████████                                                   | 1/2 [00:01<00:01,  0.93it/s, v_num=yafu, train/loss=0.586, train/adapter_lr=3.52e-5, train/film_lr=4.11e-6, val/loss=0.873]Processing audio batch with shape torch.Size([4, 320000]) on device cuda:0
+Resampling audio from 32000Hz to 16000Hz
+Resampled audio shape: torch.Size([160000])
+Generated mel spec for item 0: shape=torch.Size([1, 64, 1001])
+Resampling audio from 32000Hz to 16000Hz
+Resampled audio shape: torch.Size([160000])
+Generated mel spec for item 1: shape=torch.Size([1, 64, 1001])
+Resampling audio from 32000Hz to 16000Hz
+Resampled audio shape: torch.Size([160000])
+Generated mel spec for item 2: shape=torch.Size([1, 64, 1001])
+Resampling audio from 32000Hz to 16000Hz
+Resampled audio shape: torch.Size([160000])
+Generated mel spec for item 3: shape=torch.Size([1, 64, 1001])
+Before reshaping, mel shape: torch.Size([4, 1, 64, 1001]), target: (1, 64, 64)
+Mel tensor has 4 dimensions
+Using interpolation directly on 4D tensor
+Final mel spectrogram shape: torch.Size([4, 1, 64, 64])
+Epoch 6: 100%|██████████████████████████████████████████████████████████████████████████████████████████████████████| 2/2 [00:02<00:00,  0.94it/s, v_num=yafu, train/loss=0.794, train/adapter_lr=3.52e-5, train/film_lr=4.11e-6, val/loss=0.873]Processing audio batch with shape torch.Size([1, 320000]) on device cuda:0
+Resampling audio from 32000Hz to 16000Hz                                                                                                                                                                                   | 0/1 [00:00<?, ?it/s]
+Resampled audio shape: torch.Size([160000])
+Generated mel spec for item 0: shape=torch.Size([1, 64, 1001])
+Before reshaping, mel shape: torch.Size([1, 1, 64, 1001]), target: (1, 64, 64)
+Mel tensor has 4 dimensions
+Using interpolation directly on 4D tensor
+Final mel spectrogram shape: torch.Size([1, 1, 64, 64])
+DDIM Sampler: 100%|██████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 50/50 [00:10<00:00,  4.70it/s]
+Traceback (most recent call last):
+  File "/mnt/c/Users/Davy/Documents/Code/QM/CC/AudioLDM/train_vocaldm.py", line 919, in log_audio_examples███████████████████████████████████████████████████████████████████████████████████████████████████████| 50/50 [00:10<00:00,  4.60it/s]
+Error in audio logging: ushort format requires 0 <= number <= (0x7fff * 2 + 1)
+    wavfile.write(generated_path, sample_rate, generated_audio_np.astype(np.float32))
+  File "/root/miniconda3/envs/qvim-baseline/lib/python3.10/site-packages/scipy/io/wavfile.py", line 824, in write
+    fmt_chunk_data = struct.pack('<HHIIHH', format_tag, channels, fs,
+struct.error: ushort format requires 0 <= number <= (0x7fff * 2 + 1)
+Epoch 6: 100%|██████████████████████████████████████████████████████████████████████████████████████████████████████| 2/2 [00:13<00:00,  0.15it/s, v_num=yafu, train/loss=0.794, train/adapter_lr=3.52e-5, train/film_lr=4.11e-6, val/loss=0.741]Cleaning up memory before validation...
+Epoch 6: 100%|██████████████████████████████████████████████████████████████████████████████████████████████████████| 2/2 [00:14<00:00,  0.14it/s, v_num=yafu, train/loss=0.794, train/adapter_lr=3.52e-5, train/film_lr=4.11e-6, val/loss=0.741]
+Monitored metric val/loss did not improve in the last 5 records. Best score: 0.007. Signaling Trainer to stop.
+Epoch 6, global step 7: 'val/loss' was not in top 1
+Saved adapter to ckpt/vocaldm/7vigyafu/qvim_adapter.pt
+Uploaded adapter to wandb as artifact
+
+Training completed successfully!
+Full model save skipped.
+Resources cleaned up

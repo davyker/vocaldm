@@ -1,0 +1,50 @@
+The Fix That Made It Work: Proper Gradient Flow Through Checkpointing
+
+  We fixed a fundamental issue in PyTorch's gradient flow through AudioLDM's checkpoint mechanism. Here's what we did and why it worked:
+
+  The Core Problem
+
+  1. Hidden Checkpoint Mechanism: Even though we disabled gradient checkpointing with use_checkpoint=False, the model's forward pass still routes through AudioLDM's
+  custom checkpoint function in util.py, which was causing two critical issues:
+
+    - Incorrect Tensor Preservation: The original implementation didn't properly preserve tensors between forward and backward passes
+    - No Filtering of Non-Trainable Tensors: It tried to compute gradients for all tensors, including those marked with requires_grad=False
+  2. PyTorch Autograd Function Mechanics: PyTorch's autograd.Function requires specific patterns to maintain state between forward and backward passes, which the
+  original implementation didn't follow.
+
+  The Solution
+
+  We rewrote the CheckpointFunctionForTraining class with three critical improvements:
+
+  1. Proper Tensor Storage:
+  ctx.save_for_backward(*args)
+  1. Instead of manually storing tensors as attributes (which get lost between passes), we used PyTorch's official save_for_backward mechanism to preserve tensors
+  correctly.
+  2. Gradient-Requiring Tensor Filtering:
+  grad_inputs = []
+  for x in input_tensors + input_params:
+      if isinstance(x, torch.Tensor) and x.requires_grad:
+          grad_inputs.append(x)
+  2. We only pass tensors that actually require gradients to torch.autograd.grad, preventing the "One of the differentiated Tensors does not require grad" error.
+  3. Consistent Gradient Output Format:
+  all_input_grads = []
+  grad_idx = 0
+  for x in input_tensors + input_params:
+      if isinstance(x, torch.Tensor) and x.requires_grad:
+          all_input_grads.append(input_grads[grad_idx])
+          grad_idx += 1
+      else:
+          all_input_grads.append(None)
+  3. We return gradients in exactly the same shape as the inputs, with None for non-differentiable inputs, avoiding mismatches.
+
+  Why It Worked
+
+  The key insight was that the error wasn't about whether checkpointing was enabled, but rather how the checkpoint mechanism itself handled tensors during
+  backpropagation. Our solution:
+
+  1. Makes the checkpoint function fully PyTorch-compliant for gradient tracking
+  2. Intelligently handles both trainable and frozen parameters
+  3. Maintains the precise input-output gradient mapping required by PyTorch's autograd system
+
+  This allows gradients to flow properly through the model, respecting which parts are trainable and which aren't, finally enabling successful training of your
+  selective components.

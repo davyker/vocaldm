@@ -1,0 +1,16 @@
+{"time":"2025-04-18T21:52:57.527522531+01:00","level":"INFO","msg":"stream: starting","core version":"0.19.9","symlink path":"ckpt/vocaldm/wandb/run-20250418_215257-vpdrcu84/logs/debug-core.log"}
+{"time":"2025-04-18T21:52:57.964733693+01:00","level":"INFO","msg":"created new stream","id":"vpdrcu84"}
+{"time":"2025-04-18T21:52:57.964938539+01:00","level":"INFO","msg":"stream: started","id":"vpdrcu84"}
+{"time":"2025-04-18T21:52:57.964984116+01:00","level":"INFO","msg":"writer: Do: started","stream_id":"vpdrcu84"}
+{"time":"2025-04-18T21:52:57.965007004+01:00","level":"INFO","msg":"handler: started","stream_id":"vpdrcu84"}
+{"time":"2025-04-18T21:52:57.965051264+01:00","level":"INFO","msg":"sender: started","stream_id":"vpdrcu84"}
+{"time":"2025-04-18T21:52:53.882656454+01:00","level":"INFO","msg":"Starting system monitor"}
+{"time":"2025-04-18T21:53:25.800372017+01:00","level":"INFO","msg":"Stopping system monitor"}
+{"time":"2025-04-18T21:53:25.801086558+01:00","level":"INFO","msg":"Stopped system monitor"}
+{"time":"2025-04-18T21:53:26.504314965+01:00","level":"INFO","msg":"fileTransfer: Close: file transfer manager closed"}
+{"time":"2025-04-18T21:53:26.866436685+01:00","level":"INFO","msg":"handler: operation stats","stats":{"operations":[{"desc":"uploading console lines 20-86","runtime_seconds":0.043236856}],"total_operations":1}}
+{"time":"2025-04-18T21:53:27.110055509+01:00","level":"INFO","msg":"stream: closing","id":"vpdrcu84"}
+{"time":"2025-04-18T21:53:27.110430076+01:00","level":"INFO","msg":"handler: closed","stream_id":"vpdrcu84"}
+{"time":"2025-04-18T21:53:27.110482366+01:00","level":"INFO","msg":"writer: Close: closed","stream_id":"vpdrcu84"}
+{"time":"2025-04-18T21:53:27.110517631+01:00","level":"INFO","msg":"sender: closed","stream_id":"vpdrcu84"}
+{"time":"2025-04-18T21:53:27.126656925+01:00","level":"INFO","msg":"stream: closed","id":"vpdrcu84"}

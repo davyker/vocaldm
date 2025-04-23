@@ -1,0 +1,115 @@
+Training with 10586 samples, validating with 1867 samples from same distribution
+Total number of imitations:  979
+Total number of references:  121
+Found 979 pairs.
+Warning: FMAX is None setting to 15000
+/root/miniconda3/envs/audioldm/lib/python3.8/site-packages/torchvision/ops/misc.py:120: UserWarning: Don't use ConvNormActivation directly, please use Conv2dNormActivation and Conv3dNormActivation instead.
+  warnings.warn(
+Using 16bit None Automatic Mixed Precision (AMP)
+/root/miniconda3/envs/audioldm/lib/python3.8/site-packages/pytorch_lightning/plugins/precision/native_amp.py:47: FutureWarning: `torch.cuda.amp.GradScaler(args...)` is deprecated. Please use `torch.amp.GradScaler('cuda', args...)` instead.
+  scaler = torch.cuda.amp.GradScaler()
+GPU available: True (cuda), used: True
+TPU available: False, using: 0 TPU cores
+IPU available: False, using: 0 IPUs
+HPU available: False, using: 0 HPUs
+LOCAL_RANK: 0 - CUDA_VISIBLE_DEVICES: [0]
+/root/miniconda3/envs/audioldm/lib/python3.8/site-packages/pytorch_lightning/trainer/connectors/data_connector.py:224: PossibleUserWarning: The dataloader, val_dataloader 0, does not have many workers which may be a bottleneck. Consider increasing the value of the `num_workers` argument` (try 16 which is the number of cpus on this machine) in the `DataLoader` init to improve performance.
+  rank_zero_warn(
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Validation DataLoader 0: 100%|██████████████████████████████████████████████████████████████████████████████████████████████████| 117/117 [01:47<00:00,  1.09it/s]
+┏━━━━━━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
+┃[1m      Validate metric      [22m┃[1m       DataLoader 0        [22m┃
+┡━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━┩
+│[36m         val/loss          [39m│[35m    2.3066132068634033     [39m│
+│[36m          val/mrr          [39m│[35m    0.11574047968290534    [39m│
+│[36m         val/ndcg          [39m│[35m    0.2524085111148553     [39m│
+│[36m          val/tau          [39m│[35m    0.0700000748038292     [39m│
+└───────────────────────────┴───────────────────────────┘
+Sanity Checking: 0it [00:00, ?it/s]
+LOCAL_RANK: 0 - CUDA_VISIBLE_DEVICES: [0]
+  | Name              | Type           | Params
+-----------------------------------------------------
+0 | mel               | AugmentMelSTFT | 0
+1 | imitation_encoder | MobileNetV3    | 4.9 M
+2 | reference_encoder | MobileNetV3    | 4.9 M
+-----------------------------------------------------
+9.8 M     Trainable params
+1         Non-trainable params
+9.8 M     Total params
+19.507    Total estimated model params size (MB)
+/root/miniconda3/envs/audioldm/lib/python3.8/site-packages/pytorch_lightning/trainer/connectors/data_connector.py:224: PossibleUserWarning: The dataloader, val_dataloader 0, does not have many workers which may be a bottleneck. Consider increasing the value of the `num_workers` argument` (try 16 which is the number of cpus on this machine) in the `DataLoader` init to improve performance.
+  rank_zero_warn(
+/root/miniconda3/envs/audioldm/lib/python3.8/site-packages/pytorch_lightning/trainer/connectors/data_connector.py:224: PossibleUserWarning: The dataloader, train_dataloader, does not have many workers which may be a bottleneck. Consider increasing the value of the `num_workers` argument` (try 16 which is the number of cpus on this machine) in the `DataLoader` init to improve performance.
+
+
+
+
+
+
+Epoch 0:   1%|▊                                                            | 10/779 [00:16<21:04,  1.64s/it, loss=2.74, v_num=mwbf, train/loss=2.710, lr=0.000103]
+/root/miniconda3/envs/audioldm/lib/python3.8/site-packages/pytorch_lightning/trainer/call.py:48: UserWarning: Detected KeyboardInterrupt, attempting graceful shutdown...
+  rank_zero_warn("Detected KeyboardInterrupt, attempting graceful shutdown...")
+LOCAL_RANK: 0 - CUDA_VISIBLE_DEVICES: [0]
+/root/miniconda3/envs/audioldm/lib/python3.8/site-packages/pytorch_lightning/trainer/connectors/data_connector.py:224: PossibleUserWarning: The dataloader, val_dataloader 0, does not have many workers which may be a bottleneck. Consider increasing the value of the `num_workers` argument` (try 16 which is the number of cpus on this machine) in the `DataLoader` init to improve performance.
+  rank_zero_warn(
+----- Final Evaluation on VimSketch Validation Split -----
+
+
+
+
+
+Validation DataLoader 0:   7%|██████▊                                                                                             | 8/117 [00:07<01:47,  1.01it/s]

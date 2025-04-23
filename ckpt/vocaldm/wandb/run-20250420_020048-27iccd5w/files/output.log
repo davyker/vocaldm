@@ -1,0 +1,155 @@
+Saving checkpoints to run-specific directory: ckpt/vocaldm/27iccd5w
+GPU available: True (cuda), used: True
+TPU available: False, using: 0 TPU cores
+HPU available: False, using: 0 HPUs
+`Trainer(val_check_interval=1.0)` was configured so validation will run at the end of the training epoch..
+
+===== Running initial validation for baseline metrics =====
+LOCAL_RANK: 0 - CUDA_VISIBLE_DEVICES: [0]
+Validation DataLoader 0:   0%|                                                                                                                                                                                             | 0/1 [00:00<?, ?it/s]Resampling audio from 32000Hz to 16000Hz
+Resampled audio shape: torch.Size([160000])
+Error in final mel processing: permute(sparse_coo): number of dimensions in the tensor input does not match the length of the desired ordering of dimensions i.e. input.dim() = 4 is not equal to len(dims) = 3
+DDIM Sampler: 100%|██████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 50/50 [00:15<00:00,  3.16it/s]
+Traceback (most recent call last):███████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 50/50 [00:15<00:00,  4.84it/s]
+Error in audio logging: ushort format requires 0 <= number <= (0x7fff * 2 + 1)
+  File "/mnt/c/Users/Davy/Documents/Code/QM/CC/AudioLDM/train_vocaldm.py", line 919, in log_audio_examples
+    wavfile.write(generated_path, sample_rate, generated_audio_np.astype(np.float32))
+  File "/root/miniconda3/envs/qvim-baseline/lib/python3.10/site-packages/scipy/io/wavfile.py", line 824, in write
+    fmt_chunk_data = struct.pack('<HHIIHH', format_tag, channels, fs,
+struct.error: ushort format requires 0 <= number <= (0x7fff * 2 + 1)
+Validation DataLoader 0: 100%|█████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 1/1 [00:19<00:00,  0.05it/s]
+Saved improved adapter to ckpt/vocaldm/qvim_adapter_val_loss_0.2865.pt
+Validation DataLoader 0: 100%|█████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 1/1 [00:19<00:00,  0.05it/s]
+┏━━━━━━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
+┃[1m [0m[1m     Validate metric     [0m[1m [0m┃[1m [0m[1m      DataLoader 0       [0m[1m [0m┃
+┡━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━┩
+│[36m [0m[36m     val/cosine_loss     [0m[36m [0m│[35m [0m[35m           0.0           [0m[35m [0m│
+│[36m [0m[36m     val/epoch_loss      [0m[36m [0m│[35m [0m[35m   0.2864980101585388    [0m[35m [0m│
+│[36m [0m[36m        val/loss         [0m[36m [0m│[35m [0m[35m   0.2864980101585388    [0m[35m [0m│
+│[36m [0m[36m      val/mse_loss       [0m[36m [0m│[35m [0m[35m   0.2864980101585388    [0m[35m [0m│
+│[36m [0m[36m        val_loss         [0m[36m [0m│[35m [0m[35m   0.2864980101585388    [0m[35m [0m│
+└───────────────────────────┴───────────────────────────┘
+Initial validation loss: 0.286498
+===== Initial validation complete =====
+/root/miniconda3/envs/qvim-baseline/lib/python3.10/site-packages/pytorch_lightning/callbacks/model_checkpoint.py:654: Checkpoint directory /mnt/c/Users/Davy/Documents/Code/QM/CC/AudioLDM/ckpt/vocaldm/27iccd5w exists and is not empty.
+LOCAL_RANK: 0 - CUDA_VISIBLE_DEVICES: [0]
+
+  | Name       | Type            | Params | Mode
+-------------------------------------------------------
+0 | qvim_model | QVIMModule      | 9.8 M  | eval
+1 | adapter    | QVIMAdapter     | 1.5 M  | train
+2 | audioldm   | LatentDiffusion | 726 M  | eval
+-------------------------------------------------------
+2.6 M     Trainable params
+734 M     Non-trainable params
+737 M     Total params
+2,949.710 Total estimated model params size (MB)
+12        Modules in train mode
+2245      Modules in eval mode
+
+Sanity Checking DataLoader 0:   0%|                                                                                                                                                                                        | 0/1 [00:00<?, ?it/s]Resampling audio from 32000Hz to 16000Hz
+Resampled audio shape: torch.Size([160000])
+Error in final mel processing: permute(sparse_coo): number of dimensions in the tensor input does not match the length of the desired ordering of dimensions i.e. input.dim() = 4 is not equal to len(dims) = 3
+DDIM Sampler: 100%|██████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 50/50 [00:11<00:00,  4.31it/s]
+Traceback (most recent call last):███████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 50/50 [00:11<00:00,  4.35it/s]
+Error in audio logging: ushort format requires 0 <= number <= (0x7fff * 2 + 1)
+  File "/mnt/c/Users/Davy/Documents/Code/QM/CC/AudioLDM/train_vocaldm.py", line 919, in log_audio_examples
+    wavfile.write(generated_path, sample_rate, generated_audio_np.astype(np.float32))
+  File "/root/miniconda3/envs/qvim-baseline/lib/python3.10/site-packages/scipy/io/wavfile.py", line 824, in write
+    fmt_chunk_data = struct.pack('<HHIIHH', format_tag, channels, fs,
+struct.error: ushort format requires 0 <= number <= (0x7fff * 2 + 1)
+Epoch 0:   0%|                                                                                                                                                                                                             | 0/2 [00:00<?, ?it/s]Resampling audio from 32000Hz to 16000Hz
+/root/miniconda3/envs/qvim-baseline/lib/python3.10/site-packages/pytorch_lightning/loops/fit_loop.py:310: The number of training batches (2) is smaller than the logging interval Trainer(log_every_n_steps=10). Set a lower value for log_every_n_steps if you want to see logs for the training epoch.
+Resampled audio shape: torch.Size([160000])
+Resampling audio from 32000Hz to 16000Hz
+Resampled audio shape: torch.Size([160000])
+Resampling audio from 32000Hz to 16000Hz
+Resampled audio shape: torch.Size([160000])
+Resampling audio from 32000Hz to 16000Hz
+Resampled audio shape: torch.Size([160000])
+Error in final mel processing: permute(sparse_coo): number of dimensions in the tensor input does not match the length of the desired ordering of dimensions i.e. input.dim() = 4 is not equal to len(dims) = 3
+diffusion_loss requires_grad: True
+Checking gradient paths:
+Component requires_grad check: {'squared_diff': True, 'model_output': True, 'target': False}
+Epoch 0:  50%|█████████████████████████████████████████████████████████████                                                             | 1/2 [00:03<00:03,  0.25it/s, v_num=cd5w, train/loss=0.847, train/adapter_lr=0.0001, train/film_lr=1e-5]Resampling audio from 32000Hz to 16000Hz
+Resampled audio shape: torch.Size([160000])
+Resampling audio from 32000Hz to 16000Hz
+Resampled audio shape: torch.Size([160000])
+Resampling audio from 32000Hz to 16000Hz
+Resampled audio shape: torch.Size([160000])
+Resampling audio from 32000Hz to 16000Hz
+Resampled audio shape: torch.Size([160000])
+Error in final mel processing: permute(sparse_coo): number of dimensions in the tensor input does not match the length of the desired ordering of dimensions i.e. input.dim() = 4 is not equal to len(dims) = 3
+Epoch 0: 100%|██████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 2/2 [00:05<00:00,  0.35it/s, v_num=cd5w, train/loss=1.120, train/adapter_lr=0.0001, train/film_lr=1e-5]Resampling audio from 32000Hz to 16000Hz
+Resampled audio shape: torch.Size([160000])                                                                                                                                                                                | 0/1 [00:00<?, ?it/s]
+Error in final mel processing: permute(sparse_coo): number of dimensions in the tensor input does not match the length of the desired ordering of dimensions i.e. input.dim() = 4 is not equal to len(dims) = 3
+DDIM Sampler: 100%|██████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 50/50 [00:11<00:00,  4.41it/s]
+Traceback (most recent call last):
+  File "/mnt/c/Users/Davy/Documents/Code/QM/CC/AudioLDM/train_vocaldm.py", line 919, in log_audio_examples███████████████████████████████████████████████████████████████████████████████████████████████████████| 50/50 [00:11<00:00,  4.78it/s]
+Error in audio logging: ushort format requires 0 <= number <= (0x7fff * 2 + 1)
+    wavfile.write(generated_path, sample_rate, generated_audio_np.astype(np.float32))
+  File "/root/miniconda3/envs/qvim-baseline/lib/python3.10/site-packages/scipy/io/wavfile.py", line 824, in write
+    fmt_chunk_data = struct.pack('<HHIIHH', format_tag, channels, fs,
+struct.error: ushort format requires 0 <= number <= (0x7fff * 2 + 1)
+Epoch 0: 100%|██████████████████████████████████████████████████████████████████████████████████████████████████████████| 2/2 [00:18<00:00,  0.11it/s, v_num=cd5w, train/loss=1.120, train/adapter_lr=0.0001, train/film_lr=1e-5, val/loss=1.090]Cleaning up memory before validation...
+Epoch 1:   0%|                                                                                                                  | 0/2 [00:00<?, ?it/s, v_num=cd5w, train/loss=1.120, train/adapter_lr=0.0001, train/film_lr=1e-5, val/loss=1.090]Resampling audio from 32000Hz to 16000Hz
+Metric val/loss improved. New best score: 1.088
+Epoch 0, global step 1: 'val/loss' reached 1.08789 (best 1.08789), saving model to '/mnt/c/Users/Davy/Documents/Code/QM/CC/AudioLDM/ckpt/vocaldm/27iccd5w/vocaldm-epoch=00-val_loss=1.0879.ckpt' as top 1
+Resampled audio shape: torch.Size([160000])
+Resampling audio from 32000Hz to 16000Hz
+Resampled audio shape: torch.Size([160000])
+Resampling audio from 32000Hz to 16000Hz
+Resampled audio shape: torch.Size([160000])
+Resampling audio from 32000Hz to 16000Hz
+Resampled audio shape: torch.Size([160000])
+Error in final mel processing: permute(sparse_coo): number of dimensions in the tensor input does not match the length of the desired ordering of dimensions i.e. input.dim() = 4 is not equal to len(dims) = 3
+Epoch 1:  50%|███████████████████████████████████████████████████                                                   | 1/2 [00:02<00:02,  0.34it/s, v_num=cd5w, train/loss=0.428, train/adapter_lr=9.76e-5, train/film_lr=9.78e-6, val/loss=1.090]Resampling audio from 32000Hz to 16000Hz
+Resampled audio shape: torch.Size([160000])
+Resampling audio from 32000Hz to 16000Hz
+Resampled audio shape: torch.Size([160000])
+Resampling audio from 32000Hz to 16000Hz
+Resampled audio shape: torch.Size([160000])
+Resampling audio from 32000Hz to 16000Hz
+Resampled audio shape: torch.Size([160000])
+Error in final mel processing: permute(sparse_coo): number of dimensions in the tensor input does not match the length of the desired ordering of dimensions i.e. input.dim() = 4 is not equal to len(dims) = 3
+Epoch 1: 100%|██████████████████████████████████████████████████████████████████████████████████████████████████████| 2/2 [00:04<00:00,  0.48it/s, v_num=cd5w, train/loss=0.652, train/adapter_lr=9.76e-5, train/film_lr=9.78e-6, val/loss=1.090]Resampling audio from 32000Hz to 16000Hz
+Resampled audio shape: torch.Size([160000])                                                                                                                                                                                | 0/1 [00:00<?, ?it/s]
+Error in final mel processing: permute(sparse_coo): number of dimensions in the tensor input does not match the length of the desired ordering of dimensions i.e. input.dim() = 4 is not equal to len(dims) = 3
+DDIM Sampler: 100%|██████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 50/50 [00:12<00:00,  4.08it/s]
+Traceback (most recent call last):
+  File "/mnt/c/Users/Davy/Documents/Code/QM/CC/AudioLDM/train_vocaldm.py", line 919, in log_audio_examples███████████████████████████████████████████████████████████████████████████████████████████████████████| 50/50 [00:12<00:00,  4.66it/s]
+Error in audio logging: ushort format requires 0 <= number <= (0x7fff * 2 + 1)
+    wavfile.write(generated_path, sample_rate, generated_audio_np.astype(np.float32))
+  File "/root/miniconda3/envs/qvim-baseline/lib/python3.10/site-packages/scipy/io/wavfile.py", line 824, in write
+    fmt_chunk_data = struct.pack('<HHIIHH', format_tag, channels, fs,
+struct.error: ushort format requires 0 <= number <= (0x7fff * 2 + 1)
+
+Saved improved adapter to ckpt/vocaldm/qvim_adapter_val_loss_0.0038.pt█████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 1/1 [00:13<00:00,  0.07it/s]
+Epoch 1: 100%|████████████████████████████████████████████████████████████████████████████████████████████████████| 2/2 [00:18<00:00,  0.11it/s, v_num=cd5w, train/loss=0.652, train/adapter_lr=9.76e-5, train/film_lr=9.78e-6, val/loss=0.00384]Cleaning up memory before validation...
+Epoch 2:   0%|                                                                                                            | 0/2 [00:00<?, ?it/s, v_num=cd5w, train/loss=0.652, train/adapter_lr=9.76e-5, train/film_lr=9.78e-6, val/loss=0.00384]Resampling audio from 32000Hz to 16000Hz
+Metric val/loss improved by 1.084 >= min_delta = 0.0. New best score: 0.004
+Epoch 1, global step 2: 'val/loss' reached 0.00384 (best 0.00384), saving model to '/mnt/c/Users/Davy/Documents/Code/QM/CC/AudioLDM/ckpt/vocaldm/27iccd5w/vocaldm-epoch=01-val_loss=0.0038.ckpt' as top 1
+Resampled audio shape: torch.Size([160000])
+Resampling audio from 32000Hz to 16000Hz
+Resampled audio shape: torch.Size([160000])
+Resampling audio from 32000Hz to 16000Hz
+Resampled audio shape: torch.Size([160000])
+Resampling audio from 32000Hz to 16000Hz
+Resampled audio shape: torch.Size([160000])
+Error in final mel processing: permute(sparse_coo): number of dimensions in the tensor input does not match the length of the desired ordering of dimensions i.e. input.dim() = 4 is not equal to len(dims) = 3
+Epoch 2:  50%|██████████████████████████████████████████████████                                                  | 1/2 [00:03<00:03,  0.33it/s, v_num=cd5w, train/loss=1.050, train/adapter_lr=9.05e-5, train/film_lr=9.14e-6, val/loss=0.00384]Resampling audio from 32000Hz to 16000Hz
+Resampled audio shape: torch.Size([160000])
+Resampling audio from 32000Hz to 16000Hz
+Resampled audio shape: torch.Size([160000])
+Resampling audio from 32000Hz to 16000Hz
+Resampled audio shape: torch.Size([160000])
+Resampling audio from 32000Hz to 16000Hz
+Resampled audio shape: torch.Size([160000])
+Error in final mel processing: permute(sparse_coo): number of dimensions in the tensor input does not match the length of the desired ordering of dimensions i.e. input.dim() = 4 is not equal to len(dims) = 3
+Epoch 2: 100%|████████████████████████████████████████████████████████████████████████████████████████████████████| 2/2 [00:04<00:00,  0.48it/s, v_num=cd5w, train/loss=0.446, train/adapter_lr=9.05e-5, train/film_lr=9.14e-6, val/loss=0.00384]Resampling audio from 32000Hz to 16000Hz
+Resampled audio shape: torch.Size([160000])                                                                                                                                                                                | 0/1 [00:00<?, ?it/s]
+Error in final mel processing: permute(sparse_coo): number of dimensions in the tensor input does not match the length of the desired ordering of dimensions i.e. input.dim() = 4 is not equal to len(dims) = 3
+DDIM Sampler:  14%|██████████████████████████▋                                                                                                                                                                    | 7/50 [00:01<00:12,  3.53it/s]
+
+Detected KeyboardInterrupt, attempting graceful shutdown ...                                                                                                                                                      | 7/50 [00:01<00:10,  3.95it/s]
+Resources cleaned up

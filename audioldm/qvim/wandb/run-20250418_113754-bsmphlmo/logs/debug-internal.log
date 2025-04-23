@@ -1,0 +1,7 @@
+{"time":"2025-04-18T11:37:54.911972482+01:00","level":"INFO","msg":"stream: starting","core version":"0.19.9","symlink path":"wandb/run-20250418_113754-bsmphlmo/logs/debug-core.log"}
+{"time":"2025-04-18T11:37:55.461119844+01:00","level":"INFO","msg":"created new stream","id":"bsmphlmo"}
+{"time":"2025-04-18T11:37:55.461383825+01:00","level":"INFO","msg":"stream: started","id":"bsmphlmo"}
+{"time":"2025-04-18T11:37:55.461416209+01:00","level":"INFO","msg":"writer: Do: started","stream_id":"bsmphlmo"}
+{"time":"2025-04-18T11:37:55.461447542+01:00","level":"INFO","msg":"sender: started","stream_id":"bsmphlmo"}
+{"time":"2025-04-18T11:37:55.461502924+01:00","level":"INFO","msg":"handler: started","stream_id":"bsmphlmo"}
+{"time":"2025-04-18T11:37:55.886916728+01:00","level":"INFO","msg":"Starting system monitor"}

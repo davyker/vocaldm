@@ -1,0 +1,15 @@
+Saving checkpoints to run-specific directory: ckpt/vocaldm/e7r2f6zl
+GPU available: True (cuda), used: True
+TPU available: False, using: 0 TPU cores
+HPU available: False, using: 0 HPUs
+`Trainer(val_check_interval=1.0)` was configured so validation will run at the end of the training epoch..
+
+===== Running initial validation for baseline metrics =====
+LOCAL_RANK: 0 - CUDA_VISIBLE_DEVICES: [0]
+/root/miniconda3/envs/qvim-baseline/lib/python3.10/site-packages/pytorch_lightning/utilities/data.py:106: Total length of `DataLoader` across ranks is zero. Please make sure this was your intention.
+Training failed with error: list index out of range
+Traceback (most recent call last):
+  File "/mnt/c/Users/Davy/Documents/Code/QM/CC/AudioLDM/train_vocaldm.py", line 1303, in train_vocaldm
+    initial_val_loss = initial_results[0].get('val/loss', 0.0)
+IndexError: list index out of range
+Resources cleaned up

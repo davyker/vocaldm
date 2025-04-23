@@ -1,0 +1,8 @@
+Generation timestamp: 2025-04-22 12:06:27
+Vocal imitation: audioldm/qvim/data/Vim_Sketch_Dataset/vocal_imitations/05281_283Source_ambiguous sounds_Deformable shell_Crushing.wav
+Adapter checkpoint: /mnt/c/Users/Davy/Documents/Code/QM/CC/AudioLDM/ckpt/vocaldm/treasured-sky-77/qvim_adapter_val_loss_0.6638.pt
+AudioLDM model: audioldm-s-full
+Duration: 5.0 seconds
+Guidance scale: 3.0
+DDIM steps: 100
+Random seed: 42

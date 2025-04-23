@@ -1,0 +1,37 @@
+Saving checkpoints to run-specific directory: ckpt/vocaldm/slbcdufw
+GPU available: True (cuda), used: True
+TPU available: False, using: 0 TPU cores
+HPU available: False, using: 0 HPUs
+`Trainer(val_check_interval=1.0)` was configured so validation will run at the end of the training epoch..
+
+===== Running initial validation for baseline metrics =====
+LOCAL_RANK: 0 - CUDA_VISIBLE_DEVICES: [0]
+Validation DataLoader 0:   0%|                                                                                                                                                                                           | 0/156 [00:00<?, ?it/s]Error in waveform_to_mel: Expected all tensors to be on the same device, but found at least two devices, cuda:0 and cpu! (when checking argument for argument mat2 in method wrapper_CUDA_bmm)
+/mnt/c/Users/Davy/Documents/Code/QM/CC/AudioLDM/audioldm/audio/stft.py:42: FutureWarning: Pass size=1024 as keyword args. From version 0.10 passing these as positional arguments will result in an error
+  fft_window = pad_center(fft_window, filter_length)
+/mnt/c/Users/Davy/Documents/Code/QM/CC/AudioLDM/audioldm/audio/stft.py:145: FutureWarning: Pass sr=16000, n_fft=1024, n_mels=64, fmin=0, fmax=8000 as keyword args. From version 0.10 passing these as positional arguments will result in an error
+  mel_basis = librosa_mel_fn(
+Falling back to placeholder method
+DDIM Sampler: 100%|██████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 50/50 [00:16<00:00,  2.97it/s]
+Traceback (most recent call last):███████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 50/50 [00:16<00:00,  3.41it/s]
+Error in audio logging: ushort format requires 0 <= number <= (0x7fff * 2 + 1)
+  File "/mnt/c/Users/Davy/Documents/Code/QM/CC/AudioLDM/train_vocaldm.py", line 915, in log_audio_examples
+    wavfile.write(generated_path, sample_rate, generated_audio_np.astype(np.float32))
+  File "/root/miniconda3/envs/qvim-baseline/lib/python3.10/site-packages/scipy/io/wavfile.py", line 824, in write
+    fmt_chunk_data = struct.pack('<HHIIHH', format_tag, channels, fs,
+struct.error: ushort format requires 0 <= number <= (0x7fff * 2 + 1)
+Validation DataLoader 0:   1%|█▏                                                                                                                                                                               | 1/156 [00:29<1:16:40,  0.03it/s]Error in waveform_to_mel: Expected all tensors to be on the same device, but found at least two devices, cuda:0 and cpu! (when checking argument for argument mat2 in method wrapper_CUDA_bmm)
+Falling back to placeholder method
+Validation DataLoader 0:   1%|██▎                                                                                                                                                                                | 2/156 [00:38<49:38,  0.05it/s]Error in waveform_to_mel: Expected all tensors to be on the same device, but found at least two devices, cuda:0 and cpu! (when checking argument for argument mat2 in method wrapper_CUDA_bmm)
+Falling back to placeholder method
+Validation DataLoader 0:   2%|███▍                                                                                                                                                                               | 3/156 [00:47<40:32,  0.06it/s]Error in waveform_to_mel: Expected all tensors to be on the same device, but found at least two devices, cuda:0 and cpu! (when checking argument for argument mat2 in method wrapper_CUDA_bmm)
+Falling back to placeholder method
+Validation DataLoader 0:   3%|████▌                                                                                                                                                                              | 4/156 [00:59<37:57,  0.07it/s]Error in waveform_to_mel: Expected all tensors to be on the same device, but found at least two devices, cuda:0 and cpu! (when checking argument for argument mat2 in method wrapper_CUDA_bmm)
+Falling back to placeholder method
+Validation DataLoader 0:   3%|█████▋                                                                                                                                                                             | 5/156 [01:07<34:00,  0.07it/s]Error in waveform_to_mel: Expected all tensors to be on the same device, but found at least two devices, cuda:0 and cpu! (when checking argument for argument mat2 in method wrapper_CUDA_bmm)
+Falling back to placeholder method
+Validation DataLoader 0:   4%|██████▉                                                                                                                                                                            | 6/156 [01:17<32:17,  0.08it/s]Error in waveform_to_mel: Expected all tensors to be on the same device, but found at least two devices, cuda:0 and cpu! (when checking argument for argument mat2 in method wrapper_CUDA_bmm)
+Falling back to placeholder method
+Validation DataLoader 0:   4%|████████                                                                                                                                                                           | 7/156 [01:22<29:20,  0.08it/s]Resources cleaned up
+
+Detected KeyboardInterrupt, attempting graceful shutdown ...

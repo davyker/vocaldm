@@ -1,0 +1,1 @@
+{"val_loss":0.2864980101585388,"val/loss":0.2864980101585388,"_timestamp":1.7451096820151103e+09,"val/mse_loss":0.2864980101585388,"val/cosine_loss":0,"global_step":0,"_wandb":{"runtime":100},"_step":1,"epoch":0,"trainer/global_step":0,"initial/val_loss":0.2864980101585388,"val/epoch_loss":0.2864980101585388,"_runtime":48.024492243}

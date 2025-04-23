@@ -1,0 +1,9 @@
+Generation timestamp: 2025-04-22 15:36:23
+Vocal imitation: audioldm/qvim/data/Vim_Sketch_Dataset/vocal_imitations/12330_228-waves_breaking-everyday.wav
+Adapter checkpoint: /mnt/c/Users/Davy/Documents/Code/QM/CC/AudioLDM/ckpt/vocaldm/treasured-sky-77/qvim_adapter_val_loss_0.6638.pt
+AudioLDM model: audioldm-s-full
+Duration: 10.0 seconds
+Guidance scale: 3.0
+DDIM steps: 100
+DDIM eta: 1.0 (stochastic)
+Random seed: 42

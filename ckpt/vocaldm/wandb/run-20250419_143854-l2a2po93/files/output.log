@@ -1,0 +1,45 @@
+/root/miniconda3/envs/qvim-baseline/lib/python3.10/site-packages/pytorch_lightning/callbacks/model_checkpoint.py:654: Checkpoint directory /mnt/c/Users/Davy/Documents/Code/QM/CC/AudioLDM/ckpt/vocaldm exists and is not empty.
+LOCAL_RANK: 0 - CUDA_VISIBLE_DEVICES: [0]
+
+  | Name       | Type            | Params | Mode
+-------------------------------------------------------
+0 | qvim_model | QVIMModule      | 9.8 M  | eval
+1 | adapter    | QVIMAdapter     | 1.5 M  | train
+2 | audioldm   | LatentDiffusion | 726 M  | eval
+-------------------------------------------------------
+2.6 M     Trainable params
+734 M     Non-trainable params
+737 M     Total params
+2,949.710 Total estimated model params size (MB)
+12        Modules in train mode
+2245      Modules in eval mode
+Sanity Checking DataLoader 0:   0%|                                                                                                                                                                                                    | 0/2 [00:00<?, ?it/s]Skipping audio logging to avoid format issues
+DDIM Sampler: 100%|██████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 50/50 [00:21<00:00,  2.35it/s]
+/root/miniconda3/envs/qvim-baseline/lib/python3.10/site-packages/torch/nn/modules/module.py:1830: FutureWarning: Using a non-full backward hook when the forward contains multiple autograd Nodes is deprecated and will be removed in future versions. This hook will be missing some grad_input. Please use register_full_backward_hook to get the documented behavior.
+Sanity Checking DataLoader 0: 100%|████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 2/2 [00:14<00:00,  0.13it/s]
+Saved improved adapter to ckpt/vocaldm/qvim_adapter_val_loss_0.0154.pt
+Epoch 0:   0%|                                                                                                                                                                                                                     | 0/11208 [00:00<?, ?it/s]z_noisy requires_grad: False
+t requires_grad: False
+adapted_embedding requires_grad: True
+Trainable parameters: ['adapter.adapter.0.weight', 'adapter.adapter.0.bias', 'adapter.adapter.1.weight', 'adapter.adapter.1.bias', 'adapter.adapter.3.weight', 'adapter.adapter.3.bias', 'adapter.adapter.4.weight', 'adapter.adapter.4.bias', 'audioldm.model.diffusion_model.time_embed.0.weight', 'audioldm.model.diffusion_model.time_embed.0.bias', 'audioldm.model.diffusion_model.time_embed.2.weight', 'audioldm.model.diffusion_model.time_embed.2.bias', 'audioldm.model.diffusion_model.film_emb.weight', 'audioldm.model.diffusion_model.film_emb.bias']
+  self._maybe_warn_non_full_backward_hook(args, result, grad_fn)
+model_output shape: torch.Size([1, 8, 64, 64]), requires_grad: True
+target shape: torch.Size([1, 8, 64, 64]), requires_grad: False
+Error computing gradient for adapter.adapter.0.weight: One of the differentiated Tensors does not require grad
+Error computing gradient for adapter.adapter.0.bias: One of the differentiated Tensors does not require grad
+Error computing gradient for adapter.adapter.1.weight: One of the differentiated Tensors does not require grad
+Error computing gradient for adapter.adapter.1.bias: One of the differentiated Tensors does not require grad
+Error computing gradient for adapter.adapter.3.weight: One of the differentiated Tensors does not require grad
+Error computing gradient for adapter.adapter.3.bias: One of the differentiated Tensors does not require grad
+Error computing gradient for adapter.adapter.4.weight: One of the differentiated Tensors does not require grad
+Error computing gradient for adapter.adapter.4.bias: One of the differentiated Tensors does not require grad
+Error computing gradient for audioldm.model.diffusion_model.time_embed.0.weight: One of the differentiated Tensors does not require grad
+Error computing gradient for audioldm.model.diffusion_model.time_embed.0.bias: One of the differentiated Tensors does not require grad
+Error computing gradient for audioldm.model.diffusion_model.time_embed.2.weight: One of the differentiated Tensors does not require grad
+Error computing gradient for audioldm.model.diffusion_model.time_embed.2.bias: One of the differentiated Tensors does not require grad
+Error computing gradient for audioldm.model.diffusion_model.film_emb.weight: One of the differentiated Tensors does not require grad
+Error computing gradient for audioldm.model.diffusion_model.film_emb.bias: One of the differentiated Tensors does not require grad
+Visualizing autograd computation graph...
+
+Detected KeyboardInterrupt, attempting graceful shutdown ...
+Resources cleaned up

@@ -1,0 +1,16 @@
+{"time":"2025-04-19T14:40:18.764703487+01:00","level":"INFO","msg":"stream: starting","core version":"0.19.9","symlink path":"ckpt/vocaldm/wandb/run-20250419_144018-m7ttpta6/logs/debug-core.log"}
+{"time":"2025-04-19T14:40:19.248994973+01:00","level":"INFO","msg":"created new stream","id":"m7ttpta6"}
+{"time":"2025-04-19T14:40:19.249254849+01:00","level":"INFO","msg":"stream: started","id":"m7ttpta6"}
+{"time":"2025-04-19T14:40:19.24928043+01:00","level":"INFO","msg":"writer: Do: started","stream_id":"m7ttpta6"}
+{"time":"2025-04-19T14:40:19.249316569+01:00","level":"INFO","msg":"sender: started","stream_id":"m7ttpta6"}
+{"time":"2025-04-19T14:40:19.249318515+01:00","level":"INFO","msg":"handler: started","stream_id":"m7ttpta6"}
+{"time":"2025-04-19T14:40:19.785329053+01:00","level":"INFO","msg":"Starting system monitor"}
+{"time":"2025-04-19T14:40:53.338922099+01:00","level":"INFO","msg":"Stopping system monitor"}
+{"time":"2025-04-19T14:40:53.339334506+01:00","level":"INFO","msg":"Stopped system monitor"}
+{"time":"2025-04-19T14:40:59.622157207+01:00","level":"INFO","msg":"handler: operation stats","stats":{}}
+{"time":"2025-04-19T14:40:53.509909963+01:00","level":"INFO","msg":"fileTransfer: Close: file transfer manager closed"}
+{"time":"2025-04-19T14:40:53.990787034+01:00","level":"INFO","msg":"stream: closing","id":"m7ttpta6"}
+{"time":"2025-04-19T14:40:53.991061499+01:00","level":"INFO","msg":"handler: closed","stream_id":"m7ttpta6"}
+{"time":"2025-04-19T14:40:53.99113877+01:00","level":"INFO","msg":"writer: Close: closed","stream_id":"m7ttpta6"}
+{"time":"2025-04-19T14:40:53.991200683+01:00","level":"INFO","msg":"sender: closed","stream_id":"m7ttpta6"}
+{"time":"2025-04-19T14:40:53.995656232+01:00","level":"INFO","msg":"stream: closed","id":"m7ttpta6"}
