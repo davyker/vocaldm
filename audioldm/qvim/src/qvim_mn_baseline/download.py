@@ -20,9 +20,8 @@ def download_qvim_dev_dataset(data_dir: str = "data"):
         extract_zip(zip_file, os.path.join(data_dir, 'qvim-dev'))
 
 
-def download_vimsketch_dataset(data_dir: str = "data"):
-    URL = "https://zenodo.org/records/2596911/files/Vim_Sketch_Dataset.zip?download=1"
-    zip_file = os.path.join(data_dir, "VimSketch.zip")
+def download_vimsketch_dataset(data_dir: str = "data", source: str = "gdrive"):
+
 
     # if os.path.exists(zip_file):
     #     print(f"{zip_file} already exists. Skipping download. {URL}")
@@ -34,14 +33,49 @@ def download_vimsketch_dataset(data_dir: str = "data"):
     # else:
     #     extract_zip(zip_file, data_dir)
 
-    if os.path.exists(os.path.join(data_dir, "Vim_Sketch_Dataset")):
-        print(f"Vim_Sketch_Dataset already exists. Skipping everything.")
-    elif os.path.exists(zip_file):
-        print(f"{zip_file} already exists. Skipping download. {URL}")
-        extract_zip(zip_file, data_dir)
-    else:
-        download_zip(URL, zip_file)
-        extract_zip(zip_file, data_dir)
+    if source == "zonedo":
+        URL = "https://zenodo.org/records/2596911/files/Vim_Sketch_Dataset.zip?download=1"
+        zip_file = os.path.join(data_dir, "VimSketch.zip")
+
+        if os.path.exists(os.path.join(data_dir, "Vim_Sketch_Dataset")):
+            print(f"Vim_Sketch_Dataset already exists. Skipping everything.")
+        elif os.path.exists(zip_file):
+            print(f"{zip_file} already exists. Skipping download. {URL}")
+            extract_zip(zip_file, data_dir)
+        else:
+            download_zip(URL, zip_file)
+            extract_zip(zip_file, data_dir)
+
+    elif source == "gdrive": # Zonedo zip file was corrupted, so I placed a tar file on gdrive
+        import tarfile
+        
+        GDRIVE_ID = "1qc8khcH0ipm2YBaUXXAk0qJR8TWN8k1k"
+        tar_file = os.path.join(data_dir, "VimSketch.tar")
+        dataset_path = os.path.join(data_dir, "Vim_Sketch_Dataset")
+        
+        # Skip if dataset already exists
+        if os.path.exists(dataset_path):
+            print(f"Dataset directory ready at {dataset_path}")
+            return
+        
+        # Make sure data directory exists
+        os.makedirs(data_dir, exist_ok=True)
+        
+        # Download tar file if it doesn't exist
+        if not os.path.exists(tar_file):
+            print(f"Downloading VimSketch.tar from Google Drive...")
+            subprocess.run([
+                "gdown", 
+                "--id", GDRIVE_ID, 
+                "--output", tar_file
+            ], check=True)
+        
+        # Extract tar file
+        print(f"Extracting {tar_file}...")
+        with tarfile.open(tar_file) as tar:
+            tar.extractall(path=data_dir)
+        
+        print(f"Dataset directory ready at {dataset_path}")
 
 def download_qvim_eval_dataset(data_dir: str = "data"):
     #
