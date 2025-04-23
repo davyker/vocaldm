@@ -119,7 +119,7 @@ torch.set_float32_matmul_precision('high')
 class VocaLDMDataset(Dataset):
     """Dataset for training VocaLDM with vocal imitations and reference sounds"""
     
-    def __init__(self, base_dataset, sample_rate=32000, duration=5.0, max_items=None):
+    def __init__(self, base_dataset, sample_rate=32000, duration=10.0, max_items=None):
         """
         Args:
             base_dataset: VimSketchDataset or similar dataset with imitations and references
@@ -998,7 +998,6 @@ class VocaLDMModule(pl.LightningModule):
             os.makedirs(audio_dir, exist_ok=True)
             
             # Save audio files to disk - save at AudioLDM's sample rate
-            sample_rate = self.config.audioldm_sample_rate
             
             for i in range(min(2, len(imitations))):
                 # Convert to numpy arrays
@@ -1044,7 +1043,7 @@ class VocaLDMModule(pl.LightningModule):
                 # Convert to int16 - EXACTLY like in vocoder_infer in hifigan/utilities.py
                 waveform_int16 = (waveform * 32768).astype(np.int16)
                 # Use soundfile with explicitly specifying format='WAV'
-                sf.write(generated_path, waveform_int16, sample_rate, format='WAV')
+                sf.write(generated_path, waveform_int16, self.config.audioldm_sample_rate, format='WAV')
                 
                 # Handle imitation audio with identical approach
                 if len(imitation_audio.shape) >= 2:
@@ -1053,7 +1052,7 @@ class VocaLDMModule(pl.LightningModule):
                     imitation_waveform = imitation_audio
                 
                 imitation_int16 = (imitation_waveform * 32768).astype(np.int16)
-                sf.write(imitation_path, imitation_int16, sample_rate, format='WAV')
+                sf.write(imitation_path, imitation_int16, self.config.sample_rate, format='WAV')
                 
                 # Handle reference audio with identical approach
                 if len(reference_audio.shape) >= 2:
@@ -1062,7 +1061,7 @@ class VocaLDMModule(pl.LightningModule):
                     reference_waveform = reference_audio
                 
                 reference_int16 = (reference_waveform * 32768).astype(np.int16)
-                sf.write(reference_path, reference_int16, sample_rate, format='WAV')
+                sf.write(reference_path, reference_int16, self.config.sample_rate, format='WAV')
                 
                 print(f"Saved audio files for epoch {self.current_epoch}, sample {i} to {audio_dir}")
                 
