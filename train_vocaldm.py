@@ -132,7 +132,6 @@ class VocaLDMDataset(Dataset):
         self.duration = duration
         self.max_items = max_items
         # Parameters to finetune contains these strings:
-        self.param_names_contain = ['film', 'emb_layers', 'scale', 'shift']
         
         # If max_items is set, limit the dataset size
         if max_items is not None:
@@ -171,6 +170,7 @@ class VocaLDMModule(pl.LightningModule):
         super().__init__()
         self.config = config
         self.save_hyperparameters(config)
+        self.param_names_contain = ['film', 'emb_layers', 'scale', 'shift']
         
         # Store current loss values for scheduler
         self.current_train_loss = float('inf')
