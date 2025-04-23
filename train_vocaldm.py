@@ -713,11 +713,13 @@ class VocaLDMModule(pl.LightningModule):
         if self.global_step == 0:
             print("Optimizer parameter groups:")
             for i, group in enumerate(optimizer.param_groups):
-                print(f"  Group {i}: lr={group['lr']}, {len(group['params'])} parameters")
+                print(f"  Group {i}: lr={group['lr']}, weight_decay={group['weight_decay']}, {len(group['params'])} parameters")
         
-        # Get current learning rates
+        # Get current learning rates and weight decay values
         adapter_lr = optimizer.param_groups[0]['lr']
         film_lr = optimizer.param_groups[1]['lr']
+        adapter_wd = optimizer.param_groups[0]['weight_decay']
+        film_wd = optimizer.param_groups[1]['weight_decay']
         
         # Standard Lightning logging for progress bar
         self.log('train/adapter_lr', adapter_lr, prog_bar=True, batch_size=imitation.shape[0])
@@ -731,6 +733,8 @@ class VocaLDMModule(pl.LightningModule):
                 'train/cosine_loss': cosine_loss.item(),
                 'train/adapter_lr': adapter_lr,
                 'train/film_lr': film_lr,
+                'train/adapter_weight_decay': adapter_wd,
+                'train/film_weight_decay': film_wd,
                 'step': self.global_step,
                 'epoch': self.current_epoch
             })
@@ -1022,15 +1026,22 @@ class VocaLDMModule(pl.LightningModule):
             if param.requires_grad and any(x in name for x in ['cond_emb', 'film', 'label_emb', 'time_embed']):
                 film_params.append(param)
         
-        # Configure optimizer with two parameter groups
+        # Configure optimizer with two parameter groups, each with its own weight decay
         optimizer = torch.optim.AdamW(
             [
-                {"params": adapter_params, "lr": self.config.adapter_lr},
-                {"params": film_params, "lr": self.config.film_lr}
+                {
+                    "params": adapter_params, 
+                    "lr": self.config.adapter_lr,
+                    "weight_decay": self.config.adapter_weight_decay  # Higher weight decay for new components
+                },
+                {
+                    "params": film_params, 
+                    "lr": self.config.film_lr,
+                    "weight_decay": self.config.film_weight_decay  # Lower weight decay for pre-trained components
+                }
             ],
             betas=(0.9, 0.999),
-            eps=1e-8,
-            weight_decay=self.config.weight_decay
+            eps=1e-8
         )
         
         # Configure learning rate scheduler
@@ -1243,6 +1254,18 @@ def train_vocaldm(args):
         mode='min'
     )
     callbacks.append(early_stop_callback)
+    
+    # Add guidance scale scheduler if requested
+    if args.use_guidance_scale_scheduler:
+        guidance_scheduler = GuidanceScaleScheduler(
+            initial_scale=args.initial_guidance_scale,
+            target_scale=args.guidance_scale,
+            warmup_percent=args.guidance_warmup_percent,
+            rampup_percent=args.guidance_rampup_percent
+        )
+        callbacks.append(guidance_scheduler)
+        print(f"Using guidance scale scheduler: {args.initial_guidance_scale} → {args.guidance_scale}")
+        print(f"  Warmup: {args.guidance_warmup_percent*100}% of training, Rampup: {args.guidance_rampup_percent*100}% of training")
     
     # Model checkpointing
     if args.checkpoint_dir:
@@ -1494,6 +1517,35 @@ def train_vocaldm(args):
             wandb_logger.experiment.finish()
             print("Wandb logging finalized")
 
+class GuidanceScaleScheduler(pl.Callback):
+    """Callback to gradually increase guidance scale during training"""
+    def __init__(self, initial_scale=1.0, target_scale=3.0, warmup_percent=0.1, rampup_percent=0.4):
+        super().__init__()
+        self.initial_scale = initial_scale
+        self.target_scale = target_scale
+        self.warmup_percent = warmup_percent
+        self.rampup_percent = rampup_percent
+    
+    def on_epoch_start(self, trainer, pl_module):
+        # Calculate current guidance scale based on training progress
+        progress = trainer.current_epoch / trainer.max_epochs
+        
+        if progress < self.warmup_percent:
+            # Initial phase: use low guidance scale
+            guidance_scale = self.initial_scale
+        elif progress < (self.warmup_percent + self.rampup_percent):
+            # Ramp-up phase: linearly increase guidance scale
+            ramp_progress = (progress - self.warmup_percent) / self.rampup_percent
+            guidance_scale = self.initial_scale + ramp_progress * (self.target_scale - self.initial_scale)
+        else:
+            # Final phase: use target guidance scale
+            guidance_scale = self.target_scale
+            
+        # Update the model's guidance scale
+        pl_module.config.guidance_scale = guidance_scale
+        trainer.logger.experiment.log({"guidance_scale": guidance_scale})
+        print(f"Epoch {trainer.current_epoch}: Setting guidance scale to {guidance_scale:.2f}")
+
 if __name__ == "__main__":
     # Set up resource cleanup on exit
     import atexit
@@ -1529,16 +1581,17 @@ if __name__ == "__main__":
     parser.add_argument("--audioldm_dim", type=int, default=512, help="AudioLDM conditioing embedding dimension")
     
     # Training parameters
-    parser.add_argument("--max_epochs", type=int, default=30, help="Maximum number of epochs")
-    parser.add_argument("--batch_size", type=int, default=2, help="Batch size")
-    parser.add_argument("--gradient_accumulation_steps", type=int, default=8, help="Number of updates steps to accumulate before performing a backward/update pass")
-    parser.add_argument("--adapter_lr", type=float, default=1e-4, help="Learning rate for adapter")
-    parser.add_argument("--film_lr", type=float, default=1e-5, help="Learning rate for FiLM conditioning layers")
+    parser.add_argument("--max_epochs", type=int, default=300, help="Maximum number of epochs")
+    parser.add_argument("--batch_size", type=int, default=64, help="Batch size")
+    parser.add_argument("--gradient_accumulation_steps", type=int, default=1, help="Number of updates steps to accumulate before performing a backward/update pass")
+    parser.add_argument("--adapter_lr", type=float, default=5e-4, help="Learning rate for adapter")
+    parser.add_argument("--film_lr", type=float, default=5e-5, help="Learning rate for FiLM conditioning layers")
     parser.add_argument("--min_lr", type=float, default=1e-6, help="Minimum learning rate")
-    parser.add_argument("--weight_decay", type=float, default=1e-6, help="Weight decay")
+    parser.add_argument("--adapter_weight_decay", type=float, default=1e-3, help="Weight decay for adapter (higher for newly initialized components)")
+    parser.add_argument("--film_weight_decay", type=float, default=1e-5, help="Weight decay for FiLM layers (lower for pre-trained components)")
     parser.add_argument("--lr_scheduler", type=str, default="cosine", choices=["cosine", "plateau", "none"], help="LR scheduler type")
-    parser.add_argument("--lr_rampdown_epochs", type=int, default=10, help="Number of epochs over which to ramp down the learning rate (if using cosine)")
-    parser.add_argument("--patience", type=int, default=5, help="Patience for early stopping")
+    parser.add_argument("--lr_rampdown_epochs", type=int, default=30, help="Number of epochs over which to ramp down the learning rate (if using cosine)")
+    parser.add_argument("--patience", type=int, default=8, help="Patience for early stopping")
     parser.add_argument("--val_split", type=float, default=0.1, help="Validation split ratio")
     parser.add_argument("--val_check_interval", type=float, default=1.0, help="Validation check interval (fraction of epoch or integer steps)")
     
@@ -1546,14 +1599,18 @@ if __name__ == "__main__":
     parser.add_argument("--sample_rate", type=int, default=32000, help="Audio sample rate for QVIM (32kHz)")
     parser.add_argument("--audioldm_sample_rate", type=int, default=16000, help="Audio sample rate for AudioLDM (16kHz)")
     parser.add_argument("--duration", type=float, default=10.0, help="Audio duration in seconds (AudioLDM expects 10s)")
-    parser.add_argument("--num_workers", type=int, default=4, help="Number of data loader workers")
-    parser.add_argument("--pin_memory", action="store_true", default=False, help="Pin memory in DataLoader (faster but uses more RAM)")
+    parser.add_argument("--num_workers", type=int, default=16, help="Number of data loader workers")
+    parser.add_argument("--pin_memory", action="store_true", default=True, help="Pin memory in DataLoader (faster but uses more RAM)")
     
     # Generation parameters
-    parser.add_argument("--ddim_steps", type=int, default=40, help="Number of DDIM sampling steps")
+    parser.add_argument("--ddim_steps", type=int, default=100, help="Number of DDIM sampling steps")
     parser.add_argument("--guidance_scale", type=float, default=3.0, help="Classifier-free guidance scale")
+    parser.add_argument("--initial_guidance_scale", type=float, default=1.0, help="Initial classifier-free guidance scale (for scheduling)")
+    parser.add_argument("--use_guidance_scale_scheduler", action="store_true", default=True, help="Enable progressive guidance scale scheduling")
+    parser.add_argument("--guidance_warmup_percent", type=float, default=0.1, help="Percentage of training to use initial guidance scale")
+    parser.add_argument("--guidance_rampup_percent", type=float, default=0.4, help="Percentage of training for linear increase to target guidance scale")
     parser.add_argument("--generate_every_n_epochs", type=int, default=1, help="Generate samples every N epochs")
-    parser.add_argument("--log_audio", action="store_true", default=False, help="Enable audio sample logging to WandB")
+    parser.add_argument("--log_audio", action="store_true", default=True, help="Enable audio sample logging to WandB")
     
     # Debug/Development
     parser.add_argument("--max_items", type=int, default=None, help="Maximum number of items to use (for debugging)")
