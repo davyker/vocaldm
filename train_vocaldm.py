@@ -874,8 +874,8 @@ class VocaLDMModule(pl.LightningModule):
         
         self.validation_step_outputs.append(loss.detach())
         
-        # Generate audio for the first batch only (to save compute)
-        if batch_idx == 0 and self.current_epoch % self.config.generate_every_n_epochs == 0:
+        # Generate audio for the 2nd batch only (to save compute)
+        if batch_idx == 1 and self.current_epoch % self.config.generate_every_n_epochs == 0:
             # For generation in validation, we can use torch.no_grad() to save memory
             with torch.no_grad():
                 # Use a small subset for generation
