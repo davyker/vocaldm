@@ -1346,7 +1346,7 @@ def train_vocaldm(args):
         callbacks=callbacks,
         accelerator='auto',
         devices=args.num_gpus if torch.cuda.is_available() else None,  # Use specified number of GPUs
-        strategy='ddp' if args.num_gpus > 1 else None,  # Use DDP strategy for multi-GPU training
+        strategy='auto',  # Let PyTorch Lightning auto-select the appropriate strategy
         precision=32,  # Use full precision to avoid type mismatches
         log_every_n_steps=10,
         val_check_interval=args.val_check_interval,
