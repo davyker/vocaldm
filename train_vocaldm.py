@@ -131,6 +131,8 @@ class VocaLDMDataset(Dataset):
         self.sample_rate = sample_rate
         self.duration = duration
         self.max_items = max_items
+        # Parameters to finetune contains these strings:
+        self.param_names_contain = ['film', 'emb_layers', 'scale', 'shift']
         
         # If max_items is set, limit the dataset size
         if max_items is not None:
@@ -249,6 +251,74 @@ class VocaLDMModule(pl.LightningModule):
         # Make sure the adapter is in training mode
         self.adapter.train()
     
+    def save_parameter_names(self):
+        """Save all parameter names and shapes to a text file in the run directory"""
+        if hasattr(self.trainer, 'run_dir'):
+            params_file = os.path.join(self.trainer.run_dir, "model_parameters.txt")
+            simplified_file = os.path.join(self.trainer.run_dir, "simplified_parameters.txt")
+        else:
+            params_file = "model_parameters.txt"
+            simplified_file = "simplified_parameters.txt"
+            
+        # Create set for simplified parameter names and a dict to track parameter counts
+        simplified_params = {}
+        
+        # Helper function to simplify parameter names
+        def simplify_name(name):
+            # Remove weight/bias suffixes
+            if name.endswith(".weight") or name.endswith(".bias"):
+                name = name[:-len(".weight" if name.endswith(".weight") else ".bias")]
+            
+            # Remove purely numeric parts
+            parts = name.split(".")
+            result = [part for part in parts if not part.isdigit()]
+            
+            return ".".join(result)
+            
+        # Save full parameter details
+        with open(params_file, 'w') as f:
+            # First save audioldm parameters
+            f.write("=== AudioLDM Parameters ===\n")
+            for name, param in self.audioldm.named_parameters():
+                num_params = param.numel() / 1000  # Convert to thousands
+                f.write(f"{name}, Shape: {param.shape}, Params: {num_params:.1f}K, Requires grad: {param.requires_grad}\n")
+                
+                # Add parameter count to simplified name
+                simple_name = simplify_name("audioldm." + name)
+                if simple_name in simplified_params:
+                    simplified_params[simple_name] += param.numel()
+                else:
+                    simplified_params[simple_name] = param.numel()
+                
+            # Then save adapter parameters
+            f.write("\n=== Adapter Parameters ===\n")
+            for name, param in self.adapter.named_parameters():
+                num_params = param.numel() / 1000  # Convert to thousands
+                f.write(f"{name}, Shape: {param.shape}, Params: {num_params:.1f}K, Requires grad: {param.requires_grad}\n")
+                
+                # Add parameter count to simplified name
+                simple_name = simplify_name("adapter." + name)
+                if simple_name in simplified_params:
+                    simplified_params[simple_name] += param.numel()
+                else:
+                    simplified_params[simple_name] = param.numel()
+                
+            # Finally add total counts
+            total_params = sum(p.numel() for p in self.parameters())
+            trainable_params = sum(p.numel() for p in self.parameters() if p.requires_grad)
+            f.write(f"\nTotal Parameters: {total_params:,} ({total_params/1000:.1f}K)\n")
+            f.write(f"Trainable Parameters: {trainable_params:,} ({trainable_params/1000:.1f}K)\n")
+        
+        # Save simplified parameter names with their total counts
+        with open(simplified_file, 'w') as f:
+            f.write("=== Simplified Parameter Blocks ===\n")
+            for name, count in sorted(simplified_params.items()):
+                f.write(f"{name}, Params: {count/1000:.1f}K\n")
+            f.write(f"\nTotal Unique Parameter Blocks: {len(simplified_params)}\n")
+                
+        print(f"Parameter names saved to: {params_file}")
+        print(f"Simplified parameter blocks saved to: {simplified_file}")
+    
     def freeze_model_except_film_layers(self):
         """
         Freeze all parameters except:
@@ -297,7 +367,7 @@ class VocaLDMModule(pl.LightningModule):
         for name, module in self.audioldm.named_modules():
             # Look for FiLM conditioning layers - typically linear projections in the time embedder
             # or parameters with 'cond' in their name
-            if any(x in name for x in ['cond_emb', 'film', 'label_emb', 'time_embed']):
+            if any(x in name for x in self.param_names_contain): # Removed 'time_embed'
                 print(f"Unfreezing FiLM parameters in: {name}") if args.debug_autograd else None
                 for param_name, param in module.named_parameters():
                     param.requires_grad = True
@@ -475,10 +545,10 @@ class VocaLDMModule(pl.LightningModule):
             print("Warning: adapted_embedding doesn't require grad - enabling it")
             adapted_embedding.requires_grad_(True)
             
-        # Make sure the FiLM layers are in training mode
-        for name, module in self.audioldm.named_modules():
-            if any(x in name for x in ['cond_emb', 'film', 'label_emb', 'time_embed']):
-                module.train()
+        # # Make sure the FiLM layers are in training mode
+        # for name, module in self.audioldm.named_modules():
+        #     if any(x in name for x in ['film']): # Removed 'time_embed'
+        #         module.train()
             
         # Get model prediction with gradients enabled for the FiLM layers
         try:
@@ -501,7 +571,7 @@ class VocaLDMModule(pl.LightningModule):
                 # Register hook on key modules
                 hooks = []
                 for name, module in self.audioldm.named_modules():
-                    if any(x in name for x in ['cond_emb', 'film', 'label_emb', 'time_embed']):
+                    if any(x in name for x in self.param_names_contain): # Removed 'time_embed'
                         hooks.append(module.register_backward_hook(debug_grad_hook))
                 
                 # Print debug info about input tensors
@@ -636,7 +706,7 @@ class VocaLDMModule(pl.LightningModule):
             loss = diffusion_loss
             
             # Visualize autograd graph at first step of training - only in debug mode
-            if self.global_step == 0 and batch_idx == 0 and hasattr(self.config, 'debug_autograd') and self.config.debug_autograd:
+            if self.global_step == 0 and batch_idx == 0 and hasattr(self.config, 'debug_autograd') and self.config.save_autograd_graph:
                 print("Visualizing autograd computation graph...")
                 os.makedirs("debug", exist_ok=True)
                 # Visualize from loss tensor back to all parameters
@@ -1033,7 +1103,7 @@ class VocaLDMModule(pl.LightningModule):
         # Find FiLM conditioning parameters to train
         film_params = []
         for name, param in self.audioldm.named_parameters():
-            if param.requires_grad and any(x in name for x in ['cond_emb', 'film', 'label_emb', 'time_embed']):
+            if param.requires_grad and any(x in name for x in self.param_names_contain): # Removed 'time_embed'
                 film_params.append(param)
         
         # Configure optimizer with two parameter groups, each with its own weight decay
@@ -1123,7 +1193,7 @@ def save_vocaldm_checkpoint(model, path, val_loss=None, epoch=None, global_step=
             # Only include parameters that require gradients
             k: v for k, v in model.state_dict().items() 
             if k.startswith('adapter.') or 
-               any(x in k for x in ['cond_emb', 'film', 'label_emb', 'time_embed'])
+               any(x in k for x in ['film']) # Removed 'time_embed'
         }
     }
     
@@ -1396,6 +1466,12 @@ def train_vocaldm(args):
     
     # Start training with exception handling
     try:
+        # Set run_dir on model to ensure parameter list is saved in right location
+        model.trainer = trainer
+
+        # Save parameter names before starting training
+        model.save_parameter_names()
+        
         # Run initial validation to get baseline metrics
         print("\n===== Running initial validation for baseline metrics =====")
         initial_results = trainer.validate(model, val_loader)
@@ -1568,6 +1644,7 @@ if __name__ == "__main__":
     parser.add_argument("--run_name", type=str, default=None, help="Run name for wandb")
     parser.add_argument("--seed", type=int, default=42, help="Random seed for reproducibility")
     parser.add_argument("--debug_autograd", action="store_true", help="Enable autograd anomaly detection")
+    parser.add_argument("--save_autograd_graph", action="store_true", help="Save autograd graph for debugging")
     
     # Paths
     parser.add_argument("--audioldm_model", type=str, default="audioldm-m-full", 
