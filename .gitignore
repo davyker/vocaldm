@@ -1,0 +1,5 @@
+# Ignore specific files/directories in data directory
+audioldm/qvim/data/*
+
+# Keep .gitkeep files
+!audioldm/qvim/data/**/.gitkeep
