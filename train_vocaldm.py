@@ -1442,9 +1442,9 @@ def train_vocaldm(args):
         logger=wandb_logger,
         callbacks=callbacks,
         accelerator='auto',
-        devices=args.num_gpus if torch.cuda.is_available() else None,  # Use specified number of GPUs
+        devices=args.num_gpus if torch.cuda.is_available() else None,  # 'all' or specific number of GPUs
         strategy='auto',  # Let PyTorch Lightning auto-select the appropriate strategy
-        precision=32,  # Use full precision to avoid type mismatches
+        precision="bf16",  # Use full precision to avoid type mismatches
         log_every_n_steps=10,
         val_check_interval=args.val_check_interval,
         accumulate_grad_batches=args.gradient_accumulation_steps,  # Gradient accumulation for memory optimization
@@ -1663,7 +1663,7 @@ if __name__ == "__main__":
     
     # Training parameters
     parser.add_argument("--max_epochs", type=int, default=300, help="Maximum number of epochs")
-    parser.add_argument("--batch_size", type=int, default=64, help="Batch size")
+    parser.add_argument("--batch_size", type=int, default=96, help="Batch size")
     parser.add_argument("--gradient_accumulation_steps", type=int, default=1, help="Number of updates steps to accumulate before performing a backward/update pass")
     parser.add_argument("--adapter_lr", type=float, default=1e-5, help="Learning rate for adapter")
     parser.add_argument("--film_lr", type=float, default=5e-6, help="Learning rate for FiLM conditioning layers")
@@ -1680,7 +1680,7 @@ if __name__ == "__main__":
     parser.add_argument("--sample_rate", type=int, default=32000, help="Audio sample rate for QVIM (32kHz)")
     parser.add_argument("--audioldm_sample_rate", type=int, default=16000, help="Audio sample rate for AudioLDM (16kHz)")
     parser.add_argument("--duration", type=float, default=10.0, help="Audio duration in seconds (AudioLDM expects 10s)")
-    parser.add_argument("--num_workers", type=int, default=16, help="Number of data loader workers")
+    parser.add_argument("--num_workers", type=int, default=24, help="Number of data loader workers")
     parser.add_argument("--pin_memory", action="store_true", default=True, help="Pin memory in DataLoader (faster but uses more RAM)")
     
     # Generation parameters
@@ -1696,7 +1696,7 @@ if __name__ == "__main__":
     # Debug/Development
     parser.add_argument("--max_items", type=int, default=None, help="Maximum number of items to use (for debugging)")
     parser.add_argument("--wandb_log_model", action="store_true", help="Automatically upload model checkpoints to WandB (can be large files)")
-    parser.add_argument("--num_gpus", type=int, default=1, help="Number of GPUs to use for training")
+    parser.add_argument("--num_gpus", type=str, default="auto", help="Number of GPUs to use for training ('auto' or specific number)")
     
     args = parser.parse_args()
     
