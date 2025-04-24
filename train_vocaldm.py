@@ -1450,7 +1450,7 @@ def train_vocaldm(args):
         accelerator='auto',
         devices=args.num_gpus if torch.cuda.is_available() else None,  # 'all' or specific number of GPUs
         strategy='auto',  # Let PyTorch Lightning auto-select the appropriate strategy
-        precision=16,  # Use full precision to avoid type mismatches
+        precision=32,  # Use full precision to avoid type mismatches
         log_every_n_steps=10,
         val_check_interval=args.val_check_interval,
         accumulate_grad_batches=args.gradient_accumulation_steps,  # Gradient accumulation for memory optimization
