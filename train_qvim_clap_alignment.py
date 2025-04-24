@@ -126,10 +126,13 @@ class QVIMCLAPModule(QVIMModule):
             # Manually resample from 32kHz to 16kHz
             import torchaudio
             
-            # Make sure we have a 2D tensor [batch_size, samples]
+            # Process audio to be compatible with CLAP's processing
+            # This handles the dimension issues in get_audio_features
+            
+            # First get 2D tensor [batch_size, samples]
             if audio.dim() > 2:
-                audio = audio.squeeze(1)  # Remove channel dimension if present
-                
+                audio = audio.squeeze(1)
+            
             # Resample from 32kHz to 16kHz
             audio_16k = torchaudio.functional.resample(
                 audio, 
@@ -137,11 +140,28 @@ class QVIMCLAPModule(QVIMModule):
                 new_freq=16000    # CLAP required sample rate
             )
             
-            # Add channel dimension (CLAP expects [B, 1, T])
-            audio_16k = audio_16k.unsqueeze(1)
+            # Process audio manually (similar to how CLAP does it)
+            # Create a list of waveforms as expected by CLAP
+            batch_audio_dict_list = []
             
-            # Get CLAP embeddings
-            clap_embedding = self.clap_model(audio_16k).squeeze(1)
+            for i in range(audio_16k.size(0)):
+                # Extract individual waveform
+                waveform = audio_16k[i]
+                
+                # Create audio dict (similar to what get_audio_features does)
+                audio_dict = {}
+                
+                # Make sure the waveform is 1D
+                if waveform.dim() > 1:
+                    waveform = waveform.squeeze()
+                
+                # CLAP needs a 1D tensor for audio_data.repeat to work
+                audio_dict["waveform"] = waveform
+                
+                batch_audio_dict_list.append(audio_dict)
+            
+            # Get CLAP embeddings from our manually processed audio dicts
+            clap_embedding = self.clap_model.model.get_audio_embedding(batch_audio_dict_list)
             
         return clap_embedding
 
