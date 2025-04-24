@@ -51,7 +51,7 @@ class QVIMCLAPModule(QVIMModule):
         self.reference_encoder = copy.deepcopy(self.imitation_encoder)
         
         # Initialize cross-model temperature parameter (using same approach as tau)
-        initial_cross_temp = torch.zeros((1,)) + 0.07
+        initial_cross_temp = torch.zeros((1,)) + config.initial_tau
         self.cross_temp = torch.nn.Parameter(initial_cross_temp, requires_grad=True)
         
         # Load CLAP model (frozen)
@@ -219,7 +219,7 @@ if __name__ == '__main__':
     # General
     parser.add_argument('--project', type=str, default="qvim-clap-alignment",
                         help="Project name in wandb.")
-    parser.add_argument('--num_workers', type=int, default=4,
+    parser.add_argument('--num_workers', type=int, default=16,
                         help="Number of data loader workers.")
     parser.add_argument('--pin_memory', type=bool, default=True,
                         help="Whether to pin memory for data loading (faster but uses more memory).")
@@ -254,18 +254,18 @@ if __name__ == '__main__':
                         help="Number of epochs with no improvement after which training will be stopped.")
     parser.add_argument('--early_stopping_min_delta', type=float, default=0.0,
                         help="Minimum change in the monitored metric to qualify as an improvement.")
-    parser.add_argument('--weight_decay', type=float, default=1e-4,
+    parser.add_argument('--weight_decay', type=float, default=3e-4,
                         help="L2 weight regularization to prevent overfitting.")
     parser.add_argument('--max_lr', type=float, default=0.0003,
                         help="Maximum learning rate.")
-    parser.add_argument('--min_lr', type=float, default=0.0001,
+    parser.add_argument('--min_lr', type=float, default=0.000025,
                         help="Final learning rate at the end of training.")
     parser.add_argument('--warmup_epochs', type=int, default=1,
                         help="Number of warm-up epochs where learning rate increases gradually.")
-    parser.add_argument('--rampdown_epochs', type=int, default=30,
+    parser.add_argument('--rampdown_epochs', type=int, default=22,
                         help="Duration (in epochs) for learning rate ramp-down.")
     parser.add_argument('--initial_tau', type=float, default=0.07,
-                        help="Temperature parameter for the QVIM loss function.")
+                        help="Temperature parameter for the QVIM loss function and cross-temp loss.")
     parser.add_argument('--tau_trainable', default=True, action='store_true',
                         help="make tau trainable or not.")
     parser.add_argument('--lr_schedule', type=str, default="cosine", choices=["cosine", "plateau", "cosine_annealing"],
