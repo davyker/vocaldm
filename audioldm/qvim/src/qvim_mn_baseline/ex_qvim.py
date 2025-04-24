@@ -498,7 +498,7 @@ if __name__ == '__main__':
                         help="Number of GPUs to use for training.")
     parser.add_argument('--model_save_path', type=str, default=None,
                         help="Path to store the checkpoints. Use None to disable saving.")
-    parser.add_argument('--dataset_path', type=str, default='data',
+    parser.add_argument('--dataset_path', type=str, default='audioldm/qvim/data',
                         help="Path to the data sets.")
 
     # Encoder architecture

@@ -70,3 +70,4 @@ Progressive weighting schedule to gradually shift focus to alignment
 
 
 The training process should be as similar to ex_qvim as possilbe, but making the necessary changes of course.
+That includes making a new wandb project called "qvim-clap-alignment" and storing runs in an appropriately named folder.
