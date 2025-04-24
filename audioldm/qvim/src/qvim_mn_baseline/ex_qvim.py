@@ -492,7 +492,7 @@ if __name__ == '__main__':
     # General
     parser.add_argument('--project', type=str, default="qvim",
                         help="Project name in wandb.")
-    parser.add_argument('--num_workers', type=int, default=16,
+    parser.add_argument('--num_workers', type=int, default=32,
                         help="Number of data loader workers. Reduced for WSL memory stability. Set to 0 for no multiprocessing.")
     parser.add_argument('--num_gpus', type=int, default=1,
                         help="Number of GPUs to use for training.")
@@ -512,7 +512,7 @@ if __name__ == '__main__':
                         help="Path to checkpoint file to continue training from")
     parser.add_argument('--final_eval_dataset', type=str, default="val", choices=["dev", "val"],
                         help="Dataset to use for final evaluation: 'dev' (QVIM-DEV) or 'val' (VimSketch val split)")
-    parser.add_argument('--batch_size', type=int, default=128,
+    parser.add_argument('--batch_size', type=int, default=64,
                         help="Number of samples per batch.")
     parser.add_argument('--n_epochs', type=int, default=100,
                         help="Maximum number of training epochs (can stop earlier with early stopping).")
