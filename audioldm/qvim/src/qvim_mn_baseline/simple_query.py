@@ -31,7 +31,7 @@ def get_query_embedding(model, query_audio, device):
 def get_reference_embeddings(model, dataset, device):
     """Get embeddings for unique reference files"""
     # Set batch size for better GPU utilization
-    batch_size = 128  # Adjust based on your GPU
+    batch_size = 8192  # Adjust based on your GPU
     
     # Get unique references and build index mapping
     if hasattr(dataset, 'all_pairs') and 'filename_reference' in dataset.all_pairs.columns:
