@@ -492,7 +492,7 @@ if __name__ == '__main__':
     # General
     parser.add_argument('--project', type=str, default="qvim",
                         help="Project name in wandb.")
-    parser.add_argument('--num_workers', type=int, default=2,
+    parser.add_argument('--num_workers', type=int, default=16,
                         help="Number of data loader workers. Reduced for WSL memory stability. Set to 0 for no multiprocessing.")
     parser.add_argument('--num_gpus', type=int, default=1,
                         help="Number of GPUs to use for training.")
@@ -512,7 +512,7 @@ if __name__ == '__main__':
                         help="Path to checkpoint file to continue training from")
     parser.add_argument('--final_eval_dataset', type=str, default="val", choices=["dev", "val"],
                         help="Dataset to use for final evaluation: 'dev' (QVIM-DEV) or 'val' (VimSketch val split)")
-    parser.add_argument('--batch_size', type=int, default=16,
+    parser.add_argument('--batch_size', type=int, default=128,
                         help="Number of samples per batch.")
     parser.add_argument('--n_epochs', type=int, default=100,
                         help="Maximum number of training epochs (can stop earlier with early stopping).")
@@ -528,11 +528,11 @@ if __name__ == '__main__':
                         help="Final learning rate at the end of training.")
     parser.add_argument('--warmup_epochs', type=int, default=1,
                         help="Number of warm-up epochs where learning rate increases gradually.")
-    parser.add_argument('--rampdown_epochs', type=int, default=7,
+    parser.add_argument('--rampdown_epochs', type=int, default=17,
                         help="Duration (in epochs) for learning rate ramp-down.")
     parser.add_argument('--initial_tau', type=float, default=0.07,
                         help="Temperature parameter for the loss function.")
-    parser.add_argument('--tau_trainable', default=False, action='store_true',
+    parser.add_argument('--tau_trainable', default=True, action='store_true',
                         help="make tau trainable or not.")
     parser.add_argument('--lr_schedule', type=str, default="cosine", choices=["cosine", "plateau", "cosine_annealing"],
                         help="Learning rate schedule: 'cosine' (original), 'plateau' (reduce on plateau), or 'cosine_annealing' (smoother decay)")
