@@ -31,7 +31,7 @@ def get_query_embedding(model, query_audio, device):
 def get_reference_embeddings(model, dataset, device):
     """Get embeddings for unique reference files"""
     # Set batch sizes for better GPU utilization
-    index_batch_size = 8192  # Batch size for index building
+    index_batch_size = 64  # Batch size for index building
     embed_batch_size = 64  # Batch size for embedding extraction
     
     # Get unique references and build index mapping
