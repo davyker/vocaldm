@@ -31,7 +31,7 @@ def get_query_embedding(model, query_audio, device):
 def get_reference_embeddings(model, dataset, device):
     """Get embeddings for unique reference files"""
     # Set batch size for better GPU utilization
-    batch_size = 32  # Adjust based on your GPU
+    batch_size = 128  # Adjust based on your GPU
     
     # Get unique references and build index mapping
     if hasattr(dataset, 'all_pairs') and 'filename_reference' in dataset.all_pairs.columns:
@@ -140,14 +140,14 @@ def save_results(query_file, true_match, top_matches, dataset, output_dir):
 
 def main():
     parser = argparse.ArgumentParser(description="Simple query embedding retrieval")
-    parser.add_argument('--run_folder', type=str, required=True,
+    parser.add_argument('--run_folder', type=str, default="audioldm/qvim/models_vimsketch_longer/dulcet-leaf-31",
                        help="Path to trained model run folder")
     query_group = parser.add_mutually_exclusive_group(required=True)
     query_group.add_argument('--query_file', type=str,
                            help="Specific imitation file to query")
     query_group.add_argument('--random_query', type=str, choices=['vimsketch', 'aesaimla'],
                            help="Select random query from dataset")
-    parser.add_argument('--dataset_path', type=str, default='data',
+    parser.add_argument('--dataset_path', type=str, default='audioldm/qvim/data',
                        help="Path to datasets")
     parser.add_argument('--output_dir', type=str, default='single_query_tests',
                        help="Base directory for output")

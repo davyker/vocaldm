@@ -57,6 +57,8 @@ def download_vimsketch_dataset(data_dir: str = "data", source: str = "gdrive"):
         if os.path.exists(dataset_path):
             print(f"Dataset directory ready at {dataset_path}")
             return
+        else:
+            print(f"Dataset directory not found at {dataset_path}.")
         
         # Make sure data directory exists
         os.makedirs(data_dir, exist_ok=True)

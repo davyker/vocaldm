@@ -1,0 +1,72 @@
+Direct QVIM-CLAP Alignment Training Plan
+1. Model Modifications
+1.1 Add Projection Layer to QVIM Model
+
+Locate the _forward_impl method in MobileNetV3 class
+Add a projection layer after features extraction:
+pythonself.features_projection = nn.Sequential(
+    nn.Linear(960, 512, bias=False),
+    nn.LayerNorm(512)
+)
+
+Apply this in the forward method:
+pythonfeatures = F.adaptive_avg_pool2d(x, (1, 1)).squeeze()
+features = self.features_projection(features)
+features = F.normalize(features, p=2, dim=-1)
+
+
+1.2 Initialize Projection Layer
+
+Use conservative initialization for stability
+Kaiming initialization with small gain for weights
+No bias parameters to maintain hypersphere geometry
+
+All this should be made optional via an argument project_to_clap_dim (default True)
+
+2. Training Infrastructure
+2.1 Data Preparation
+
+Ensure reference audio is processed through both QVIM and CLAP
+Process imitation audio through QVIM
+Create paired batches: (imitation, reference, CLAP-embedding)
+
+2.2 Model Configuration
+
+Freeze QVIM backbone entirely
+Freeze CLAP model entirely
+Only train the new projection layer
+
+2.3 Cross-Model Temperature Parameter
+
+Add learnable temperature parameter for cross-model similarity
+Initialize similar to CLAP's logit_scale (log(1/0.07))
+
+3. Loss Functions
+3.1 Define Three Similarity Objectives
+
+QVIM Reference vs. CLAP Similarity
+
+Primary alignment objective
+Scaled by cross-model temperature
+
+
+QVIM Imitation vs. QVIM Reference Similarity
+
+Preserve QVIM's matching capability
+Uses QVIM's original temperature (tau)
+
+
+QVIM Imitation vs. CLAP Similarity
+
+Direct alignment of imitations
+Scaled by cross-model temperature
+
+
+
+3.2 Combined Loss Function
+
+Weighted combination of the three similarity losses
+Progressive weighting schedule to gradually shift focus to alignment
+
+
+The training process should be as similar to ex_qvim as possilbe, but making the necessary changes of course.
