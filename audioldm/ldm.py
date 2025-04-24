@@ -256,7 +256,8 @@ class LatentDiffusion(DDPM):
             mel = mel.squeeze(1)
         mel = mel.permute(0, 2, 1)
         waveform = self.first_stage_model.vocoder(mel)
-        waveform = waveform.cpu().detach().numpy()
+        # Convert to float32 before moving to CPU and numpy to avoid bfloat16 issues
+        waveform = waveform.float().cpu().detach().numpy()
         return waveform
 
     # Removed @torch.no_grad() decorator to allow gradient flow during training
