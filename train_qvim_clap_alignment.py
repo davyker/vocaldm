@@ -71,6 +71,9 @@ class QVIMCLAPModule(QVIMModule):
             param.requires_grad = False
             
         self.clap_model.eval()
+        
+        # Whether to print debug statements
+        self.debug_mode = getattr(config, 'debug_mode', False)
     
     def _create_mobilenet_with_custom_loading(self, pretrained_name, width_mult, output_dim=512):
         """
@@ -124,11 +127,12 @@ class QVIMCLAPModule(QVIMModule):
     def compute_safe_similarities(self, y_imitation, y_reference, y_clap):
         """Compute similarities between embeddings with safety checks to prevent NaN"""
         # First log/debug info to diagnose NaN issues
-        print(f"DEBUG - Shapes: y_ref {y_reference.shape}, y_im {y_imitation.shape}, y_clap {y_clap.shape}")
-        print(f"DEBUG - Norms: y_ref {torch.norm(y_reference, dim=1).mean()}, "
-              f"y_im {torch.norm(y_imitation, dim=1).mean()}, "
-              f"y_clap {torch.norm(y_clap, dim=1).mean()}")
-        print(f"DEBUG - temps: tau {self.tau.item()}, cross_temp {self.cross_temp.item()}")
+        if self.debug_mode:
+            print(f"DEBUG - Shapes: y_ref {y_reference.shape}, y_im {y_imitation.shape}, y_clap {y_clap.shape}")
+            print(f"DEBUG - Norms: y_ref {torch.norm(y_reference, dim=1).mean()}, "
+                  f"y_im {torch.norm(y_imitation, dim=1).mean()}, "
+                  f"y_clap {torch.norm(y_clap, dim=1).mean()}")
+            print(f"DEBUG - temps: tau {self.tau.item()}, cross_temp {self.cross_temp.item()}")
         
         # Re-normalize all embeddings for extra safety
         y_reference = F.normalize(y_reference, p=2, dim=1, eps=1e-8)
@@ -156,7 +160,8 @@ class QVIMCLAPModule(QVIMModule):
         
         # Check for NaN and provide fallback
         if torch.isnan(C_ref_clap_log).any() or torch.isnan(C_im_clap_log).any() or torch.isnan(C_qvim_log).any():
-            print("WARNING: NaN detected in similarity computations")
+            if self.debug_mode:
+                print("WARNING: NaN detected in similarity computations")
             
             # Create backup identity matrix for safe loss computation
             batch_size = y_imitation.shape[0]
@@ -183,7 +188,8 @@ class QVIMCLAPModule(QVIMModule):
                 import torchaudio
                 
                 # Debug the audio input
-                print(f"DEBUG - Audio shape: {audio.shape}, min: {audio.min()}, max: {audio.max()}")
+                if self.debug_mode:
+                    print(f"DEBUG - Audio shape: {audio.shape}, min: {audio.min()}, max: {audio.max()}")
                 
                 # First get 2D tensor [batch_size, samples]
                 if audio.dim() > 2:
@@ -199,12 +205,14 @@ class QVIMCLAPModule(QVIMModule):
                     if audio.shape[1] < min_length:
                         padding = min_length - audio.shape[1]
                         audio = F.pad(audio, (0, padding), "constant", 0)
-                        print(f"DEBUG - Audio padded to minimum length: {audio.shape}")
+                        if self.debug_mode:
+                            print(f"DEBUG - Audio padded to minimum length: {audio.shape}")
                     
                     # Ensure we're dealing with finite values
                     if torch.isnan(audio).any() or torch.isinf(audio).any():
                         audio = torch.nan_to_num(audio, nan=0.0, posinf=1.0, neginf=-1.0)
-                        print("DEBUG - Replaced NaN/Inf values in audio input")
+                        if self.debug_mode:
+                            print("DEBUG - Replaced NaN/Inf values in audio input")
                     
                     # Resample with additional checks
                     audio_16k = torchaudio.functional.resample(
@@ -215,12 +223,15 @@ class QVIMCLAPModule(QVIMModule):
                     
                     # Check for NaN after resampling
                     if torch.isnan(audio_16k).any() or torch.isinf(audio_16k).any():
-                        print("WARNING: NaN/Inf values after resampling, replacing with zeros")
+                        if self.debug_mode:
+                            print("WARNING: NaN/Inf values after resampling, replacing with zeros")
                         audio_16k = torch.nan_to_num(audio_16k, nan=0.0, posinf=1.0, neginf=-1.0)
                     
-                    print(f"DEBUG - Audio resampled to 16kHz: {audio_16k.shape}, min: {audio_16k.min()}, max: {audio_16k.max()}")
+                    if self.debug_mode:
+                        print(f"DEBUG - Audio resampled to 16kHz: {audio_16k.shape}, min: {audio_16k.min()}, max: {audio_16k.max()}")
                 except Exception as e:
-                    print(f"ERROR in resampling: {e}")
+                    if self.debug_mode:
+                        print(f"ERROR in resampling: {e}")
                     # Create fallback random embeddings
                     return torch.randn(batch_size, 512, device=audio.device)
                 
@@ -234,7 +245,7 @@ class QVIMCLAPModule(QVIMModule):
                         waveform = audio_16k[i]
                         
                         # Debug individual waveform
-                        if i == 0:
+                        if i == 0 and self.debug_mode:
                             print(f"DEBUG - Waveform {i}: shape {waveform.shape}, min {waveform.min()}, max {waveform.max()}")
                         
                         # Make sure the waveform is 1D
@@ -246,7 +257,8 @@ class QVIMCLAPModule(QVIMModule):
                         
                         # Check for NaN or Inf in waveform
                         if torch.isnan(waveform).any() or torch.isinf(waveform).any():
-                            print(f"WARNING: NaN or Inf found in waveform {i}, replacing with zeros")
+                            if self.debug_mode:
+                                print(f"WARNING: NaN or Inf found in waveform {i}, replacing with zeros")
                             waveform = torch.zeros_like(waveform)
                         
                         # Normalize waveform to [-1, 1] range - crucial for CLAP's internal processing
@@ -256,7 +268,8 @@ class QVIMCLAPModule(QVIMModule):
                         # Add small epsilon to avoid all-zero inputs
                         if waveform.abs().max() < 1e-6:
                             waveform = waveform + torch.randn_like(waveform) * 1e-6
-                            print(f"WARNING: Near-zero waveform {i}, adding small noise")
+                            if self.debug_mode:
+                                print(f"WARNING: Near-zero waveform {i}, adding small noise")
                         
                         # CLAP needs a 1D tensor for audio_data.repeat to work
                         audio_dict["waveform"] = waveform
@@ -265,26 +278,28 @@ class QVIMCLAPModule(QVIMModule):
                     # Get CLAP embeddings with extensive error handling
                     try:
                         # Add more debug info to diagnose issues
-                        for i, audio_dict in enumerate([batch_audio_dict_list[0]]):
-                            if i == 0:  # Just check the first item in batch
-                                waveform = audio_dict["waveform"]
-                                print(f"DEBUG - Waveform stats before CLAP: shape={waveform.shape}, "
-                                      f"min={waveform.min():.4f}, max={waveform.max():.4f}, "
-                                      f"mean={waveform.mean():.4f}, std={waveform.std():.4f}")
+                        if self.debug_mode:
+                            for i, audio_dict in enumerate([batch_audio_dict_list[0]]):
+                                if i == 0:  # Just check the first item in batch
+                                    waveform = audio_dict["waveform"]
+                                    print(f"DEBUG - Waveform stats before CLAP: shape={waveform.shape}, "
+                                          f"min={waveform.min():.4f}, max={waveform.max():.4f}, "
+                                          f"mean={waveform.mean():.4f}, std={waveform.std():.4f}")
                         
                         with torch.inference_mode():  # More explicit than no_grad in some cases
                             clap_embedding = self.clap_model.model.get_audio_embedding(batch_audio_dict_list)
                         
                         # Gradual handling of NaN/Inf issues
                         if torch.isnan(clap_embedding).any() or torch.isinf(clap_embedding).any():
-                            print("WARNING: NaN/Inf found in CLAP embeddings")
+                            if self.debug_mode:
+                                print("WARNING: NaN/Inf found in CLAP embeddings")
                             
                             # First try to recover valid values
                             clap_embedding = torch.nan_to_num(clap_embedding, nan=0.0, posinf=0.0, neginf=0.0)
                             
                             # Check how many rows have all zeros after nan_to_num
                             zero_rows = (clap_embedding.abs().sum(dim=1) < 1e-6).sum().item()
-                            if zero_rows > 0:
+                            if zero_rows > 0 and self.debug_mode:
                                 print(f"WARNING: {zero_rows}/{batch_size} CLAP embeddings are all zeros")
                             
                             # For all-zero embeddings, initialize with small random values
@@ -302,26 +317,31 @@ class QVIMCLAPModule(QVIMModule):
                         clap_embedding = clap_embedding / safe_norms
                         
                         # Re-compute norm after normalization for debugging
-                        print(f"DEBUG - CLAP embedding norm after normalization: {torch.norm(clap_embedding, dim=1).mean():.4f}")
+                        if self.debug_mode:
+                            print(f"DEBUG - CLAP embedding norm after normalization: {torch.norm(clap_embedding, dim=1).mean():.4f}")
                         
                     except Exception as e:
-                        print(f"ERROR in CLAP embedding extraction: {e}")
+                        if self.debug_mode:
+                            print(f"ERROR in CLAP embedding extraction: {e}")
                         # Create fallback random embeddings
                         clap_embedding = torch.randn(batch_size, 512, device=audio.device)
                     
                 except Exception as e:
-                    print(f"ERROR in audio processing: {e}")
+                    if self.debug_mode:
+                        print(f"ERROR in audio processing: {e}")
                     # Create fallback random embeddings
                     clap_embedding = torch.randn(batch_size, 512, device=audio.device)
                 
         except Exception as e:
-            print(f"CRITICAL ERROR in forward_clap: {e}")
+            if self.debug_mode:
+                print(f"CRITICAL ERROR in forward_clap: {e}")
             # Create fallback random embeddings
             clap_embedding = torch.randn(batch_size, 512, device=audio.device)
             
         # Ensure the output is properly normalized with no NaNs
         if torch.isnan(clap_embedding).any():
-            print("Final check - NaN still found in CLAP embeddings, using fallback")
+            if self.debug_mode:
+                print("Final check - NaN still found in CLAP embeddings, using fallback")
             clap_embedding = torch.randn(batch_size, 512, device=audio.device)
             
         clap_embedding = F.normalize(clap_embedding, p=2, dim=1, eps=1e-8)
@@ -484,6 +504,8 @@ if __name__ == '__main__':
                         help="Temperature parameter for the QVIM loss function and cross-temp loss.")
     parser.add_argument('--tau_trainable', default=True, action='store_true',
                         help="make tau trainable or not.")
+    parser.add_argument('--debug_mode', action='store_true',
+                        help="Enable debug print statements.")
     parser.add_argument('--lr_schedule', type=str, default="cosine", choices=["cosine", "plateau", "cosine_annealing"],
                         help="Learning rate schedule: 'cosine' (original), 'plateau' (reduce on plateau), or 'cosine_annealing' (smoother decay)")
 
