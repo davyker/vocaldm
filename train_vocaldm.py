@@ -105,13 +105,7 @@ except Exception as e:
     print(f"Failed to apply debug patches: {e}")
 
 # Import utility functions
-from vocaldm_utils import (
-    load_audioldm_model, 
-    setup_qvim_and_adapter, 
-    cleanup_resources,
-    make_vocaldm_batch,
-    select_cross_attention_params
-)
+from vocaldm_utils import load_audioldm_model, setup_qvim_and_adapter, cleanup_resources, make_vocaldm_batch
 
 # Enable Tensor Cores for faster training with minimal precision loss
 torch.set_float32_matmul_precision('high')
@@ -170,7 +164,8 @@ class VocaLDMModule(pl.LightningModule):
         super().__init__()
         self.config = config
         self.save_hyperparameters(config)
-        self.param_names_contain = ['film', 'emb_layers', 'scale', 'shift']
+        # self.param_names_contain = ['film', 'emb_layers']
+        self.param_names_contain = []
         
         # Store current loss values for scheduler
         self.current_train_loss = float('inf')

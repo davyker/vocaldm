@@ -42,13 +42,13 @@ class QVIMAdapter(nn.Module):
         # Apply adapter
         adapted = self.adapter(qvim_embeddings)
         
-        # L2 normalize like CLAP does
-        adapted = F.normalize(adapted, p=2, dim=-1)
-        
         # For FiLM conditioning, we don't need the extra sequence dimension
         # The model expects [batch_size, audioldm_dim]
         if adapted.dim() == 3:
             adapted = adapted.squeeze(1)  # Remove sequence dimension if present
+            
+        # Always explicitly normalize to unit L2 norm (same as CLAP)
+        adapted = F.normalize(adapted, p=2, dim=-1)
             
         return adapted
     
