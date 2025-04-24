@@ -42,11 +42,12 @@ class QVIMCLAPModule(QVIMModule):
         config.output_dim = 512  # Add this attribute to config
         super().__init__(config)
         
-        # Re-initialize QVIM encoders with direct 512d output for CLAP alignment
-        self.imitation_encoder = get_mobilenet(
-            width_mult=NAME_TO_WIDTH(config.pretrained_name),
-            pretrained_name=config.pretrained_name,
-            output_dim=512  # Direct 512d output for CLAP compatibility
+        # Custom initialization of QVIM encoders with direct 512d output for CLAP alignment
+        # Using custom weight loading to handle dimension mismatch
+        self.imitation_encoder = self._create_mobilenet_with_custom_loading(
+            config.pretrained_name,
+            NAME_TO_WIDTH(config.pretrained_name),
+            output_dim=512
         )
         self.reference_encoder = copy.deepcopy(self.imitation_encoder)
         
@@ -69,6 +70,55 @@ class QVIMCLAPModule(QVIMModule):
             
         self.clap_model.eval()
     
+    def _create_mobilenet_with_custom_loading(self, pretrained_name, width_mult, output_dim=512):
+        """
+        Create a MobileNetV3 model with custom dimension output and handle weight loading
+        to avoid dimension mismatch errors with pre-trained weights.
+        """
+        from audioldm.qvim.src.qvim_mn_baseline.mn.model import (
+            mobilenet_v3, _mobilenet_v3_conf, MobileNetV3, 
+            pretrained_models, model_dir
+        )
+        
+        # Get configuration but don't load pretrained weights yet
+        inverted_residual_setting, last_channel = _mobilenet_v3_conf(
+            width_mult=width_mult,
+            reduced_tail=False,
+            dilated=False,
+            strides=(2, 2, 2, 2)
+        )
+        
+        # Model arguments with custom output dimension
+        model_args = {
+            'head_type': 'mlp',
+            'num_classes': 527,
+            'multihead_attention_heads': 4,
+            'input_dims': (128, 1000),
+            'se_conf': {'se_dims': None},
+            'output_dim': output_dim
+        }
+        
+        # Create model with our custom dimension
+        model = MobileNetV3(inverted_residual_setting, last_channel, **model_args)
+        
+        # Custom weight loading to handle dimension mismatch
+        if pretrained_name in pretrained_models:
+            from torch.hub import load_state_dict_from_url
+            model_url = pretrained_models.get(pretrained_name)
+            state_dict = load_state_dict_from_url(model_url, model_dir=model_dir, map_location="cpu")
+            
+            # Remove layers with dimension mismatch
+            for key in ['features.16.0.weight', 'features.16.1.weight', 'features.16.1.bias', 
+                       'features.16.1.running_mean', 'features.16.1.running_var', 'classifier.2.weight']:
+                if key in state_dict:
+                    del state_dict[key]
+            
+            # Load compatible weights
+            model.load_state_dict(state_dict, strict=False)
+            print(f"Loaded pre-trained weights from {pretrained_name} with {output_dim}-dim output compatibility.")
+        
+        return model
+        
     def forward_clap(self, audio):
         """Forward audio through CLAP to get embeddings"""
         # CLAP expects audio in range [-1, 1]
