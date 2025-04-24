@@ -362,8 +362,8 @@ def train(config):
         batch_size=config.batch_size,
         shuffle=True,
         pin_memory=config.pin_memory,          # Reduced memory usage
-        persistent_workers=config.num_workers > 0,  # Allow worker cleanup between batches
-        prefetch_factor=2 if config.num_workers > 0 else None          # Prefetch 1 batch per worker (reduced for memory)
+        persistent_workers=True, 
+        prefetch_factor=4
     )
 
     val_dl = DataLoader(
@@ -373,8 +373,8 @@ def train(config):
         shuffle=False,
         drop_last=False,
         pin_memory=config.pin_memory,
-        persistent_workers=config.num_workers > 0,
-        prefetch_factor=2 if config.num_workers > 0 else None
+        persistent_workers=True, 
+        prefetch_factor=4
     )
     
     final_eval_dl = DataLoader(
@@ -384,8 +384,8 @@ def train(config):
         shuffle=False,
         drop_last=False,
         pin_memory=config.pin_memory,
-        persistent_workers=config.num_workers > 0,
-        prefetch_factor=2 if config.num_workers > 0 else None
+        persistent_workers=True, 
+        prefetch_factor=4
     )
 
     pl_module = QVIMModule(config)
@@ -465,12 +465,13 @@ def train(config):
 
     # Train with in-domain validation
     # No need to pass ckpt_path if we've already loaded the model above
+    print("\n----- Training -----")
     trainer.fit(
         pl_module,
         train_dataloaders=train_dl,
         val_dataloaders=val_dl
     )
-    
+    print("\n----- Training complete -----")
     # Final evaluation on selected dataset
     if config.final_eval_dataset == "dev":
         print("\n----- Final Evaluation on QVIM-DEV Dataset -----")
