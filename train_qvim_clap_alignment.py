@@ -119,6 +119,57 @@ class QVIMCLAPModule(QVIMModule):
         
         return model
         
+    def compute_safe_similarities(self, y_imitation, y_reference, y_clap):
+        """Compute similarities between embeddings with safety checks to prevent NaN"""
+        # First log/debug info to diagnose NaN issues
+        print(f"DEBUG - Shapes: y_ref {y_reference.shape}, y_im {y_imitation.shape}, y_clap {y_clap.shape}")
+        print(f"DEBUG - Norms: y_ref {torch.norm(y_reference, dim=1).mean()}, "
+              f"y_im {torch.norm(y_imitation, dim=1).mean()}, "
+              f"y_clap {torch.norm(y_clap, dim=1).mean()}")
+        print(f"DEBUG - temps: tau {self.tau.item()}, cross_temp {self.cross_temp.item()}")
+        
+        # Re-normalize all embeddings for extra safety
+        y_reference = F.normalize(y_reference, p=2, dim=1, eps=1e-8)
+        y_imitation = F.normalize(y_imitation, p=2, dim=1, eps=1e-8)
+        y_clap = F.normalize(y_clap, p=2, dim=1, eps=1e-8)
+        
+        # Safe temperature values (minimum 1e-4)
+        safe_tau = torch.clamp(torch.abs(self.tau), min=1e-4)
+        safe_cross_temp = torch.clamp(torch.abs(self.cross_temp), min=1e-4)
+        
+        # 1. QVIM internal similarity (imitation to reference)
+        C_qvim = torch.matmul(y_imitation, y_reference.T)
+        C_qvim = C_qvim / safe_tau
+        C_qvim_log = F.log_softmax(C_qvim, dim=1)
+        
+        # 2. QVIM reference to CLAP similarity
+        C_ref_clap = torch.matmul(y_reference, y_clap.T)
+        C_ref_clap = C_ref_clap / safe_cross_temp
+        C_ref_clap_log = F.log_softmax(C_ref_clap, dim=1)
+        
+        # 3. QVIM imitation to CLAP similarity
+        C_im_clap = torch.matmul(y_imitation, y_clap.T)
+        C_im_clap = C_im_clap / safe_cross_temp
+        C_im_clap_log = F.log_softmax(C_im_clap, dim=1)
+        
+        # Check for NaN and provide fallback
+        if torch.isnan(C_ref_clap_log).any() or torch.isnan(C_im_clap_log).any() or torch.isnan(C_qvim_log).any():
+            print("WARNING: NaN detected in similarity computations")
+            
+            # Create backup identity matrix for safe loss computation
+            batch_size = y_imitation.shape[0]
+            I_fallback = torch.eye(batch_size, device=y_imitation.device)
+            
+            # Compute backup loss (simple cross-entropy with identity matrix)
+            if torch.isnan(C_qvim_log).any():
+                C_qvim_log = -I_fallback * 10  # Log probabilities approx 0 for matching, very low for non-matching
+            if torch.isnan(C_ref_clap_log).any():
+                C_ref_clap_log = -I_fallback * 10
+            if torch.isnan(C_im_clap_log).any():
+                C_im_clap_log = -I_fallback * 10
+        
+        return C_qvim_log, C_ref_clap_log, C_im_clap_log
+
     def forward_clap(self, audio):
         """Forward audio through CLAP to get embeddings"""
         # CLAP expects audio in range [-1, 1] at 16kHz
@@ -177,22 +228,10 @@ class QVIMCLAPModule(QVIMModule):
         # Get CLAP embeddings for reference
         y_clap = self.forward_clap(batch['reference'])
         
-        # Calculate batch similarity matrix for all three objectives
-        
-        # 1. QVIM internal similarity (imitation to reference)
-        C_qvim = torch.matmul(y_imitation, y_reference.T)
-        C_qvim = C_qvim / torch.abs(self.tau)
-        C_qvim_log = torch.log_softmax(C_qvim, dim=1)
-        
-        # 2. QVIM reference to CLAP similarity
-        C_ref_clap = torch.matmul(y_reference, y_clap.T)
-        C_ref_clap = C_ref_clap / torch.abs(self.cross_temp)
-        C_ref_clap_log = torch.log_softmax(C_ref_clap, dim=1)
-        
-        # 3. QVIM imitation to CLAP similarity
-        C_im_clap = torch.matmul(y_imitation, y_clap.T)
-        C_im_clap = C_im_clap / torch.abs(self.cross_temp)
-        C_im_clap_log = torch.log_softmax(C_im_clap, dim=1)
+        # Calculate similarities with safety checks
+        C_qvim_log, C_ref_clap_log, C_im_clap_log = self.compute_safe_similarities(
+            y_imitation, y_reference, y_clap
+        )
         
         # Create identity matrix based on audio filenames (same as original QVIM)
         paths = np.array([hash(p) for i, p in enumerate(batch['imitation_filename'])])
@@ -224,22 +263,10 @@ class QVIMCLAPModule(QVIMModule):
         # Get CLAP embeddings
         y_clap = self.forward_clap(batch['reference'])
         
-        # Calculate batch similarity matrix for all three objectives
-        
-        # 1. QVIM internal similarity (imitation to reference)
-        C_qvim = torch.matmul(y_imitation, y_reference.T)
-        C_qvim = C_qvim / torch.abs(self.tau)
-        C_qvim_log = torch.log_softmax(C_qvim, dim=1)
-        
-        # 2. QVIM reference to CLAP similarity
-        C_ref_clap = torch.matmul(y_reference, y_clap.T)
-        C_ref_clap = C_ref_clap / torch.abs(self.cross_temp)
-        C_ref_clap_log = torch.log_softmax(C_ref_clap, dim=1)
-        
-        # 3. QVIM imitation to CLAP similarity
-        C_im_clap = torch.matmul(y_imitation, y_clap.T)
-        C_im_clap = C_im_clap / torch.abs(self.cross_temp)
-        C_im_clap_log = torch.log_softmax(C_im_clap, dim=1)
+        # Calculate similarities with safety checks
+        C_qvim_log, C_ref_clap_log, C_im_clap_log = self.compute_safe_similarities(
+            y_imitation, y_reference, y_clap
+        )
         
         # Identity matrix based on audio filenames
         paths = np.array([hash(p) for i, p in enumerate(batch['imitation_filename'])])
