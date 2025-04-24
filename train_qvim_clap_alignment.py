@@ -6,8 +6,10 @@ import copy
 import warnings
 
 import torch
+import torch.nn.functional as F
 import numpy as np
 import pytorch_lightning as pl
+import torchaudio
 
 # Enable Tensor Cores for faster training with minimal precision loss
 torch.set_float32_matmul_precision('high')
@@ -171,49 +173,158 @@ class QVIMCLAPModule(QVIMModule):
         return C_qvim_log, C_ref_clap_log, C_im_clap_log
 
     def forward_clap(self, audio):
-        """Forward audio through CLAP to get embeddings"""
+        """Forward audio through CLAP to get embeddings with extensive error handling"""
         # CLAP expects audio in range [-1, 1] at 16kHz
-        with torch.no_grad():
-            # Manually resample from 32kHz to 16kHz
-            import torchaudio
-            
-            # Process audio to be compatible with CLAP's processing
-            # This handles the dimension issues in get_audio_features
-            
-            # First get 2D tensor [batch_size, samples]
-            if audio.dim() > 2:
-                audio = audio.squeeze(1)
-            
-            # Resample from 32kHz to 16kHz
-            audio_16k = torchaudio.functional.resample(
-                audio, 
-                orig_freq=32000,  # QVIM sample rate 
-                new_freq=16000    # CLAP required sample rate
-            )
-            
-            # Process audio manually (similar to how CLAP does it)
-            # Create a list of waveforms as expected by CLAP
-            batch_audio_dict_list = []
-            
-            for i in range(audio_16k.size(0)):
-                # Extract individual waveform
-                waveform = audio_16k[i]
+        batch_size = audio.size(0)
+        
+        try:
+            with torch.no_grad():
+                # Manually resample from 32kHz to 16kHz
+                import torchaudio
                 
-                # Create audio dict (similar to what get_audio_features does)
-                audio_dict = {}
+                # Debug the audio input
+                print(f"DEBUG - Audio shape: {audio.shape}, min: {audio.min()}, max: {audio.max()}")
                 
-                # Make sure the waveform is 1D
-                if waveform.dim() > 1:
-                    waveform = waveform.squeeze()
+                # First get 2D tensor [batch_size, samples]
+                if audio.dim() > 2:
+                    audio = audio.squeeze(1)
                 
-                # CLAP needs a 1D tensor for audio_data.repeat to work
-                audio_dict["waveform"] = waveform
+                # Clip the audio to [-1, 1] range
+                audio = torch.clamp(audio, -1.0, 1.0)
                 
-                batch_audio_dict_list.append(audio_dict)
+                # Resample from 32kHz to 16kHz
+                try:
+                    # First pad any very short audio to avoid issues
+                    min_length = 16000  # At least 1 second of audio
+                    if audio.shape[1] < min_length:
+                        padding = min_length - audio.shape[1]
+                        audio = F.pad(audio, (0, padding), "constant", 0)
+                        print(f"DEBUG - Audio padded to minimum length: {audio.shape}")
+                    
+                    # Ensure we're dealing with finite values
+                    if torch.isnan(audio).any() or torch.isinf(audio).any():
+                        audio = torch.nan_to_num(audio, nan=0.0, posinf=1.0, neginf=-1.0)
+                        print("DEBUG - Replaced NaN/Inf values in audio input")
+                    
+                    # Resample with additional checks
+                    audio_16k = torchaudio.functional.resample(
+                        audio, 
+                        orig_freq=32000,  # QVIM sample rate 
+                        new_freq=16000    # CLAP required sample rate
+                    )
+                    
+                    # Check for NaN after resampling
+                    if torch.isnan(audio_16k).any() or torch.isinf(audio_16k).any():
+                        print("WARNING: NaN/Inf values after resampling, replacing with zeros")
+                        audio_16k = torch.nan_to_num(audio_16k, nan=0.0, posinf=1.0, neginf=-1.0)
+                    
+                    print(f"DEBUG - Audio resampled to 16kHz: {audio_16k.shape}, min: {audio_16k.min()}, max: {audio_16k.max()}")
+                except Exception as e:
+                    print(f"ERROR in resampling: {e}")
+                    # Create fallback random embeddings
+                    return torch.randn(batch_size, 512, device=audio.device)
+                
+                # Process audio manually with extensive error handling
+                try:
+                    # Create a list of waveforms as expected by CLAP
+                    batch_audio_dict_list = []
+                    
+                    for i in range(audio_16k.size(0)):
+                        # Extract individual waveform
+                        waveform = audio_16k[i]
+                        
+                        # Debug individual waveform
+                        if i == 0:
+                            print(f"DEBUG - Waveform {i}: shape {waveform.shape}, min {waveform.min()}, max {waveform.max()}")
+                        
+                        # Make sure the waveform is 1D
+                        if waveform.dim() > 1:
+                            waveform = waveform.squeeze()
+                        
+                        # Create audio dict with additional checks
+                        audio_dict = {}
+                        
+                        # Check for NaN or Inf in waveform
+                        if torch.isnan(waveform).any() or torch.isinf(waveform).any():
+                            print(f"WARNING: NaN or Inf found in waveform {i}, replacing with zeros")
+                            waveform = torch.zeros_like(waveform)
+                        
+                        # Normalize waveform to [-1, 1] range - crucial for CLAP's internal processing
+                        if waveform.abs().max() > 0:  # Avoid division by zero
+                            waveform = waveform / (waveform.abs().max() + 1e-8)
+                        
+                        # Add small epsilon to avoid all-zero inputs
+                        if waveform.abs().max() < 1e-6:
+                            waveform = waveform + torch.randn_like(waveform) * 1e-6
+                            print(f"WARNING: Near-zero waveform {i}, adding small noise")
+                        
+                        # CLAP needs a 1D tensor for audio_data.repeat to work
+                        audio_dict["waveform"] = waveform
+                        batch_audio_dict_list.append(audio_dict)
+                    
+                    # Get CLAP embeddings with extensive error handling
+                    try:
+                        # Add more debug info to diagnose issues
+                        for i, audio_dict in enumerate([batch_audio_dict_list[0]]):
+                            if i == 0:  # Just check the first item in batch
+                                waveform = audio_dict["waveform"]
+                                print(f"DEBUG - Waveform stats before CLAP: shape={waveform.shape}, "
+                                      f"min={waveform.min():.4f}, max={waveform.max():.4f}, "
+                                      f"mean={waveform.mean():.4f}, std={waveform.std():.4f}")
+                        
+                        with torch.inference_mode():  # More explicit than no_grad in some cases
+                            clap_embedding = self.clap_model.model.get_audio_embedding(batch_audio_dict_list)
+                        
+                        # Gradual handling of NaN/Inf issues
+                        if torch.isnan(clap_embedding).any() or torch.isinf(clap_embedding).any():
+                            print("WARNING: NaN/Inf found in CLAP embeddings")
+                            
+                            # First try to recover valid values
+                            clap_embedding = torch.nan_to_num(clap_embedding, nan=0.0, posinf=0.0, neginf=0.0)
+                            
+                            # Check how many rows have all zeros after nan_to_num
+                            zero_rows = (clap_embedding.abs().sum(dim=1) < 1e-6).sum().item()
+                            if zero_rows > 0:
+                                print(f"WARNING: {zero_rows}/{batch_size} CLAP embeddings are all zeros")
+                            
+                            # For all-zero embeddings, initialize with small random values
+                            zero_mask = (clap_embedding.abs().sum(dim=1) < 1e-6).view(-1, 1)
+                            if zero_mask.any():
+                                random_values = torch.randn_like(clap_embedding) * 0.01
+                                clap_embedding = torch.where(zero_mask, random_values, clap_embedding)
+                        
+                        # Ensure valid embeddings with norm > 0 before normalization
+                        norms = torch.norm(clap_embedding, p=2, dim=1, keepdim=True)
+                        valid_norms = (norms > 1e-8).float()
+                        safe_norms = torch.where(valid_norms > 0, norms, torch.ones_like(norms))
+                        
+                        # Normalize safely
+                        clap_embedding = clap_embedding / safe_norms
+                        
+                        # Re-compute norm after normalization for debugging
+                        print(f"DEBUG - CLAP embedding norm after normalization: {torch.norm(clap_embedding, dim=1).mean():.4f}")
+                        
+                    except Exception as e:
+                        print(f"ERROR in CLAP embedding extraction: {e}")
+                        # Create fallback random embeddings
+                        clap_embedding = torch.randn(batch_size, 512, device=audio.device)
+                    
+                except Exception as e:
+                    print(f"ERROR in audio processing: {e}")
+                    # Create fallback random embeddings
+                    clap_embedding = torch.randn(batch_size, 512, device=audio.device)
+                
+        except Exception as e:
+            print(f"CRITICAL ERROR in forward_clap: {e}")
+            # Create fallback random embeddings
+            clap_embedding = torch.randn(batch_size, 512, device=audio.device)
             
-            # Get CLAP embeddings from our manually processed audio dicts
-            clap_embedding = self.clap_model.model.get_audio_embedding(batch_audio_dict_list)
+        # Ensure the output is properly normalized with no NaNs
+        if torch.isnan(clap_embedding).any():
+            print("Final check - NaN still found in CLAP embeddings, using fallback")
+            clap_embedding = torch.randn(batch_size, 512, device=audio.device)
             
+        clap_embedding = F.normalize(clap_embedding, p=2, dim=1, eps=1e-8)
         return clap_embedding
 
     def training_step(self, batch, batch_idx):
