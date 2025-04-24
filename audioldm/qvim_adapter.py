@@ -28,6 +28,11 @@ class QVIMAdapter(nn.Module):
             nn.Linear(audioldm_dim * 2, audioldm_dim),
             nn.LayerNorm(audioldm_dim)
         )
+
+        # self.adapter = nn.Sequential(
+        #     nn.Linear(qvim_dim, audioldm_dim),
+        #     nn.LayerNorm(audioldm_dim)
+        # ) # SIMPLIFIED ADAPTER
     
     def forward(self, qvim_embeddings):
         """
