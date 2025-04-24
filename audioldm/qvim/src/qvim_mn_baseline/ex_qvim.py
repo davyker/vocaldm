@@ -361,9 +361,9 @@ def train(config):
         num_workers=config.num_workers,
         batch_size=config.batch_size,
         shuffle=True,
-        pin_memory=False,          # Reduced memory usage
-        persistent_workers=False,  # Allow worker cleanup between batches
-        prefetch_factor=1 if config.num_workers > 0 else None          # Prefetch 1 batch per worker (reduced for memory)
+        pin_memory=config.pin_memory,          # Reduced memory usage
+        persistent_workers=config.num_workers > 0,  # Allow worker cleanup between batches
+        prefetch_factor=2 if config.num_workers > 0 else None          # Prefetch 1 batch per worker (reduced for memory)
     )
 
     val_dl = DataLoader(
@@ -372,9 +372,9 @@ def train(config):
         batch_size=config.batch_size,
         shuffle=False,
         drop_last=False,
-        pin_memory=False,
-        persistent_workers=False,
-        prefetch_factor=1 if config.num_workers > 0 else None
+        pin_memory=config.pin_memory,
+        persistent_workers=config.num_workers > 0,
+        prefetch_factor=2 if config.num_workers > 0 else None
     )
     
     final_eval_dl = DataLoader(
@@ -383,9 +383,9 @@ def train(config):
         batch_size=config.batch_size,
         shuffle=False,
         drop_last=False,
-        pin_memory=False,
-        persistent_workers=False,
-        prefetch_factor=1 if config.num_workers > 0 else None
+        pin_memory=config.pin_memory,
+        persistent_workers=config.num_workers > 0,
+        prefetch_factor=2 if config.num_workers > 0 else None
     )
 
     pl_module = QVIMModule(config)
@@ -540,6 +540,8 @@ if __name__ == '__main__':
     # Preprocessing
     parser.add_argument('--duration', type=float, default=10.0,
                         help="Duration of audio clips in seconds.")
+    parser.add_argument("--pin_memory", action="store_true", default=True, help="Pin memory in DataLoader (faster but uses more RAM)")
+
 
     # Spectrogram Parameters
     parser.add_argument('--sample_rate', type=int, default=32000,
