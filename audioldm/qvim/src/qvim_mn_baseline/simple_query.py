@@ -30,9 +30,8 @@ def get_query_embedding(model, query_audio, device):
 
 def get_reference_embeddings(model, dataset, device):
     """Get embeddings for unique reference files"""
-    # Set batch sizes for better GPU utilization
-    index_batch_size = 64  # Batch size for index building
-    embed_batch_size = 64  # Batch size for embedding extraction
+    # Set batch size for better GPU utilization
+    batch_size = 64  # Adjust based on your GPU
     
     # Get unique references and build index mapping
     if hasattr(dataset, 'all_pairs') and 'filename_reference' in dataset.all_pairs.columns:
@@ -40,20 +39,12 @@ def get_reference_embeddings(model, dataset, device):
         unique_refs = dataset.all_pairs['filename_reference'].unique().tolist()
         print(f"Processing {len(unique_refs)} unique references...")
         
-        # Build file to index mapping with batched processing
+        # Build file to index mapping
         lookup_cache = {}
-        # Create batches for index building
-        num_samples = len(dataset)
-        index_batches = [(i, min(i + index_batch_size, num_samples)) 
-                         for i in range(0, num_samples, index_batch_size)]
-        
-        for start_idx, end_idx in tqdm(index_batches, desc="Building index"):
-            # Process a batch of samples at once
-            batch_samples = [dataset[j] for j in range(start_idx, end_idx)]
-            for j, sample in enumerate(batch_samples):
-                ref_file = sample['reference_filename']
-                if ref_file in unique_refs and ref_file not in lookup_cache:
-                    lookup_cache[ref_file] = start_idx + j
+        for j in tqdm(range(len(dataset)), desc="Building index"):
+            ref_file = dataset[j]['reference_filename']
+            if ref_file in unique_refs and ref_file not in lookup_cache:
+                lookup_cache[ref_file] = j
         
         # Keep only references we found in the dataset
         valid_refs = [ref for ref in unique_refs if ref in lookup_cache]
@@ -62,25 +53,17 @@ def get_reference_embeddings(model, dataset, device):
     else:
         # Fallback for non-VimSketch datasets
         ref_to_idx = {}
-        # Create batches for index building
-        num_samples = len(dataset)
-        index_batches = [(i, min(i + index_batch_size, num_samples)) 
-                        for i in range(0, num_samples, index_batch_size)]
-        
-        for start_idx, end_idx in tqdm(index_batches, desc="Indexing dataset"):
-            # Process a batch of samples at once
-            batch_samples = [dataset[j] for j in range(start_idx, end_idx)]
-            for j, sample in enumerate(batch_samples):
-                ref_file = sample['reference_filename']
-                if ref_file not in ref_to_idx:
-                    ref_to_idx[ref_file] = start_idx + j
+        for i in tqdm(range(len(dataset)), desc="Indexing dataset"):
+            ref_file = dataset[i]['reference_filename']
+            if ref_file not in ref_to_idx:
+                ref_to_idx[ref_file] = i
                 
         valid_refs = list(ref_to_idx.keys())
         print(f"Found {len(valid_refs)} unique references")
     
     # Process in batches (same for both dataset types)
     ref_embeddings = {}
-    batches = [valid_refs[i:i+embed_batch_size] for i in range(0, len(valid_refs), embed_batch_size)]
+    batches = [valid_refs[i:i+batch_size] for i in range(0, len(valid_refs), batch_size)]
     
     # Process each batch
     for batch_refs in tqdm(batches, desc="Processing batches"):
@@ -100,6 +83,7 @@ def get_reference_embeddings(model, dataset, device):
         for i, ref_file in enumerate(batch_refs):
             ref_embeddings[ref_file] = batch_embeddings[i].cpu().numpy()
     
+    return ref_embeddings
     return ref_embeddings
 
 def save_results(query_file, true_match, top_matches, dataset, output_dir):
