@@ -1,2 +1,0 @@
-qvim_2dft_baseline
-qvim_mn_baseline

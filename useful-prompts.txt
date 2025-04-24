@@ -31,3 +31,8 @@ W7MQ/m2A2FODARVnv95aAAAAEmRhdnlrZXIxQGdtYWlsLmNvbQECAw==
 
 ### After some hard work, I can run the simple_query with this, from the root AudioLDM folder: ###
 PYTHONPATH=$(pwd) python audioldm/qvim/src/qvim_mn_baseline/simple_query.py --random_query "vimsketch"
+
+### If you accidenally start adding something large with git add ., do: ###
+git reset
+git status
+git gc --prune-now
