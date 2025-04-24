@@ -2,8 +2,13 @@
 # -*- coding: utf-8 -*-
 
 import os
-import argparse
 import warnings
+
+# Silence warnings
+warnings.filterwarnings("ignore")
+os.environ["PYTHONWARNINGS"] = "ignore"
+
+import argparse
 import torch
 import torch.nn as nn
 import torch.nn.functional as F
@@ -24,10 +29,6 @@ from matplotlib import cm
 import atexit
 import random
 from torchviz import make_dot
-
-# Silence warnings
-warnings.filterwarnings("ignore")
-os.environ["PYTHONWARNINGS"] = "ignore"
 
 # Import from AudioLDM modules
 from audioldm.latent_diffusion.ddpm import DDPM
@@ -387,7 +388,7 @@ class VocaLDMModule(pl.LightningModule):
         #             film_param_count += param.numel()
         
         print(f"Unfroze {len(film_params)} FiLM parameter tensors")
-        print(f"Total FiLM parameters: {film_param_count}")
+        print(f"Total FiLM parameters ufrozen: {film_param_count}")
         if args.debug_autograd:
             if film_params:
                 print(f"First few parameters: {film_params[:2]}")
@@ -1449,7 +1450,7 @@ def train_vocaldm(args):
         accelerator='auto',
         devices=args.num_gpus if torch.cuda.is_available() else None,  # 'all' or specific number of GPUs
         strategy='auto',  # Let PyTorch Lightning auto-select the appropriate strategy
-        precision="bf16",  # Use full precision to avoid type mismatches
+        precision=16,  # Use full precision to avoid type mismatches
         log_every_n_steps=10,
         val_check_interval=args.val_check_interval,
         accumulate_grad_batches=args.gradient_accumulation_steps,  # Gradient accumulation for memory optimization
