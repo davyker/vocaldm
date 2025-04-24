@@ -3,6 +3,7 @@
 
 import os
 import argparse
+import warnings
 import torch
 import torch.nn as nn
 import torch.nn.functional as F
@@ -23,6 +24,10 @@ from matplotlib import cm
 import atexit
 import random
 from torchviz import make_dot
+
+# Silence warnings
+warnings.filterwarnings("ignore")
+os.environ["PYTHONWARNINGS"] = "ignore"
 
 # Import from AudioLDM modules
 from audioldm.latent_diffusion.ddpm import DDPM
@@ -372,14 +377,14 @@ class VocaLDMModule(pl.LightningModule):
                 # Set this specific module to train mode even though the parent model is in eval mode
                 module.train()
         
-        # Extra check: also look for 'film_emb' directly in model parameters
-        for name, param in self.audioldm.named_parameters():
-            if any(x in name for x in ['film_emb', 'cond_emb']):
-                if not param.requires_grad:
-                    print(f"Found and unfreezing additional FiLM parameter: {name}")
-                    param.requires_grad = True
-                    film_params.append(param)
-                    film_param_count += param.numel()
+        # # Extra check: also look for 'film_emb' directly in model parameters
+        # for name, param in self.audioldm.named_parameters():
+        #     if any(x in name for x in ['film_emb', 'cond_emb']):
+        #         if not param.requires_grad:
+        #             print(f"Found and unfreezing additional FiLM parameter: {name}")
+        #             param.requires_grad = True
+        #             film_params.append(param)
+        #             film_param_count += param.numel()
         
         print(f"Unfroze {len(film_params)} FiLM parameter tensors")
         print(f"Total FiLM parameters: {film_param_count}")
