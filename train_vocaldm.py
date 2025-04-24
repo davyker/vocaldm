@@ -1644,7 +1644,7 @@ if __name__ == "__main__":
     parser.add_argument("--run_name", type=str, default=None, help="Run name for wandb")
     parser.add_argument("--seed", type=int, default=46, help="Random seed for reproducibility")
     parser.add_argument("--debug_autograd", action="store_true", help="Enable autograd anomaly detection")
-    parser.add_argument("--save_autograd_graph", action="store_true", help="Save autograd graph for debugging")
+    parser.add_argument("--save_autograd_graph", action="store_true", default=True help="Save autograd graph for debugging")
     
     # Paths
     parser.add_argument("--audioldm_model", type=str, default="audioldm-m-full", 
