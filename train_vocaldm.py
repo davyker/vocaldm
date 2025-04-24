@@ -1636,7 +1636,7 @@ if __name__ == "__main__":
     # General
     parser.add_argument("--project", type=str, default="vocaldm", help="Project name for wandb")
     parser.add_argument("--run_name", type=str, default=None, help="Run name for wandb")
-    parser.add_argument("--seed", type=int, default=42, help="Random seed for reproducibility")
+    parser.add_argument("--seed", type=int, default=46, help="Random seed for reproducibility")
     parser.add_argument("--debug_autograd", action="store_true", help="Enable autograd anomaly detection")
     parser.add_argument("--save_autograd_graph", action="store_true", help="Save autograd graph for debugging")
     
@@ -1665,8 +1665,8 @@ if __name__ == "__main__":
     parser.add_argument("--max_epochs", type=int, default=300, help="Maximum number of epochs")
     parser.add_argument("--batch_size", type=int, default=64, help="Batch size")
     parser.add_argument("--gradient_accumulation_steps", type=int, default=1, help="Number of updates steps to accumulate before performing a backward/update pass")
-    parser.add_argument("--adapter_lr", type=float, default=5e-4, help="Learning rate for adapter")
-    parser.add_argument("--film_lr", type=float, default=5e-5, help="Learning rate for FiLM conditioning layers")
+    parser.add_argument("--adapter_lr", type=float, default=1e-5, help="Learning rate for adapter")
+    parser.add_argument("--film_lr", type=float, default=5e-6, help="Learning rate for FiLM conditioning layers")
     parser.add_argument("--min_lr", type=float, default=1e-6, help="Minimum learning rate")
     parser.add_argument("--adapter_weight_decay", type=float, default=1e-3, help="Weight decay for adapter (higher for newly initialized components)")
     parser.add_argument("--film_weight_decay", type=float, default=1e-5, help="Weight decay for FiLM layers (lower for pre-trained components)")

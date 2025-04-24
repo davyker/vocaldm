@@ -1,5 +1,31 @@
-# Make a clean requirements.txt
+### Make a clean requirements.txt ###
 pip freeze | sed 's/ @ file.*//' > requirements.txt
+pip install -r requirements.txt
 
-# Transfer VimSketch.zip to lambdalabs
+### Cloning repo onto LL ###
+# Generate SSH key if needed
+ssh-keygen -t ed25519 -C "davyker1@gmail.com"
+# Display the public key to add to GitHub
+cat ~/.ssh/id_ed25519.pub
+# Then add this key to GitHub (settings->SSH and GPG keys) and then clone using SSH:
+git clone git@github.com:davyker/vocaldm.git
+
+### wandb API key
+e28de4f36d786bc6d3b210837d9c1ccacaec1799
+
+### Transfer VimSketch.zip to lambdalabs ###
 scp "C:\Users\Davy\Documents\Code\QM\CC\AudioLDM\audioldm\qvim\data\VimSketch.zip" ubuntu@192-222-53-245:~/vocaldm/audioldm/qvim/data/
+
+### Public key and private key ###
+(qvim-baseline) (base) root@DKNL:/mnt/c/Users/Davy/Documents/Code/QM/CC/AudioLDM# cat ~/.ssh/id_ed25519.pub
+ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIH0YUb90kkw/fikye84OLQzmW7MQ/m2A2FODARVnv95a davyker1@gmail.com
+(qvim-baseline) (base) root@DKNL:/mnt/c/Users/Davy/Documents/Code/QM/CC/AudioLDM# cat ~/.ssh/id_ed25519
+-----BEGIN OPENSSH PRIVATE KEY-----
+b3BlbnNzaC1rZXktdjEAAAAABG5vbmUAAAAEbm9uZQAAAAAAAAABAAAAMwAAAAtzc2gtZW
+QyNTUxOQAAACB9GFG/dJJMP34pMnvODi0M5luzEP5tgNhTgwEVZ7/eWgAAAJjEx9bxxMfW
+8QAAAAtzc2gtZWQyNTUxOQAAACB9GFG/dJJMP34pMnvODi0M5luzEP5tgNhTgwEVZ7/eWg
+AAAECh4ZRrRkqleQSzCIQwvvZUcscRFn6K4Hs8UBDm7WgdKn0YUb90kkw/fikye84OLQzm
+W7MQ/m2A2FODARVnv95aAAAAEmRhdnlrZXIxQGdtYWlsLmNvbQECAw==
+-----END OPENSSH PRIVATE KEY-----
+(qvim-baseline) (base) root@DKNL:/mnt/c/Users/Davy/Documents/Code/QM/CC/AudioLDM# 
+
