@@ -526,8 +526,8 @@ class VocaLDMModule(pl.LightningModule):
         # Forward diffusion to get noisy latent - MUST have gradient tracking for backprop
         z_noisy = self.audioldm.q_sample(z_reference, t, noise=noise)
         
-        # Ensure z_noisy has requires_grad=True for backprop
-        z_noisy = z_noisy.detach().requires_grad_(True)
+        # # Ensure z_noisy has requires_grad=True for backprop
+        # z_noisy = z_noisy.detach().requires_grad_(True)
         
         # Important: For the parts that need gradients, run them outside torch.no_grad()
         # This is the adapter part that transforms QVIM embeddings
