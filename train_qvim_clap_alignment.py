@@ -1,0 +1,307 @@
+#!/usr/bin/env python
+import argparse
+import os
+import math
+import copy
+import warnings
+
+import torch
+import numpy as np
+import pytorch_lightning as pl
+
+# Enable Tensor Cores for faster training with minimal precision loss
+torch.set_float32_matmul_precision('high')
+
+from pytorch_lightning.loggers import WandbLogger
+from pytorch_lightning.callbacks import ModelCheckpoint, EarlyStopping
+from pytorch_lightning.callbacks.lr_monitor import LearningRateMonitor
+
+# Import from QVIM
+from audioldm.qvim.src.qvim_mn_baseline.dataset import VimSketchDataset, AESAIMLA_DEV
+from audioldm.qvim.src.qvim_mn_baseline.download import download_vimsketch_dataset, download_qvim_dev_dataset
+from audioldm.qvim.src.qvim_mn_baseline.mn.model import get_model as get_mobilenet
+from audioldm.qvim.src.qvim_mn_baseline.utils import NAME_TO_WIDTH
+from audioldm.qvim.src.qvim_mn_baseline.ex_qvim import QVIMModule, train as qvim_train
+
+# Import CLAP components
+from audioldm.clap.encoders import CLAPAudioEmbeddingClassifierFreev2
+
+# Silence warnings
+warnings.filterwarnings("ignore")
+os.environ["PYTHONWARNINGS"] = "ignore"
+
+class QVIMCLAPModule(QVIMModule):
+    """
+    Pytorch Lightning Module for QVIM-CLAP alignment
+    Extends the original QVIMModule with direct CLAP alignment objectives
+    """
+
+    def __init__(self, config):
+        # Initialize parent QVIMModule with 512d output directly
+        # Override pretrained_name to use our own modified copy that outputs 512d
+        config.output_dim = 512  # Add this attribute to config
+        super().__init__(config)
+        
+        # Re-initialize QVIM encoders with direct 512d output for CLAP alignment
+        self.imitation_encoder = get_mobilenet(
+            width_mult=NAME_TO_WIDTH(config.pretrained_name),
+            pretrained_name=config.pretrained_name,
+            output_dim=512  # Direct 512d output for CLAP compatibility
+        )
+        self.reference_encoder = copy.deepcopy(self.imitation_encoder)
+        
+        # Initialize cross-model temperature parameter (using same approach as tau)
+        initial_cross_temp = torch.zeros((1,)) + 0.07
+        self.cross_temp = torch.nn.Parameter(initial_cross_temp, requires_grad=True)
+        
+        # Load CLAP model (frozen)
+        self.clap_model = CLAPAudioEmbeddingClassifierFreev2(
+            pretrained_path=config.clap_checkpoint,
+            sampling_rate=config.sample_rate,  # Use QVIM's sampling rate (32kHz)
+            embed_mode="audio",
+            amodel=config.clap_model,
+            unconditional_prob=0.0  # No need for unconditional samples during training
+        )
+        
+        # Freeze CLAP model
+        for param in self.clap_model.parameters():
+            param.requires_grad = False
+            
+        self.clap_model.eval()
+    
+    def forward_clap(self, audio):
+        """Forward audio through CLAP to get embeddings"""
+        # CLAP expects audio in range [-1, 1]
+        with torch.no_grad():
+            # CLAP internally handles resampling to 48kHz, per line 128-130 in encoders.py:
+            # batch = torchaudio.functional.resample(
+            #     batch, orig_freq=self.sampling_rate, new_freq=48000
+            # )
+            
+            # Add channel dimension if not present (CLAP expects [B, 1, T])
+            if audio.dim() == 2:
+                audio = audio.unsqueeze(1)
+            
+            # Get CLAP embeddings
+            clap_embedding = self.clap_model(audio).squeeze(1)
+            
+        return clap_embedding
+
+    def training_step(self, batch, batch_idx):
+        # Store current batch for use in lr_scheduler_step
+        self.current_batch = batch
+        
+        self.lr_scheduler_step(batch_idx)
+
+        # Get QVIM embeddings for imitation and reference
+        y_imitation, y_reference = self.forward(batch['imitation'], batch['reference'])
+        
+        # Get CLAP embeddings for reference
+        y_clap = self.forward_clap(batch['reference'])
+        
+        # Calculate batch similarity matrix for all three objectives
+        
+        # 1. QVIM internal similarity (imitation to reference)
+        C_qvim = torch.matmul(y_imitation, y_reference.T)
+        C_qvim = C_qvim / torch.abs(self.tau)
+        C_qvim_log = torch.log_softmax(C_qvim, dim=1)
+        
+        # 2. QVIM reference to CLAP similarity
+        C_ref_clap = torch.matmul(y_reference, y_clap.T)
+        C_ref_clap = C_ref_clap / torch.abs(self.cross_temp)
+        C_ref_clap_log = torch.log_softmax(C_ref_clap, dim=1)
+        
+        # 3. QVIM imitation to CLAP similarity
+        C_im_clap = torch.matmul(y_imitation, y_clap.T)
+        C_im_clap = C_im_clap / torch.abs(self.cross_temp)
+        C_im_clap_log = torch.log_softmax(C_im_clap, dim=1)
+        
+        # Create identity matrix based on audio filenames (same as original QVIM)
+        paths = np.array([hash(p) for i, p in enumerate(batch['imitation_filename'])])
+        I = torch.tensor(paths[None, :] == paths[:, None])
+
+        # Calculate loss for each objective
+        loss_qvim = -C_qvim_log[torch.where(I)].mean()
+        loss_ref_clap = -C_ref_clap_log[torch.where(I)].mean()
+        loss_im_clap = -C_im_clap_log[torch.where(I)].mean()
+        
+        # Combined loss (equal weighting)
+        total_loss = (loss_qvim + loss_ref_clap + loss_im_clap) / 3.0
+
+        # Log all losses
+        self.log('train/loss', total_loss, prog_bar=True, batch_size=len(batch['imitation']))
+        self.log('train/loss_qvim', loss_qvim, batch_size=len(batch['imitation']))
+        self.log('train/loss_ref_clap', loss_ref_clap, batch_size=len(batch['imitation']))
+        self.log('train/loss_im_clap', loss_im_clap, batch_size=len(batch['imitation']))
+        self.log('train/tau', self.tau, batch_size=len(batch['imitation']))
+        self.log('train/cross_temp', self.cross_temp, batch_size=len(batch['imitation']))
+        self.log('lr', self.optimizers().param_groups[0]['lr'], prog_bar=True, batch_size=len(batch['imitation']))
+
+        return total_loss
+
+    def validation_step(self, batch, batch_idx):
+        # Get QVIM embeddings
+        y_imitation, y_reference = self.forward(batch['imitation'], batch['reference'])
+        
+        # Get CLAP embeddings
+        y_clap = self.forward_clap(batch['reference'])
+        
+        # Calculate batch similarity matrix for all three objectives
+        
+        # 1. QVIM internal similarity (imitation to reference)
+        C_qvim = torch.matmul(y_imitation, y_reference.T)
+        C_qvim = C_qvim / torch.abs(self.tau)
+        C_qvim_log = torch.log_softmax(C_qvim, dim=1)
+        
+        # 2. QVIM reference to CLAP similarity
+        C_ref_clap = torch.matmul(y_reference, y_clap.T)
+        C_ref_clap = C_ref_clap / torch.abs(self.cross_temp)
+        C_ref_clap_log = torch.log_softmax(C_ref_clap, dim=1)
+        
+        # 3. QVIM imitation to CLAP similarity
+        C_im_clap = torch.matmul(y_imitation, y_clap.T)
+        C_im_clap = C_im_clap / torch.abs(self.cross_temp)
+        C_im_clap_log = torch.log_softmax(C_im_clap, dim=1)
+        
+        # Identity matrix based on audio filenames
+        paths = np.array([hash(p) for i, p in enumerate(batch['imitation_filename'])])
+        I = torch.tensor(paths[None, :] == paths[:, None])
+
+        # Calculate loss for each objective
+        loss_qvim = -C_qvim_log[torch.where(I)].mean()
+        loss_ref_clap = -C_ref_clap_log[torch.where(I)].mean()
+        loss_im_clap = -C_im_clap_log[torch.where(I)].mean()
+        
+        # Combined loss (equal weighting)
+        total_loss = (loss_qvim + loss_ref_clap + loss_im_clap) / 3.0
+
+        # Log all losses
+        self.log('val/loss', total_loss, prog_bar=True, batch_size=len(batch['imitation']))
+        self.log('val/loss_qvim', loss_qvim, batch_size=len(batch['imitation']))
+        self.log('val/loss_ref_clap', loss_ref_clap, batch_size=len(batch['imitation']))
+        self.log('val/loss_im_clap', loss_im_clap, batch_size=len(batch['imitation']))
+        self.log('val/tau', self.tau, batch_size=len(batch['imitation']))
+        self.log('val/cross_temp', self.cross_temp, batch_size=len(batch['imitation']))
+
+        # Store data for MRR calculation (use QVIM internal similarity)
+        self.validation_output.extend([
+            {
+                'imitation': copy.deepcopy(y_imitation.detach().cpu().numpy()),
+                'reference': copy.deepcopy(y_reference.detach().cpu().numpy()),
+                'imitation_filename': batch['imitation_filename'],
+                'reference_filename': batch['reference_filename'],
+                'imitation_class': batch['imitation_class'],
+                'reference_class': batch['reference_class']
+            }
+        ])
+
+
+def train(config):
+    # Extend config with needed CLAP attributes 
+    setattr(config, 'output_dim', 512)
+    
+    # Add pin_memory attribute required by ex_qvim.py
+    if not hasattr(config, 'pin_memory'):
+        setattr(config, 'pin_memory', True)
+    
+    # Use the existing train function with our custom module
+    # Create a factory function to instantiate our module instead of QVIMModule
+    def model_factory(config):
+        return QVIMCLAPModule(config)
+        
+    # Call the existing training function with our factory function
+    qvim_train(config, model_factory)
+
+
+if __name__ == '__main__':
+    parser = argparse.ArgumentParser(description="Argument parser for training the QVIM-CLAP alignment model.")
+
+    # General
+    parser.add_argument('--project', type=str, default="qvim-clap-alignment",
+                        help="Project name in wandb.")
+    parser.add_argument('--num_workers', type=int, default=4,
+                        help="Number of data loader workers.")
+    parser.add_argument('--pin_memory', type=bool, default=True,
+                        help="Whether to pin memory for data loading (faster but uses more memory).")
+    parser.add_argument('--model_save_path', type=str, default="audioldm/qvim/models_clap_aligned",
+                        help="Path to store the checkpoints.")
+    parser.add_argument('--dataset_path', type=str, default='audioldm/qvim/data',
+                        help="Path to the data sets.")
+
+    # CLAP Configuration
+    parser.add_argument('--clap_checkpoint', type=str, 
+                        default="",  # Add default path to CLAP checkpoint
+                        help="Path to CLAP checkpoint.")
+    parser.add_argument('--clap_model', type=str, default="HTSAT-tiny",
+                        help="CLAP model architecture to use.")
+
+    # Encoder architecture
+    parser.add_argument('--pretrained_name', type=str, default="mn10_as",
+                        help="Pretrained model name for transfer learning.")
+
+    # Training
+    parser.add_argument('--random_seed', type=int, default=42,
+                        help="A seed to make the experiment reproducible.")
+    parser.add_argument('--continue_from', type=str, default=None,
+                        help="Path to checkpoint file to continue training from")
+    parser.add_argument('--final_eval_dataset', type=str, default="val", choices=["dev", "val"],
+                        help="Dataset to use for final evaluation: 'dev' (QVIM-DEV) or 'val' (VimSketch val split)")
+    parser.add_argument('--batch_size', type=int, default=64,
+                        help="Number of samples per batch.")
+    parser.add_argument('--n_epochs', type=int, default=100,
+                        help="Maximum number of training epochs (can stop earlier with early stopping).")
+    parser.add_argument('--early_stopping_patience', type=int, default=10,
+                        help="Number of epochs with no improvement after which training will be stopped.")
+    parser.add_argument('--early_stopping_min_delta', type=float, default=0.0,
+                        help="Minimum change in the monitored metric to qualify as an improvement.")
+    parser.add_argument('--weight_decay', type=float, default=1e-4,
+                        help="L2 weight regularization to prevent overfitting.")
+    parser.add_argument('--max_lr', type=float, default=0.0003,
+                        help="Maximum learning rate.")
+    parser.add_argument('--min_lr', type=float, default=0.0001,
+                        help="Final learning rate at the end of training.")
+    parser.add_argument('--warmup_epochs', type=int, default=1,
+                        help="Number of warm-up epochs where learning rate increases gradually.")
+    parser.add_argument('--rampdown_epochs', type=int, default=30,
+                        help="Duration (in epochs) for learning rate ramp-down.")
+    parser.add_argument('--initial_tau', type=float, default=0.07,
+                        help="Temperature parameter for the QVIM loss function.")
+    parser.add_argument('--tau_trainable', default=True, action='store_true',
+                        help="make tau trainable or not.")
+    parser.add_argument('--lr_schedule', type=str, default="cosine", choices=["cosine", "plateau", "cosine_annealing"],
+                        help="Learning rate schedule: 'cosine' (original), 'plateau' (reduce on plateau), or 'cosine_annealing' (smoother decay)")
+
+    # Preprocessing
+    parser.add_argument('--duration', type=float, default=10.0,
+                        help="Duration of audio clips in seconds.")
+
+    # Spectrogram Parameters
+    parser.add_argument('--sample_rate', type=int, default=32000,
+                        help="Target sampling rate for audio resampling.")
+    parser.add_argument('--window_size', type=int, default=800,
+                        help="Size of the window for STFT in samples.")
+    parser.add_argument('--hop_size', type=int, default=320,
+                        help="Hop length for STFT in samples.")
+    parser.add_argument('--n_fft', type=int, default=1024,
+                        help="Number of FFT bins for spectral analysis.")
+    parser.add_argument('--n_mels', type=int, default=128,
+                        help="Number of mel filter banks for Mel spectrogram conversion.")
+    parser.add_argument('--freqm', type=int, default=8,
+                        help="Frequency masking parameter for spectrogram augmentation.")
+    parser.add_argument('--timem', type=int, default=300,
+                        help="Time masking parameter for spectrogram augmentation.")
+    parser.add_argument('--fmin', type=int, default=0,
+                        help="Minimum frequency cutoff for Mel spectrogram.")
+    parser.add_argument('--fmax', type=int, default=None,
+                        help="Maximum frequency cutoff for Mel spectrogram (None means use Nyquist frequency).")
+    parser.add_argument('--fmin_aug_range', type=int, default=10,
+                        help="Variation range for fmin augmentation.")
+    parser.add_argument('--fmax_aug_range', type=int, default=2000,
+                        help="Variation range for fmax augmentation.")
+
+    args = parser.parse_args()
+
+    if args.random_seed:
+        pl.seed_everything(args.random_seed)
+
+    train(args)

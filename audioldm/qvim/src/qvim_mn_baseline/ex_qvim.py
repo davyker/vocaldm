@@ -316,7 +316,7 @@ class QVIMModule(pl.LightningModule):
         self.log('train/lr', lr, sync_dist=True)
 
 
-def train(config):
+def train(config, model_factory=None):
     # Train dual encoder for QBV
 
     # download the data set if the folder does not exist
@@ -388,7 +388,11 @@ def train(config):
         prefetch_factor=4
     )
 
-    pl_module = QVIMModule(config)
+    # Use model factory if provided, otherwise use QVIMModule
+    if model_factory is not None:
+        pl_module = model_factory(config)
+    else:
+        pl_module = QVIMModule(config)
 
     callbacks = [LearningRateMonitor(logging_interval='step')]
     

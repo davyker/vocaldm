@@ -155,7 +155,12 @@ class MobileNetV3(nn.Module):
 
         # building last several layers
         lastconv_input_channels = inverted_residual_setting[-1].out_channels
-        lastconv_output_channels = 6 * lastconv_input_channels
+        # Allow direct control of output dimension for CLAP alignment
+        output_dim = kwargs.get('output_dim', None)
+        if output_dim is not None:
+            lastconv_output_channels = output_dim
+        else:
+            lastconv_output_channels = 6 * lastconv_input_channels
         layers.append(
             ConvNormActivation(
                 lastconv_input_channels,
@@ -326,7 +331,8 @@ def mobilenet_v3(pretrained_name: str = None, **kwargs: Any) \
 def get_model(num_classes: int = 527, pretrained_name: str = None, width_mult: float = 1.0,
               reduced_tail: bool = False, dilated: bool = False, strides: Tuple[int, int, int, int] = (2, 2, 2, 2),
               head_type: str = "mlp", multihead_attention_heads: int = 4, input_dim_f: int = 128,
-              input_dim_t: int = 1000, se_dims: str = 'c', se_agg: str = "max", se_r: int = 4):
+              input_dim_t: int = 1000, se_dims: str = 'c', se_agg: str = "max", se_r: int = 4,
+              output_dim: int = None):
     """
         Arguments to modify the instantiation of a MobileNetv3
 
@@ -361,7 +367,7 @@ def get_model(num_classes: int = 527, pretrained_name: str = None, width_mult: f
     m = mobilenet_v3(pretrained_name=pretrained_name, num_classes=num_classes,
                      width_mult=width_mult, reduced_tail=reduced_tail, dilated=dilated, strides=strides,
                      head_type=head_type, multihead_attention_heads=multihead_attention_heads,
-                     input_dims=input_dims, se_conf=se_conf
+                     input_dims=input_dims, se_conf=se_conf, output_dim=output_dim
                      )
     return m
 
