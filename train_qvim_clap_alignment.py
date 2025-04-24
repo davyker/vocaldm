@@ -55,10 +55,10 @@ class QVIMCLAPModule(QVIMModule):
         initial_cross_temp = torch.zeros((1,)) + config.initial_tau
         self.cross_temp = torch.nn.Parameter(initial_cross_temp, requires_grad=True)
         
-        # Load CLAP model (frozen)
+        # Load CLAP model (frozen) - MUST use 16kHz due to hard-coded assertion
         self.clap_model = CLAPAudioEmbeddingClassifierFreev2(
             pretrained_path=config.clap_checkpoint,
-            sampling_rate=config.sample_rate,  # Use QVIM's sampling rate (32kHz)
+            sampling_rate=16000,  # CLAP requires exactly 16kHz - hard assertion in encoders.py
             embed_mode="audio",
             amodel=config.clap_model,
             unconditional_prob=0.0  # No need for unconditional samples during training
@@ -121,19 +121,27 @@ class QVIMCLAPModule(QVIMModule):
         
     def forward_clap(self, audio):
         """Forward audio through CLAP to get embeddings"""
-        # CLAP expects audio in range [-1, 1]
+        # CLAP expects audio in range [-1, 1] at 16kHz
         with torch.no_grad():
-            # CLAP internally handles resampling to 48kHz, per line 128-130 in encoders.py:
-            # batch = torchaudio.functional.resample(
-            #     batch, orig_freq=self.sampling_rate, new_freq=48000
-            # )
+            # Manually resample from 32kHz to 16kHz
+            import torchaudio
             
-            # Add channel dimension if not present (CLAP expects [B, 1, T])
-            if audio.dim() == 2:
-                audio = audio.unsqueeze(1)
+            # Make sure we have a 2D tensor [batch_size, samples]
+            if audio.dim() > 2:
+                audio = audio.squeeze(1)  # Remove channel dimension if present
+                
+            # Resample from 32kHz to 16kHz
+            audio_16k = torchaudio.functional.resample(
+                audio, 
+                orig_freq=32000,  # QVIM sample rate 
+                new_freq=16000    # CLAP required sample rate
+            )
+            
+            # Add channel dimension (CLAP expects [B, 1, T])
+            audio_16k = audio_16k.unsqueeze(1)
             
             # Get CLAP embeddings
-            clap_embedding = self.clap_model(audio).squeeze(1)
+            clap_embedding = self.clap_model(audio_16k).squeeze(1)
             
         return clap_embedding
 
