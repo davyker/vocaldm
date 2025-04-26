@@ -1,0 +1,25 @@
+Using 16bit Automatic Mixed Precision (AMP)
+GPU available: True (cuda), used: True
+TPU available: False, using: 0 TPU cores
+HPU available: False, using: 0 HPUs
+
+----- Training -----
+LOCAL_RANK: 0 - CUDA_VISIBLE_DEVICES: [0]
+
+  | Name              | Type                               | Params | Mode
+---------------------------------------------------------------------------------
+0 | mel               | AugmentMelSTFT                     | 0      | train
+1 | imitation_encoder | MobileNetV3                        | 2.7 M  | train
+2 | reference_encoder | MobileNetV3                        | 2.7 M  | train
+3 | clap_model        | CLAPAudioEmbeddingClassifierFreev2 | 158 M  | eval
+  | other params      | n/a                                | 2      | n/a
+---------------------------------------------------------------------------------
+5.4 M     Trainable params
+158 M     Non-trainable params
+163 M     Total params
+655.085   Total estimated model params size (MB)
+419       Modules in train mode
+465       Modules in eval mode
+Epoch 0:   1%|▍                                                                                  | 56/10586 [00:21<1:07:18,  2.61it/s, v_num=9p9b, train/loss=nan.0, lr=2.64e-5]
+
+Detected KeyboardInterrupt, attempting graceful shutdown ...

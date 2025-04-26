@@ -6,10 +6,10 @@ import copy
 import warnings
 
 import torch
-import torch.nn.functional as F
+import torch.nn.functional as F  # Added for explicit operations
+import torchaudio  # Added for explicit imports
 import numpy as np
 import pytorch_lightning as pl
-import torchaudio
 
 # Enable Tensor Cores for faster training with minimal precision loss
 torch.set_float32_matmul_precision('high')
@@ -44,6 +44,9 @@ class QVIMCLAPModule(QVIMModule):
         config.output_dim = 512  # Add this attribute to config
         super().__init__(config)
         
+        # Store config for debug flags
+        self.config = config
+        
         # Custom initialization of QVIM encoders with direct 512d output for CLAP alignment
         # Using custom weight loading to handle dimension mismatch
         self.imitation_encoder = self._create_mobilenet_with_custom_loading(
@@ -71,9 +74,6 @@ class QVIMCLAPModule(QVIMModule):
             param.requires_grad = False
             
         self.clap_model.eval()
-        
-        # Whether to print debug statements
-        self.debug_mode = getattr(config, 'debug_mode', False)
     
     def _create_mobilenet_with_custom_loading(self, pretrained_name, width_mult, output_dim=512):
         """
@@ -124,227 +124,107 @@ class QVIMCLAPModule(QVIMModule):
         
         return model
         
-    def compute_safe_similarities(self, y_imitation, y_reference, y_clap):
-        """Compute similarities between embeddings with safety checks to prevent NaN"""
-        # First log/debug info to diagnose NaN issues
-        if self.debug_mode:
-            print(f"DEBUG - Shapes: y_ref {y_reference.shape}, y_im {y_imitation.shape}, y_clap {y_clap.shape}")
-            print(f"DEBUG - Norms: y_ref {torch.norm(y_reference, dim=1).mean()}, "
-                  f"y_im {torch.norm(y_imitation, dim=1).mean()}, "
-                  f"y_clap {torch.norm(y_clap, dim=1).mean()}")
-            print(f"DEBUG - temps: tau {self.tau.item()}, cross_temp {self.cross_temp.item()}")
-        
-        # Re-normalize all embeddings for extra safety
-        y_reference = F.normalize(y_reference, p=2, dim=1, eps=1e-8)
-        y_imitation = F.normalize(y_imitation, p=2, dim=1, eps=1e-8)
-        y_clap = F.normalize(y_clap, p=2, dim=1, eps=1e-8)
-        
-        # Safe temperature values (minimum 1e-4)
-        safe_tau = torch.clamp(torch.abs(self.tau), min=1e-4)
-        safe_cross_temp = torch.clamp(torch.abs(self.cross_temp), min=1e-4)
-        
-        # 1. QVIM internal similarity (imitation to reference)
-        C_qvim = torch.matmul(y_imitation, y_reference.T)
-        C_qvim = C_qvim / safe_tau
-        C_qvim_log = F.log_softmax(C_qvim, dim=1)
-        
-        # 2. QVIM reference to CLAP similarity
-        C_ref_clap = torch.matmul(y_reference, y_clap.T)
-        C_ref_clap = C_ref_clap / safe_cross_temp
-        C_ref_clap_log = F.log_softmax(C_ref_clap, dim=1)
-        
-        # 3. QVIM imitation to CLAP similarity
-        C_im_clap = torch.matmul(y_imitation, y_clap.T)
-        C_im_clap = C_im_clap / safe_cross_temp
-        C_im_clap_log = F.log_softmax(C_im_clap, dim=1)
-        
-        # Check for NaN and provide fallback
-        if torch.isnan(C_ref_clap_log).any() or torch.isnan(C_im_clap_log).any() or torch.isnan(C_qvim_log).any():
-            if self.debug_mode:
-                print("WARNING: NaN detected in similarity computations")
-            
-            # Create backup identity matrix for safe loss computation
-            batch_size = y_imitation.shape[0]
-            I_fallback = torch.eye(batch_size, device=y_imitation.device)
-            
-            # Compute backup loss (simple cross-entropy with identity matrix)
-            if torch.isnan(C_qvim_log).any():
-                C_qvim_log = -I_fallback * 10  # Log probabilities approx 0 for matching, very low for non-matching
-            if torch.isnan(C_ref_clap_log).any():
-                C_ref_clap_log = -I_fallback * 10
-            if torch.isnan(C_im_clap_log).any():
-                C_im_clap_log = -I_fallback * 10
-        
-        return C_qvim_log, C_ref_clap_log, C_im_clap_log
-
     def forward_clap(self, audio):
-        """Forward audio through CLAP to get embeddings with extensive error handling"""
+        """Forward audio through CLAP to get embeddings"""
         # CLAP expects audio in range [-1, 1] at 16kHz
-        batch_size = audio.size(0)
-        
-        try:
-            with torch.no_grad():
-                # Manually resample from 32kHz to 16kHz
-                import torchaudio
-                
-                # Debug the audio input
-                if self.debug_mode:
-                    print(f"DEBUG - Audio shape: {audio.shape}, min: {audio.min()}, max: {audio.max()}")
-                
-                # First get 2D tensor [batch_size, samples]
-                if audio.dim() > 2:
-                    audio = audio.squeeze(1)
-                
-                # Clip the audio to [-1, 1] range
-                audio = torch.clamp(audio, -1.0, 1.0)
-                
-                # Resample from 32kHz to 16kHz
-                try:
-                    # First pad any very short audio to avoid issues
-                    min_length = 16000  # At least 1 second of audio
-                    if audio.shape[1] < min_length:
-                        padding = min_length - audio.shape[1]
-                        audio = F.pad(audio, (0, padding), "constant", 0)
-                        if self.debug_mode:
-                            print(f"DEBUG - Audio padded to minimum length: {audio.shape}")
-                    
-                    # Ensure we're dealing with finite values
-                    if torch.isnan(audio).any() or torch.isinf(audio).any():
-                        audio = torch.nan_to_num(audio, nan=0.0, posinf=1.0, neginf=-1.0)
-                        if self.debug_mode:
-                            print("DEBUG - Replaced NaN/Inf values in audio input")
-                    
-                    # Resample with additional checks
-                    audio_16k = torchaudio.functional.resample(
-                        audio, 
-                        orig_freq=32000,  # QVIM sample rate 
-                        new_freq=16000    # CLAP required sample rate
-                    )
-                    
-                    # Check for NaN after resampling
-                    if torch.isnan(audio_16k).any() or torch.isinf(audio_16k).any():
-                        if self.debug_mode:
-                            print("WARNING: NaN/Inf values after resampling, replacing with zeros")
-                        audio_16k = torch.nan_to_num(audio_16k, nan=0.0, posinf=1.0, neginf=-1.0)
-                    
-                    if self.debug_mode:
-                        print(f"DEBUG - Audio resampled to 16kHz: {audio_16k.shape}, min: {audio_16k.min()}, max: {audio_16k.max()}")
-                except Exception as e:
-                    if self.debug_mode:
-                        print(f"ERROR in resampling: {e}")
-                    # Create fallback random embeddings
-                    return torch.randn(batch_size, 512, device=audio.device)
-                
-                # Process audio manually with extensive error handling
-                try:
-                    # Create a list of waveforms as expected by CLAP
-                    batch_audio_dict_list = []
-                    
-                    for i in range(audio_16k.size(0)):
-                        # Extract individual waveform
-                        waveform = audio_16k[i]
-                        
-                        # Debug individual waveform
-                        if i == 0 and self.debug_mode:
-                            print(f"DEBUG - Waveform {i}: shape {waveform.shape}, min {waveform.min()}, max {waveform.max()}")
-                        
-                        # Make sure the waveform is 1D
-                        if waveform.dim() > 1:
-                            waveform = waveform.squeeze()
-                        
-                        # Create audio dict with additional checks
-                        audio_dict = {}
-                        
-                        # Check for NaN or Inf in waveform
-                        if torch.isnan(waveform).any() or torch.isinf(waveform).any():
-                            if self.debug_mode:
-                                print(f"WARNING: NaN or Inf found in waveform {i}, replacing with zeros")
-                            waveform = torch.zeros_like(waveform)
-                        
-                        # Normalize waveform to [-1, 1] range - crucial for CLAP's internal processing
-                        if waveform.abs().max() > 0:  # Avoid division by zero
-                            waveform = waveform / (waveform.abs().max() + 1e-8)
-                        
-                        # Add small epsilon to avoid all-zero inputs
-                        if waveform.abs().max() < 1e-6:
-                            waveform = waveform + torch.randn_like(waveform) * 1e-6
-                            if self.debug_mode:
-                                print(f"WARNING: Near-zero waveform {i}, adding small noise")
-                        
-                        # CLAP needs a 1D tensor for audio_data.repeat to work
-                        audio_dict["waveform"] = waveform
-                        batch_audio_dict_list.append(audio_dict)
-                    
-                    # Get CLAP embeddings with extensive error handling
-                    try:
-                        # Add more debug info to diagnose issues
-                        if self.debug_mode:
-                            for i, audio_dict in enumerate([batch_audio_dict_list[0]]):
-                                if i == 0:  # Just check the first item in batch
-                                    waveform = audio_dict["waveform"]
-                                    print(f"DEBUG - Waveform stats before CLAP: shape={waveform.shape}, "
-                                          f"min={waveform.min():.4f}, max={waveform.max():.4f}, "
-                                          f"mean={waveform.mean():.4f}, std={waveform.std():.4f}")
-                        
-                        with torch.inference_mode():  # More explicit than no_grad in some cases
-                            clap_embedding = self.clap_model.model.get_audio_embedding(batch_audio_dict_list)
-                        
-                        # Gradual handling of NaN/Inf issues
-                        if torch.isnan(clap_embedding).any() or torch.isinf(clap_embedding).any():
-                            if self.debug_mode:
-                                print("WARNING: NaN/Inf found in CLAP embeddings")
-                            
-                            # First try to recover valid values
-                            clap_embedding = torch.nan_to_num(clap_embedding, nan=0.0, posinf=0.0, neginf=0.0)
-                            
-                            # Check how many rows have all zeros after nan_to_num
-                            zero_rows = (clap_embedding.abs().sum(dim=1) < 1e-6).sum().item()
-                            if zero_rows > 0 and self.debug_mode:
-                                print(f"WARNING: {zero_rows}/{batch_size} CLAP embeddings are all zeros")
-                            
-                            # For all-zero embeddings, initialize with small random values
-                            zero_mask = (clap_embedding.abs().sum(dim=1) < 1e-6).view(-1, 1)
-                            if zero_mask.any():
-                                random_values = torch.randn_like(clap_embedding) * 0.01
-                                clap_embedding = torch.where(zero_mask, random_values, clap_embedding)
-                        
-                        # Ensure valid embeddings with norm > 0 before normalization
-                        norms = torch.norm(clap_embedding, p=2, dim=1, keepdim=True)
-                        valid_norms = (norms > 1e-8).float()
-                        safe_norms = torch.where(valid_norms > 0, norms, torch.ones_like(norms))
-                        
-                        # Normalize safely
-                        clap_embedding = clap_embedding / safe_norms
-                        
-                        # Re-compute norm after normalization for debugging
-                        if self.debug_mode:
-                            print(f"DEBUG - CLAP embedding norm after normalization: {torch.norm(clap_embedding, dim=1).mean():.4f}")
-                        
-                    except Exception as e:
-                        if self.debug_mode:
-                            print(f"ERROR in CLAP embedding extraction: {e}")
-                        # Create fallback random embeddings
-                        clap_embedding = torch.randn(batch_size, 512, device=audio.device)
-                    
-                except Exception as e:
-                    if self.debug_mode:
-                        print(f"ERROR in audio processing: {e}")
-                    # Create fallback random embeddings
-                    clap_embedding = torch.randn(batch_size, 512, device=audio.device)
-                
-        except Exception as e:
-            if self.debug_mode:
-                print(f"CRITICAL ERROR in forward_clap: {e}")
-            # Create fallback random embeddings
-            clap_embedding = torch.randn(batch_size, 512, device=audio.device)
+        with torch.no_grad():
+            # ----------------- INPUT VALIDATION -----------------
+            if hasattr(self.config, 'debug') and self.config.debug:
+                print(f"[CLAP PIPELINE] Input audio shape: {audio.shape}")
+                print(f"[CLAP PIPELINE] Input audio stats: min={audio.min().item():.4f}, max={audio.max().item():.4f}, mean={audio.mean().item():.4f}, std={audio.std().item():.4f}")
+                nan_count = torch.isnan(audio).sum().item()
+                inf_count = torch.isinf(audio).sum().item()
+                if nan_count > 0 or inf_count > 0:
+                    print(f"[CLAP PIPELINE] WARNING: Input contains {nan_count}/{audio.numel()} NaN values and {inf_count}/{audio.numel()} Inf values")
             
-        # Ensure the output is properly normalized with no NaNs
-        if torch.isnan(clap_embedding).any():
-            if self.debug_mode:
-                print("Final check - NaN still found in CLAP embeddings, using fallback")
-            clap_embedding = torch.randn(batch_size, 512, device=audio.device)
+            # First get 2D tensor [batch_size, samples]
+            if audio.dim() > 2:
+                audio = audio.squeeze(1)
             
-        clap_embedding = F.normalize(clap_embedding, p=2, dim=1, eps=1e-8)
+            # ----------------- RESAMPLING -----------------
+            # Resample from 32kHz to 16kHz
+            audio_16k = torchaudio.functional.resample(
+                audio, 
+                orig_freq=32000,  # QVIM sample rate 
+                new_freq=16000    # CLAP required sample rate
+            )
+            
+            if hasattr(self.config, 'debug') and self.config.debug:
+                print(f"[CLAP PIPELINE] After resampling: shape={audio_16k.shape}")
+                print(f"[CLAP PIPELINE] After resampling stats: min={audio_16k.min().item():.4f}, max={audio_16k.max().item():.4f}, mean={audio_16k.mean().item():.4f}, std={audio_16k.std().item():.4f}")
+                
+                nan_count = torch.isnan(audio_16k).sum().item()
+                inf_count = torch.isinf(audio_16k).sum().item()
+                if nan_count > 0 or inf_count > 0:
+                    print(f"[CLAP PIPELINE] WARNING: After resampling: {nan_count}/{audio_16k.numel()} NaN values and {inf_count}/{audio_16k.numel()} Inf values")
+            
+            # ----------------- WAVEFORM PROCESSING -----------------
+            # Process audio one sample at a time as CLAPAudioEmbeddingClassifierFreev2 expects
+            
+            # Save the current batch size
+            batch_size = audio_16k.size(0)
+            
+            if hasattr(self.config, 'debug') and self.config.debug:
+                print(f"[CLAP PIPELINE] Processing {batch_size} samples individually")
+            
+            # Process each audio sample individually and collect embeddings
+            embeddings_list = []
+            
+            # Save original embed_mode
+            original_embed_mode = self.clap_model.embed_mode
+            
+            for i in range(batch_size):
+                # Extract single waveform and process it individually
+                single_waveform = audio_16k[i:i+1]  # Keep batch dimension [1, samples]
+                
+                if hasattr(self.config, 'debug') and self.config.debug and i == 0:
+                    print(f"[CLAP PIPELINE] Sample 0 shape: {single_waveform.shape}")
+                
+                # Set embed_mode to audio for this call
+                self.clap_model.embed_mode = "audio"
+                
+                # Call forward with a single sample
+                # CLAPAudioEmbeddingClassifierFreev2 will properly process this
+                embedding = self.clap_model(single_waveform)
+                
+                # Remove the middle dimension [1, 1, embed_dim] -> [1, embed_dim]
+                embedding = embedding.squeeze(1)
+                
+                # Add to our list
+                embeddings_list.append(embedding)
+            
+            # Restore embed_mode
+            self.clap_model.embed_mode = original_embed_mode
+            
+            # Concatenate all embeddings into a single batch tensor
+            clap_embedding = torch.cat(embeddings_list, dim=0)
+            
+            if hasattr(self.config, 'debug') and self.config.debug:
+                print(f"[CLAP PIPELINE] Final embeddings batch shape: {clap_embedding.shape}")
+            
+            # ----------------- EMBEDDING VALIDATION -----------------
+            if hasattr(self.config, 'debug') and self.config.debug:
+                print(f"[CLAP PIPELINE] CLAP embedding shape: {clap_embedding.shape}")
+                
+                nan_count = torch.isnan(clap_embedding).sum().item()
+                inf_count = torch.isinf(clap_embedding).sum().item()
+                
+                if nan_count > 0 or inf_count > 0:
+                    print(f"[CLAP PIPELINE] WARNING: CLAP embedding has {nan_count}/{clap_embedding.numel()} NaN values and {inf_count}/{clap_embedding.numel()} Inf values")
+                else:
+                    print(f"[CLAP PIPELINE] CLAP embedding seems valid (no NaN/Inf)")
+                    
+                print(f"[CLAP PIPELINE] CLAP embedding stats: min={clap_embedding.min().item():.4f}, max={clap_embedding.max().item():.4f}, mean={clap_embedding.mean().item():.4f}, std={clap_embedding.std().item():.4f}")
+                
+                # Check if any embeddings are all zeros
+                zero_rows = (torch.abs(clap_embedding).sum(dim=1) < 1e-6).sum().item()
+                if zero_rows > 0:
+                    print(f"[CLAP PIPELINE] WARNING: {zero_rows}/{clap_embedding.shape[0]} CLAP embeddings are all zeros")
+                
+                # Check norms of embeddings
+                norms = torch.norm(clap_embedding, dim=1)
+                print(f"[CLAP PIPELINE] CLAP embedding norms: min={norms.min().item():.4f}, max={norms.max().item():.4f}, mean={norms.mean().item():.4f}")
+                
         return clap_embedding
 
     def training_step(self, batch, batch_idx):
@@ -359,10 +239,64 @@ class QVIMCLAPModule(QVIMModule):
         # Get CLAP embeddings for reference
         y_clap = self.forward_clap(batch['reference'])
         
-        # Calculate similarities with safety checks
-        C_qvim_log, C_ref_clap_log, C_im_clap_log = self.compute_safe_similarities(
-            y_imitation, y_reference, y_clap
-        )
+        # Debug embeddings right before computing similarities
+        if hasattr(self.config, 'debug') and self.config.debug:
+            print(f"[SIMILARITY] Shapes: y_im {y_imitation.shape}, y_ref {y_reference.shape}, y_clap {y_clap.shape}")
+            print(f"[SIMILARITY] Norms: y_im {torch.norm(y_imitation, dim=1).mean().item():.4f}, "
+                  f"y_ref {torch.norm(y_reference, dim=1).mean().item():.4f}, "
+                  f"y_clap {torch.norm(y_clap, dim=1).mean().item():.4f}")
+            print(f"[SIMILARITY] Temps: tau {self.tau.item():.6f}, cross_temp {self.cross_temp.item():.6f}")
+            
+            # Check for NaN/Inf in embeddings
+            nan_im = torch.isnan(y_imitation).sum().item()
+            nan_ref = torch.isnan(y_reference).sum().item()
+            nan_clap = torch.isnan(y_clap).sum().item()
+            inf_im = torch.isinf(y_imitation).sum().item()
+            inf_ref = torch.isinf(y_reference).sum().item()
+            inf_clap = torch.isinf(y_clap).sum().item()
+            
+            if nan_im > 0 or inf_im > 0:
+                print(f"[SIMILARITY] WARNING: y_im has {nan_im}/{y_imitation.numel()} NaN and {inf_im}/{y_imitation.numel()} Inf")
+            if nan_ref > 0 or inf_ref > 0:
+                print(f"[SIMILARITY] WARNING: y_ref has {nan_ref}/{y_reference.numel()} NaN and {inf_ref}/{y_reference.numel()} Inf")
+            if nan_clap > 0 or inf_clap > 0:
+                print(f"[SIMILARITY] WARNING: y_clap has {nan_clap}/{y_clap.numel()} NaN and {inf_clap}/{y_clap.numel()} Inf")
+        
+        # Calculate batch similarity matrix for all three objectives
+        
+        # 1. QVIM internal similarity (imitation to reference)
+        C_qvim = torch.matmul(y_imitation, y_reference.T)
+        C_qvim = C_qvim / torch.abs(self.tau)
+        C_qvim_log = torch.log_softmax(C_qvim, dim=1)
+        
+        # 2. QVIM reference to CLAP similarity
+        C_ref_clap = torch.matmul(y_reference, y_clap.T)
+        C_ref_clap = C_ref_clap / torch.abs(self.cross_temp)
+        C_ref_clap_log = torch.log_softmax(C_ref_clap, dim=1)
+        
+        # 3. QVIM imitation to CLAP similarity
+        C_im_clap = torch.matmul(y_imitation, y_clap.T)
+        C_im_clap = C_im_clap / torch.abs(self.cross_temp)
+        C_im_clap_log = torch.log_softmax(C_im_clap, dim=1)
+        
+        # Debug similarity matrices
+        if hasattr(self.config, 'debug') and self.config.debug:
+            print(f"[SIMILARITY] Similarity matrices: C_qvim {C_qvim.shape}, C_ref_clap {C_ref_clap.shape}, C_im_clap {C_im_clap.shape}")
+            print(f"[SIMILARITY] C_qvim: min={C_qvim.min().item():.4f}, max={C_qvim.max().item():.4f}, mean={C_qvim.mean().item():.4f}")
+            print(f"[SIMILARITY] C_ref_clap: min={C_ref_clap.min().item():.4f}, max={C_ref_clap.max().item():.4f}, mean={C_ref_clap.mean().item():.4f}")
+            print(f"[SIMILARITY] C_im_clap: min={C_im_clap.min().item():.4f}, max={C_im_clap.max().item():.4f}, mean={C_im_clap.mean().item():.4f}")
+            
+            # Check log softmax outputs for NaN
+            nan_qvim_log = torch.isnan(C_qvim_log).sum().item()
+            nan_ref_clap_log = torch.isnan(C_ref_clap_log).sum().item()
+            nan_im_clap_log = torch.isnan(C_im_clap_log).sum().item()
+            
+            if nan_qvim_log > 0:
+                print(f"[SIMILARITY] WARNING: C_qvim_log has {nan_qvim_log}/{C_qvim_log.numel()} NaN values")
+            if nan_ref_clap_log > 0:
+                print(f"[SIMILARITY] WARNING: C_ref_clap_log has {nan_ref_clap_log}/{C_ref_clap_log.numel()} NaN values")
+            if nan_im_clap_log > 0:
+                print(f"[SIMILARITY] WARNING: C_im_clap_log has {nan_im_clap_log}/{C_im_clap_log.numel()} NaN values")
         
         # Create identity matrix based on audio filenames (same as original QVIM)
         paths = np.array([hash(p) for i, p in enumerate(batch['imitation_filename'])])
@@ -388,16 +322,86 @@ class QVIMCLAPModule(QVIMModule):
         return total_loss
 
     def validation_step(self, batch, batch_idx):
+        # Debug validation batch
+        if hasattr(self.config, 'debug') and self.config.debug:
+            print(f"\n[VALIDATION] Batch {batch_idx} - Processing validation data")
+            
+            # Check input audio
+            if 'imitation' in batch and 'reference' in batch:
+                imitation = batch['imitation']
+                reference = batch['reference']
+                print(f"[VALIDATION] Imitation shape: {imitation.shape}, Reference shape: {reference.shape}")
+                print(f"[VALIDATION] Imitation: min={imitation.min().item():.4f}, max={imitation.max().item():.4f}")
+                print(f"[VALIDATION] Reference: min={reference.min().item():.4f}, max={reference.max().item():.4f}")
+                
+                # Check for NaN/Inf in input
+                nan_im = torch.isnan(imitation).sum().item()
+                nan_ref = torch.isnan(reference).sum().item()
+                inf_im = torch.isinf(imitation).sum().item()
+                inf_ref = torch.isinf(reference).sum().item()
+                
+                if nan_im > 0 or inf_im > 0:
+                    print(f"[VALIDATION] WARNING: Imitation has {nan_im}/{imitation.numel()} NaN and {inf_im}/{imitation.numel()} Inf")
+                if nan_ref > 0 or inf_ref > 0:
+                    print(f"[VALIDATION] WARNING: Reference has {nan_ref}/{reference.numel()} NaN and {inf_ref}/{reference.numel()} Inf")
+        
         # Get QVIM embeddings
         y_imitation, y_reference = self.forward(batch['imitation'], batch['reference'])
         
         # Get CLAP embeddings
         y_clap = self.forward_clap(batch['reference'])
         
-        # Calculate similarities with safety checks
-        C_qvim_log, C_ref_clap_log, C_im_clap_log = self.compute_safe_similarities(
-            y_imitation, y_reference, y_clap
-        )
+        # Debug embeddings
+        if hasattr(self.config, 'debug') and self.config.debug:
+            print(f"[VALIDATION] Shapes: y_im {y_imitation.shape}, y_ref {y_reference.shape}, y_clap {y_clap.shape}")
+            print(f"[VALIDATION] Norms: y_im {torch.norm(y_imitation, dim=1).mean().item():.4f}, "
+                  f"y_ref {torch.norm(y_reference, dim=1).mean().item():.4f}, "
+                  f"y_clap {torch.norm(y_clap, dim=1).mean().item():.4f}")
+                  
+            # Check for NaN/Inf in embeddings
+            nan_im = torch.isnan(y_imitation).sum().item()
+            nan_ref = torch.isnan(y_reference).sum().item()
+            nan_clap = torch.isnan(y_clap).sum().item()
+            inf_im = torch.isinf(y_imitation).sum().item()
+            inf_ref = torch.isinf(y_reference).sum().item()
+            inf_clap = torch.isinf(y_clap).sum().item()
+            
+            if nan_im > 0 or inf_im > 0:
+                print(f"[VALIDATION] WARNING: y_im has {nan_im}/{y_imitation.numel()} NaN and {inf_im}/{y_imitation.numel()} Inf")
+            if nan_ref > 0 or inf_ref > 0:
+                print(f"[VALIDATION] WARNING: y_ref has {nan_ref}/{y_reference.numel()} NaN and {inf_ref}/{y_reference.numel()} Inf")
+            if nan_clap > 0 or inf_clap > 0:
+                print(f"[VALIDATION] WARNING: y_clap has {nan_clap}/{y_clap.numel()} NaN and {inf_clap}/{y_clap.numel()} Inf")
+        
+        # Calculate batch similarity matrix for all three objectives
+        
+        # 1. QVIM internal similarity (imitation to reference)
+        C_qvim = torch.matmul(y_imitation, y_reference.T)
+        C_qvim = C_qvim / torch.abs(self.tau)
+        C_qvim_log = torch.log_softmax(C_qvim, dim=1)
+        
+        # 2. QVIM reference to CLAP similarity
+        C_ref_clap = torch.matmul(y_reference, y_clap.T)
+        C_ref_clap = C_ref_clap / torch.abs(self.cross_temp)
+        C_ref_clap_log = torch.log_softmax(C_ref_clap, dim=1)
+        
+        # 3. QVIM imitation to CLAP similarity
+        C_im_clap = torch.matmul(y_imitation, y_clap.T)
+        C_im_clap = C_im_clap / torch.abs(self.cross_temp)
+        C_im_clap_log = torch.log_softmax(C_im_clap, dim=1)
+        
+        # Debug similarity matrices
+        if hasattr(self.config, 'debug') and self.config.debug:
+            # Check for NaN in log_softmax outputs
+            nan_qvim_log = torch.isnan(C_qvim_log).sum().item()
+            nan_ref_clap_log = torch.isnan(C_ref_clap_log).sum().item()
+            nan_im_clap_log = torch.isnan(C_im_clap_log).sum().item()
+            
+            if nan_qvim_log > 0 or nan_ref_clap_log > 0 or nan_im_clap_log > 0:
+                print(f"[VALIDATION] WARNING: NaN found in log_softmax outputs:")
+                print(f"[VALIDATION]   - C_qvim_log: {nan_qvim_log}/{C_qvim_log.numel()} NaN values")
+                print(f"[VALIDATION]   - C_ref_clap_log: {nan_ref_clap_log}/{C_ref_clap_log.numel()} NaN values")
+                print(f"[VALIDATION]   - C_im_clap_log: {nan_im_clap_log}/{C_im_clap_log.numel()} NaN values")
         
         # Identity matrix based on audio filenames
         paths = np.array([hash(p) for i, p in enumerate(batch['imitation_filename'])])
@@ -504,10 +508,14 @@ if __name__ == '__main__':
                         help="Temperature parameter for the QVIM loss function and cross-temp loss.")
     parser.add_argument('--tau_trainable', default=True, action='store_true',
                         help="make tau trainable or not.")
-    parser.add_argument('--debug_mode', action='store_true',
-                        help="Enable debug print statements.")
     parser.add_argument('--lr_schedule', type=str, default="cosine", choices=["cosine", "plateau", "cosine_annealing"],
                         help="Learning rate schedule: 'cosine' (original), 'plateau' (reduce on plateau), or 'cosine_annealing' (smoother decay)")
+    
+    # Debug flags
+    parser.add_argument('--debug', action='store_true',
+                        help="Enable debug printing to diagnose NaN issues in both pipelines")
+    parser.add_argument('--max_items', type=int, default=None,
+                        help="Limit dataset to specified number of items for faster debugging")
 
     # Preprocessing
     parser.add_argument('--duration', type=float, default=10.0,

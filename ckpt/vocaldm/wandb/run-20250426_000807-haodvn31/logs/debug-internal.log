@@ -1,0 +1,16 @@
+{"time":"2025-04-26T00:08:07.939634863+01:00","level":"INFO","msg":"stream: starting","core version":"0.19.9","symlink path":"ckpt/vocaldm/wandb/run-20250426_000807-haodvn31/logs/debug-core.log"}
+{"time":"2025-04-26T00:08:08.367274677+01:00","level":"INFO","msg":"created new stream","id":"haodvn31"}
+{"time":"2025-04-26T00:08:08.367493505+01:00","level":"INFO","msg":"stream: started","id":"haodvn31"}
+{"time":"2025-04-26T00:08:08.36752588+01:00","level":"INFO","msg":"writer: Do: started","stream_id":"haodvn31"}
+{"time":"2025-04-26T00:08:08.367584251+01:00","level":"INFO","msg":"sender: started","stream_id":"haodvn31"}
+{"time":"2025-04-26T00:08:08.36755326+01:00","level":"INFO","msg":"handler: started","stream_id":"haodvn31"}
+{"time":"2025-04-26T00:08:08.868130136+01:00","level":"INFO","msg":"Starting system monitor"}
+{"time":"2025-04-26T00:09:25.548528757+01:00","level":"INFO","msg":"Stopping system monitor"}
+{"time":"2025-04-26T00:09:25.548903868+01:00","level":"INFO","msg":"Stopped system monitor"}
+{"time":"2025-04-26T00:09:26.457770722+01:00","level":"INFO","msg":"fileTransfer: Close: file transfer manager closed"}
+{"time":"2025-04-26T00:09:26.575931671+01:00","level":"INFO","msg":"handler: operation stats","stats":{"operations":[{"desc":"uploading summary, console lines 39-39","runtime_seconds":0.117726959}],"total_operations":1}}
+{"time":"2025-04-26T00:09:26.781784309+01:00","level":"INFO","msg":"stream: closing","id":"haodvn31"}
+{"time":"2025-04-26T00:09:26.782069111+01:00","level":"INFO","msg":"handler: closed","stream_id":"haodvn31"}
+{"time":"2025-04-26T00:09:26.782182083+01:00","level":"INFO","msg":"sender: closed","stream_id":"haodvn31"}
+{"time":"2025-04-26T00:09:26.782147313+01:00","level":"INFO","msg":"writer: Close: closed","stream_id":"haodvn31"}
+{"time":"2025-04-26T00:09:26.786283015+01:00","level":"INFO","msg":"stream: closed","id":"haodvn31"}

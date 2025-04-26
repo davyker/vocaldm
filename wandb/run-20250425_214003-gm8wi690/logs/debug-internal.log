@@ -1,0 +1,15 @@
+{"time":"2025-04-25T21:40:03.134830064+01:00","level":"INFO","msg":"stream: starting","core version":"0.19.9","symlink path":"wandb/run-20250425_214003-gm8wi690/logs/debug-core.log"}
+{"time":"2025-04-25T21:40:03.561485571+01:00","level":"INFO","msg":"created new stream","id":"gm8wi690"}
+{"time":"2025-04-25T21:40:03.561697012+01:00","level":"INFO","msg":"stream: started","id":"gm8wi690"}
+{"time":"2025-04-25T21:40:03.561756019+01:00","level":"INFO","msg":"writer: Do: started","stream_id":"gm8wi690"}
+{"time":"2025-04-25T21:40:03.561764095+01:00","level":"INFO","msg":"sender: started","stream_id":"gm8wi690"}
+{"time":"2025-04-25T21:40:03.562953651+01:00","level":"INFO","msg":"handler: started","stream_id":"gm8wi690"}
+{"time":"2025-04-25T21:40:04.015335585+01:00","level":"INFO","msg":"Starting system monitor"}
+{"time":"2025-04-25T21:40:11.401899293+01:00","level":"INFO","msg":"stream: closing","id":"gm8wi690"}
+{"time":"2025-04-25T21:40:11.401964372+01:00","level":"INFO","msg":"Stopping system monitor"}
+{"time":"2025-04-25T21:40:11.402503572+01:00","level":"INFO","msg":"Stopped system monitor"}
+{"time":"2025-04-25T21:40:11.977605815+01:00","level":"INFO","msg":"fileTransfer: Close: file transfer manager closed"}
+{"time":"2025-04-25T21:40:12.27973615+01:00","level":"INFO","msg":"handler: closed","stream_id":"gm8wi690"}
+{"time":"2025-04-25T21:40:12.279777783+01:00","level":"INFO","msg":"writer: Close: closed","stream_id":"gm8wi690"}
+{"time":"2025-04-25T21:40:12.279799616+01:00","level":"INFO","msg":"sender: closed","stream_id":"gm8wi690"}
+{"time":"2025-04-25T21:40:12.283310567+01:00","level":"INFO","msg":"stream: closed","id":"gm8wi690"}

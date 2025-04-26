@@ -1,0 +1,41 @@
+Dataset directory ready at audioldm/qvim/data/Vim_Sketch_Dataset
+Dataset directory ready at audioldm/qvim/data
+Successfully loaded dataset with 12453 samples
+Training with 11208 samples, validating with 1245 samples
+Loading QVIM model from audioldm/qvim/models_vimsketch_longer/dulcet-leaf-31/best-loss-checkpoint.ckpt
+Loading QVIM model from audioldm/qvim/models_vimsketch_longer/dulcet-leaf-31/best-loss-checkpoint.ckpt
+Warning: FMAX is None setting to 15000
+Initializing QVIM adapter: QVIM dim=960, AudioLDM dim=512
+Loading AudioLDM model: audioldm-m-full
+Load AudioLDM: %s audioldm-m-full
+DiffusionWrapper has 415.95 M params.
+Some weights of the model checkpoint at roberta-base were not used when initializing RobertaModel: ['lm_head.bias', 'lm_head.decoder.weight', 'lm_head.dense.weight', 'lm_head.layer_norm.bias', 'lm_head.layer_norm.weight', 'lm_head.dense.bias']
+- This IS expected if you are initializing RobertaModel from the checkpoint of a model trained on another task or with another architecture (e.g. initializing a BertForSequenceClassification model from a BertForPreTraining model).
+- This IS NOT expected if you are initializing RobertaModel from the checkpoint of a model that you expect to be exactly identical (initializing a BertForSequenceClassification model from a BertForSequenceClassification model).
+Replacing checkpoint function and CheckpointFunction class with training-compatible versions
+Searching for and disabling ALL gradient checkpointing in the model...
+Disabled gradient checkpointing in 0 modules
+Unfroze 0 FiLM parameter tensors
+Total FiLM parameters ufrozen: 0
+Adapter has 1511936 trainable parameters
+Total trainable parameters: 1511936
+Modules in train mode: 8
+Modules in eval mode: 2250
+Using guidance scale scheduler: 1.0 → 3.0
+  Warmup: 10.0% of training, Rampup: 40.0% of training
+Saving checkpoints to run-specific directory: ckpt/vocaldm/peach-dew-104
+GPU available: True (cuda), used: True
+TPU available: False, using: 0 TPU cores
+HPU available: False, using: 0 HPUs
+`Trainer(val_check_interval=1.0)` was configured so validation will run at the end of the training epoch..
+Parameter names saved to: ckpt/vocaldm/peach-dew-104/model_parameters.txt
+Simplified parameter blocks saved to: ckpt/vocaldm/peach-dew-104/simplified_parameters.txt
+
+===== Running initial validation for baseline metrics =====
+LOCAL_RANK: 0 - CUDA_VISIBLE_DEVICES: [0]
+Validation DataLoader 0:   0%|                                                                                                               | 1/1245 [00:07<2:32:04,  0.14it/s]Generated audio max abs value: 0.3068
+DDIM Sampler: 100%|███████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 100/100 [00:22<00:00,  4.41it/s]
+DDIM Sampler: 100%|███████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 100/100 [00:22<00:00,  6.04it/s]
+Saved audio files for epoch 0, sample 0 to ckpt/vocaldm/peach-dew-104/audio_logging
+Validation DataLoader 0:   2%|██▏                                                                                                             | 24/1245 [00:39<33:15,  0.61it/s]Resources cleaned up
+Detected KeyboardInterrupt, attempting graceful shutdown ...

@@ -1,0 +1,1 @@
+{"_wandb":{"runtime":5},"trainer/global_step":12,"_timestamp":1.7456003549925168e+09,"lr":2.528575532778632e-05,"_step":24,"_runtime":3.952253076,"train/loss_im_clap":NaN,"epoch":0,"train/loss_qvim":0,"train/cross_temp":0.07000000029802322,"train/tau":0.07000000029802322,"train/loss":NaN,"lr-AdamW":2.528575477045154e-05,"train/loss_ref_clap":NaN,"train/lr":2.528575532778632e-05}

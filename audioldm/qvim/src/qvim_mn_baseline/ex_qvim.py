@@ -448,7 +448,8 @@ def train(config, model_factory=None):
         callbacks=callbacks,
         enable_progress_bar=True,
         log_every_n_steps=1,
-        enable_checkpointing=True
+        enable_checkpointing=True,
+        check_val_every_n_epoch=1  # Prevent validation before first epoch ####### REMOVE THIS #########
     )
 
     # Determine if we're continuing training from a checkpoint
@@ -461,11 +462,11 @@ def train(config, model_factory=None):
         pl_module.load_state_dict(checkpoint["state_dict"])
         print("Model weights loaded from checkpoint (without callback states)")
     
-    # Initial validation on in-domain validation set
-    trainer.validate(
-        pl_module,
-        dataloaders=val_dl
-    )
+    # Comment out initial validation to avoid validation before training ######## UNCOMMENT THIS #########
+    # trainer.validate(
+    #     pl_module,
+    #     dataloaders=val_dl
+    # )
 
     # Train with in-domain validation
     # No need to pass ckpt_path if we've already loaded the model above

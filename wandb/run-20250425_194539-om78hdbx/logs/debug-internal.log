@@ -1,0 +1,15 @@
+{"time":"2025-04-25T19:45:40.058208405+01:00","level":"INFO","msg":"stream: starting","core version":"0.19.9","symlink path":"wandb/run-20250425_194539-om78hdbx/logs/debug-core.log"}
+{"time":"2025-04-25T19:45:40.593924677+01:00","level":"INFO","msg":"created new stream","id":"om78hdbx"}
+{"time":"2025-04-25T19:45:40.594213965+01:00","level":"INFO","msg":"stream: started","id":"om78hdbx"}
+{"time":"2025-04-25T19:45:40.594235159+01:00","level":"INFO","msg":"writer: Do: started","stream_id":"om78hdbx"}
+{"time":"2025-04-25T19:45:40.594261644+01:00","level":"INFO","msg":"handler: started","stream_id":"om78hdbx"}
+{"time":"2025-04-25T19:45:40.594280964+01:00","level":"INFO","msg":"sender: started","stream_id":"om78hdbx"}
+{"time":"2025-04-25T19:45:40.78191005+01:00","level":"INFO","msg":"Starting system monitor"}
+{"time":"2025-04-25T19:49:27.111521014+01:00","level":"INFO","msg":"stream: closing","id":"om78hdbx"}
+{"time":"2025-04-25T19:49:27.111555576+01:00","level":"INFO","msg":"Stopping system monitor"}
+{"time":"2025-04-25T19:49:27.112017194+01:00","level":"INFO","msg":"Stopped system monitor"}
+{"time":"2025-04-25T19:49:28.296474553+01:00","level":"INFO","msg":"fileTransfer: Close: file transfer manager closed"}
+{"time":"2025-04-25T19:49:28.628671555+01:00","level":"INFO","msg":"handler: closed","stream_id":"om78hdbx"}
+{"time":"2025-04-25T19:49:28.628687756+01:00","level":"INFO","msg":"writer: Close: closed","stream_id":"om78hdbx"}
+{"time":"2025-04-25T19:49:28.62871693+01:00","level":"INFO","msg":"sender: closed","stream_id":"om78hdbx"}
+{"time":"2025-04-25T19:49:28.632130919+01:00","level":"INFO","msg":"stream: closed","id":"om78hdbx"}

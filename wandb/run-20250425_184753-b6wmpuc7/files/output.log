@@ -1,0 +1,1437 @@
+Using 16bit Automatic Mixed Precision (AMP)
+GPU available: True (cuda), used: True
+TPU available: False, using: 0 TPU cores
+HPU available: False, using: 0 HPUs
+
+----- Training -----
+LOCAL_RANK: 0 - CUDA_VISIBLE_DEVICES: [0]
+
+  | Name              | Type                               | Params | Mode
+---------------------------------------------------------------------------------
+0 | mel               | AugmentMelSTFT                     | 0      | train
+1 | imitation_encoder | MobileNetV3                        | 2.7 M  | train
+2 | reference_encoder | MobileNetV3                        | 2.7 M  | train
+3 | clap_model        | CLAPAudioEmbeddingClassifierFreev2 | 158 M  | eval
+  | other params      | n/a                                | 2      | n/a
+---------------------------------------------------------------------------------
+5.4 M     Trainable params
+158 M     Non-trainable params
+163 M     Total params
+655.085   Total estimated model params size (MB)
+419       Modules in train mode
+465       Modules in eval mode
+Sanity Checking DataLoader 0:   0%|                                                                                                                       | 0/2 [00:00<?, ?it/s]
+[VALIDATION] Batch 0 - Processing validation data
+[VALIDATION] Imitation shape: torch.Size([8, 320000]), Reference shape: torch.Size([8, 320000])
+[VALIDATION] Imitation: min=-1.0061, max=1.0018
+[VALIDATION] Reference: min=-0.9994, max=1.0061
+[CLAP PIPELINE] Input audio shape: torch.Size([8, 320000])
+[CLAP PIPELINE] Input audio stats: min=-0.9994, max=1.0061, mean=0.0023, std=0.2029
+[CLAP PIPELINE] After resampling: shape=torch.Size([8, 160000])
+[CLAP PIPELINE] After resampling stats: min=-0.9897, max=1.0088, mean=0.0023, std=0.2026
+[CLAP PIPELINE] Sample 0 waveform: shape=torch.Size([160000])
+[CLAP PIPELINE] Sample 0 stats: min=-0.9692, max=0.9917, mean=-0.0001, std=0.2598
+[CLAP PIPELINE] Sample 0: 25/160000 near-zero values
+[CLAP PIPELINE] About to call get_audio_embedding with 8 waveform dicts
+[CLAP PIPELINE] CLAP embedding shape: torch.Size([8, 512])
+[CLAP PIPELINE] WARNING: CLAP embedding has 4096/4096 NaN values and 0/4096 Inf values
+[CLAP PIPELINE] CLAP embedding stats: min=nan, max=nan, mean=nan, std=nan
+[CLAP PIPELINE] CLAP embedding norms: min=nan, max=nan, mean=nan
+[VALIDATION] Shapes: y_im torch.Size([8, 512]), y_ref torch.Size([8, 512]), y_clap torch.Size([8, 512])
+[VALIDATION] Norms: y_im 1.0000, y_ref 1.0000, y_clap nan
+[VALIDATION] WARNING: y_clap has 4096/4096 NaN and 0/4096 Inf
+[VALIDATION] WARNING: NaN found in log_softmax outputs:
+[VALIDATION]   - C_qvim_log: 0/64 NaN values
+[VALIDATION]   - C_ref_clap_log: 64/64 NaN values
+[VALIDATION]   - C_im_clap_log: 64/64 NaN values
+Sanity Checking DataLoader 0:  50%|███████████████████████████████████████████████████████▌                                                       | 1/2 [00:01<00:01,  0.59it/s]
+[VALIDATION] Batch 1 - Processing validation data
+[VALIDATION] Imitation shape: torch.Size([8, 320000]), Reference shape: torch.Size([8, 320000])
+[VALIDATION] Imitation: min=-1.0314, max=1.0148
+[VALIDATION] Reference: min=-1.0045, max=1.0056
+[CLAP PIPELINE] Input audio shape: torch.Size([8, 320000])
+[CLAP PIPELINE] Input audio stats: min=-1.0045, max=1.0056, mean=-0.0040, std=0.2030
+[CLAP PIPELINE] After resampling: shape=torch.Size([8, 160000])
+[CLAP PIPELINE] After resampling stats: min=-1.0049, max=1.0166, mean=-0.0040, std=0.2028
+[CLAP PIPELINE] Sample 0 waveform: shape=torch.Size([160000])
+[CLAP PIPELINE] Sample 0 stats: min=-0.9150, max=1.0010, mean=-0.0009, std=0.0743
+[CLAP PIPELINE] Sample 0: 129718/160000 near-zero values
+[CLAP PIPELINE] About to call get_audio_embedding with 8 waveform dicts
+[CLAP PIPELINE] CLAP embedding shape: torch.Size([8, 512])
+[CLAP PIPELINE] WARNING: CLAP embedding has 4096/4096 NaN values and 0/4096 Inf values
+[CLAP PIPELINE] CLAP embedding stats: min=nan, max=nan, mean=nan, std=nan
+[CLAP PIPELINE] CLAP embedding norms: min=nan, max=nan, mean=nan
+[VALIDATION] Shapes: y_im torch.Size([8, 512]), y_ref torch.Size([8, 512]), y_clap torch.Size([8, 512])
+[VALIDATION] Norms: y_im 1.0000, y_ref 1.0000, y_clap nan
+[VALIDATION] WARNING: y_clap has 4096/4096 NaN and 0/4096 Inf
+[VALIDATION] WARNING: NaN found in log_softmax outputs:
+[VALIDATION]   - C_qvim_log: 0/64 NaN values
+[VALIDATION]   - C_ref_clap_log: 64/64 NaN values
+[VALIDATION]   - C_im_clap_log: 64/64 NaN values
+Epoch 0:   0%|                                                                                                                                         | 0/1324 [00:00<?, ?it/s][CLAP PIPELINE] Input audio shape: torch.Size([8, 320000])
+[CLAP PIPELINE] Input audio stats: min=-1.0043, max=1.0462, mean=-0.0002, std=0.0813
+[CLAP PIPELINE] After resampling: shape=torch.Size([8, 160000])
+[CLAP PIPELINE] After resampling stats: min=-0.9956, max=1.0020, mean=-0.0002, std=0.0781
+[CLAP PIPELINE] Sample 0 waveform: shape=torch.Size([160000])
+[CLAP PIPELINE] Sample 0 stats: min=-0.8896, max=0.5645, mean=0.0000, std=0.0489
+[CLAP PIPELINE] Sample 0: 75420/160000 near-zero values
+[CLAP PIPELINE] About to call get_audio_embedding with 8 waveform dicts
+[CLAP PIPELINE] CLAP embedding shape: torch.Size([8, 512])
+[CLAP PIPELINE] WARNING: CLAP embedding has 3584/4096 NaN values and 0/4096 Inf values
+[CLAP PIPELINE] CLAP embedding stats: min=nan, max=nan, mean=nan, std=nan
+[CLAP PIPELINE] CLAP embedding norms: min=nan, max=nan, mean=nan
+[SIMILARITY] Shapes: y_im torch.Size([8, 512]), y_ref torch.Size([8, 512]), y_clap torch.Size([8, 512])
+[SIMILARITY] Norms: y_im 1.0000, y_ref 1.0000, y_clap nan
+[SIMILARITY] Temps: tau 0.070000, cross_temp 0.070000
+[SIMILARITY] WARNING: y_clap has 3584/4096 NaN and 0/4096 Inf
+[SIMILARITY] Similarity matrices: C_qvim torch.Size([8, 8]), C_ref_clap torch.Size([8, 8]), C_im_clap torch.Size([8, 8])
+[SIMILARITY] C_qvim: min=2.7012, max=11.9838, mean=9.2057
+[SIMILARITY] C_ref_clap: min=nan, max=nan, mean=nan
+[SIMILARITY] C_im_clap: min=nan, max=nan, mean=nan
+[SIMILARITY] WARNING: C_ref_clap_log has 64/64 NaN values
+[SIMILARITY] WARNING: C_im_clap_log has 64/64 NaN values
+Epoch 0:   0%|                                                                                      | 1/1324 [00:04<1:30:05,  0.24it/s, v_num=puc7, train/loss=nan.0, lr=2.5e-5][CLAP PIPELINE] Input audio shape: torch.Size([8, 320000])
+[CLAP PIPELINE] Input audio stats: min=-1.0014, max=1.0119, mean=0.0038, std=0.1169
+[CLAP PIPELINE] After resampling: shape=torch.Size([8, 160000])
+[CLAP PIPELINE] After resampling stats: min=-0.9878, max=0.9990, mean=0.0038, std=0.1166
+[CLAP PIPELINE] Sample 0 waveform: shape=torch.Size([160000])
+[CLAP PIPELINE] Sample 0 stats: min=-0.9878, max=0.9771, mean=0.0004, std=0.1324
+[CLAP PIPELINE] Sample 0: 99635/160000 near-zero values
+[CLAP PIPELINE] About to call get_audio_embedding with 8 waveform dicts
+[CLAP PIPELINE] CLAP embedding shape: torch.Size([8, 512])
+[CLAP PIPELINE] WARNING: CLAP embedding has 4096/4096 NaN values and 0/4096 Inf values
+[CLAP PIPELINE] CLAP embedding stats: min=nan, max=nan, mean=nan, std=nan
+[CLAP PIPELINE] CLAP embedding norms: min=nan, max=nan, mean=nan
+[SIMILARITY] Shapes: y_im torch.Size([8, 512]), y_ref torch.Size([8, 512]), y_clap torch.Size([8, 512])
+[SIMILARITY] Norms: y_im 1.0000, y_ref 1.0000, y_clap nan
+[SIMILARITY] Temps: tau 0.070000, cross_temp 0.070000
+[SIMILARITY] WARNING: y_clap has 4096/4096 NaN and 0/4096 Inf
+[SIMILARITY] Similarity matrices: C_qvim torch.Size([8, 8]), C_ref_clap torch.Size([8, 8]), C_im_clap torch.Size([8, 8])
+[SIMILARITY] C_qvim: min=6.4035, max=12.1233, mean=9.6664
+[SIMILARITY] C_ref_clap: min=nan, max=nan, mean=nan
+[SIMILARITY] C_im_clap: min=nan, max=nan, mean=nan
+[SIMILARITY] WARNING: C_ref_clap_log has 64/64 NaN values
+[SIMILARITY] WARNING: C_im_clap_log has 64/64 NaN values
+Epoch 0:   0%|▏                                                                                      | 2/1324 [00:04<48:21,  0.46it/s, v_num=puc7, train/loss=nan.0, lr=2.52e-5][CLAP PIPELINE] Input audio shape: torch.Size([8, 320000])
+[CLAP PIPELINE] Input audio stats: min=-1.0033, max=1.0181, mean=-0.0009, std=0.0886
+[CLAP PIPELINE] After resampling: shape=torch.Size([8, 160000])
+[CLAP PIPELINE] After resampling stats: min=-0.9980, max=1.0098, mean=-0.0009, std=0.0886
+[CLAP PIPELINE] Sample 0 waveform: shape=torch.Size([160000])
+[CLAP PIPELINE] Sample 0 stats: min=-0.9395, max=0.9966, mean=-0.0004, std=0.1406
+[CLAP PIPELINE] Sample 0: 27046/160000 near-zero values
+[CLAP PIPELINE] About to call get_audio_embedding with 8 waveform dicts
+[CLAP PIPELINE] CLAP embedding shape: torch.Size([8, 512])
+[CLAP PIPELINE] WARNING: CLAP embedding has 4096/4096 NaN values and 0/4096 Inf values
+[CLAP PIPELINE] CLAP embedding stats: min=nan, max=nan, mean=nan, std=nan
+[CLAP PIPELINE] CLAP embedding norms: min=nan, max=nan, mean=nan
+[SIMILARITY] Shapes: y_im torch.Size([8, 512]), y_ref torch.Size([8, 512]), y_clap torch.Size([8, 512])
+[SIMILARITY] Norms: y_im 1.0000, y_ref 1.0000, y_clap nan
+[SIMILARITY] Temps: tau 0.070000, cross_temp 0.070000
+[SIMILARITY] WARNING: y_clap has 4096/4096 NaN and 0/4096 Inf
+[SIMILARITY] Similarity matrices: C_qvim torch.Size([8, 8]), C_ref_clap torch.Size([8, 8]), C_im_clap torch.Size([8, 8])
+[SIMILARITY] C_qvim: min=4.3841, max=12.6535, mean=8.9531
+[SIMILARITY] C_ref_clap: min=nan, max=nan, mean=nan
+[SIMILARITY] C_im_clap: min=nan, max=nan, mean=nan
+[SIMILARITY] WARNING: C_ref_clap_log has 64/64 NaN values
+[SIMILARITY] WARNING: C_im_clap_log has 64/64 NaN values
+Epoch 0:   0%|▏                                                                                      | 3/1324 [00:04<35:34,  0.62it/s, v_num=puc7, train/loss=nan.0, lr=2.54e-5][CLAP PIPELINE] Input audio shape: torch.Size([8, 320000])
+[CLAP PIPELINE] Input audio stats: min=-1.0079, max=1.0084, mean=-0.0014, std=0.1946
+[CLAP PIPELINE] After resampling: shape=torch.Size([8, 160000])
+[CLAP PIPELINE] After resampling stats: min=-1.0000, max=1.0176, mean=-0.0014, std=0.1923
+[CLAP PIPELINE] Sample 0 waveform: shape=torch.Size([160000])
+[CLAP PIPELINE] Sample 0 stats: min=-0.9668, max=0.9990, mean=-0.0001, std=0.1769
+[CLAP PIPELINE] Sample 0: 39111/160000 near-zero values
+[CLAP PIPELINE] About to call get_audio_embedding with 8 waveform dicts
+[CLAP PIPELINE] CLAP embedding shape: torch.Size([8, 512])
+[CLAP PIPELINE] WARNING: CLAP embedding has 4096/4096 NaN values and 0/4096 Inf values
+[CLAP PIPELINE] CLAP embedding stats: min=nan, max=nan, mean=nan, std=nan
+[CLAP PIPELINE] CLAP embedding norms: min=nan, max=nan, mean=nan
+[SIMILARITY] Shapes: y_im torch.Size([8, 512]), y_ref torch.Size([8, 512]), y_clap torch.Size([8, 512])
+[SIMILARITY] Norms: y_im 1.0000, y_ref 1.0000, y_clap nan
+[SIMILARITY] Temps: tau 0.070000, cross_temp 0.070000
+[SIMILARITY] WARNING: y_clap has 4096/4096 NaN and 0/4096 Inf
+[SIMILARITY] Similarity matrices: C_qvim torch.Size([8, 8]), C_ref_clap torch.Size([8, 8]), C_im_clap torch.Size([8, 8])
+[SIMILARITY] C_qvim: min=1.0978, max=12.5837, mean=8.1380
+[SIMILARITY] C_ref_clap: min=nan, max=nan, mean=nan
+[SIMILARITY] C_im_clap: min=nan, max=nan, mean=nan
+[SIMILARITY] WARNING: C_ref_clap_log has 64/64 NaN values
+[SIMILARITY] WARNING: C_im_clap_log has 64/64 NaN values
+Epoch 0:   0%|▎                                                                                      | 4/1324 [00:06<33:36,  0.65it/s, v_num=puc7, train/loss=nan.0, lr=2.56e-5][CLAP PIPELINE] Input audio shape: torch.Size([8, 320000])
+[CLAP PIPELINE] Input audio stats: min=-1.1079, max=1.1765, mean=-0.0004, std=0.1875
+[CLAP PIPELINE] After resampling: shape=torch.Size([8, 160000])
+[CLAP PIPELINE] After resampling stats: min=-1.1914, max=1.1514, mean=-0.0004, std=0.1833
+[CLAP PIPELINE] Sample 0 waveform: shape=torch.Size([160000])
+[CLAP PIPELINE] Sample 0 stats: min=-0.8594, max=0.8374, mean=-0.0015, std=0.2020
+[CLAP PIPELINE] Sample 0: 104006/160000 near-zero values
+[CLAP PIPELINE] About to call get_audio_embedding with 8 waveform dicts
+[CLAP PIPELINE] CLAP embedding shape: torch.Size([8, 512])
+[CLAP PIPELINE] WARNING: CLAP embedding has 4096/4096 NaN values and 0/4096 Inf values
+[CLAP PIPELINE] CLAP embedding stats: min=nan, max=nan, mean=nan, std=nan
+[CLAP PIPELINE] CLAP embedding norms: min=nan, max=nan, mean=nan
+[SIMILARITY] Shapes: y_im torch.Size([8, 512]), y_ref torch.Size([8, 512]), y_clap torch.Size([8, 512])
+[SIMILARITY] Norms: y_im 1.0000, y_ref 1.0000, y_clap nan
+[SIMILARITY] Temps: tau 0.070000, cross_temp 0.070000
+[SIMILARITY] WARNING: y_clap has 4096/4096 NaN and 0/4096 Inf
+[SIMILARITY] Similarity matrices: C_qvim torch.Size([8, 8]), C_ref_clap torch.Size([8, 8]), C_im_clap torch.Size([8, 8])
+[SIMILARITY] C_qvim: min=5.3502, max=13.0441, mean=9.1096
+[SIMILARITY] C_ref_clap: min=nan, max=nan, mean=nan
+[SIMILARITY] C_im_clap: min=nan, max=nan, mean=nan
+[SIMILARITY] WARNING: C_ref_clap_log has 64/64 NaN values
+[SIMILARITY] WARNING: C_im_clap_log has 64/64 NaN values
+Epoch 0:   0%|▎                                                                                      | 5/1324 [00:06<28:05,  0.78it/s, v_num=puc7, train/loss=nan.0, lr=2.58e-5][CLAP PIPELINE] Input audio shape: torch.Size([8, 320000])
+[CLAP PIPELINE] Input audio stats: min=-1.0082, max=0.9999, mean=-0.0001, std=0.1276
+[CLAP PIPELINE] After resampling: shape=torch.Size([8, 160000])
+[CLAP PIPELINE] After resampling stats: min=-0.9644, max=1.0000, mean=-0.0001, std=0.1242
+[CLAP PIPELINE] Sample 0 waveform: shape=torch.Size([160000])
+[CLAP PIPELINE] Sample 0 stats: min=-0.6812, max=0.6206, mean=-0.0000, std=0.0112
+[CLAP PIPELINE] Sample 0: 655/160000 near-zero values
+[CLAP PIPELINE] About to call get_audio_embedding with 8 waveform dicts
+[CLAP PIPELINE] CLAP embedding shape: torch.Size([8, 512])
+[CLAP PIPELINE] WARNING: CLAP embedding has 4096/4096 NaN values and 0/4096 Inf values
+[CLAP PIPELINE] CLAP embedding stats: min=nan, max=nan, mean=nan, std=nan
+[CLAP PIPELINE] CLAP embedding norms: min=nan, max=nan, mean=nan
+[SIMILARITY] Shapes: y_im torch.Size([8, 512]), y_ref torch.Size([8, 512]), y_clap torch.Size([8, 512])
+[SIMILARITY] Norms: y_im 1.0000, y_ref 1.0000, y_clap nan
+[SIMILARITY] Temps: tau 0.070000, cross_temp 0.070000
+[SIMILARITY] WARNING: y_clap has 4096/4096 NaN and 0/4096 Inf
+[SIMILARITY] Similarity matrices: C_qvim torch.Size([8, 8]), C_ref_clap torch.Size([8, 8]), C_im_clap torch.Size([8, 8])
+[SIMILARITY] C_qvim: min=1.7517, max=13.0371, mean=8.9679
+[SIMILARITY] C_ref_clap: min=nan, max=nan, mean=nan
+[SIMILARITY] C_im_clap: min=nan, max=nan, mean=nan
+[SIMILARITY] WARNING: C_ref_clap_log has 64/64 NaN values
+[SIMILARITY] WARNING: C_im_clap_log has 64/64 NaN values
+Epoch 0:   0%|▍                                                                                       | 6/1324 [00:07<28:59,  0.76it/s, v_num=puc7, train/loss=nan.0, lr=2.6e-5][CLAP PIPELINE] Input audio shape: torch.Size([8, 320000])
+[CLAP PIPELINE] Input audio stats: min=-1.0767, max=1.0750, mean=-0.0002, std=0.1135
+[CLAP PIPELINE] After resampling: shape=torch.Size([8, 160000])
+[CLAP PIPELINE] After resampling stats: min=-1.0283, max=1.0527, mean=-0.0002, std=0.1116
+[CLAP PIPELINE] Sample 0 waveform: shape=torch.Size([160000])
+[CLAP PIPELINE] Sample 0 stats: min=-0.5444, max=1.0029, mean=0.0012, std=0.1025
+[CLAP PIPELINE] Sample 0: 119345/160000 near-zero values
+[CLAP PIPELINE] About to call get_audio_embedding with 8 waveform dicts
+[CLAP PIPELINE] CLAP embedding shape: torch.Size([8, 512])
+[CLAP PIPELINE] WARNING: CLAP embedding has 4096/4096 NaN values and 0/4096 Inf values
+[CLAP PIPELINE] CLAP embedding stats: min=nan, max=nan, mean=nan, std=nan
+[CLAP PIPELINE] CLAP embedding norms: min=nan, max=nan, mean=nan
+[SIMILARITY] Shapes: y_im torch.Size([8, 512]), y_ref torch.Size([8, 512]), y_clap torch.Size([8, 512])
+[SIMILARITY] Norms: y_im 1.0000, y_ref 1.0000, y_clap nan
+[SIMILARITY] Temps: tau 0.070000, cross_temp 0.070000
+[SIMILARITY] WARNING: y_clap has 4096/4096 NaN and 0/4096 Inf
+[SIMILARITY] Similarity matrices: C_qvim torch.Size([8, 8]), C_ref_clap torch.Size([8, 8]), C_im_clap torch.Size([8, 8])
+[SIMILARITY] C_qvim: min=6.3267, max=12.5070, mean=9.7469
+[SIMILARITY] C_ref_clap: min=nan, max=nan, mean=nan
+[SIMILARITY] C_im_clap: min=nan, max=nan, mean=nan
+[SIMILARITY] WARNING: C_ref_clap_log has 64/64 NaN values
+[SIMILARITY] WARNING: C_im_clap_log has 64/64 NaN values
+Epoch 0:   1%|▍                                                                                      | 7/1324 [00:08<26:07,  0.84it/s, v_num=puc7, train/loss=nan.0, lr=2.62e-5][CLAP PIPELINE] Input audio shape: torch.Size([8, 320000])
+[CLAP PIPELINE] Input audio stats: min=-1.0024, max=0.9985, mean=-0.0002, std=0.1271
+[CLAP PIPELINE] After resampling: shape=torch.Size([8, 160000])
+[CLAP PIPELINE] After resampling stats: min=-1.0166, max=1.0215, mean=-0.0002, std=0.1265
+[CLAP PIPELINE] Sample 0 waveform: shape=torch.Size([160000])
+[CLAP PIPELINE] Sample 0 stats: min=-1.0166, max=1.0215, mean=0.0000, std=0.1312
+[CLAP PIPELINE] Sample 0: 86803/160000 near-zero values
+[CLAP PIPELINE] About to call get_audio_embedding with 8 waveform dicts
+[CLAP PIPELINE] CLAP embedding shape: torch.Size([8, 512])
+[CLAP PIPELINE] WARNING: CLAP embedding has 4096/4096 NaN values and 0/4096 Inf values
+[CLAP PIPELINE] CLAP embedding stats: min=nan, max=nan, mean=nan, std=nan
+[CLAP PIPELINE] CLAP embedding norms: min=nan, max=nan, mean=nan
+[SIMILARITY] Shapes: y_im torch.Size([8, 512]), y_ref torch.Size([8, 512]), y_clap torch.Size([8, 512])
+[SIMILARITY] Norms: y_im 1.0000, y_ref 1.0000, y_clap nan
+[SIMILARITY] Temps: tau 0.070000, cross_temp 0.070000
+[SIMILARITY] WARNING: y_clap has 4096/4096 NaN and 0/4096 Inf
+[SIMILARITY] Similarity matrices: C_qvim torch.Size([8, 8]), C_ref_clap torch.Size([8, 8]), C_im_clap torch.Size([8, 8])
+[SIMILARITY] C_qvim: min=6.5709, max=12.6046, mean=9.3421
+[SIMILARITY] C_ref_clap: min=nan, max=nan, mean=nan
+[SIMILARITY] C_im_clap: min=nan, max=nan, mean=nan
+[SIMILARITY] WARNING: C_ref_clap_log has 64/64 NaN values
+[SIMILARITY] WARNING: C_im_clap_log has 64/64 NaN values
+Epoch 0:   1%|▌                                                                                      | 8/1324 [00:09<26:09,  0.84it/s, v_num=puc7, train/loss=nan.0, lr=2.65e-5][CLAP PIPELINE] Input audio shape: torch.Size([8, 320000])
+[CLAP PIPELINE] Input audio stats: min=-1.0068, max=0.9994, mean=-0.0007, std=0.0977
+[CLAP PIPELINE] After resampling: shape=torch.Size([8, 160000])
+[CLAP PIPELINE] After resampling stats: min=-1.0068, max=0.9995, mean=-0.0007, std=0.0959
+[CLAP PIPELINE] Sample 0 waveform: shape=torch.Size([160000])
+[CLAP PIPELINE] Sample 0 stats: min=-0.9927, max=0.9448, mean=-0.0009, std=0.0720
+[CLAP PIPELINE] Sample 0: 129531/160000 near-zero values
+[CLAP PIPELINE] About to call get_audio_embedding with 8 waveform dicts
+[CLAP PIPELINE] CLAP embedding shape: torch.Size([8, 512])
+[CLAP PIPELINE] WARNING: CLAP embedding has 4096/4096 NaN values and 0/4096 Inf values
+[CLAP PIPELINE] CLAP embedding stats: min=nan, max=nan, mean=nan, std=nan
+[CLAP PIPELINE] CLAP embedding norms: min=nan, max=nan, mean=nan
+[SIMILARITY] Shapes: y_im torch.Size([8, 512]), y_ref torch.Size([8, 512]), y_clap torch.Size([8, 512])
+[SIMILARITY] Norms: y_im 1.0000, y_ref 1.0000, y_clap nan
+[SIMILARITY] Temps: tau 0.070000, cross_temp 0.070000
+[SIMILARITY] WARNING: y_clap has 4096/4096 NaN and 0/4096 Inf
+[SIMILARITY] Similarity matrices: C_qvim torch.Size([8, 8]), C_ref_clap torch.Size([8, 8]), C_im_clap torch.Size([8, 8])
+[SIMILARITY] C_qvim: min=3.3029, max=13.1696, mean=8.8581
+[SIMILARITY] C_ref_clap: min=nan, max=nan, mean=nan
+[SIMILARITY] C_im_clap: min=nan, max=nan, mean=nan
+[SIMILARITY] WARNING: C_ref_clap_log has 64/64 NaN values
+[SIMILARITY] WARNING: C_im_clap_log has 64/64 NaN values
+Epoch 0:   1%|▌                                                                                      | 9/1324 [00:09<24:06,  0.91it/s, v_num=puc7, train/loss=nan.0, lr=2.67e-5][CLAP PIPELINE] Input audio shape: torch.Size([8, 320000])
+[CLAP PIPELINE] Input audio stats: min=-1.0118, max=1.0462, mean=-0.0001, std=0.0934
+[CLAP PIPELINE] After resampling: shape=torch.Size([8, 160000])
+[CLAP PIPELINE] After resampling stats: min=-1.0234, max=1.0693, mean=-0.0001, std=0.0930
+[CLAP PIPELINE] Sample 0 waveform: shape=torch.Size([160000])
+[CLAP PIPELINE] Sample 0 stats: min=-0.8896, max=0.8569, mean=-0.0003, std=0.0116
+[CLAP PIPELINE] Sample 0: 150683/160000 near-zero values
+[CLAP PIPELINE] About to call get_audio_embedding with 8 waveform dicts
+[CLAP PIPELINE] CLAP embedding shape: torch.Size([8, 512])
+[CLAP PIPELINE] WARNING: CLAP embedding has 4096/4096 NaN values and 0/4096 Inf values
+[CLAP PIPELINE] CLAP embedding stats: min=nan, max=nan, mean=nan, std=nan
+[CLAP PIPELINE] CLAP embedding norms: min=nan, max=nan, mean=nan
+[SIMILARITY] Shapes: y_im torch.Size([8, 512]), y_ref torch.Size([8, 512]), y_clap torch.Size([8, 512])
+[SIMILARITY] Norms: y_im 1.0000, y_ref 1.0000, y_clap nan
+[SIMILARITY] Temps: tau 0.070000, cross_temp 0.070000
+[SIMILARITY] WARNING: y_clap has 4096/4096 NaN and 0/4096 Inf
+[SIMILARITY] Similarity matrices: C_qvim torch.Size([8, 8]), C_ref_clap torch.Size([8, 8]), C_im_clap torch.Size([8, 8])
+[SIMILARITY] C_qvim: min=4.0876, max=12.4233, mean=8.6672
+[SIMILARITY] C_ref_clap: min=nan, max=nan, mean=nan
+[SIMILARITY] C_im_clap: min=nan, max=nan, mean=nan
+[SIMILARITY] WARNING: C_ref_clap_log has 64/64 NaN values
+[SIMILARITY] WARNING: C_im_clap_log has 64/64 NaN values
+Epoch 0:   1%|▋                                                                                     | 10/1324 [00:10<23:45,  0.92it/s, v_num=puc7, train/loss=nan.0, lr=2.69e-5][CLAP PIPELINE] Input audio shape: torch.Size([8, 320000])
+[CLAP PIPELINE] Input audio stats: min=-1.0640, max=1.0084, mean=-0.0000, std=0.1465
+[CLAP PIPELINE] After resampling: shape=torch.Size([8, 160000])
+[CLAP PIPELINE] After resampling stats: min=-1.0000, max=0.9990, mean=-0.0000, std=0.1395
+[CLAP PIPELINE] Sample 0 waveform: shape=torch.Size([160000])
+[CLAP PIPELINE] Sample 0 stats: min=-0.9482, max=0.9893, mean=-0.0000, std=0.2327
+[CLAP PIPELINE] Sample 0: 80486/160000 near-zero values
+[CLAP PIPELINE] About to call get_audio_embedding with 8 waveform dicts
+[CLAP PIPELINE] CLAP embedding shape: torch.Size([8, 512])
+[CLAP PIPELINE] WARNING: CLAP embedding has 3584/4096 NaN values and 0/4096 Inf values
+[CLAP PIPELINE] CLAP embedding stats: min=nan, max=nan, mean=nan, std=nan
+[CLAP PIPELINE] CLAP embedding norms: min=nan, max=nan, mean=nan
+[SIMILARITY] Shapes: y_im torch.Size([8, 512]), y_ref torch.Size([8, 512]), y_clap torch.Size([8, 512])
+[SIMILARITY] Norms: y_im 1.0000, y_ref 1.0000, y_clap nan
+[SIMILARITY] Temps: tau 0.070000, cross_temp 0.070000
+[SIMILARITY] WARNING: y_clap has 3584/4096 NaN and 0/4096 Inf
+[SIMILARITY] Similarity matrices: C_qvim torch.Size([8, 8]), C_ref_clap torch.Size([8, 8]), C_im_clap torch.Size([8, 8])
+[SIMILARITY] C_qvim: min=5.1235, max=12.3954, mean=9.2427
+[SIMILARITY] C_ref_clap: min=nan, max=nan, mean=nan
+[SIMILARITY] C_im_clap: min=nan, max=nan, mean=nan
+[SIMILARITY] WARNING: C_ref_clap_log has 64/64 NaN values
+[SIMILARITY] WARNING: C_im_clap_log has 64/64 NaN values
+Epoch 0:   1%|▋                                                                                     | 11/1324 [00:11<23:30,  0.93it/s, v_num=puc7, train/loss=nan.0, lr=2.71e-5][CLAP PIPELINE] Input audio shape: torch.Size([8, 320000])
+[CLAP PIPELINE] Input audio stats: min=-1.0006, max=1.0000, mean=-0.0008, std=0.2119
+[CLAP PIPELINE] After resampling: shape=torch.Size([8, 160000])
+[CLAP PIPELINE] After resampling stats: min=-1.0186, max=1.0156, mean=-0.0008, std=0.2112
+[CLAP PIPELINE] Sample 0 waveform: shape=torch.Size([160000])
+[CLAP PIPELINE] Sample 0 stats: min=-0.9766, max=0.9678, mean=-0.0013, std=0.1385
+[CLAP PIPELINE] Sample 0: 145784/160000 near-zero values
+[CLAP PIPELINE] About to call get_audio_embedding with 8 waveform dicts
+[CLAP PIPELINE] CLAP embedding shape: torch.Size([8, 512])
+[CLAP PIPELINE] WARNING: CLAP embedding has 4096/4096 NaN values and 0/4096 Inf values
+[CLAP PIPELINE] CLAP embedding stats: min=nan, max=nan, mean=nan, std=nan
+[CLAP PIPELINE] CLAP embedding norms: min=nan, max=nan, mean=nan
+[SIMILARITY] Shapes: y_im torch.Size([8, 512]), y_ref torch.Size([8, 512]), y_clap torch.Size([8, 512])
+[SIMILARITY] Norms: y_im 1.0000, y_ref 1.0000, y_clap nan
+[SIMILARITY] Temps: tau 0.070000, cross_temp 0.070000
+[SIMILARITY] WARNING: y_clap has 4096/4096 NaN and 0/4096 Inf
+[SIMILARITY] Similarity matrices: C_qvim torch.Size([8, 8]), C_ref_clap torch.Size([8, 8]), C_im_clap torch.Size([8, 8])
+[SIMILARITY] C_qvim: min=5.8210, max=12.9185, mean=9.8109
+[SIMILARITY] C_ref_clap: min=nan, max=nan, mean=nan
+[SIMILARITY] C_im_clap: min=nan, max=nan, mean=nan
+[SIMILARITY] WARNING: C_ref_clap_log has 64/64 NaN values
+[SIMILARITY] WARNING: C_im_clap_log has 64/64 NaN values
+Epoch 0:   1%|▊                                                                                     | 12/1324 [00:12<23:06,  0.95it/s, v_num=puc7, train/loss=nan.0, lr=2.73e-5][CLAP PIPELINE] Input audio shape: torch.Size([8, 320000])
+[CLAP PIPELINE] Input audio stats: min=-1.0097, max=0.9991, mean=-0.0001, std=0.1069
+[CLAP PIPELINE] After resampling: shape=torch.Size([8, 160000])
+[CLAP PIPELINE] After resampling stats: min=-1.0264, max=0.9990, mean=-0.0001, std=0.1068
+[CLAP PIPELINE] Sample 0 waveform: shape=torch.Size([160000])
+[CLAP PIPELINE] Sample 0 stats: min=-1.0264, max=0.9795, mean=0.0002, std=0.0779
+[CLAP PIPELINE] Sample 0: 53226/160000 near-zero values
+[CLAP PIPELINE] About to call get_audio_embedding with 8 waveform dicts
+[CLAP PIPELINE] CLAP embedding shape: torch.Size([8, 512])
+[CLAP PIPELINE] WARNING: CLAP embedding has 4096/4096 NaN values and 0/4096 Inf values
+[CLAP PIPELINE] CLAP embedding stats: min=nan, max=nan, mean=nan, std=nan
+[CLAP PIPELINE] CLAP embedding norms: min=nan, max=nan, mean=nan
+[SIMILARITY] Shapes: y_im torch.Size([8, 512]), y_ref torch.Size([8, 512]), y_clap torch.Size([8, 512])
+[SIMILARITY] Norms: y_im 1.0000, y_ref 1.0000, y_clap nan
+[SIMILARITY] Temps: tau 0.070000, cross_temp 0.070000
+[SIMILARITY] WARNING: y_clap has 4096/4096 NaN and 0/4096 Inf
+[SIMILARITY] Similarity matrices: C_qvim torch.Size([8, 8]), C_ref_clap torch.Size([8, 8]), C_im_clap torch.Size([8, 8])
+[SIMILARITY] C_qvim: min=3.1041, max=12.3396, mean=8.9425
+[SIMILARITY] C_ref_clap: min=nan, max=nan, mean=nan
+[SIMILARITY] C_im_clap: min=nan, max=nan, mean=nan
+[SIMILARITY] WARNING: C_ref_clap_log has 64/64 NaN values
+[SIMILARITY] WARNING: C_im_clap_log has 64/64 NaN values
+Epoch 0:   1%|▊                                                                                     | 13/1324 [00:13<23:18,  0.94it/s, v_num=puc7, train/loss=nan.0, lr=2.75e-5][CLAP PIPELINE] Input audio shape: torch.Size([8, 320000])
+[CLAP PIPELINE] Input audio stats: min=-1.0137, max=1.0162, mean=-0.0003, std=0.0942
+[CLAP PIPELINE] After resampling: shape=torch.Size([8, 160000])
+[CLAP PIPELINE] After resampling stats: min=-0.9990, max=0.9985, mean=-0.0003, std=0.0923
+[CLAP PIPELINE] Sample 0 waveform: shape=torch.Size([160000])
+[CLAP PIPELINE] Sample 0 stats: min=-0.9033, max=0.9556, mean=-0.0001, std=0.1578
+[CLAP PIPELINE] Sample 0: 40567/160000 near-zero values
+[CLAP PIPELINE] About to call get_audio_embedding with 8 waveform dicts
+[CLAP PIPELINE] CLAP embedding shape: torch.Size([8, 512])
+[CLAP PIPELINE] WARNING: CLAP embedding has 4096/4096 NaN values and 0/4096 Inf values
+[CLAP PIPELINE] CLAP embedding stats: min=nan, max=nan, mean=nan, std=nan
+[CLAP PIPELINE] CLAP embedding norms: min=nan, max=nan, mean=nan
+[SIMILARITY] Shapes: y_im torch.Size([8, 512]), y_ref torch.Size([8, 512]), y_clap torch.Size([8, 512])
+[SIMILARITY] Norms: y_im 1.0000, y_ref 1.0000, y_clap nan
+[SIMILARITY] Temps: tau 0.070000, cross_temp 0.070000
+[SIMILARITY] WARNING: y_clap has 4096/4096 NaN and 0/4096 Inf
+[SIMILARITY] Similarity matrices: C_qvim torch.Size([8, 8]), C_ref_clap torch.Size([8, 8]), C_im_clap torch.Size([8, 8])
+[SIMILARITY] C_qvim: min=6.1837, max=12.4233, mean=9.7637
+[SIMILARITY] C_ref_clap: min=nan, max=nan, mean=nan
+[SIMILARITY] C_im_clap: min=nan, max=nan, mean=nan
+[SIMILARITY] WARNING: C_ref_clap_log has 64/64 NaN values
+[SIMILARITY] WARNING: C_im_clap_log has 64/64 NaN values
+Epoch 0:   1%|▉                                                                                     | 14/1324 [00:14<22:59,  0.95it/s, v_num=puc7, train/loss=nan.0, lr=2.77e-5][CLAP PIPELINE] Input audio shape: torch.Size([8, 320000])
+[CLAP PIPELINE] Input audio stats: min=-1.0006, max=0.9983, mean=-0.0002, std=0.1375
+[CLAP PIPELINE] After resampling: shape=torch.Size([8, 160000])
+[CLAP PIPELINE] After resampling stats: min=-1.0039, max=1.0049, mean=-0.0002, std=0.1370
+[CLAP PIPELINE] Sample 0 waveform: shape=torch.Size([160000])
+[CLAP PIPELINE] Sample 0 stats: min=-0.9971, max=0.8145, mean=-0.0003, std=0.0839
+[CLAP PIPELINE] Sample 0: 120295/160000 near-zero values
+[CLAP PIPELINE] About to call get_audio_embedding with 8 waveform dicts
+[CLAP PIPELINE] CLAP embedding shape: torch.Size([8, 512])
+[CLAP PIPELINE] WARNING: CLAP embedding has 4096/4096 NaN values and 0/4096 Inf values
+[CLAP PIPELINE] CLAP embedding stats: min=nan, max=nan, mean=nan, std=nan
+[CLAP PIPELINE] CLAP embedding norms: min=nan, max=nan, mean=nan
+[SIMILARITY] Shapes: y_im torch.Size([8, 512]), y_ref torch.Size([8, 512]), y_clap torch.Size([8, 512])
+[SIMILARITY] Norms: y_im 1.0000, y_ref 1.0000, y_clap nan
+[SIMILARITY] Temps: tau 0.070000, cross_temp 0.070000
+[SIMILARITY] WARNING: y_clap has 4096/4096 NaN and 0/4096 Inf
+[SIMILARITY] Similarity matrices: C_qvim torch.Size([8, 8]), C_ref_clap torch.Size([8, 8]), C_im_clap torch.Size([8, 8])
+[SIMILARITY] C_qvim: min=5.1793, max=12.1094, mean=9.0424
+[SIMILARITY] C_ref_clap: min=nan, max=nan, mean=nan
+[SIMILARITY] C_im_clap: min=nan, max=nan, mean=nan
+[SIMILARITY] WARNING: C_ref_clap_log has 64/64 NaN values
+[SIMILARITY] WARNING: C_im_clap_log has 64/64 NaN values
+Epoch 0:   1%|▉                                                                                     | 15/1324 [00:15<22:40,  0.96it/s, v_num=puc7, train/loss=nan.0, lr=2.79e-5][CLAP PIPELINE] Input audio shape: torch.Size([8, 320000])
+[CLAP PIPELINE] Input audio stats: min=-1.0009, max=0.9983, mean=0.0149, std=0.1915
+[CLAP PIPELINE] After resampling: shape=torch.Size([8, 160000])
+[CLAP PIPELINE] After resampling stats: min=-1.0176, max=0.9985, mean=0.0149, std=0.1914
+[CLAP PIPELINE] Sample 0 waveform: shape=torch.Size([160000])
+[CLAP PIPELINE] Sample 0 stats: min=-0.8501, max=0.6035, mean=0.0001, std=0.0152
+[CLAP PIPELINE] Sample 0: 150065/160000 near-zero values
+[CLAP PIPELINE] About to call get_audio_embedding with 8 waveform dicts
+[CLAP PIPELINE] CLAP embedding shape: torch.Size([8, 512])
+[CLAP PIPELINE] WARNING: CLAP embedding has 4096/4096 NaN values and 0/4096 Inf values
+[CLAP PIPELINE] CLAP embedding stats: min=nan, max=nan, mean=nan, std=nan
+[CLAP PIPELINE] CLAP embedding norms: min=nan, max=nan, mean=nan
+[SIMILARITY] Shapes: y_im torch.Size([8, 512]), y_ref torch.Size([8, 512]), y_clap torch.Size([8, 512])
+[SIMILARITY] Norms: y_im 1.0000, y_ref 1.0000, y_clap nan
+[SIMILARITY] Temps: tau 0.070000, cross_temp 0.070000
+[SIMILARITY] WARNING: y_clap has 4096/4096 NaN and 0/4096 Inf
+[SIMILARITY] Similarity matrices: C_qvim torch.Size([8, 8]), C_ref_clap torch.Size([8, 8]), C_im_clap torch.Size([8, 8])
+[SIMILARITY] C_qvim: min=5.2595, max=12.3047, mean=9.6011
+[SIMILARITY] C_ref_clap: min=nan, max=nan, mean=nan
+[SIMILARITY] C_im_clap: min=nan, max=nan, mean=nan
+[SIMILARITY] WARNING: C_ref_clap_log has 64/64 NaN values
+[SIMILARITY] WARNING: C_im_clap_log has 64/64 NaN values
+Epoch 0:   1%|█                                                                                     | 16/1324 [00:15<21:44,  1.00it/s, v_num=puc7, train/loss=nan.0, lr=2.81e-5][CLAP PIPELINE] Input audio shape: torch.Size([8, 320000])
+[CLAP PIPELINE] Input audio stats: min=-1.0018, max=1.0100, mean=0.0005, std=0.1117
+[CLAP PIPELINE] After resampling: shape=torch.Size([8, 160000])
+[CLAP PIPELINE] After resampling stats: min=-1.0029, max=1.0078, mean=0.0005, std=0.1116
+[CLAP PIPELINE] Sample 0 waveform: shape=torch.Size([160000])
+[CLAP PIPELINE] Sample 0 stats: min=-0.9399, max=0.9409, mean=-0.0000, std=0.0680
+[CLAP PIPELINE] Sample 0: 109221/160000 near-zero values
+[CLAP PIPELINE] About to call get_audio_embedding with 8 waveform dicts
+[CLAP PIPELINE] CLAP embedding shape: torch.Size([8, 512])
+[CLAP PIPELINE] WARNING: CLAP embedding has 4096/4096 NaN values and 0/4096 Inf values
+[CLAP PIPELINE] CLAP embedding stats: min=nan, max=nan, mean=nan, std=nan
+[CLAP PIPELINE] CLAP embedding norms: min=nan, max=nan, mean=nan
+[SIMILARITY] Shapes: y_im torch.Size([8, 512]), y_ref torch.Size([8, 512]), y_clap torch.Size([8, 512])
+[SIMILARITY] Norms: y_im 1.0000, y_ref 1.0000, y_clap nan
+[SIMILARITY] Temps: tau 0.070000, cross_temp 0.070000
+[SIMILARITY] WARNING: y_clap has 4096/4096 NaN and 0/4096 Inf
+[SIMILARITY] Similarity matrices: C_qvim torch.Size([8, 8]), C_ref_clap torch.Size([8, 8]), C_im_clap torch.Size([8, 8])
+[SIMILARITY] C_qvim: min=3.9795, max=12.7860, mean=9.5171
+[SIMILARITY] C_ref_clap: min=nan, max=nan, mean=nan
+[SIMILARITY] C_im_clap: min=nan, max=nan, mean=nan
+[SIMILARITY] WARNING: C_ref_clap_log has 64/64 NaN values
+[SIMILARITY] WARNING: C_im_clap_log has 64/64 NaN values
+Epoch 0:   1%|█                                                                                     | 17/1324 [00:17<21:54,  0.99it/s, v_num=puc7, train/loss=nan.0, lr=2.83e-5][CLAP PIPELINE] Input audio shape: torch.Size([8, 320000])
+[CLAP PIPELINE] Input audio stats: min=-1.0001, max=1.0016, mean=-0.0003, std=0.1434
+[CLAP PIPELINE] After resampling: shape=torch.Size([8, 160000])
+[CLAP PIPELINE] After resampling stats: min=-1.0029, max=1.0020, mean=-0.0003, std=0.1423
+[CLAP PIPELINE] Sample 0 waveform: shape=torch.Size([160000])
+[CLAP PIPELINE] Sample 0 stats: min=-0.8501, max=1.0000, mean=-0.0008, std=0.2590
+[CLAP PIPELINE] Sample 0: 86957/160000 near-zero values
+[CLAP PIPELINE] About to call get_audio_embedding with 8 waveform dicts
+[CLAP PIPELINE] CLAP embedding shape: torch.Size([8, 512])
+[CLAP PIPELINE] WARNING: CLAP embedding has 4096/4096 NaN values and 0/4096 Inf values
+[CLAP PIPELINE] CLAP embedding stats: min=nan, max=nan, mean=nan, std=nan
+[CLAP PIPELINE] CLAP embedding norms: min=nan, max=nan, mean=nan
+[SIMILARITY] Shapes: y_im torch.Size([8, 512]), y_ref torch.Size([8, 512]), y_clap torch.Size([8, 512])
+[SIMILARITY] Norms: y_im 1.0000, y_ref 1.0000, y_clap nan
+[SIMILARITY] Temps: tau 0.070000, cross_temp 0.070000
+[SIMILARITY] WARNING: y_clap has 4096/4096 NaN and 0/4096 Inf
+[SIMILARITY] Similarity matrices: C_qvim torch.Size([8, 8]), C_ref_clap torch.Size([8, 8]), C_im_clap torch.Size([8, 8])
+[SIMILARITY] C_qvim: min=4.4573, max=12.5698, mean=9.1694
+[SIMILARITY] C_ref_clap: min=nan, max=nan, mean=nan
+[SIMILARITY] C_im_clap: min=nan, max=nan, mean=nan
+[SIMILARITY] WARNING: C_ref_clap_log has 64/64 NaN values
+[SIMILARITY] WARNING: C_im_clap_log has 64/64 NaN values
+Epoch 0:   1%|█▏                                                                                    | 18/1324 [00:17<21:14,  1.02it/s, v_num=puc7, train/loss=nan.0, lr=2.85e-5][CLAP PIPELINE] Input audio shape: torch.Size([8, 320000])
+[CLAP PIPELINE] Input audio stats: min=-0.9823, max=1.0054, mean=-0.0039, std=0.1403
+[CLAP PIPELINE] After resampling: shape=torch.Size([8, 160000])
+[CLAP PIPELINE] After resampling stats: min=-0.9658, max=0.9980, mean=-0.0039, std=0.1399
+[CLAP PIPELINE] Sample 0 waveform: shape=torch.Size([160000])
+[CLAP PIPELINE] Sample 0 stats: min=-0.9053, max=0.9912, mean=-0.0000, std=0.1829
+[CLAP PIPELINE] Sample 0: 34328/160000 near-zero values
+[CLAP PIPELINE] About to call get_audio_embedding with 8 waveform dicts
+[CLAP PIPELINE] CLAP embedding shape: torch.Size([8, 512])
+[CLAP PIPELINE] WARNING: CLAP embedding has 4096/4096 NaN values and 0/4096 Inf values
+[CLAP PIPELINE] CLAP embedding stats: min=nan, max=nan, mean=nan, std=nan
+[CLAP PIPELINE] CLAP embedding norms: min=nan, max=nan, mean=nan
+[SIMILARITY] Shapes: y_im torch.Size([8, 512]), y_ref torch.Size([8, 512]), y_clap torch.Size([8, 512])
+[SIMILARITY] Norms: y_im 1.0000, y_ref 1.0000, y_clap nan
+[SIMILARITY] Temps: tau 0.070000, cross_temp 0.070000
+[SIMILARITY] WARNING: y_clap has 4096/4096 NaN and 0/4096 Inf
+[SIMILARITY] Similarity matrices: C_qvim torch.Size([8, 8]), C_ref_clap torch.Size([8, 8]), C_im_clap torch.Size([8, 8])
+[SIMILARITY] C_qvim: min=5.4374, max=13.1417, mean=9.6045
+[SIMILARITY] C_ref_clap: min=nan, max=nan, mean=nan
+[SIMILARITY] C_im_clap: min=nan, max=nan, mean=nan
+[SIMILARITY] WARNING: C_ref_clap_log has 64/64 NaN values
+[SIMILARITY] WARNING: C_im_clap_log has 64/64 NaN values
+Epoch 0:   1%|█▏                                                                                    | 19/1324 [00:19<22:02,  0.99it/s, v_num=puc7, train/loss=nan.0, lr=2.87e-5][CLAP PIPELINE] Input audio shape: torch.Size([8, 320000])
+[CLAP PIPELINE] Input audio stats: min=-1.0416, max=1.0553, mean=0.0001, std=0.2796
+[CLAP PIPELINE] After resampling: shape=torch.Size([8, 160000])
+[CLAP PIPELINE] After resampling stats: min=-1.0859, max=1.0859, mean=0.0001, std=0.2776
+[CLAP PIPELINE] Sample 0 waveform: shape=torch.Size([160000])
+[CLAP PIPELINE] Sample 0 stats: min=-1.0859, max=1.0859, mean=-0.0002, std=0.5000
+[CLAP PIPELINE] Sample 0: 87995/160000 near-zero values
+[CLAP PIPELINE] About to call get_audio_embedding with 8 waveform dicts
+[CLAP PIPELINE] CLAP embedding shape: torch.Size([8, 512])
+[CLAP PIPELINE] WARNING: CLAP embedding has 4096/4096 NaN values and 0/4096 Inf values
+[CLAP PIPELINE] CLAP embedding stats: min=nan, max=nan, mean=nan, std=nan
+[CLAP PIPELINE] CLAP embedding norms: min=nan, max=nan, mean=nan
+[SIMILARITY] Shapes: y_im torch.Size([8, 512]), y_ref torch.Size([8, 512]), y_clap torch.Size([8, 512])
+[SIMILARITY] Norms: y_im 1.0000, y_ref 1.0000, y_clap nan
+[SIMILARITY] Temps: tau 0.070000, cross_temp 0.070000
+[SIMILARITY] WARNING: y_clap has 4096/4096 NaN and 0/4096 Inf
+[SIMILARITY] Similarity matrices: C_qvim torch.Size([8, 8]), C_ref_clap torch.Size([8, 8]), C_im_clap torch.Size([8, 8])
+[SIMILARITY] C_qvim: min=3.3587, max=12.6186, mean=9.1956
+[SIMILARITY] C_ref_clap: min=nan, max=nan, mean=nan
+[SIMILARITY] C_im_clap: min=nan, max=nan, mean=nan
+[SIMILARITY] WARNING: C_ref_clap_log has 64/64 NaN values
+[SIMILARITY] WARNING: C_im_clap_log has 64/64 NaN values
+Epoch 0:   2%|█▎                                                                                    | 20/1324 [00:19<21:25,  1.01it/s, v_num=puc7, train/loss=nan.0, lr=2.89e-5][CLAP PIPELINE] Input audio shape: torch.Size([8, 320000])
+[CLAP PIPELINE] Input audio stats: min=-1.0018, max=0.9990, mean=-0.0010, std=0.2095
+[CLAP PIPELINE] After resampling: shape=torch.Size([8, 160000])
+[CLAP PIPELINE] After resampling stats: min=-1.0059, max=0.9951, mean=-0.0010, std=0.2095
+[CLAP PIPELINE] Sample 0 waveform: shape=torch.Size([160000])
+[CLAP PIPELINE] Sample 0 stats: min=-0.9590, max=0.8774, mean=-0.0004, std=0.0565
+[CLAP PIPELINE] Sample 0: 143465/160000 near-zero values
+[CLAP PIPELINE] About to call get_audio_embedding with 8 waveform dicts
+[CLAP PIPELINE] CLAP embedding shape: torch.Size([8, 512])
+[CLAP PIPELINE] WARNING: CLAP embedding has 4096/4096 NaN values and 0/4096 Inf values
+[CLAP PIPELINE] CLAP embedding stats: min=nan, max=nan, mean=nan, std=nan
+[CLAP PIPELINE] CLAP embedding norms: min=nan, max=nan, mean=nan
+[SIMILARITY] Shapes: y_im torch.Size([8, 512]), y_ref torch.Size([8, 512]), y_clap torch.Size([8, 512])
+[SIMILARITY] Norms: y_im 1.0000, y_ref 1.0000, y_clap nan
+[SIMILARITY] Temps: tau 0.070000, cross_temp 0.070000
+[SIMILARITY] WARNING: y_clap has 4096/4096 NaN and 0/4096 Inf
+[SIMILARITY] Similarity matrices: C_qvim torch.Size([8, 8]), C_ref_clap torch.Size([8, 8]), C_im_clap torch.Size([8, 8])
+[SIMILARITY] C_qvim: min=5.2316, max=12.4860, mean=9.4948
+[SIMILARITY] C_ref_clap: min=nan, max=nan, mean=nan
+[SIMILARITY] C_im_clap: min=nan, max=nan, mean=nan
+[SIMILARITY] WARNING: C_ref_clap_log has 64/64 NaN values
+[SIMILARITY] WARNING: C_im_clap_log has 64/64 NaN values
+Epoch 0:   2%|█▎                                                                                    | 21/1324 [00:27<28:28,  0.76it/s, v_num=puc7, train/loss=nan.0, lr=2.92e-5][CLAP PIPELINE] Input audio shape: torch.Size([8, 320000])
+[CLAP PIPELINE] Input audio stats: min=-1.0570, max=1.0064, mean=0.0008, std=0.1310
+[CLAP PIPELINE] After resampling: shape=torch.Size([8, 160000])
+[CLAP PIPELINE] After resampling stats: min=-1.0176, max=1.0068, mean=0.0008, std=0.1305
+[CLAP PIPELINE] Sample 0 waveform: shape=torch.Size([160000])
+[CLAP PIPELINE] Sample 0 stats: min=-0.9990, max=0.8276, mean=-0.0025, std=0.1678
+[CLAP PIPELINE] Sample 0: 24967/160000 near-zero values
+[CLAP PIPELINE] About to call get_audio_embedding with 8 waveform dicts
+[CLAP PIPELINE] CLAP embedding shape: torch.Size([8, 512])
+[CLAP PIPELINE] WARNING: CLAP embedding has 4096/4096 NaN values and 0/4096 Inf values
+[CLAP PIPELINE] CLAP embedding stats: min=nan, max=nan, mean=nan, std=nan
+[CLAP PIPELINE] CLAP embedding norms: min=nan, max=nan, mean=nan
+[SIMILARITY] Shapes: y_im torch.Size([8, 512]), y_ref torch.Size([8, 512]), y_clap torch.Size([8, 512])
+[SIMILARITY] Norms: y_im 1.0000, y_ref 1.0000, y_clap nan
+[SIMILARITY] Temps: tau 0.070000, cross_temp 0.070000
+[SIMILARITY] WARNING: y_clap has 4096/4096 NaN and 0/4096 Inf
+[SIMILARITY] Similarity matrices: C_qvim torch.Size([8, 8]), C_ref_clap torch.Size([8, 8]), C_im_clap torch.Size([8, 8])
+[SIMILARITY] C_qvim: min=5.0956, max=12.7302, mean=9.6822
+[SIMILARITY] C_ref_clap: min=nan, max=nan, mean=nan
+[SIMILARITY] C_im_clap: min=nan, max=nan, mean=nan
+[SIMILARITY] WARNING: C_ref_clap_log has 64/64 NaN values
+[SIMILARITY] WARNING: C_im_clap_log has 64/64 NaN values
+Epoch 0:   2%|█▍                                                                                    | 22/1324 [00:28<28:11,  0.77it/s, v_num=puc7, train/loss=nan.0, lr=2.94e-5][CLAP PIPELINE] Input audio shape: torch.Size([8, 320000])
+[CLAP PIPELINE] Input audio stats: min=-1.0640, max=0.9898, mean=-0.0006, std=0.0934
+[CLAP PIPELINE] After resampling: shape=torch.Size([8, 160000])
+[CLAP PIPELINE] After resampling stats: min=-1.0010, max=0.9980, mean=-0.0006, std=0.0903
+[CLAP PIPELINE] Sample 0 waveform: shape=torch.Size([160000])
+[CLAP PIPELINE] Sample 0 stats: min=-1.0010, max=0.9619, mean=-0.0008, std=0.0653
+[CLAP PIPELINE] Sample 0: 111981/160000 near-zero values
+[CLAP PIPELINE] About to call get_audio_embedding with 8 waveform dicts
+[CLAP PIPELINE] CLAP embedding shape: torch.Size([8, 512])
+[CLAP PIPELINE] WARNING: CLAP embedding has 4096/4096 NaN values and 0/4096 Inf values
+[CLAP PIPELINE] CLAP embedding stats: min=nan, max=nan, mean=nan, std=nan
+[CLAP PIPELINE] CLAP embedding norms: min=nan, max=nan, mean=nan
+[SIMILARITY] Shapes: y_im torch.Size([8, 512]), y_ref torch.Size([8, 512]), y_clap torch.Size([8, 512])
+[SIMILARITY] Norms: y_im 1.0000, y_ref 1.0000, y_clap nan
+[SIMILARITY] Temps: tau 0.070000, cross_temp 0.070000
+[SIMILARITY] WARNING: y_clap has 4096/4096 NaN and 0/4096 Inf
+[SIMILARITY] Similarity matrices: C_qvim torch.Size([8, 8]), C_ref_clap torch.Size([8, 8]), C_im_clap torch.Size([8, 8])
+[SIMILARITY] C_qvim: min=5.0991, max=12.2559, mean=9.3824
+[SIMILARITY] C_ref_clap: min=nan, max=nan, mean=nan
+[SIMILARITY] C_im_clap: min=nan, max=nan, mean=nan
+[SIMILARITY] WARNING: C_ref_clap_log has 64/64 NaN values
+[SIMILARITY] WARNING: C_im_clap_log has 64/64 NaN values
+Epoch 0:   2%|█▍                                                                                    | 23/1324 [00:29<27:24,  0.79it/s, v_num=puc7, train/loss=nan.0, lr=2.96e-5][CLAP PIPELINE] Input audio shape: torch.Size([8, 320000])
+[CLAP PIPELINE] Input audio stats: min=-1.0016, max=0.9998, mean=0.0000, std=0.1438
+[CLAP PIPELINE] After resampling: shape=torch.Size([8, 160000])
+[CLAP PIPELINE] After resampling stats: min=-1.0117, max=1.0039, mean=0.0000, std=0.1438
+[CLAP PIPELINE] Sample 0 waveform: shape=torch.Size([160000])
+[CLAP PIPELINE] Sample 0 stats: min=-1.0117, max=0.9497, mean=0.0003, std=0.1462
+[CLAP PIPELINE] Sample 0: 107501/160000 near-zero values
+[CLAP PIPELINE] About to call get_audio_embedding with 8 waveform dicts
+[CLAP PIPELINE] CLAP embedding shape: torch.Size([8, 512])
+[CLAP PIPELINE] WARNING: CLAP embedding has 4096/4096 NaN values and 0/4096 Inf values
+[CLAP PIPELINE] CLAP embedding stats: min=nan, max=nan, mean=nan, std=nan
+[CLAP PIPELINE] CLAP embedding norms: min=nan, max=nan, mean=nan
+[SIMILARITY] Shapes: y_im torch.Size([8, 512]), y_ref torch.Size([8, 512]), y_clap torch.Size([8, 512])
+[SIMILARITY] Norms: y_im 1.0000, y_ref 1.0000, y_clap nan
+[SIMILARITY] Temps: tau 0.070000, cross_temp 0.070000
+[SIMILARITY] WARNING: y_clap has 4096/4096 NaN and 0/4096 Inf
+[SIMILARITY] Similarity matrices: C_qvim torch.Size([8, 8]), C_ref_clap torch.Size([8, 8]), C_im_clap torch.Size([8, 8])
+[SIMILARITY] C_qvim: min=4.7154, max=12.2768, mean=9.1852
+[SIMILARITY] C_ref_clap: min=nan, max=nan, mean=nan
+[SIMILARITY] C_im_clap: min=nan, max=nan, mean=nan
+[SIMILARITY] WARNING: C_ref_clap_log has 64/64 NaN values
+[SIMILARITY] WARNING: C_im_clap_log has 64/64 NaN values
+Epoch 0:   2%|█▌                                                                                    | 24/1324 [00:30<27:12,  0.80it/s, v_num=puc7, train/loss=nan.0, lr=2.98e-5][CLAP PIPELINE] Input audio shape: torch.Size([8, 320000])
+[CLAP PIPELINE] Input audio stats: min=-1.0308, max=1.0208, mean=-0.0006, std=0.1380
+[CLAP PIPELINE] After resampling: shape=torch.Size([8, 160000])
+[CLAP PIPELINE] After resampling stats: min=-1.0732, max=1.0781, mean=-0.0006, std=0.1366
+[CLAP PIPELINE] Sample 0 waveform: shape=torch.Size([160000])
+[CLAP PIPELINE] Sample 0 stats: min=-1.0127, max=1.0068, mean=0.0000, std=0.0574
+[CLAP PIPELINE] Sample 0: 49207/160000 near-zero values
+[CLAP PIPELINE] About to call get_audio_embedding with 8 waveform dicts
+[CLAP PIPELINE] CLAP embedding shape: torch.Size([8, 512])
+[CLAP PIPELINE] WARNING: CLAP embedding has 4096/4096 NaN values and 0/4096 Inf values
+[CLAP PIPELINE] CLAP embedding stats: min=nan, max=nan, mean=nan, std=nan
+[CLAP PIPELINE] CLAP embedding norms: min=nan, max=nan, mean=nan
+[SIMILARITY] Shapes: y_im torch.Size([8, 512]), y_ref torch.Size([8, 512]), y_clap torch.Size([8, 512])
+[SIMILARITY] Norms: y_im 1.0000, y_ref 1.0000, y_clap nan
+[SIMILARITY] Temps: tau 0.070000, cross_temp 0.070000
+[SIMILARITY] WARNING: y_clap has 4096/4096 NaN and 0/4096 Inf
+[SIMILARITY] Similarity matrices: C_qvim torch.Size([8, 8]), C_ref_clap torch.Size([8, 8]), C_im_clap torch.Size([8, 8])
+[SIMILARITY] C_qvim: min=5.2141, max=12.2070, mean=9.0687
+[SIMILARITY] C_ref_clap: min=nan, max=nan, mean=nan
+[SIMILARITY] C_im_clap: min=nan, max=nan, mean=nan
+[SIMILARITY] WARNING: C_ref_clap_log has 64/64 NaN values
+[SIMILARITY] WARNING: C_im_clap_log has 64/64 NaN values
+Epoch 0:   2%|█▋                                                                                       | 25/1324 [00:30<26:26,  0.82it/s, v_num=puc7, train/loss=nan.0, lr=3e-5][CLAP PIPELINE] Input audio shape: torch.Size([8, 320000])
+[CLAP PIPELINE] Input audio stats: min=-1.0746, max=1.0489, mean=-0.0035, std=0.1919
+[CLAP PIPELINE] After resampling: shape=torch.Size([8, 160000])
+[CLAP PIPELINE] After resampling stats: min=-1.0078, max=1.0176, mean=-0.0035, std=0.1913
+[CLAP PIPELINE] Sample 0 waveform: shape=torch.Size([160000])
+[CLAP PIPELINE] Sample 0 stats: min=-0.7656, max=0.9976, mean=-0.0001, std=0.0554
+[CLAP PIPELINE] Sample 0: 55114/160000 near-zero values
+[CLAP PIPELINE] About to call get_audio_embedding with 8 waveform dicts
+[CLAP PIPELINE] CLAP embedding shape: torch.Size([8, 512])
+[CLAP PIPELINE] WARNING: CLAP embedding has 4096/4096 NaN values and 0/4096 Inf values
+[CLAP PIPELINE] CLAP embedding stats: min=nan, max=nan, mean=nan, std=nan
+[CLAP PIPELINE] CLAP embedding norms: min=nan, max=nan, mean=nan
+[SIMILARITY] Shapes: y_im torch.Size([8, 512]), y_ref torch.Size([8, 512]), y_clap torch.Size([8, 512])
+[SIMILARITY] Norms: y_im 1.0000, y_ref 1.0000, y_clap nan
+[SIMILARITY] Temps: tau 0.070000, cross_temp 0.070000
+[SIMILARITY] WARNING: y_clap has 4096/4096 NaN and 0/4096 Inf
+[SIMILARITY] Similarity matrices: C_qvim torch.Size([8, 8]), C_ref_clap torch.Size([8, 8]), C_im_clap torch.Size([8, 8])
+[SIMILARITY] C_qvim: min=8.3566, max=12.1443, mean=10.1973
+[SIMILARITY] C_ref_clap: min=nan, max=nan, mean=nan
+[SIMILARITY] C_im_clap: min=nan, max=nan, mean=nan
+[SIMILARITY] WARNING: C_ref_clap_log has 64/64 NaN values
+[SIMILARITY] WARNING: C_im_clap_log has 64/64 NaN values
+Epoch 0:   2%|█▋                                                                                    | 26/1324 [00:31<26:28,  0.82it/s, v_num=puc7, train/loss=nan.0, lr=3.02e-5][CLAP PIPELINE] Input audio shape: torch.Size([8, 320000])
+[CLAP PIPELINE] Input audio stats: min=-1.0024, max=1.0099, mean=-0.0003, std=0.1070
+[CLAP PIPELINE] After resampling: shape=torch.Size([8, 160000])
+[CLAP PIPELINE] After resampling stats: min=-1.0029, max=1.0000, mean=-0.0003, std=0.1069
+[CLAP PIPELINE] Sample 0 waveform: shape=torch.Size([160000])
+[CLAP PIPELINE] Sample 0 stats: min=-1.0029, max=0.5977, mean=-0.0007, std=0.0930
+[CLAP PIPELINE] Sample 0: 133106/160000 near-zero values
+[CLAP PIPELINE] About to call get_audio_embedding with 8 waveform dicts
+[CLAP PIPELINE] CLAP embedding shape: torch.Size([8, 512])
+[CLAP PIPELINE] WARNING: CLAP embedding has 4096/4096 NaN values and 0/4096 Inf values
+[CLAP PIPELINE] CLAP embedding stats: min=nan, max=nan, mean=nan, std=nan
+[CLAP PIPELINE] CLAP embedding norms: min=nan, max=nan, mean=nan
+[SIMILARITY] Shapes: y_im torch.Size([8, 512]), y_ref torch.Size([8, 512]), y_clap torch.Size([8, 512])
+[SIMILARITY] Norms: y_im 1.0000, y_ref 1.0000, y_clap nan
+[SIMILARITY] Temps: tau 0.070000, cross_temp 0.070000
+[SIMILARITY] WARNING: y_clap has 4096/4096 NaN and 0/4096 Inf
+[SIMILARITY] Similarity matrices: C_qvim torch.Size([8, 8]), C_ref_clap torch.Size([8, 8]), C_im_clap torch.Size([8, 8])
+[SIMILARITY] C_qvim: min=3.6691, max=12.7790, mean=9.0457
+[SIMILARITY] C_ref_clap: min=nan, max=nan, mean=nan
+[SIMILARITY] C_im_clap: min=nan, max=nan, mean=nan
+[SIMILARITY] WARNING: C_ref_clap_log has 64/64 NaN values
+[SIMILARITY] WARNING: C_im_clap_log has 64/64 NaN values
+Epoch 0:   2%|█▊                                                                                    | 27/1324 [00:32<25:44,  0.84it/s, v_num=puc7, train/loss=nan.0, lr=3.04e-5][CLAP PIPELINE] Input audio shape: torch.Size([8, 320000])
+[CLAP PIPELINE] Input audio stats: min=-1.1897, max=1.2781, mean=0.0000, std=0.1574
+[CLAP PIPELINE] After resampling: shape=torch.Size([8, 160000])
+[CLAP PIPELINE] After resampling stats: min=-1.0176, max=1.0537, mean=0.0000, std=0.1555
+[CLAP PIPELINE] Sample 0 waveform: shape=torch.Size([160000])
+[CLAP PIPELINE] Sample 0 stats: min=-0.7402, max=0.7954, mean=0.0000, std=0.0335
+[CLAP PIPELINE] Sample 0: 104330/160000 near-zero values
+[CLAP PIPELINE] About to call get_audio_embedding with 8 waveform dicts
+[CLAP PIPELINE] CLAP embedding shape: torch.Size([8, 512])
+[CLAP PIPELINE] WARNING: CLAP embedding has 4096/4096 NaN values and 0/4096 Inf values
+[CLAP PIPELINE] CLAP embedding stats: min=nan, max=nan, mean=nan, std=nan
+[CLAP PIPELINE] CLAP embedding norms: min=nan, max=nan, mean=nan
+[SIMILARITY] Shapes: y_im torch.Size([8, 512]), y_ref torch.Size([8, 512]), y_clap torch.Size([8, 512])
+[SIMILARITY] Norms: y_im 1.0000, y_ref 1.0000, y_clap nan
+[SIMILARITY] Temps: tau 0.070000, cross_temp 0.070000
+[SIMILARITY] WARNING: y_clap has 4096/4096 NaN and 0/4096 Inf
+[SIMILARITY] Similarity matrices: C_qvim torch.Size([8, 8]), C_ref_clap torch.Size([8, 8]), C_im_clap torch.Size([8, 8])
+[SIMILARITY] C_qvim: min=3.8470, max=12.4233, mean=9.1696
+[SIMILARITY] C_ref_clap: min=nan, max=nan, mean=nan
+[SIMILARITY] C_im_clap: min=nan, max=nan, mean=nan
+[SIMILARITY] WARNING: C_ref_clap_log has 64/64 NaN values
+[SIMILARITY] WARNING: C_im_clap_log has 64/64 NaN values
+Epoch 0:   2%|█▊                                                                                    | 28/1324 [00:33<26:04,  0.83it/s, v_num=puc7, train/loss=nan.0, lr=3.06e-5][CLAP PIPELINE] Input audio shape: torch.Size([8, 320000])
+[CLAP PIPELINE] Input audio stats: min=-0.9988, max=1.0037, mean=-0.0011, std=0.1415
+[CLAP PIPELINE] After resampling: shape=torch.Size([8, 160000])
+[CLAP PIPELINE] After resampling stats: min=-1.0000, max=1.0000, mean=-0.0011, std=0.1415
+[CLAP PIPELINE] Sample 0 waveform: shape=torch.Size([160000])
+[CLAP PIPELINE] Sample 0 stats: min=-0.9556, max=0.6943, mean=-0.0000, std=0.1041
+[CLAP PIPELINE] Sample 0: 127860/160000 near-zero values
+[CLAP PIPELINE] About to call get_audio_embedding with 8 waveform dicts
+[CLAP PIPELINE] CLAP embedding shape: torch.Size([8, 512])
+[CLAP PIPELINE] WARNING: CLAP embedding has 3584/4096 NaN values and 0/4096 Inf values
+[CLAP PIPELINE] CLAP embedding stats: min=nan, max=nan, mean=nan, std=nan
+[CLAP PIPELINE] CLAP embedding norms: min=nan, max=nan, mean=nan
+[SIMILARITY] Shapes: y_im torch.Size([8, 512]), y_ref torch.Size([8, 512]), y_clap torch.Size([8, 512])
+[SIMILARITY] Norms: y_im 1.0000, y_ref 1.0000, y_clap nan
+[SIMILARITY] Temps: tau 0.070000, cross_temp 0.070000
+[SIMILARITY] WARNING: y_clap has 3584/4096 NaN and 0/4096 Inf
+[SIMILARITY] Similarity matrices: C_qvim torch.Size([8, 8]), C_ref_clap torch.Size([8, 8]), C_im_clap torch.Size([8, 8])
+[SIMILARITY] C_qvim: min=2.5809, max=12.4023, mean=9.4151
+[SIMILARITY] C_ref_clap: min=nan, max=nan, mean=nan
+[SIMILARITY] C_im_clap: min=nan, max=nan, mean=nan
+[SIMILARITY] WARNING: C_ref_clap_log has 64/64 NaN values
+[SIMILARITY] WARNING: C_im_clap_log has 64/64 NaN values
+Epoch 0:   2%|█▉                                                                                    | 29/1324 [00:34<25:20,  0.85it/s, v_num=puc7, train/loss=nan.0, lr=3.08e-5][CLAP PIPELINE] Input audio shape: torch.Size([8, 320000])
+[CLAP PIPELINE] Input audio stats: min=-1.0014, max=1.0037, mean=-0.0002, std=0.1125
+[CLAP PIPELINE] After resampling: shape=torch.Size([8, 160000])
+[CLAP PIPELINE] After resampling stats: min=-1.0010, max=1.0029, mean=-0.0002, std=0.1075
+[CLAP PIPELINE] Sample 0 waveform: shape=torch.Size([160000])
+[CLAP PIPELINE] Sample 0 stats: min=-1.0010, max=0.8496, mean=0.0008, std=0.2146
+[CLAP PIPELINE] Sample 0: 96009/160000 near-zero values
+[CLAP PIPELINE] About to call get_audio_embedding with 8 waveform dicts
+[CLAP PIPELINE] CLAP embedding shape: torch.Size([8, 512])
+[CLAP PIPELINE] WARNING: CLAP embedding has 4096/4096 NaN values and 0/4096 Inf values
+[CLAP PIPELINE] CLAP embedding stats: min=nan, max=nan, mean=nan, std=nan
+[CLAP PIPELINE] CLAP embedding norms: min=nan, max=nan, mean=nan
+[SIMILARITY] Shapes: y_im torch.Size([8, 512]), y_ref torch.Size([8, 512]), y_clap torch.Size([8, 512])
+[SIMILARITY] Norms: y_im 1.0000, y_ref 1.0000, y_clap nan
+[SIMILARITY] Temps: tau 0.070000, cross_temp 0.070000
+[SIMILARITY] WARNING: y_clap has 4096/4096 NaN and 0/4096 Inf
+[SIMILARITY] Similarity matrices: C_qvim torch.Size([8, 8]), C_ref_clap torch.Size([8, 8]), C_im_clap torch.Size([8, 8])
+[SIMILARITY] C_qvim: min=6.6371, max=12.6674, mean=9.4216
+[SIMILARITY] C_ref_clap: min=nan, max=nan, mean=nan
+[SIMILARITY] C_im_clap: min=nan, max=nan, mean=nan
+[SIMILARITY] WARNING: C_ref_clap_log has 64/64 NaN values
+[SIMILARITY] WARNING: C_im_clap_log has 64/64 NaN values
+Epoch 0:   2%|█▉                                                                                     | 30/1324 [00:36<25:57,  0.83it/s, v_num=puc7, train/loss=nan.0, lr=3.1e-5][CLAP PIPELINE] Input audio shape: torch.Size([8, 320000])
+[CLAP PIPELINE] Input audio stats: min=-1.0071, max=1.0056, mean=-0.0008, std=0.1623
+[CLAP PIPELINE] After resampling: shape=torch.Size([8, 160000])
+[CLAP PIPELINE] After resampling stats: min=-1.0244, max=1.0195, mean=-0.0008, std=0.1598
+[CLAP PIPELINE] Sample 0 waveform: shape=torch.Size([160000])
+[CLAP PIPELINE] Sample 0 stats: min=-0.8970, max=0.9990, mean=-0.0002, std=0.0496
+[CLAP PIPELINE] Sample 0: 155840/160000 near-zero values
+[CLAP PIPELINE] About to call get_audio_embedding with 8 waveform dicts
+[CLAP PIPELINE] CLAP embedding shape: torch.Size([8, 512])
+[CLAP PIPELINE] WARNING: CLAP embedding has 3584/4096 NaN values and 0/4096 Inf values
+[CLAP PIPELINE] CLAP embedding stats: min=nan, max=nan, mean=nan, std=nan
+[CLAP PIPELINE] CLAP embedding norms: min=nan, max=nan, mean=nan
+[SIMILARITY] Shapes: y_im torch.Size([8, 512]), y_ref torch.Size([8, 512]), y_clap torch.Size([8, 512])
+[SIMILARITY] Norms: y_im 1.0000, y_ref 1.0000, y_clap nan
+[SIMILARITY] Temps: tau 0.070000, cross_temp 0.070000
+[SIMILARITY] WARNING: y_clap has 3584/4096 NaN and 0/4096 Inf
+[SIMILARITY] Similarity matrices: C_qvim torch.Size([8, 8]), C_ref_clap torch.Size([8, 8]), C_im_clap torch.Size([8, 8])
+[SIMILARITY] C_qvim: min=2.5861, max=12.0117, mean=8.6507
+[SIMILARITY] C_ref_clap: min=nan, max=nan, mean=nan
+[SIMILARITY] C_im_clap: min=nan, max=nan, mean=nan
+[SIMILARITY] WARNING: C_ref_clap_log has 64/64 NaN values
+[SIMILARITY] WARNING: C_im_clap_log has 64/64 NaN values
+Epoch 0:   2%|██                                                                                    | 31/1324 [00:36<25:14,  0.85it/s, v_num=puc7, train/loss=nan.0, lr=3.12e-5][CLAP PIPELINE] Input audio shape: torch.Size([8, 320000])
+[CLAP PIPELINE] Input audio stats: min=-1.0640, max=1.0035, mean=0.0000, std=0.1290
+[CLAP PIPELINE] After resampling: shape=torch.Size([8, 160000])
+[CLAP PIPELINE] After resampling stats: min=-0.9834, max=1.0029, mean=0.0000, std=0.1281
+[CLAP PIPELINE] Sample 0 waveform: shape=torch.Size([160000])
+[CLAP PIPELINE] Sample 0 stats: min=-0.9741, max=0.9819, mean=-0.0006, std=0.0685
+[CLAP PIPELINE] Sample 0: 133060/160000 near-zero values
+[CLAP PIPELINE] About to call get_audio_embedding with 8 waveform dicts
+[CLAP PIPELINE] CLAP embedding shape: torch.Size([8, 512])
+[CLAP PIPELINE] WARNING: CLAP embedding has 3584/4096 NaN values and 0/4096 Inf values
+[CLAP PIPELINE] CLAP embedding stats: min=nan, max=nan, mean=nan, std=nan
+[CLAP PIPELINE] CLAP embedding norms: min=nan, max=nan, mean=nan
+[SIMILARITY] Shapes: y_im torch.Size([8, 512]), y_ref torch.Size([8, 512]), y_clap torch.Size([8, 512])
+[SIMILARITY] Norms: y_im 1.0000, y_ref 1.0000, y_clap nan
+[SIMILARITY] Temps: tau 0.070000, cross_temp 0.070000
+[SIMILARITY] WARNING: y_clap has 3584/4096 NaN and 0/4096 Inf
+[SIMILARITY] Similarity matrices: C_qvim torch.Size([8, 8]), C_ref_clap torch.Size([8, 8]), C_im_clap torch.Size([8, 8])
+[SIMILARITY] C_qvim: min=4.7433, max=12.4721, mean=8.9011
+[SIMILARITY] C_ref_clap: min=nan, max=nan, mean=nan
+[SIMILARITY] C_im_clap: min=nan, max=nan, mean=nan
+[SIMILARITY] WARNING: C_ref_clap_log has 64/64 NaN values
+[SIMILARITY] WARNING: C_im_clap_log has 64/64 NaN values
+Epoch 0:   2%|██                                                                                    | 32/1324 [00:38<25:38,  0.84it/s, v_num=puc7, train/loss=nan.0, lr=3.14e-5][CLAP PIPELINE] Input audio shape: torch.Size([8, 320000])
+[CLAP PIPELINE] Input audio stats: min=-1.0007, max=1.0024, mean=0.0270, std=0.2378
+[CLAP PIPELINE] After resampling: shape=torch.Size([8, 160000])
+[CLAP PIPELINE] After resampling stats: min=-1.0049, max=0.9990, mean=0.0270, std=0.2375
+[CLAP PIPELINE] Sample 0 waveform: shape=torch.Size([160000])
+[CLAP PIPELINE] Sample 0 stats: min=-0.9961, max=0.9990, mean=-0.0003, std=0.2922
+[CLAP PIPELINE] Sample 0: 81134/160000 near-zero values
+[CLAP PIPELINE] About to call get_audio_embedding with 8 waveform dicts
+[CLAP PIPELINE] CLAP embedding shape: torch.Size([8, 512])
+[CLAP PIPELINE] WARNING: CLAP embedding has 4096/4096 NaN values and 0/4096 Inf values
+[CLAP PIPELINE] CLAP embedding stats: min=nan, max=nan, mean=nan, std=nan
+[CLAP PIPELINE] CLAP embedding norms: min=nan, max=nan, mean=nan
+[SIMILARITY] Shapes: y_im torch.Size([8, 512]), y_ref torch.Size([8, 512]), y_clap torch.Size([8, 512])
+[SIMILARITY] Norms: y_im 1.0000, y_ref 1.0000, y_clap nan
+[SIMILARITY] Temps: tau 0.070000, cross_temp 0.070000
+[SIMILARITY] WARNING: y_clap has 4096/4096 NaN and 0/4096 Inf
+[SIMILARITY] Similarity matrices: C_qvim torch.Size([8, 8]), C_ref_clap torch.Size([8, 8]), C_im_clap torch.Size([8, 8])
+[SIMILARITY] C_qvim: min=3.2296, max=12.6465, mean=9.3824
+[SIMILARITY] C_ref_clap: min=nan, max=nan, mean=nan
+[SIMILARITY] C_im_clap: min=nan, max=nan, mean=nan
+[SIMILARITY] WARNING: C_ref_clap_log has 64/64 NaN values
+[SIMILARITY] WARNING: C_im_clap_log has 64/64 NaN values
+Epoch 0:   2%|██▏                                                                                   | 33/1324 [00:38<24:58,  0.86it/s, v_num=puc7, train/loss=nan.0, lr=3.16e-5][CLAP PIPELINE] Input audio shape: torch.Size([8, 320000])
+[CLAP PIPELINE] Input audio stats: min=-1.0009, max=1.0004, mean=-0.0007, std=0.1223
+[CLAP PIPELINE] After resampling: shape=torch.Size([8, 160000])
+[CLAP PIPELINE] After resampling stats: min=-1.0176, max=1.0000, mean=-0.0007, std=0.1223
+[CLAP PIPELINE] Sample 0 waveform: shape=torch.Size([160000])
+[CLAP PIPELINE] Sample 0 stats: min=-0.9863, max=0.9790, mean=-0.0015, std=0.1293
+[CLAP PIPELINE] Sample 0: 119765/160000 near-zero values
+[CLAP PIPELINE] About to call get_audio_embedding with 8 waveform dicts
+[CLAP PIPELINE] CLAP embedding shape: torch.Size([8, 512])
+[CLAP PIPELINE] WARNING: CLAP embedding has 4096/4096 NaN values and 0/4096 Inf values
+[CLAP PIPELINE] CLAP embedding stats: min=nan, max=nan, mean=nan, std=nan
+[CLAP PIPELINE] CLAP embedding norms: min=nan, max=nan, mean=nan
+[SIMILARITY] Shapes: y_im torch.Size([8, 512]), y_ref torch.Size([8, 512]), y_clap torch.Size([8, 512])
+[SIMILARITY] Norms: y_im 1.0000, y_ref 1.0000, y_clap nan
+[SIMILARITY] Temps: tau 0.070000, cross_temp 0.070000
+[SIMILARITY] WARNING: y_clap has 4096/4096 NaN and 0/4096 Inf
+[SIMILARITY] Similarity matrices: C_qvim torch.Size([8, 8]), C_ref_clap torch.Size([8, 8]), C_im_clap torch.Size([8, 8])
+[SIMILARITY] C_qvim: min=3.8993, max=12.0396, mean=9.2043
+[SIMILARITY] C_ref_clap: min=nan, max=nan, mean=nan
+[SIMILARITY] C_im_clap: min=nan, max=nan, mean=nan
+[SIMILARITY] WARNING: C_ref_clap_log has 64/64 NaN values
+[SIMILARITY] WARNING: C_im_clap_log has 64/64 NaN values
+Epoch 0:   3%|██▏                                                                                   | 34/1324 [00:39<25:07,  0.86it/s, v_num=puc7, train/loss=nan.0, lr=3.19e-5][CLAP PIPELINE] Input audio shape: torch.Size([8, 320000])
+[CLAP PIPELINE] Input audio stats: min=-1.0117, max=1.0118, mean=-0.0004, std=0.1540
+[CLAP PIPELINE] After resampling: shape=torch.Size([8, 160000])
+[CLAP PIPELINE] After resampling stats: min=-1.0166, max=1.0391, mean=-0.0004, std=0.1538
+[CLAP PIPELINE] Sample 0 waveform: shape=torch.Size([160000])
+[CLAP PIPELINE] Sample 0 stats: min=-1.0166, max=0.8638, mean=-0.0006, std=0.1465
+[CLAP PIPELINE] Sample 0: 80170/160000 near-zero values
+[CLAP PIPELINE] About to call get_audio_embedding with 8 waveform dicts
+[CLAP PIPELINE] CLAP embedding shape: torch.Size([8, 512])
+[CLAP PIPELINE] WARNING: CLAP embedding has 4096/4096 NaN values and 0/4096 Inf values
+[CLAP PIPELINE] CLAP embedding stats: min=nan, max=nan, mean=nan, std=nan
+[CLAP PIPELINE] CLAP embedding norms: min=nan, max=nan, mean=nan
+[SIMILARITY] Shapes: y_im torch.Size([8, 512]), y_ref torch.Size([8, 512]), y_clap torch.Size([8, 512])
+[SIMILARITY] Norms: y_im 1.0000, y_ref 1.0000, y_clap nan
+[SIMILARITY] Temps: tau 0.070000, cross_temp 0.070000
+[SIMILARITY] WARNING: y_clap has 4096/4096 NaN and 0/4096 Inf
+[SIMILARITY] Similarity matrices: C_qvim torch.Size([8, 8]), C_ref_clap torch.Size([8, 8]), C_im_clap torch.Size([8, 8])
+[SIMILARITY] C_qvim: min=4.0702, max=12.8836, mean=9.2358
+[SIMILARITY] C_ref_clap: min=nan, max=nan, mean=nan
+[SIMILARITY] C_im_clap: min=nan, max=nan, mean=nan
+[SIMILARITY] WARNING: C_ref_clap_log has 64/64 NaN values
+[SIMILARITY] WARNING: C_im_clap_log has 64/64 NaN values
+Epoch 0:   3%|██▎                                                                                   | 35/1324 [00:40<24:33,  0.87it/s, v_num=puc7, train/loss=nan.0, lr=3.21e-5][CLAP PIPELINE] Input audio shape: torch.Size([8, 320000])
+[CLAP PIPELINE] Input audio stats: min=-1.0001, max=1.0271, mean=-0.0013, std=0.0824
+[CLAP PIPELINE] After resampling: shape=torch.Size([8, 160000])
+[CLAP PIPELINE] After resampling stats: min=-1.0039, max=0.9966, mean=-0.0013, std=0.0824
+[CLAP PIPELINE] Sample 0 waveform: shape=torch.Size([160000])
+[CLAP PIPELINE] Sample 0 stats: min=-0.6353, max=0.8188, mean=0.0001, std=0.0320
+[CLAP PIPELINE] Sample 0: 66956/160000 near-zero values
+[CLAP PIPELINE] About to call get_audio_embedding with 8 waveform dicts
+[CLAP PIPELINE] CLAP embedding shape: torch.Size([8, 512])
+[CLAP PIPELINE] WARNING: CLAP embedding has 4096/4096 NaN values and 0/4096 Inf values
+[CLAP PIPELINE] CLAP embedding stats: min=nan, max=nan, mean=nan, std=nan
+[CLAP PIPELINE] CLAP embedding norms: min=nan, max=nan, mean=nan
+[SIMILARITY] Shapes: y_im torch.Size([8, 512]), y_ref torch.Size([8, 512]), y_clap torch.Size([8, 512])
+[SIMILARITY] Norms: y_im 1.0000, y_ref 1.0000, y_clap nan
+[SIMILARITY] Temps: tau 0.070000, cross_temp 0.070000
+[SIMILARITY] WARNING: y_clap has 4096/4096 NaN and 0/4096 Inf
+[SIMILARITY] Similarity matrices: C_qvim torch.Size([8, 8]), C_ref_clap torch.Size([8, 8]), C_im_clap torch.Size([8, 8])
+[SIMILARITY] C_qvim: min=3.7493, max=11.8862, mean=9.2856
+[SIMILARITY] C_ref_clap: min=nan, max=nan, mean=nan
+[SIMILARITY] C_im_clap: min=nan, max=nan, mean=nan
+[SIMILARITY] WARNING: C_ref_clap_log has 64/64 NaN values
+[SIMILARITY] WARNING: C_im_clap_log has 64/64 NaN values
+Epoch 0:   3%|██▎                                                                                   | 36/1324 [00:40<24:23,  0.88it/s, v_num=puc7, train/loss=nan.0, lr=3.23e-5][CLAP PIPELINE] Input audio shape: torch.Size([8, 320000])
+[CLAP PIPELINE] Input audio stats: min=-1.0767, max=1.1183, mean=-0.0022, std=0.1820
+[CLAP PIPELINE] After resampling: shape=torch.Size([8, 160000])
+[CLAP PIPELINE] After resampling stats: min=-1.0166, max=1.0215, mean=-0.0022, std=0.1807
+[CLAP PIPELINE] Sample 0 waveform: shape=torch.Size([160000])
+[CLAP PIPELINE] Sample 0 stats: min=-0.9839, max=1.0010, mean=-0.0079, std=0.3953
+[CLAP PIPELINE] Sample 0: 95922/160000 near-zero values
+[CLAP PIPELINE] About to call get_audio_embedding with 8 waveform dicts
+[CLAP PIPELINE] CLAP embedding shape: torch.Size([8, 512])
+[CLAP PIPELINE] WARNING: CLAP embedding has 4096/4096 NaN values and 0/4096 Inf values
+[CLAP PIPELINE] CLAP embedding stats: min=nan, max=nan, mean=nan, std=nan
+[CLAP PIPELINE] CLAP embedding norms: min=nan, max=nan, mean=nan
+[SIMILARITY] Shapes: y_im torch.Size([8, 512]), y_ref torch.Size([8, 512]), y_clap torch.Size([8, 512])
+[SIMILARITY] Norms: y_im 1.0000, y_ref 1.0000, y_clap nan
+[SIMILARITY] Temps: tau 0.070000, cross_temp 0.070000
+[SIMILARITY] WARNING: y_clap has 4096/4096 NaN and 0/4096 Inf
+[SIMILARITY] Similarity matrices: C_qvim torch.Size([8, 8]), C_ref_clap torch.Size([8, 8]), C_im_clap torch.Size([8, 8])
+[SIMILARITY] C_qvim: min=6.9580, max=12.1931, mean=9.9619
+[SIMILARITY] C_ref_clap: min=nan, max=nan, mean=nan
+[SIMILARITY] C_im_clap: min=nan, max=nan, mean=nan
+[SIMILARITY] WARNING: C_ref_clap_log has 64/64 NaN values
+[SIMILARITY] WARNING: C_im_clap_log has 64/64 NaN values
+Epoch 0:   3%|██▍                                                                                   | 37/1324 [00:41<23:51,  0.90it/s, v_num=puc7, train/loss=nan.0, lr=3.25e-5][CLAP PIPELINE] Input audio shape: torch.Size([8, 320000])
+[CLAP PIPELINE] Input audio stats: min=-1.0013, max=1.1091, mean=-0.0001, std=0.1393
+[CLAP PIPELINE] After resampling: shape=torch.Size([8, 160000])
+[CLAP PIPELINE] After resampling stats: min=-1.0010, max=1.0000, mean=-0.0001, std=0.1393
+[CLAP PIPELINE] Sample 0 waveform: shape=torch.Size([160000])
+[CLAP PIPELINE] Sample 0 stats: min=-0.8501, max=1.0000, mean=-0.0008, std=0.2590
+[CLAP PIPELINE] Sample 0: 86957/160000 near-zero values
+[CLAP PIPELINE] About to call get_audio_embedding with 8 waveform dicts
+[CLAP PIPELINE] CLAP embedding shape: torch.Size([8, 512])
+[CLAP PIPELINE] WARNING: CLAP embedding has 4096/4096 NaN values and 0/4096 Inf values
+[CLAP PIPELINE] CLAP embedding stats: min=nan, max=nan, mean=nan, std=nan
+[CLAP PIPELINE] CLAP embedding norms: min=nan, max=nan, mean=nan
+[SIMILARITY] Shapes: y_im torch.Size([8, 512]), y_ref torch.Size([8, 512]), y_clap torch.Size([8, 512])
+[SIMILARITY] Norms: y_im 1.0000, y_ref 1.0000, y_clap nan
+[SIMILARITY] Temps: tau 0.070000, cross_temp 0.070000
+[SIMILARITY] WARNING: y_clap has 4096/4096 NaN and 0/4096 Inf
+[SIMILARITY] Similarity matrices: C_qvim torch.Size([8, 8]), C_ref_clap torch.Size([8, 8]), C_im_clap torch.Size([8, 8])
+[SIMILARITY] C_qvim: min=7.2963, max=12.6604, mean=9.5713
+[SIMILARITY] C_ref_clap: min=nan, max=nan, mean=nan
+[SIMILARITY] C_im_clap: min=nan, max=nan, mean=nan
+[SIMILARITY] WARNING: C_ref_clap_log has 64/64 NaN values
+[SIMILARITY] WARNING: C_im_clap_log has 64/64 NaN values
+Epoch 0:   3%|██▍                                                                                   | 38/1324 [00:33<19:09,  1.12it/s, v_num=puc7, train/loss=nan.0, lr=3.27e-5][CLAP PIPELINE] Input audio shape: torch.Size([8, 320000])
+[CLAP PIPELINE] Input audio stats: min=-1.0940, max=1.0732, mean=-0.0005, std=0.0866
+[CLAP PIPELINE] After resampling: shape=torch.Size([8, 160000])
+[CLAP PIPELINE] After resampling stats: min=-1.0791, max=1.0430, mean=-0.0005, std=0.0853
+[CLAP PIPELINE] Sample 0 waveform: shape=torch.Size([160000])
+[CLAP PIPELINE] Sample 0 stats: min=-0.9766, max=0.9155, mean=-0.0000, std=0.1719
+[CLAP PIPELINE] Sample 0: 64060/160000 near-zero values
+[CLAP PIPELINE] About to call get_audio_embedding with 8 waveform dicts
+[CLAP PIPELINE] CLAP embedding shape: torch.Size([8, 512])
+[CLAP PIPELINE] WARNING: CLAP embedding has 4096/4096 NaN values and 0/4096 Inf values
+[CLAP PIPELINE] CLAP embedding stats: min=nan, max=nan, mean=nan, std=nan
+[CLAP PIPELINE] CLAP embedding norms: min=nan, max=nan, mean=nan
+[SIMILARITY] Shapes: y_im torch.Size([8, 512]), y_ref torch.Size([8, 512]), y_clap torch.Size([8, 512])
+[SIMILARITY] Norms: y_im 1.0000, y_ref 1.0000, y_clap nan
+[SIMILARITY] Temps: tau 0.070000, cross_temp 0.070000
+[SIMILARITY] WARNING: y_clap has 4096/4096 NaN and 0/4096 Inf
+[SIMILARITY] Similarity matrices: C_qvim torch.Size([8, 8]), C_ref_clap torch.Size([8, 8]), C_im_clap torch.Size([8, 8])
+[SIMILARITY] C_qvim: min=5.3467, max=12.6325, mean=9.3066
+[SIMILARITY] C_ref_clap: min=nan, max=nan, mean=nan
+[SIMILARITY] C_im_clap: min=nan, max=nan, mean=nan
+[SIMILARITY] WARNING: C_ref_clap_log has 64/64 NaN values
+[SIMILARITY] WARNING: C_im_clap_log has 64/64 NaN values
+Epoch 0:   3%|██▌                                                                                   | 39/1324 [00:34<18:47,  1.14it/s, v_num=puc7, train/loss=nan.0, lr=3.29e-5][CLAP PIPELINE] Input audio shape: torch.Size([8, 320000])
+[CLAP PIPELINE] Input audio stats: min=-1.0096, max=1.0484, mean=-0.0007, std=0.1422
+[CLAP PIPELINE] After resampling: shape=torch.Size([8, 160000])
+[CLAP PIPELINE] After resampling stats: min=-1.0547, max=1.0146, mean=-0.0007, std=0.1406
+[CLAP PIPELINE] Sample 0 waveform: shape=torch.Size([160000])
+[CLAP PIPELINE] Sample 0 stats: min=-0.9419, max=0.7036, mean=-0.0000, std=0.1002
+[CLAP PIPELINE] Sample 0: 64231/160000 near-zero values
+[CLAP PIPELINE] About to call get_audio_embedding with 8 waveform dicts
+[CLAP PIPELINE] CLAP embedding shape: torch.Size([8, 512])
+[CLAP PIPELINE] WARNING: CLAP embedding has 4096/4096 NaN values and 0/4096 Inf values
+[CLAP PIPELINE] CLAP embedding stats: min=nan, max=nan, mean=nan, std=nan
+[CLAP PIPELINE] CLAP embedding norms: min=nan, max=nan, mean=nan
+[SIMILARITY] Shapes: y_im torch.Size([8, 512]), y_ref torch.Size([8, 512]), y_clap torch.Size([8, 512])
+[SIMILARITY] Norms: y_im 1.0000, y_ref 1.0000, y_clap nan
+[SIMILARITY] Temps: tau 0.070000, cross_temp 0.070000
+[SIMILARITY] WARNING: y_clap has 4096/4096 NaN and 0/4096 Inf
+[SIMILARITY] Similarity matrices: C_qvim torch.Size([8, 8]), C_ref_clap torch.Size([8, 8]), C_im_clap torch.Size([8, 8])
+[SIMILARITY] C_qvim: min=4.8270, max=12.0117, mean=9.3826
+[SIMILARITY] C_ref_clap: min=nan, max=nan, mean=nan
+[SIMILARITY] C_im_clap: min=nan, max=nan, mean=nan
+[SIMILARITY] WARNING: C_ref_clap_log has 64/64 NaN values
+[SIMILARITY] WARNING: C_im_clap_log has 64/64 NaN values
+Epoch 0:   3%|██▌                                                                                   | 40/1324 [00:35<19:07,  1.12it/s, v_num=puc7, train/loss=nan.0, lr=3.31e-5][CLAP PIPELINE] Input audio shape: torch.Size([8, 320000])
+[CLAP PIPELINE] Input audio stats: min=-1.0014, max=1.0118, mean=-0.0004, std=0.1429
+[CLAP PIPELINE] After resampling: shape=torch.Size([8, 160000])
+[CLAP PIPELINE] After resampling stats: min=-1.0029, max=1.0391, mean=-0.0004, std=0.1427
+[CLAP PIPELINE] Sample 0 waveform: shape=torch.Size([160000])
+[CLAP PIPELINE] Sample 0 stats: min=-0.9385, max=0.9468, mean=-0.0011, std=0.1738
+[CLAP PIPELINE] Sample 0: 103336/160000 near-zero values
+[CLAP PIPELINE] About to call get_audio_embedding with 8 waveform dicts
+[CLAP PIPELINE] CLAP embedding shape: torch.Size([8, 512])
+[CLAP PIPELINE] WARNING: CLAP embedding has 4096/4096 NaN values and 0/4096 Inf values
+[CLAP PIPELINE] CLAP embedding stats: min=nan, max=nan, mean=nan, std=nan
+[CLAP PIPELINE] CLAP embedding norms: min=nan, max=nan, mean=nan
+[SIMILARITY] Shapes: y_im torch.Size([8, 512]), y_ref torch.Size([8, 512]), y_clap torch.Size([8, 512])
+[SIMILARITY] Norms: y_im 1.0000, y_ref 1.0000, y_clap nan
+[SIMILARITY] Temps: tau 0.070000, cross_temp 0.070000
+[SIMILARITY] WARNING: y_clap has 4096/4096 NaN and 0/4096 Inf
+[SIMILARITY] Similarity matrices: C_qvim torch.Size([8, 8]), C_ref_clap torch.Size([8, 8]), C_im_clap torch.Size([8, 8])
+[SIMILARITY] C_qvim: min=6.4348, max=12.3186, mean=9.9818
+[SIMILARITY] C_ref_clap: min=nan, max=nan, mean=nan
+[SIMILARITY] C_im_clap: min=nan, max=nan, mean=nan
+[SIMILARITY] WARNING: C_ref_clap_log has 64/64 NaN values
+[SIMILARITY] WARNING: C_im_clap_log has 64/64 NaN values
+Epoch 0:   3%|██▋                                                                                   | 41/1324 [00:36<18:48,  1.14it/s, v_num=puc7, train/loss=nan.0, lr=3.33e-5][CLAP PIPELINE] Input audio shape: torch.Size([8, 320000])
+[CLAP PIPELINE] Input audio stats: min=-1.0832, max=1.0496, mean=-0.0001, std=0.1256
+[CLAP PIPELINE] After resampling: shape=torch.Size([8, 160000])
+[CLAP PIPELINE] After resampling stats: min=-1.0166, max=1.0684, mean=-0.0001, std=0.1229
+[CLAP PIPELINE] Sample 0 waveform: shape=torch.Size([160000])
+[CLAP PIPELINE] Sample 0 stats: min=-0.7563, max=0.9883, mean=-0.0000, std=0.0863
+[CLAP PIPELINE] Sample 0: 77985/160000 near-zero values
+[CLAP PIPELINE] About to call get_audio_embedding with 8 waveform dicts
+[CLAP PIPELINE] CLAP embedding shape: torch.Size([8, 512])
+[CLAP PIPELINE] WARNING: CLAP embedding has 4096/4096 NaN values and 0/4096 Inf values
+[CLAP PIPELINE] CLAP embedding stats: min=nan, max=nan, mean=nan, std=nan
+[CLAP PIPELINE] CLAP embedding norms: min=nan, max=nan, mean=nan
+[SIMILARITY] Shapes: y_im torch.Size([8, 512]), y_ref torch.Size([8, 512]), y_clap torch.Size([8, 512])
+[SIMILARITY] Norms: y_im 1.0000, y_ref 1.0000, y_clap nan
+[SIMILARITY] Temps: tau 0.070000, cross_temp 0.070000
+[SIMILARITY] WARNING: y_clap has 4096/4096 NaN and 0/4096 Inf
+[SIMILARITY] Similarity matrices: C_qvim torch.Size([8, 8]), C_ref_clap torch.Size([8, 8]), C_im_clap torch.Size([8, 8])
+[SIMILARITY] C_qvim: min=2.9715, max=12.4093, mean=9.0011
+[SIMILARITY] C_ref_clap: min=nan, max=nan, mean=nan
+[SIMILARITY] C_im_clap: min=nan, max=nan, mean=nan
+[SIMILARITY] WARNING: C_ref_clap_log has 64/64 NaN values
+[SIMILARITY] WARNING: C_im_clap_log has 64/64 NaN values
+Epoch 0:   3%|██▋                                                                                   | 42/1324 [00:37<19:10,  1.11it/s, v_num=puc7, train/loss=nan.0, lr=3.35e-5][CLAP PIPELINE] Input audio shape: torch.Size([8, 320000])
+[CLAP PIPELINE] Input audio stats: min=-1.0225, max=1.0162, mean=-0.0002, std=0.1717
+[CLAP PIPELINE] After resampling: shape=torch.Size([8, 160000])
+[CLAP PIPELINE] After resampling stats: min=-0.9990, max=1.0049, mean=-0.0002, std=0.1698
+[CLAP PIPELINE] Sample 0 waveform: shape=torch.Size([160000])
+[CLAP PIPELINE] Sample 0 stats: min=-0.9761, max=0.9297, mean=-0.0000, std=0.0802
+[CLAP PIPELINE] Sample 0: 121137/160000 near-zero values
+[CLAP PIPELINE] About to call get_audio_embedding with 8 waveform dicts
+[CLAP PIPELINE] CLAP embedding shape: torch.Size([8, 512])
+[CLAP PIPELINE] WARNING: CLAP embedding has 4096/4096 NaN values and 0/4096 Inf values
+[CLAP PIPELINE] CLAP embedding stats: min=nan, max=nan, mean=nan, std=nan
+[CLAP PIPELINE] CLAP embedding norms: min=nan, max=nan, mean=nan
+[SIMILARITY] Shapes: y_im torch.Size([8, 512]), y_ref torch.Size([8, 512]), y_clap torch.Size([8, 512])
+[SIMILARITY] Norms: y_im 1.0000, y_ref 1.0000, y_clap nan
+[SIMILARITY] Temps: tau 0.070000, cross_temp 0.070000
+[SIMILARITY] WARNING: y_clap has 4096/4096 NaN and 0/4096 Inf
+[SIMILARITY] Similarity matrices: C_qvim torch.Size([8, 8]), C_ref_clap torch.Size([8, 8]), C_im_clap torch.Size([8, 8])
+[SIMILARITY] C_qvim: min=3.2558, max=12.6395, mean=8.8207
+[SIMILARITY] C_ref_clap: min=nan, max=nan, mean=nan
+[SIMILARITY] C_im_clap: min=nan, max=nan, mean=nan
+[SIMILARITY] WARNING: C_ref_clap_log has 64/64 NaN values
+[SIMILARITY] WARNING: C_im_clap_log has 64/64 NaN values
+Epoch 0:   3%|██▊                                                                                   | 43/1324 [00:37<18:50,  1.13it/s, v_num=puc7, train/loss=nan.0, lr=3.37e-5][CLAP PIPELINE] Input audio shape: torch.Size([8, 320000])
+[CLAP PIPELINE] Input audio stats: min=-0.9988, max=1.0002, mean=-0.0001, std=0.1894
+[CLAP PIPELINE] After resampling: shape=torch.Size([8, 160000])
+[CLAP PIPELINE] After resampling stats: min=-0.9985, max=1.0000, mean=-0.0001, std=0.1895
+[CLAP PIPELINE] Sample 0 waveform: shape=torch.Size([160000])
+[CLAP PIPELINE] Sample 0 stats: min=-0.9248, max=0.9570, mean=-0.0000, std=0.0979
+[CLAP PIPELINE] Sample 0: 73735/160000 near-zero values
+[CLAP PIPELINE] About to call get_audio_embedding with 8 waveform dicts
+[CLAP PIPELINE] CLAP embedding shape: torch.Size([8, 512])
+[CLAP PIPELINE] WARNING: CLAP embedding has 4096/4096 NaN values and 0/4096 Inf values
+[CLAP PIPELINE] CLAP embedding stats: min=nan, max=nan, mean=nan, std=nan
+[CLAP PIPELINE] CLAP embedding norms: min=nan, max=nan, mean=nan
+[SIMILARITY] Shapes: y_im torch.Size([8, 512]), y_ref torch.Size([8, 512]), y_clap torch.Size([8, 512])
+[SIMILARITY] Norms: y_im 1.0000, y_ref 1.0000, y_clap nan
+[SIMILARITY] Temps: tau 0.070000, cross_temp 0.070000
+[SIMILARITY] WARNING: y_clap has 4096/4096 NaN and 0/4096 Inf
+[SIMILARITY] Similarity matrices: C_qvim torch.Size([8, 8]), C_ref_clap torch.Size([8, 8]), C_im_clap torch.Size([8, 8])
+[SIMILARITY] C_qvim: min=3.6447, max=12.4721, mean=8.9178
+[SIMILARITY] C_ref_clap: min=nan, max=nan, mean=nan
+[SIMILARITY] C_im_clap: min=nan, max=nan, mean=nan
+[SIMILARITY] WARNING: C_ref_clap_log has 64/64 NaN values
+[SIMILARITY] WARNING: C_im_clap_log has 64/64 NaN values
+Epoch 0:   3%|██▊                                                                                   | 44/1324 [00:39<18:59,  1.12it/s, v_num=puc7, train/loss=nan.0, lr=3.39e-5][CLAP PIPELINE] Input audio shape: torch.Size([8, 320000])
+[CLAP PIPELINE] Input audio stats: min=-1.0018, max=1.0022, mean=-0.0001, std=0.2001
+[CLAP PIPELINE] After resampling: shape=torch.Size([8, 160000])
+[CLAP PIPELINE] After resampling stats: min=-1.0059, max=1.0039, mean=-0.0001, std=0.2000
+[CLAP PIPELINE] Sample 0 waveform: shape=torch.Size([160000])
+[CLAP PIPELINE] Sample 0 stats: min=-0.9487, max=0.8784, mean=-0.0009, std=0.0698
+[CLAP PIPELINE] Sample 0: 138518/160000 near-zero values
+[CLAP PIPELINE] About to call get_audio_embedding with 8 waveform dicts
+[CLAP PIPELINE] CLAP embedding shape: torch.Size([8, 512])
+[CLAP PIPELINE] WARNING: CLAP embedding has 4096/4096 NaN values and 0/4096 Inf values
+[CLAP PIPELINE] CLAP embedding stats: min=nan, max=nan, mean=nan, std=nan
+[CLAP PIPELINE] CLAP embedding norms: min=nan, max=nan, mean=nan
+[SIMILARITY] Shapes: y_im torch.Size([8, 512]), y_ref torch.Size([8, 512]), y_clap torch.Size([8, 512])
+[SIMILARITY] Norms: y_im 1.0000, y_ref 1.0000, y_clap nan
+[SIMILARITY] Temps: tau 0.070000, cross_temp 0.070000
+[SIMILARITY] WARNING: y_clap has 4096/4096 NaN and 0/4096 Inf
+[SIMILARITY] Similarity matrices: C_qvim torch.Size([8, 8]), C_ref_clap torch.Size([8, 8]), C_im_clap torch.Size([8, 8])
+[SIMILARITY] C_qvim: min=4.9072, max=12.0605, mean=9.0736
+[SIMILARITY] C_ref_clap: min=nan, max=nan, mean=nan
+[SIMILARITY] C_im_clap: min=nan, max=nan, mean=nan
+[SIMILARITY] WARNING: C_ref_clap_log has 64/64 NaN values
+[SIMILARITY] WARNING: C_im_clap_log has 64/64 NaN values
+Epoch 0:   3%|██▉                                                                                   | 45/1324 [00:39<18:40,  1.14it/s, v_num=puc7, train/loss=nan.0, lr=3.41e-5][CLAP PIPELINE] Input audio shape: torch.Size([8, 320000])
+[CLAP PIPELINE] Input audio stats: min=-1.0570, max=1.0100, mean=0.0005, std=0.1499
+[CLAP PIPELINE] After resampling: shape=torch.Size([8, 160000])
+[CLAP PIPELINE] After resampling stats: min=-1.0137, max=1.0205, mean=0.0005, std=0.1494
+[CLAP PIPELINE] Sample 0 waveform: shape=torch.Size([160000])
+[CLAP PIPELINE] Sample 0 stats: min=-0.9961, max=0.9951, mean=0.0001, std=0.0673
+[CLAP PIPELINE] Sample 0: 141545/160000 near-zero values
+[CLAP PIPELINE] About to call get_audio_embedding with 8 waveform dicts
+[CLAP PIPELINE] CLAP embedding shape: torch.Size([8, 512])
+[CLAP PIPELINE] WARNING: CLAP embedding has 4096/4096 NaN values and 0/4096 Inf values
+[CLAP PIPELINE] CLAP embedding stats: min=nan, max=nan, mean=nan, std=nan
+[CLAP PIPELINE] CLAP embedding norms: min=nan, max=nan, mean=nan
+[SIMILARITY] Shapes: y_im torch.Size([8, 512]), y_ref torch.Size([8, 512]), y_clap torch.Size([8, 512])
+[SIMILARITY] Norms: y_im 1.0000, y_ref 1.0000, y_clap nan
+[SIMILARITY] Temps: tau 0.070000, cross_temp 0.070000
+[SIMILARITY] WARNING: y_clap has 4096/4096 NaN and 0/4096 Inf
+[SIMILARITY] Similarity matrices: C_qvim torch.Size([8, 8]), C_ref_clap torch.Size([8, 8]), C_im_clap torch.Size([8, 8])
+[SIMILARITY] C_qvim: min=3.7633, max=11.6699, mean=9.2955
+[SIMILARITY] C_ref_clap: min=nan, max=nan, mean=nan
+[SIMILARITY] C_im_clap: min=nan, max=nan, mean=nan
+[SIMILARITY] WARNING: C_ref_clap_log has 64/64 NaN values
+[SIMILARITY] WARNING: C_im_clap_log has 64/64 NaN values
+Epoch 0:   3%|██▉                                                                                   | 46/1324 [00:40<18:32,  1.15it/s, v_num=puc7, train/loss=nan.0, lr=3.43e-5][CLAP PIPELINE] Input audio shape: torch.Size([8, 320000])
+[CLAP PIPELINE] Input audio stats: min=-1.0009, max=0.9979, mean=-0.0009, std=0.1147
+[CLAP PIPELINE] After resampling: shape=torch.Size([8, 160000])
+[CLAP PIPELINE] After resampling stats: min=-1.0039, max=1.0049, mean=-0.0009, std=0.1146
+[CLAP PIPELINE] Sample 0 waveform: shape=torch.Size([160000])
+[CLAP PIPELINE] Sample 0 stats: min=-0.9863, max=0.9790, mean=0.0001, std=0.1136
+[CLAP PIPELINE] Sample 0: 133661/160000 near-zero values
+[CLAP PIPELINE] About to call get_audio_embedding with 8 waveform dicts
+[CLAP PIPELINE] CLAP embedding shape: torch.Size([8, 512])
+[CLAP PIPELINE] WARNING: CLAP embedding has 4096/4096 NaN values and 0/4096 Inf values
+[CLAP PIPELINE] CLAP embedding stats: min=nan, max=nan, mean=nan, std=nan
+[CLAP PIPELINE] CLAP embedding norms: min=nan, max=nan, mean=nan
+[SIMILARITY] Shapes: y_im torch.Size([8, 512]), y_ref torch.Size([8, 512]), y_clap torch.Size([8, 512])
+[SIMILARITY] Norms: y_im 1.0000, y_ref 1.0000, y_clap nan
+[SIMILARITY] Temps: tau 0.070000, cross_temp 0.070000
+[SIMILARITY] WARNING: y_clap has 4096/4096 NaN and 0/4096 Inf
+[SIMILARITY] Similarity matrices: C_qvim torch.Size([8, 8]), C_ref_clap torch.Size([8, 8]), C_im_clap torch.Size([8, 8])
+[SIMILARITY] C_qvim: min=6.6476, max=12.0675, mean=9.6389
+[SIMILARITY] C_ref_clap: min=nan, max=nan, mean=nan
+[SIMILARITY] C_im_clap: min=nan, max=nan, mean=nan
+[SIMILARITY] WARNING: C_ref_clap_log has 64/64 NaN values
+[SIMILARITY] WARNING: C_im_clap_log has 64/64 NaN values
+Epoch 0:   4%|███                                                                                   | 47/1324 [00:40<18:14,  1.17it/s, v_num=puc7, train/loss=nan.0, lr=3.46e-5][CLAP PIPELINE] Input audio shape: torch.Size([8, 320000])
+[CLAP PIPELINE] Input audio stats: min=-1.1685, max=1.2134, mean=-0.0016, std=0.1830
+[CLAP PIPELINE] After resampling: shape=torch.Size([8, 160000])
+[CLAP PIPELINE] After resampling stats: min=-1.2793, max=1.2266, mean=-0.0016, std=0.1825
+[CLAP PIPELINE] Sample 0 waveform: shape=torch.Size([160000])
+[CLAP PIPELINE] Sample 0 stats: min=-0.9976, max=0.9702, mean=-0.0113, std=0.4414
+[CLAP PIPELINE] Sample 0: 20050/160000 near-zero values
+[CLAP PIPELINE] About to call get_audio_embedding with 8 waveform dicts
+[CLAP PIPELINE] CLAP embedding shape: torch.Size([8, 512])
+[CLAP PIPELINE] WARNING: CLAP embedding has 4096/4096 NaN values and 0/4096 Inf values
+[CLAP PIPELINE] CLAP embedding stats: min=nan, max=nan, mean=nan, std=nan
+[CLAP PIPELINE] CLAP embedding norms: min=nan, max=nan, mean=nan
+[SIMILARITY] Shapes: y_im torch.Size([8, 512]), y_ref torch.Size([8, 512]), y_clap torch.Size([8, 512])
+[SIMILARITY] Norms: y_im 1.0000, y_ref 1.0000, y_clap nan
+[SIMILARITY] Temps: tau 0.070000, cross_temp 0.070000
+[SIMILARITY] WARNING: y_clap has 4096/4096 NaN and 0/4096 Inf
+[SIMILARITY] Similarity matrices: C_qvim torch.Size([8, 8]), C_ref_clap torch.Size([8, 8]), C_im_clap torch.Size([8, 8])
+[SIMILARITY] C_qvim: min=1.5442, max=13.1557, mean=8.1468
+[SIMILARITY] C_ref_clap: min=nan, max=nan, mean=nan
+[SIMILARITY] C_im_clap: min=nan, max=nan, mean=nan
+[SIMILARITY] WARNING: C_ref_clap_log has 64/64 NaN values
+[SIMILARITY] WARNING: C_im_clap_log has 64/64 NaN values
+Epoch 0:   4%|███                                                                                   | 48/1324 [00:41<18:19,  1.16it/s, v_num=puc7, train/loss=nan.0, lr=3.48e-5][CLAP PIPELINE] Input audio shape: torch.Size([8, 320000])
+[CLAP PIPELINE] Input audio stats: min=-1.0885, max=1.0489, mean=-0.0002, std=0.1026
+[CLAP PIPELINE] After resampling: shape=torch.Size([8, 160000])
+[CLAP PIPELINE] After resampling stats: min=-1.0234, max=1.0000, mean=-0.0002, std=0.1020
+[CLAP PIPELINE] Sample 0 waveform: shape=torch.Size([160000])
+[CLAP PIPELINE] Sample 0 stats: min=-0.8320, max=0.8291, mean=-0.0003, std=0.0840
+[CLAP PIPELINE] Sample 0: 144094/160000 near-zero values
+[CLAP PIPELINE] About to call get_audio_embedding with 8 waveform dicts
+[CLAP PIPELINE] CLAP embedding shape: torch.Size([8, 512])
+[CLAP PIPELINE] WARNING: CLAP embedding has 4096/4096 NaN values and 0/4096 Inf values
+[CLAP PIPELINE] CLAP embedding stats: min=nan, max=nan, mean=nan, std=nan
+[CLAP PIPELINE] CLAP embedding norms: min=nan, max=nan, mean=nan
+[SIMILARITY] Shapes: y_im torch.Size([8, 512]), y_ref torch.Size([8, 512]), y_clap torch.Size([8, 512])
+[SIMILARITY] Norms: y_im 1.0000, y_ref 1.0000, y_clap nan
+[SIMILARITY] Temps: tau 0.070000, cross_temp 0.070000
+[SIMILARITY] WARNING: y_clap has 4096/4096 NaN and 0/4096 Inf
+[SIMILARITY] Similarity matrices: C_qvim torch.Size([8, 8]), C_ref_clap torch.Size([8, 8]), C_im_clap torch.Size([8, 8])
+[SIMILARITY] C_qvim: min=4.9456, max=12.2001, mean=8.9199
+[SIMILARITY] C_ref_clap: min=nan, max=nan, mean=nan
+[SIMILARITY] C_im_clap: min=nan, max=nan, mean=nan
+[SIMILARITY] WARNING: C_ref_clap_log has 64/64 NaN values
+[SIMILARITY] WARNING: C_im_clap_log has 64/64 NaN values
+Epoch 0:   4%|███▏                                                                                   | 49/1324 [00:41<18:02,  1.18it/s, v_num=puc7, train/loss=nan.0, lr=3.5e-5][CLAP PIPELINE] Input audio shape: torch.Size([8, 320000])
+[CLAP PIPELINE] Input audio stats: min=-1.0097, max=1.0037, mean=0.0000, std=0.0551
+[CLAP PIPELINE] After resampling: shape=torch.Size([8, 160000])
+[CLAP PIPELINE] After resampling stats: min=-1.0264, max=0.9985, mean=0.0000, std=0.0548
+[CLAP PIPELINE] Sample 0 waveform: shape=torch.Size([160000])
+[CLAP PIPELINE] Sample 0 stats: min=-0.8706, max=0.9971, mean=-0.0005, std=0.0319
+[CLAP PIPELINE] Sample 0: 141093/160000 near-zero values
+[CLAP PIPELINE] About to call get_audio_embedding with 8 waveform dicts
+[CLAP PIPELINE] CLAP embedding shape: torch.Size([8, 512])
+[CLAP PIPELINE] WARNING: CLAP embedding has 4096/4096 NaN values and 0/4096 Inf values
+[CLAP PIPELINE] CLAP embedding stats: min=nan, max=nan, mean=nan, std=nan
+[CLAP PIPELINE] CLAP embedding norms: min=nan, max=nan, mean=nan
+[SIMILARITY] Shapes: y_im torch.Size([8, 512]), y_ref torch.Size([8, 512]), y_clap torch.Size([8, 512])
+[SIMILARITY] Norms: y_im 1.0000, y_ref 1.0000, y_clap nan
+[SIMILARITY] Temps: tau 0.070000, cross_temp 0.070000
+[SIMILARITY] WARNING: y_clap has 4096/4096 NaN and 0/4096 Inf
+[SIMILARITY] Similarity matrices: C_qvim torch.Size([8, 8]), C_ref_clap torch.Size([8, 8]), C_im_clap torch.Size([8, 8])
+[SIMILARITY] C_qvim: min=3.4354, max=12.2489, mean=8.9156
+[SIMILARITY] C_ref_clap: min=nan, max=nan, mean=nan
+[SIMILARITY] C_im_clap: min=nan, max=nan, mean=nan
+[SIMILARITY] WARNING: C_ref_clap_log has 64/64 NaN values
+[SIMILARITY] WARNING: C_im_clap_log has 64/64 NaN values
+Epoch 0:   4%|███▏                                                                                  | 50/1324 [00:42<18:06,  1.17it/s, v_num=puc7, train/loss=nan.0, lr=3.52e-5][CLAP PIPELINE] Input audio shape: torch.Size([8, 320000])
+[CLAP PIPELINE] Input audio stats: min=-1.0001, max=1.0162, mean=0.0015, std=0.2082
+[CLAP PIPELINE] After resampling: shape=torch.Size([8, 160000])
+[CLAP PIPELINE] After resampling stats: min=-1.0010, max=1.0039, mean=0.0015, std=0.2054
+[CLAP PIPELINE] Sample 0 waveform: shape=torch.Size([160000])
+[CLAP PIPELINE] Sample 0 stats: min=-1.0010, max=0.9956, mean=0.0001, std=0.2441
+[CLAP PIPELINE] Sample 0: 93115/160000 near-zero values
+[CLAP PIPELINE] About to call get_audio_embedding with 8 waveform dicts
+[CLAP PIPELINE] CLAP embedding shape: torch.Size([8, 512])
+[CLAP PIPELINE] WARNING: CLAP embedding has 4096/4096 NaN values and 0/4096 Inf values
+[CLAP PIPELINE] CLAP embedding stats: min=nan, max=nan, mean=nan, std=nan
+[CLAP PIPELINE] CLAP embedding norms: min=nan, max=nan, mean=nan
+[SIMILARITY] Shapes: y_im torch.Size([8, 512]), y_ref torch.Size([8, 512]), y_clap torch.Size([8, 512])
+[SIMILARITY] Norms: y_im 1.0000, y_ref 1.0000, y_clap nan
+[SIMILARITY] Temps: tau 0.070000, cross_temp 0.070000
+[SIMILARITY] WARNING: y_clap has 4096/4096 NaN and 0/4096 Inf
+[SIMILARITY] Similarity matrices: C_qvim torch.Size([8, 8]), C_ref_clap torch.Size([8, 8]), C_im_clap torch.Size([8, 8])
+[SIMILARITY] C_qvim: min=5.4618, max=12.1861, mean=9.6906
+[SIMILARITY] C_ref_clap: min=nan, max=nan, mean=nan
+[SIMILARITY] C_im_clap: min=nan, max=nan, mean=nan
+[SIMILARITY] WARNING: C_ref_clap_log has 64/64 NaN values
+[SIMILARITY] WARNING: C_im_clap_log has 64/64 NaN values
+Epoch 0:   4%|███▎                                                                                  | 51/1324 [00:42<17:50,  1.19it/s, v_num=puc7, train/loss=nan.0, lr=3.54e-5][CLAP PIPELINE] Input audio shape: torch.Size([8, 320000])
+[CLAP PIPELINE] Input audio stats: min=-1.0061, max=1.0236, mean=-0.0003, std=0.0841
+[CLAP PIPELINE] After resampling: shape=torch.Size([8, 160000])
+[CLAP PIPELINE] After resampling stats: min=-0.9814, max=0.9932, mean=-0.0003, std=0.0812
+[CLAP PIPELINE] Sample 0 waveform: shape=torch.Size([160000])
+[CLAP PIPELINE] Sample 0 stats: min=-0.9297, max=0.8711, mean=-0.0010, std=0.0750
+[CLAP PIPELINE] Sample 0: 98510/160000 near-zero values
+[CLAP PIPELINE] About to call get_audio_embedding with 8 waveform dicts
+[CLAP PIPELINE] CLAP embedding shape: torch.Size([8, 512])
+[CLAP PIPELINE] WARNING: CLAP embedding has 4096/4096 NaN values and 0/4096 Inf values
+[CLAP PIPELINE] CLAP embedding stats: min=nan, max=nan, mean=nan, std=nan
+[CLAP PIPELINE] CLAP embedding norms: min=nan, max=nan, mean=nan
+[SIMILARITY] Shapes: y_im torch.Size([8, 512]), y_ref torch.Size([8, 512]), y_clap torch.Size([8, 512])
+[SIMILARITY] Norms: y_im 1.0000, y_ref 1.0000, y_clap nan
+[SIMILARITY] Temps: tau 0.070000, cross_temp 0.070000
+[SIMILARITY] WARNING: y_clap has 4096/4096 NaN and 0/4096 Inf
+[SIMILARITY] Similarity matrices: C_qvim torch.Size([8, 8]), C_ref_clap torch.Size([8, 8]), C_im_clap torch.Size([8, 8])
+[SIMILARITY] C_qvim: min=3.6586, max=11.4746, mean=9.4172
+[SIMILARITY] C_ref_clap: min=nan, max=nan, mean=nan
+[SIMILARITY] C_im_clap: min=nan, max=nan, mean=nan
+[SIMILARITY] WARNING: C_ref_clap_log has 64/64 NaN values
+[SIMILARITY] WARNING: C_im_clap_log has 64/64 NaN values
+Epoch 0:   4%|███▍                                                                                  | 52/1324 [00:44<18:07,  1.17it/s, v_num=puc7, train/loss=nan.0, lr=3.56e-5][CLAP PIPELINE] Input audio shape: torch.Size([8, 320000])
+[CLAP PIPELINE] Input audio stats: min=-1.0096, max=1.0484, mean=-0.0002, std=0.1284
+[CLAP PIPELINE] After resampling: shape=torch.Size([8, 160000])
+[CLAP PIPELINE] After resampling stats: min=-0.9922, max=0.9727, mean=-0.0002, std=0.1266
+[CLAP PIPELINE] Sample 0 waveform: shape=torch.Size([160000])
+[CLAP PIPELINE] Sample 0 stats: min=-0.9922, max=0.9604, mean=-0.0013, std=0.0754
+[CLAP PIPELINE] Sample 0: 105618/160000 near-zero values
+[CLAP PIPELINE] About to call get_audio_embedding with 8 waveform dicts
+[CLAP PIPELINE] CLAP embedding shape: torch.Size([8, 512])
+[CLAP PIPELINE] WARNING: CLAP embedding has 4096/4096 NaN values and 0/4096 Inf values
+[CLAP PIPELINE] CLAP embedding stats: min=nan, max=nan, mean=nan, std=nan
+[CLAP PIPELINE] CLAP embedding norms: min=nan, max=nan, mean=nan
+[SIMILARITY] Shapes: y_im torch.Size([8, 512]), y_ref torch.Size([8, 512]), y_clap torch.Size([8, 512])
+[SIMILARITY] Norms: y_im 1.0000, y_ref 1.0000, y_clap nan
+[SIMILARITY] Temps: tau 0.070000, cross_temp 0.070000
+[SIMILARITY] WARNING: y_clap has 4096/4096 NaN and 0/4096 Inf
+[SIMILARITY] Similarity matrices: C_qvim torch.Size([8, 8]), C_ref_clap torch.Size([8, 8]), C_im_clap torch.Size([8, 8])
+[SIMILARITY] C_qvim: min=2.4397, max=12.6465, mean=8.9433
+[SIMILARITY] C_ref_clap: min=nan, max=nan, mean=nan
+[SIMILARITY] C_im_clap: min=nan, max=nan, mean=nan
+[SIMILARITY] WARNING: C_ref_clap_log has 64/64 NaN values
+[SIMILARITY] WARNING: C_im_clap_log has 64/64 NaN values
+Epoch 0:   4%|███▍                                                                                  | 53/1324 [00:44<17:50,  1.19it/s, v_num=puc7, train/loss=nan.0, lr=3.58e-5][CLAP PIPELINE] Input audio shape: torch.Size([8, 320000])
+[CLAP PIPELINE] Input audio stats: min=-1.0461, max=1.0585, mean=0.0000, std=0.1259
+[CLAP PIPELINE] After resampling: shape=torch.Size([8, 160000])
+[CLAP PIPELINE] After resampling stats: min=-1.0977, max=1.1162, mean=0.0000, std=0.1256
+[CLAP PIPELINE] Sample 0 waveform: shape=torch.Size([160000])
+[CLAP PIPELINE] Sample 0 stats: min=-1.0010, max=0.9956, mean=0.0001, std=0.2441
+[CLAP PIPELINE] Sample 0: 93115/160000 near-zero values
+[CLAP PIPELINE] About to call get_audio_embedding with 8 waveform dicts
+[CLAP PIPELINE] CLAP embedding shape: torch.Size([8, 512])
+[CLAP PIPELINE] WARNING: CLAP embedding has 4096/4096 NaN values and 0/4096 Inf values
+[CLAP PIPELINE] CLAP embedding stats: min=nan, max=nan, mean=nan, std=nan
+[CLAP PIPELINE] CLAP embedding norms: min=nan, max=nan, mean=nan
+[SIMILARITY] Shapes: y_im torch.Size([8, 512]), y_ref torch.Size([8, 512]), y_clap torch.Size([8, 512])
+[SIMILARITY] Norms: y_im 1.0000, y_ref 1.0000, y_clap nan
+[SIMILARITY] Temps: tau 0.070000, cross_temp 0.070000
+[SIMILARITY] WARNING: y_clap has 4096/4096 NaN and 0/4096 Inf
+[SIMILARITY] Similarity matrices: C_qvim torch.Size([8, 8]), C_ref_clap torch.Size([8, 8]), C_im_clap torch.Size([8, 8])
+[SIMILARITY] C_qvim: min=6.4383, max=12.5209, mean=9.7924
+[SIMILARITY] C_ref_clap: min=nan, max=nan, mean=nan
+[SIMILARITY] C_im_clap: min=nan, max=nan, mean=nan
+[SIMILARITY] WARNING: C_ref_clap_log has 64/64 NaN values
+[SIMILARITY] WARNING: C_im_clap_log has 64/64 NaN values
+Epoch 0:   4%|███▌                                                                                   | 54/1324 [00:45<17:49,  1.19it/s, v_num=puc7, train/loss=nan.0, lr=3.6e-5][CLAP PIPELINE] Input audio shape: torch.Size([8, 320000])
+[CLAP PIPELINE] Input audio stats: min=-1.1897, max=1.2273, mean=0.0000, std=0.2004
+[CLAP PIPELINE] After resampling: shape=torch.Size([8, 160000])
+[CLAP PIPELINE] After resampling stats: min=-1.0059, max=1.0537, mean=0.0000, std=0.1997
+[CLAP PIPELINE] Sample 0 waveform: shape=torch.Size([160000])
+[CLAP PIPELINE] Sample 0 stats: min=-0.7246, max=0.7437, mean=-0.0001, std=0.0337
+[CLAP PIPELINE] Sample 0: 12072/160000 near-zero values
+[CLAP PIPELINE] About to call get_audio_embedding with 8 waveform dicts
+[CLAP PIPELINE] CLAP embedding shape: torch.Size([8, 512])
+[CLAP PIPELINE] WARNING: CLAP embedding has 4096/4096 NaN values and 0/4096 Inf values
+[CLAP PIPELINE] CLAP embedding stats: min=nan, max=nan, mean=nan, std=nan
+[CLAP PIPELINE] CLAP embedding norms: min=nan, max=nan, mean=nan
+[SIMILARITY] Shapes: y_im torch.Size([8, 512]), y_ref torch.Size([8, 512]), y_clap torch.Size([8, 512])
+[SIMILARITY] Norms: y_im 1.0000, y_ref 1.0000, y_clap nan
+[SIMILARITY] Temps: tau 0.070000, cross_temp 0.070000
+[SIMILARITY] WARNING: y_clap has 4096/4096 NaN and 0/4096 Inf
+[SIMILARITY] Similarity matrices: C_qvim torch.Size([8, 8]), C_ref_clap torch.Size([8, 8]), C_im_clap torch.Size([8, 8])
+[SIMILARITY] C_qvim: min=3.0029, max=13.1278, mean=8.9582
+[SIMILARITY] C_ref_clap: min=nan, max=nan, mean=nan
+[SIMILARITY] C_im_clap: min=nan, max=nan, mean=nan
+[SIMILARITY] WARNING: C_ref_clap_log has 64/64 NaN values
+[SIMILARITY] WARNING: C_im_clap_log has 64/64 NaN values
+Epoch 0:   4%|███▌                                                                                  | 55/1324 [00:46<17:43,  1.19it/s, v_num=puc7, train/loss=nan.0, lr=3.62e-5][CLAP PIPELINE] Input audio shape: torch.Size([8, 320000])
+[CLAP PIPELINE] Input audio stats: min=-1.0382, max=1.0001, mean=-0.0002, std=0.3812
+[CLAP PIPELINE] After resampling: shape=torch.Size([8, 160000])
+[CLAP PIPELINE] After resampling stats: min=-1.0010, max=1.0010, mean=-0.0002, std=0.3806
+[CLAP PIPELINE] Sample 0 waveform: shape=torch.Size([160000])
+[CLAP PIPELINE] Sample 0 stats: min=-0.9155, max=0.9966, mean=-0.0012, std=0.2174
+[CLAP PIPELINE] Sample 0: 15/160000 near-zero values
+[CLAP PIPELINE] About to call get_audio_embedding with 8 waveform dicts
+[CLAP PIPELINE] CLAP embedding shape: torch.Size([8, 512])
+[CLAP PIPELINE] WARNING: CLAP embedding has 4096/4096 NaN values and 0/4096 Inf values
+[CLAP PIPELINE] CLAP embedding stats: min=nan, max=nan, mean=nan, std=nan
+[CLAP PIPELINE] CLAP embedding norms: min=nan, max=nan, mean=nan
+[SIMILARITY] Shapes: y_im torch.Size([8, 512]), y_ref torch.Size([8, 512]), y_clap torch.Size([8, 512])
+[SIMILARITY] Norms: y_im 1.0000, y_ref 1.0000, y_clap nan
+[SIMILARITY] Temps: tau 0.070000, cross_temp 0.070000
+[SIMILARITY] WARNING: y_clap has 4096/4096 NaN and 0/4096 Inf
+[SIMILARITY] Similarity matrices: C_qvim torch.Size([8, 8]), C_ref_clap torch.Size([8, 8]), C_im_clap torch.Size([8, 8])
+[SIMILARITY] C_qvim: min=4.4747, max=11.6420, mean=9.3929
+[SIMILARITY] C_ref_clap: min=nan, max=nan, mean=nan
+[SIMILARITY] C_im_clap: min=nan, max=nan, mean=nan
+[SIMILARITY] WARNING: C_ref_clap_log has 64/64 NaN values
+[SIMILARITY] WARNING: C_im_clap_log has 64/64 NaN values
+Epoch 0:   4%|███▋                                                                                  | 56/1324 [00:47<17:52,  1.18it/s, v_num=puc7, train/loss=nan.0, lr=3.64e-5][CLAP PIPELINE] Input audio shape: torch.Size([8, 320000])
+[CLAP PIPELINE] Input audio stats: min=-1.1091, max=1.1092, mean=0.0154, std=0.1742
+[CLAP PIPELINE] After resampling: shape=torch.Size([8, 160000])
+[CLAP PIPELINE] After resampling stats: min=-1.1162, max=1.1260, mean=0.0154, std=0.1731
+[CLAP PIPELINE] Sample 0 waveform: shape=torch.Size([160000])
+[CLAP PIPELINE] Sample 0 stats: min=-0.4741, max=0.4734, mean=-0.0000, std=0.0094
+[CLAP PIPELINE] Sample 0: 143717/160000 near-zero values
+[CLAP PIPELINE] About to call get_audio_embedding with 8 waveform dicts
+[CLAP PIPELINE] CLAP embedding shape: torch.Size([8, 512])
+[CLAP PIPELINE] WARNING: CLAP embedding has 4096/4096 NaN values and 0/4096 Inf values
+[CLAP PIPELINE] CLAP embedding stats: min=nan, max=nan, mean=nan, std=nan
+[CLAP PIPELINE] CLAP embedding norms: min=nan, max=nan, mean=nan
+[SIMILARITY] Shapes: y_im torch.Size([8, 512]), y_ref torch.Size([8, 512]), y_clap torch.Size([8, 512])
+[SIMILARITY] Norms: y_im 1.0000, y_ref 1.0000, y_clap nan
+[SIMILARITY] Temps: tau 0.070000, cross_temp 0.070000
+[SIMILARITY] WARNING: y_clap has 4096/4096 NaN and 0/4096 Inf
+[SIMILARITY] Similarity matrices: C_qvim torch.Size([8, 8]), C_ref_clap torch.Size([8, 8]), C_im_clap torch.Size([8, 8])
+[SIMILARITY] C_qvim: min=6.3546, max=11.9838, mean=9.6290
+[SIMILARITY] C_ref_clap: min=nan, max=nan, mean=nan
+[SIMILARITY] C_im_clap: min=nan, max=nan, mean=nan
+[SIMILARITY] WARNING: C_ref_clap_log has 64/64 NaN values
+[SIMILARITY] WARNING: C_im_clap_log has 64/64 NaN values
+Epoch 0:   4%|███▋                                                                                  | 57/1324 [00:47<17:41,  1.19it/s, v_num=puc7, train/loss=nan.0, lr=3.66e-5][CLAP PIPELINE] Input audio shape: torch.Size([8, 320000])
+[CLAP PIPELINE] Input audio stats: min=-1.0097, max=1.0002, mean=-0.0208, std=0.1497
+[CLAP PIPELINE] After resampling: shape=torch.Size([8, 160000])
+[CLAP PIPELINE] After resampling stats: min=-1.0264, max=1.0000, mean=-0.0208, std=0.1476
+[CLAP PIPELINE] Sample 0 waveform: shape=torch.Size([160000])
+[CLAP PIPELINE] Sample 0 stats: min=-1.0264, max=0.9795, mean=0.0002, std=0.0779
+[CLAP PIPELINE] Sample 0: 53226/160000 near-zero values
+[CLAP PIPELINE] About to call get_audio_embedding with 8 waveform dicts
+[CLAP PIPELINE] CLAP embedding shape: torch.Size([8, 512])
+[CLAP PIPELINE] WARNING: CLAP embedding has 4096/4096 NaN values and 0/4096 Inf values
+[CLAP PIPELINE] CLAP embedding stats: min=nan, max=nan, mean=nan, std=nan
+[CLAP PIPELINE] CLAP embedding norms: min=nan, max=nan, mean=nan
+[SIMILARITY] Shapes: y_im torch.Size([8, 512]), y_ref torch.Size([8, 512]), y_clap torch.Size([8, 512])
+[SIMILARITY] Norms: y_im 1.0000, y_ref 1.0000, y_clap nan
+[SIMILARITY] Temps: tau 0.070000, cross_temp 0.070000
+[SIMILARITY] WARNING: y_clap has 4096/4096 NaN and 0/4096 Inf
+[SIMILARITY] Similarity matrices: C_qvim torch.Size([8, 8]), C_ref_clap torch.Size([8, 8]), C_im_clap torch.Size([8, 8])
+[SIMILARITY] C_qvim: min=1.8572, max=12.7441, mean=9.4416
+[SIMILARITY] C_ref_clap: min=nan, max=nan, mean=nan
+[SIMILARITY] C_im_clap: min=nan, max=nan, mean=nan
+[SIMILARITY] WARNING: C_ref_clap_log has 64/64 NaN values
+[SIMILARITY] WARNING: C_im_clap_log has 64/64 NaN values
+Epoch 0:   4%|███▊                                                                                  | 58/1324 [00:49<17:51,  1.18it/s, v_num=puc7, train/loss=nan.0, lr=3.68e-5][CLAP PIPELINE] Input audio shape: torch.Size([8, 320000])
+[CLAP PIPELINE] Input audio stats: min=-1.0027, max=1.0014, mean=-0.0024, std=0.1247
+[CLAP PIPELINE] After resampling: shape=torch.Size([8, 160000])
+[CLAP PIPELINE] After resampling stats: min=-1.0234, max=1.0068, mean=-0.0024, std=0.1241
+[CLAP PIPELINE] Sample 0 waveform: shape=torch.Size([160000])
+[CLAP PIPELINE] Sample 0 stats: min=-0.9990, max=0.9131, mean=-0.0009, std=0.1298
+[CLAP PIPELINE] Sample 0: 126186/160000 near-zero values
+[CLAP PIPELINE] About to call get_audio_embedding with 8 waveform dicts
+[CLAP PIPELINE] CLAP embedding shape: torch.Size([8, 512])
+[CLAP PIPELINE] WARNING: CLAP embedding has 4096/4096 NaN values and 0/4096 Inf values
+[CLAP PIPELINE] CLAP embedding stats: min=nan, max=nan, mean=nan, std=nan
+[CLAP PIPELINE] CLAP embedding norms: min=nan, max=nan, mean=nan
+[SIMILARITY] Shapes: y_im torch.Size([8, 512]), y_ref torch.Size([8, 512]), y_clap torch.Size([8, 512])
+[SIMILARITY] Norms: y_im 1.0000, y_ref 1.0000, y_clap nan
+[SIMILARITY] Temps: tau 0.070000, cross_temp 0.070000
+[SIMILARITY] WARNING: y_clap has 4096/4096 NaN and 0/4096 Inf
+[SIMILARITY] Similarity matrices: C_qvim torch.Size([8, 8]), C_ref_clap torch.Size([8, 8]), C_im_clap torch.Size([8, 8])
+[SIMILARITY] C_qvim: min=5.0956, max=12.8069, mean=9.6212
+[SIMILARITY] C_ref_clap: min=nan, max=nan, mean=nan
+[SIMILARITY] C_im_clap: min=nan, max=nan, mean=nan
+[SIMILARITY] WARNING: C_ref_clap_log has 64/64 NaN values
+[SIMILARITY] WARNING: C_im_clap_log has 64/64 NaN values
+Epoch 0:   4%|███▉                                                                                   | 59/1324 [00:49<17:42,  1.19it/s, v_num=puc7, train/loss=nan.0, lr=3.7e-5][CLAP PIPELINE] Input audio shape: torch.Size([8, 320000])
+[CLAP PIPELINE] Input audio stats: min=-1.0118, max=1.0184, mean=-0.0001, std=0.2043
+[CLAP PIPELINE] After resampling: shape=torch.Size([8, 160000])
+[CLAP PIPELINE] After resampling stats: min=-1.0156, max=1.0693, mean=-0.0001, std=0.2043
+[CLAP PIPELINE] Sample 0 waveform: shape=torch.Size([160000])
+[CLAP PIPELINE] Sample 0 stats: min=-0.8545, max=0.8267, mean=-0.0009, std=0.0369
+[CLAP PIPELINE] Sample 0: 107183/160000 near-zero values
+[CLAP PIPELINE] About to call get_audio_embedding with 8 waveform dicts
+[CLAP PIPELINE] CLAP embedding shape: torch.Size([8, 512])
+[CLAP PIPELINE] WARNING: CLAP embedding has 4096/4096 NaN values and 0/4096 Inf values
+[CLAP PIPELINE] CLAP embedding stats: min=nan, max=nan, mean=nan, std=nan
+[CLAP PIPELINE] CLAP embedding norms: min=nan, max=nan, mean=nan
+[SIMILARITY] Shapes: y_im torch.Size([8, 512]), y_ref torch.Size([8, 512]), y_clap torch.Size([8, 512])
+[SIMILARITY] Norms: y_im 1.0000, y_ref 1.0000, y_clap nan
+[SIMILARITY] Temps: tau 0.070000, cross_temp 0.070000
+[SIMILARITY] WARNING: y_clap has 4096/4096 NaN and 0/4096 Inf
+[SIMILARITY] Similarity matrices: C_qvim torch.Size([8, 8]), C_ref_clap torch.Size([8, 8]), C_im_clap torch.Size([8, 8])
+[SIMILARITY] C_qvim: min=2.3507, max=11.9001, mean=8.4548
+[SIMILARITY] C_ref_clap: min=nan, max=nan, mean=nan
+[SIMILARITY] C_im_clap: min=nan, max=nan, mean=nan
+[SIMILARITY] WARNING: C_ref_clap_log has 64/64 NaN values
+[SIMILARITY] WARNING: C_im_clap_log has 64/64 NaN values
+Epoch 0:   5%|███▉                                                                                  | 60/1324 [00:50<17:49,  1.18it/s, v_num=puc7, train/loss=nan.0, lr=3.73e-5][CLAP PIPELINE] Input audio shape: torch.Size([8, 320000])
+[CLAP PIPELINE] Input audio stats: min=-1.0001, max=1.0044, mean=-0.0002, std=0.1290
+[CLAP PIPELINE] After resampling: shape=torch.Size([8, 160000])
+[CLAP PIPELINE] After resampling stats: min=-0.9995, max=1.0068, mean=-0.0002, std=0.1287
+[CLAP PIPELINE] Sample 0 waveform: shape=torch.Size([160000])
+[CLAP PIPELINE] Sample 0 stats: min=-0.9863, max=0.9790, mean=0.0001, std=0.1136
+[CLAP PIPELINE] Sample 0: 133661/160000 near-zero values
+[CLAP PIPELINE] About to call get_audio_embedding with 8 waveform dicts
+[CLAP PIPELINE] CLAP embedding shape: torch.Size([8, 512])
+[CLAP PIPELINE] WARNING: CLAP embedding has 4096/4096 NaN values and 0/4096 Inf values
+[CLAP PIPELINE] CLAP embedding stats: min=nan, max=nan, mean=nan, std=nan
+[CLAP PIPELINE] CLAP embedding norms: min=nan, max=nan, mean=nan
+[SIMILARITY] Shapes: y_im torch.Size([8, 512]), y_ref torch.Size([8, 512]), y_clap torch.Size([8, 512])
+[SIMILARITY] Norms: y_im 1.0000, y_ref 1.0000, y_clap nan
+[SIMILARITY] Temps: tau 0.070000, cross_temp 0.070000
+[SIMILARITY] WARNING: y_clap has 4096/4096 NaN and 0/4096 Inf
+[SIMILARITY] Similarity matrices: C_qvim torch.Size([8, 8]), C_ref_clap torch.Size([8, 8]), C_im_clap torch.Size([8, 8])
+[SIMILARITY] C_qvim: min=2.8652, max=11.9071, mean=8.9839
+[SIMILARITY] C_ref_clap: min=nan, max=nan, mean=nan
+[SIMILARITY] C_im_clap: min=nan, max=nan, mean=nan
+[SIMILARITY] WARNING: C_ref_clap_log has 64/64 NaN values
+[SIMILARITY] WARNING: C_im_clap_log has 64/64 NaN values
+Epoch 0:   5%|███▉                                                                                  | 61/1324 [00:51<17:44,  1.19it/s, v_num=puc7, train/loss=nan.0, lr=3.75e-5][CLAP PIPELINE] Input audio shape: torch.Size([8, 320000])
+[CLAP PIPELINE] Input audio stats: min=-1.0079, max=1.0159, mean=-0.0005, std=0.2033
+[CLAP PIPELINE] After resampling: shape=torch.Size([8, 160000])
+[CLAP PIPELINE] After resampling stats: min=-1.0264, max=1.0391, mean=-0.0005, std=0.1995
+[CLAP PIPELINE] Sample 0 waveform: shape=torch.Size([160000])
+[CLAP PIPELINE] Sample 0 stats: min=-0.9224, max=0.9990, mean=-0.0030, std=0.1213
+[CLAP PIPELINE] Sample 0: 123215/160000 near-zero values
+[CLAP PIPELINE] About to call get_audio_embedding with 8 waveform dicts
+[CLAP PIPELINE] CLAP embedding shape: torch.Size([8, 512])
+[CLAP PIPELINE] WARNING: CLAP embedding has 4096/4096 NaN values and 0/4096 Inf values
+[CLAP PIPELINE] CLAP embedding stats: min=nan, max=nan, mean=nan, std=nan
+[CLAP PIPELINE] CLAP embedding norms: min=nan, max=nan, mean=nan
+[SIMILARITY] Shapes: y_im torch.Size([8, 512]), y_ref torch.Size([8, 512]), y_clap torch.Size([8, 512])
+[SIMILARITY] Norms: y_im 1.0000, y_ref 1.0000, y_clap nan
+[SIMILARITY] Temps: tau 0.070000, cross_temp 0.070000
+[SIMILARITY] WARNING: y_clap has 4096/4096 NaN and 0/4096 Inf
+[SIMILARITY] Similarity matrices: C_qvim torch.Size([8, 8]), C_ref_clap torch.Size([8, 8]), C_im_clap torch.Size([8, 8])
+[SIMILARITY] C_qvim: min=3.5278, max=12.2419, mean=9.3897
+[SIMILARITY] C_ref_clap: min=nan, max=nan, mean=nan
+[SIMILARITY] C_im_clap: min=nan, max=nan, mean=nan
+[SIMILARITY] WARNING: C_ref_clap_log has 64/64 NaN values
+[SIMILARITY] WARNING: C_im_clap_log has 64/64 NaN values
+Epoch 0:   5%|████                                                                                  | 62/1324 [00:52<17:41,  1.19it/s, v_num=puc7, train/loss=nan.0, lr=3.77e-5]
+
+Detected KeyboardInterrupt, attempting graceful shutdown ...

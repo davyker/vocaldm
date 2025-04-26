@@ -1,0 +1,93 @@
+Dataset directory ready at audioldm/qvim/data/Vim_Sketch_Dataset
+Dataset directory ready at audioldm/qvim/data
+Successfully loaded dataset with 12453 samples
+Training with 11208 samples, validating with 1245 samples
+Loading QVIM model from audioldm/qvim/models_vimsketch_longer/dulcet-leaf-31/best-loss-checkpoint.ckpt
+Loading QVIM model from audioldm/qvim/models_vimsketch_longer/dulcet-leaf-31/best-loss-checkpoint.ckpt
+Warning: FMAX is None setting to 15000
+Initializing QVIM adapter: QVIM dim=960, AudioLDM dim=512
+Loading AudioLDM model: audioldm-m-full
+Load AudioLDM: %s audioldm-m-full
+DiffusionWrapper has 415.95 M params.
+Traceback (most recent call last):
+  File "/mnt/c/Users/Davy/Documents/Code/QM/CC/AudioLDM/train_vocaldm.py", line 1759, in <module>
+    success = train_vocaldm(args)
+  File "/mnt/c/Users/Davy/Documents/Code/QM/CC/AudioLDM/train_vocaldm.py", line 1326, in train_vocaldm
+    model = VocaLDMModule(args)
+  File "/mnt/c/Users/Davy/Documents/Code/QM/CC/AudioLDM/train_vocaldm.py", line 180, in __init__
+    self.initialize_models()
+  File "/mnt/c/Users/Davy/Documents/Code/QM/CC/AudioLDM/train_vocaldm.py", line 202, in initialize_models
+    self.audioldm = load_audioldm_model(model_source, device=self.device)
+  File "/mnt/c/Users/Davy/Documents/Code/QM/CC/AudioLDM/vocaldm_utils.py", line 50, in load_audioldm_model
+    audioldm = build_model(model_name=model_name_or_path)
+  File "/mnt/c/Users/Davy/Documents/Code/QM/CC/AudioLDM/audioldm/pipeline.py", line 158, in build_model
+    latent_diffusion = LatentDiffusion(**config["model"]["params"])
+  File "/mnt/c/Users/Davy/Documents/Code/QM/CC/AudioLDM/audioldm/ldm.py", line 62, in __init__
+    self.instantiate_first_stage(first_stage_config)
+  File "/mnt/c/Users/Davy/Documents/Code/QM/CC/AudioLDM/audioldm/ldm.py", line 98, in instantiate_first_stage
+    model = instantiate_from_config(config)
+  File "/mnt/c/Users/Davy/Documents/Code/QM/CC/AudioLDM/audioldm/utils.py", line 97, in instantiate_from_config
+    return get_obj_from_str(config["target"])(**config.get("params", dict()))
+  File "/mnt/c/Users/Davy/Documents/Code/QM/CC/AudioLDM/audioldm/variational_autoencoder/autoencoder.py", line 28, in __init__
+    self.decoder = Decoder(**ddconfig)
+  File "/mnt/c/Users/Davy/Documents/Code/QM/CC/AudioLDM/audioldm/variational_autoencoder/modules.py", line 608, in __init__
+    self.mid.block_2 = ResnetBlock(
+  File "/mnt/c/Users/Davy/Documents/Code/QM/CC/AudioLDM/audioldm/variational_autoencoder/modules.py", line 142, in __init__
+    self.conv2 = torch.nn.Conv2d(
+  File "/root/miniconda3/envs/qvim-baseline/lib/python3.10/site-packages/torch/nn/modules/conv.py", line 521, in __init__
+    super().__init__(
+  File "/root/miniconda3/envs/qvim-baseline/lib/python3.10/site-packages/torch/nn/modules/conv.py", line 176, in __init__
+    self.reset_parameters()
+  File "/root/miniconda3/envs/qvim-baseline/lib/python3.10/site-packages/torch/nn/modules/conv.py", line 182, in reset_parameters
+    init.kaiming_uniform_(self.weight, a=math.sqrt(5))
+  File "/root/miniconda3/envs/qvim-baseline/lib/python3.10/site-packages/torch/nn/init.py", line 518, in kaiming_uniform_
+    return tensor.uniform_(-bound, bound, generator=generator)
+KeyboardInterrupt
+Traceback (most recent call last):
+  File "/mnt/c/Users/Davy/Documents/Code/QM/CC/AudioLDM/train_vocaldm.py", line 1759, in <module>
+    success = train_vocaldm(args)
+  File "/mnt/c/Users/Davy/Documents/Code/QM/CC/AudioLDM/train_vocaldm.py", line 1326, in train_vocaldm
+    model = VocaLDMModule(args)
+  File "/mnt/c/Users/Davy/Documents/Code/QM/CC/AudioLDM/train_vocaldm.py", line 180, in __init__
+    self.initialize_models()
+  File "/mnt/c/Users/Davy/Documents/Code/QM/CC/AudioLDM/train_vocaldm.py", line 202, in initialize_models
+    self.audioldm = load_audioldm_model(model_source, device=self.device)
+  File "/mnt/c/Users/Davy/Documents/Code/QM/CC/AudioLDM/vocaldm_utils.py", line 50, in load_audioldm_model
+    audioldm = build_model(model_name=model_name_or_path)
+  File "/mnt/c/Users/Davy/Documents/Code/QM/CC/AudioLDM/audioldm/pipeline.py", line 158, in build_model
+    latent_diffusion = LatentDiffusion(**config["model"]["params"])
+  File "/mnt/c/Users/Davy/Documents/Code/QM/CC/AudioLDM/audioldm/ldm.py", line 62, in __init__
+    self.instantiate_first_stage(first_stage_config)
+  File "/mnt/c/Users/Davy/Documents/Code/QM/CC/AudioLDM/audioldm/ldm.py", line 98, in instantiate_first_stage
+    model = instantiate_from_config(config)
+  File "/mnt/c/Users/Davy/Documents/Code/QM/CC/AudioLDM/audioldm/utils.py", line 97, in instantiate_from_config
+    return get_obj_from_str(config["target"])(**config.get("params", dict()))
+  File "/mnt/c/Users/Davy/Documents/Code/QM/CC/AudioLDM/audioldm/variational_autoencoder/autoencoder.py", line 28, in __init__
+    self.decoder = Decoder(**ddconfig)
+  File "/mnt/c/Users/Davy/Documents/Code/QM/CC/AudioLDM/audioldm/variational_autoencoder/modules.py", line 608, in __init__
+    self.mid.block_2 = ResnetBlock(
+  File "/mnt/c/Users/Davy/Documents/Code/QM/CC/AudioLDM/audioldm/variational_autoencoder/modules.py", line 142, in __init__
+    self.conv2 = torch.nn.Conv2d(
+  File "/root/miniconda3/envs/qvim-baseline/lib/python3.10/site-packages/torch/nn/modules/conv.py", line 521, in __init__
+    super().__init__(
+  File "/root/miniconda3/envs/qvim-baseline/lib/python3.10/site-packages/torch/nn/modules/conv.py", line 176, in __init__
+    self.reset_parameters()
+  File "/root/miniconda3/envs/qvim-baseline/lib/python3.10/site-packages/torch/nn/modules/conv.py", line 182, in reset_parameters
+    init.kaiming_uniform_(self.weight, a=math.sqrt(5))
+  File "/root/miniconda3/envs/qvim-baseline/lib/python3.10/site-packages/torch/nn/init.py", line 518, in kaiming_uniform_
+    return tensor.uniform_(-bound, bound, generator=generator)
+KeyboardInterrupt
+Exception ignored in atexit callback: <function _start_and_connect_service.<locals>.teardown_atexit at 0x7ff2611db760>
+Traceback (most recent call last):
+  File "/root/miniconda3/envs/qvim-baseline/lib/python3.10/site-packages/wandb/sdk/lib/service_connection.py", line 94, in teardown_atexit
+    conn.teardown(hooks.exit_code)
+  File "/root/miniconda3/envs/qvim-baseline/lib/python3.10/site-packages/wandb/sdk/lib/service_connection.py", line 226, in teardown
+    self._router.join()
+  File "/root/miniconda3/envs/qvim-baseline/lib/python3.10/site-packages/wandb/sdk/interface/router.py", line 75, in join
+    self._thread.join()
+  File "/root/miniconda3/envs/qvim-baseline/lib/python3.10/threading.py", line 1096, in join
+    self._wait_for_tstate_lock()
+  File "/root/miniconda3/envs/qvim-baseline/lib/python3.10/threading.py", line 1116, in _wait_for_tstate_lock
+    if lock.acquire(block, timeout):
+KeyboardInterrupt:
+Resources cleaned up

@@ -1,0 +1,342 @@
+_wandb:
+    value:
+        cli_version: 0.19.9
+        m:
+            - "1": audio/epoch_0_sample_0_imitation.path
+              "5": 2
+              "6":
+                - 1
+                - 3
+              "7": []
+            - "1": trainer/global_step
+              "6":
+                - 3
+              "7": []
+            - "1": val/mse_loss
+              "5": 2
+              "6":
+                - 1
+                - 3
+              "7": []
+            - "1": val/cosine_loss
+              "5": 2
+              "6":
+                - 1
+                - 3
+              "7": []
+            - "1": audio/epoch_0_sample_0_generated.size
+              "5": 2
+              "6":
+                - 1
+                - 3
+              "7": []
+            - "1": audio/epoch_0_sample_1_reference.path
+              "5": 2
+              "6":
+                - 1
+                - 3
+              "7": []
+            - "1": audio/epoch_0_sample_0_imitation._type
+              "5": 2
+              "6":
+                - 1
+                - 3
+              "7": []
+            - "1": audio/epoch_0_sample_0_reference.size
+              "5": 2
+              "6":
+                - 1
+                - 3
+              "7": []
+            - "1": audio/epoch_0_sample_0_generated._type
+              "5": 2
+              "6":
+                - 1
+                - 3
+              "7": []
+            - "1": audio/epoch_0_sample_1_imitation._type
+              "5": 2
+              "6":
+                - 1
+                - 3
+              "7": []
+            - "1": val/loss
+              "5": 2
+              "6":
+                - 1
+                - 3
+              "7": []
+            - "1": audio/epoch_0_sample_0_imitation.sha256
+              "5": 2
+              "6":
+                - 1
+                - 3
+              "7": []
+            - "1": audio/epoch_0_sample_0_imitation.size
+              "5": 2
+              "6":
+                - 1
+                - 3
+              "7": []
+            - "1": audio/epoch_0_sample_0_generated.sha256
+              "5": 2
+              "6":
+                - 1
+                - 3
+              "7": []
+            - "1": audio/epoch_0_sample_1_generated.sha256
+              "5": 2
+              "6":
+                - 1
+                - 3
+              "7": []
+            - "1": step
+              "5": 2
+              "6":
+                - 1
+                - 3
+              "7": []
+            - "1": audio/epoch_0_sample_0_reference.caption
+              "5": 2
+              "6":
+                - 1
+                - 3
+              "7": []
+            - "1": audio/epoch_0_sample_0_reference._type
+              "5": 2
+              "6":
+                - 1
+                - 3
+              "7": []
+            - "1": audio/epoch_0_sample_0_reference.sha256
+              "5": 2
+              "6":
+                - 1
+                - 3
+              "7": []
+            - "1": audio/epoch_0_sample_0_generated.path
+              "5": 2
+              "6":
+                - 1
+                - 3
+              "7": []
+            - "1": audio/epoch_0_sample_1_generated.caption
+              "5": 2
+              "6":
+                - 1
+                - 3
+              "7": []
+            - "1": audio/epoch_0_sample_1_imitation.path
+              "5": 2
+              "6":
+                - 1
+                - 3
+              "7": []
+            - "1": epoch
+              "5": 2
+              "6":
+                - 1
+                - 3
+              "7": []
+            - "1": audio/epoch_0_sample_1_reference._type
+              "5": 2
+              "6":
+                - 1
+                - 3
+              "7": []
+            - "1": audio/epoch_0_sample_1_reference.size
+              "5": 2
+              "6":
+                - 1
+                - 3
+              "7": []
+            - "1": audio/epoch_0_sample_1_generated.path
+              "5": 2
+              "6":
+                - 1
+                - 3
+              "7": []
+            - "1": audio/epoch_0_sample_1_imitation.caption
+              "5": 2
+              "6":
+                - 1
+                - 3
+              "7": []
+            - "1": audio/epoch_0_sample_1_reference.sha256
+              "5": 2
+              "6":
+                - 1
+                - 3
+              "7": []
+            - "1": audio/epoch_0_sample_1_generated.size
+              "5": 2
+              "6":
+                - 1
+                - 3
+              "7": []
+            - "1": audio/epoch_0_sample_1_imitation.sha256
+              "5": 2
+              "6":
+                - 1
+                - 3
+              "7": []
+            - "1": audio/epoch_0_sample_0_reference.path
+              "5": 2
+              "6":
+                - 1
+                - 3
+              "7": []
+            - "1": audio/epoch_0_sample_0_imitation.caption
+              "5": 2
+              "6":
+                - 1
+                - 3
+              "7": []
+            - "1": audio/epoch_0_sample_1_reference.caption
+              "5": 2
+              "6":
+                - 1
+                - 3
+              "7": []
+            - "1": audio/epoch_0_sample_0_generated.caption
+              "5": 2
+              "6":
+                - 1
+                - 3
+              "7": []
+            - "1": audio/epoch_0_sample_1_generated._type
+              "5": 2
+              "6":
+                - 1
+                - 3
+              "7": []
+            - "1": audio/epoch_0_sample_1_imitation.size
+              "5": 2
+              "6":
+                - 1
+                - 3
+              "7": []
+        python_version: 3.10.16
+        t:
+            "1":
+                - 1
+                - 5
+                - 9
+                - 11
+                - 41
+                - 49
+                - 53
+                - 55
+                - 103
+                - 105
+            "2":
+                - 1
+                - 5
+                - 9
+                - 11
+                - 41
+                - 49
+                - 53
+                - 55
+                - 103
+                - 105
+            "3":
+                - 2
+                - 7
+                - 16
+                - 23
+                - 55
+                - 66
+            "4": 3.10.16
+            "5": 0.19.9
+            "6": 4.29.0
+            "8":
+                - 5
+            "12": 0.19.9
+            "13": linux-x86_64
+adapter_lr:
+    value: 1e-05
+adapter_weight_decay:
+    value: 0.001
+audioldm_checkpoint:
+    value: null
+audioldm_dim:
+    value: 512
+audioldm_model:
+    value: audioldm-m-full
+audioldm_sample_rate:
+    value: 16000
+batch_size:
+    value: 2
+checkpoint_dir:
+    value: ckpt/vocaldm
+dataset_path:
+    value: audioldm/qvim/data
+ddim_steps:
+    value: 100
+debug_autograd:
+    value: false
+disable_checkpointing:
+    value: true
+duration:
+    value: 10
+film_lr:
+    value: 5e-06
+film_weight_decay:
+    value: 1e-05
+generate_every_n_epochs:
+    value: 1
+gradient_accumulation_steps:
+    value: 1
+guidance_rampup_percent:
+    value: 0.4
+guidance_scale:
+    value: 3
+guidance_warmup_percent:
+    value: 0.1
+initial_guidance_scale:
+    value: 1
+log_audio:
+    value: true
+lr_rampdown_epochs:
+    value: 30
+lr_scheduler:
+    value: cosine
+max_epochs:
+    value: 300
+max_items:
+    value: null
+min_lr:
+    value: 1e-06
+num_gpus:
+    value: auto
+num_workers:
+    value: 24
+patience:
+    value: 8
+pin_memory:
+    value: true
+project:
+    value: vocaldm
+qvim_checkpoint:
+    value: audioldm/qvim/models_vimsketch_longer/dulcet-leaf-31/best-loss-checkpoint.ckpt
+qvim_dim:
+    value: 960
+resume_from:
+    value: null
+run_name:
+    value: null
+sample_rate:
+    value: 32000
+save_autograd_graph:
+    value: true
+seed:
+    value: 46
+use_guidance_scale_scheduler:
+    value: true
+val_check_interval:
+    value: 1
+val_split:
+    value: 0.1
+wandb_log_model:
+    value: false

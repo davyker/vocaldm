@@ -1,0 +1,115 @@
+Using 16bit Automatic Mixed Precision (AMP)
+GPU available: True (cuda), used: True
+TPU available: False, using: 0 TPU cores
+HPU available: False, using: 0 HPUs
+
+----- Training -----
+LOCAL_RANK: 0 - CUDA_VISIBLE_DEVICES: [0]
+
+  | Name              | Type                               | Params | Mode
+---------------------------------------------------------------------------------
+0 | mel               | AugmentMelSTFT                     | 0      | train
+1 | imitation_encoder | MobileNetV3                        | 2.7 M  | train
+2 | reference_encoder | MobileNetV3                        | 2.7 M  | train
+3 | clap_model        | CLAPAudioEmbeddingClassifierFreev2 | 158 M  | eval
+  | other params      | n/a                                | 2      | n/a
+---------------------------------------------------------------------------------
+5.4 M     Trainable params
+158 M     Non-trainable params
+163 M     Total params
+655.085   Total estimated model params size (MB)
+419       Modules in train mode
+465       Modules in eval mode
+Sanity Checking DataLoader 0:   0%|                                                                                                                       | 0/2 [00:00<?, ?it/s]
+[VALIDATION] Batch 0 - Processing validation data
+[VALIDATION] Imitation shape: torch.Size([8, 320000]), Reference shape: torch.Size([8, 320000])
+[VALIDATION] Imitation: min=-1.0061, max=1.0018
+[VALIDATION] Reference: min=-0.9994, max=1.0061
+[CLAP PIPELINE] Input audio shape: torch.Size([8, 320000])
+[CLAP PIPELINE] Input audio stats: min=-0.9994, max=1.0061, mean=0.0023, std=0.2029
+[CLAP PIPELINE] After resampling: shape=torch.Size([8, 160000])
+[CLAP PIPELINE] After resampling stats: min=-0.9897, max=1.0088, mean=0.0023, std=0.2026
+[CLAP PIPELINE] Removed 0 trailing zeros from sample 0
+[CLAP PIPELINE] Sample 0 waveform: shape=torch.Size([160000])
+[CLAP PIPELINE] Sample 0 stats: min=-0.9692, max=0.9917, mean=-0.0001, std=0.2598
+[CLAP PIPELINE] Sample 0: 25/160000 near-zero values
+[CLAP PIPELINE] Removed 150802 trailing zeros from sample 1
+[CLAP PIPELINE] Removed 50913 trailing zeros from sample 2
+[CLAP PIPELINE] Removed 39817 trailing zeros from sample 3
+[CLAP PIPELINE] Removed 63823 trailing zeros from sample 4
+[CLAP PIPELINE] Removed 53128 trailing zeros from sample 5
+[CLAP PIPELINE] Removed 29570 trailing zeros from sample 6
+[CLAP PIPELINE] Removed 157790 trailing zeros from sample 7
+[CLAP PIPELINE] About to call get_audio_embedding with 8 waveform dicts
+Traceback (most recent call last):
+  File "/mnt/c/Users/Davy/Documents/Code/QM/CC/AudioLDM/train_qvim_clap_alignment.py", line 563, in <module>
+    train(args)
+  File "/mnt/c/Users/Davy/Documents/Code/QM/CC/AudioLDM/train_qvim_clap_alignment.py", line 463, in train
+    qvim_train(config, model_factory)
+  File "/mnt/c/Users/Davy/Documents/Code/QM/CC/AudioLDM/audioldm/qvim/src/qvim_mn_baseline/ex_qvim.py", line 474, in train
+    trainer.fit(
+  File "/root/miniconda3/envs/qvim-baseline/lib/python3.10/site-packages/pytorch_lightning/trainer/trainer.py", line 561, in fit
+    call._call_and_handle_interrupt(
+  File "/root/miniconda3/envs/qvim-baseline/lib/python3.10/site-packages/pytorch_lightning/trainer/call.py", line 48, in _call_and_handle_interrupt
+    return trainer_fn(*args, **kwargs)
+  File "/root/miniconda3/envs/qvim-baseline/lib/python3.10/site-packages/pytorch_lightning/trainer/trainer.py", line 599, in _fit_impl
+    self._run(model, ckpt_path=ckpt_path)
+  File "/root/miniconda3/envs/qvim-baseline/lib/python3.10/site-packages/pytorch_lightning/trainer/trainer.py", line 1012, in _run
+    results = self._run_stage()
+  File "/root/miniconda3/envs/qvim-baseline/lib/python3.10/site-packages/pytorch_lightning/trainer/trainer.py", line 1054, in _run_stage
+    self._run_sanity_check()
+  File "/root/miniconda3/envs/qvim-baseline/lib/python3.10/site-packages/pytorch_lightning/trainer/trainer.py", line 1083, in _run_sanity_check
+    val_loop.run()
+  File "/root/miniconda3/envs/qvim-baseline/lib/python3.10/site-packages/pytorch_lightning/loops/utilities.py", line 179, in _decorator
+    return loop_run(self, *args, **kwargs)
+  File "/root/miniconda3/envs/qvim-baseline/lib/python3.10/site-packages/pytorch_lightning/loops/evaluation_loop.py", line 145, in run
+    self._evaluation_step(batch, batch_idx, dataloader_idx, dataloader_iter)
+  File "/root/miniconda3/envs/qvim-baseline/lib/python3.10/site-packages/pytorch_lightning/loops/evaluation_loop.py", line 437, in _evaluation_step
+    output = call._call_strategy_hook(trainer, hook_name, *step_args)
+  File "/root/miniconda3/envs/qvim-baseline/lib/python3.10/site-packages/pytorch_lightning/trainer/call.py", line 328, in _call_strategy_hook
+    output = fn(*args, **kwargs)
+  File "/root/miniconda3/envs/qvim-baseline/lib/python3.10/site-packages/pytorch_lightning/strategies/strategy.py", line 412, in validation_step
+    return self.lightning_module.validation_step(*args, **kwargs)
+  File "/mnt/c/Users/Davy/Documents/Code/QM/CC/AudioLDM/train_qvim_clap_alignment.py", line 362, in validation_step
+    y_clap = self.forward_clap(batch['reference'])
+  File "/mnt/c/Users/Davy/Documents/Code/QM/CC/AudioLDM/train_qvim_clap_alignment.py", line 213, in forward_clap
+    clap_embedding = self.clap_model.model.get_audio_embedding(batch_audio_dict_list)
+  File "/mnt/c/Users/Davy/Documents/Code/QM/CC/AudioLDM/audioldm/clap/open_clip/model.py", line 773, in get_audio_embedding
+    input_dict[k] = torch.cat([d[k].unsqueeze(0) for d in data], dim=0).to(
+RuntimeError: Sizes of tensors must match except in dimension 0. Expected size 160000 but got size 9198 for tensor number 1 in the list.
+Traceback (most recent call last):
+  File "/mnt/c/Users/Davy/Documents/Code/QM/CC/AudioLDM/train_qvim_clap_alignment.py", line 563, in <module>
+    train(args)
+  File "/mnt/c/Users/Davy/Documents/Code/QM/CC/AudioLDM/train_qvim_clap_alignment.py", line 463, in train
+    qvim_train(config, model_factory)
+  File "/mnt/c/Users/Davy/Documents/Code/QM/CC/AudioLDM/audioldm/qvim/src/qvim_mn_baseline/ex_qvim.py", line 474, in train
+    trainer.fit(
+  File "/root/miniconda3/envs/qvim-baseline/lib/python3.10/site-packages/pytorch_lightning/trainer/trainer.py", line 561, in fit
+    call._call_and_handle_interrupt(
+  File "/root/miniconda3/envs/qvim-baseline/lib/python3.10/site-packages/pytorch_lightning/trainer/call.py", line 48, in _call_and_handle_interrupt
+    return trainer_fn(*args, **kwargs)
+  File "/root/miniconda3/envs/qvim-baseline/lib/python3.10/site-packages/pytorch_lightning/trainer/trainer.py", line 599, in _fit_impl
+    self._run(model, ckpt_path=ckpt_path)
+  File "/root/miniconda3/envs/qvim-baseline/lib/python3.10/site-packages/pytorch_lightning/trainer/trainer.py", line 1012, in _run
+    results = self._run_stage()
+  File "/root/miniconda3/envs/qvim-baseline/lib/python3.10/site-packages/pytorch_lightning/trainer/trainer.py", line 1054, in _run_stage
+    self._run_sanity_check()
+  File "/root/miniconda3/envs/qvim-baseline/lib/python3.10/site-packages/pytorch_lightning/trainer/trainer.py", line 1083, in _run_sanity_check
+    val_loop.run()
+  File "/root/miniconda3/envs/qvim-baseline/lib/python3.10/site-packages/pytorch_lightning/loops/utilities.py", line 179, in _decorator
+    return loop_run(self, *args, **kwargs)
+  File "/root/miniconda3/envs/qvim-baseline/lib/python3.10/site-packages/pytorch_lightning/loops/evaluation_loop.py", line 145, in run
+    self._evaluation_step(batch, batch_idx, dataloader_idx, dataloader_iter)
+  File "/root/miniconda3/envs/qvim-baseline/lib/python3.10/site-packages/pytorch_lightning/loops/evaluation_loop.py", line 437, in _evaluation_step
+    output = call._call_strategy_hook(trainer, hook_name, *step_args)
+  File "/root/miniconda3/envs/qvim-baseline/lib/python3.10/site-packages/pytorch_lightning/trainer/call.py", line 328, in _call_strategy_hook
+    output = fn(*args, **kwargs)
+  File "/root/miniconda3/envs/qvim-baseline/lib/python3.10/site-packages/pytorch_lightning/strategies/strategy.py", line 412, in validation_step
+    return self.lightning_module.validation_step(*args, **kwargs)
+  File "/mnt/c/Users/Davy/Documents/Code/QM/CC/AudioLDM/train_qvim_clap_alignment.py", line 362, in validation_step
+    y_clap = self.forward_clap(batch['reference'])
+  File "/mnt/c/Users/Davy/Documents/Code/QM/CC/AudioLDM/train_qvim_clap_alignment.py", line 213, in forward_clap
+    clap_embedding = self.clap_model.model.get_audio_embedding(batch_audio_dict_list)
+  File "/mnt/c/Users/Davy/Documents/Code/QM/CC/AudioLDM/audioldm/clap/open_clip/model.py", line 773, in get_audio_embedding
+    input_dict[k] = torch.cat([d[k].unsqueeze(0) for d in data], dim=0).to(
+RuntimeError: Sizes of tensors must match except in dimension 0. Expected size 160000 but got size 9198 for tensor number 1 in the list.

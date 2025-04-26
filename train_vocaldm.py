@@ -111,7 +111,7 @@ except Exception as e:
     print(f"Failed to apply debug patches: {e}")
 
 # Import utility functions
-from vocaldm_utils import load_audioldm_model, setup_qvim_and_adapter, cleanup_resources, make_vocaldm_batch
+from vocaldm_utils import load_audioldm_model_with_qvim_cond, setup_qvim_and_adapter, cleanup_resources, make_vocaldm_batch
 
 # Enable Tensor Cores for faster training with minimal precision loss
 torch.set_float32_matmul_precision('high')
@@ -119,19 +119,20 @@ torch.set_float32_matmul_precision('high')
 class VocaLDMDataset(Dataset):
     """Dataset for training VocaLDM with vocal imitations and reference sounds"""
     
-    def __init__(self, base_dataset, sample_rate=32000, duration=10.0, max_items=None):
+    def __init__(self, base_dataset, sample_rate=32000, audioldm_sample_rate=16000, duration=10.0, max_items=None):
         """
         Args:
             base_dataset: VimSketchDataset or similar dataset with imitations and references
-            sample_rate: Target sample rate for audio processing
+            sample_rate: Target sample rate for audio processing (QVIM sample rate)
+            audioldm_sample_rate: AudioLDM sample rate
             duration: Target duration in seconds
             max_items: Optional limit on dataset size for debugging/testing
         """
         self.base_dataset = base_dataset
         self.sample_rate = sample_rate
+        self.audioldm_sample_rate = audioldm_sample_rate
         self.duration = duration
         self.max_items = max_items
-        # Parameters to finetune contains these strings:
         
         # If max_items is set, limit the dataset size
         if max_items is not None:
@@ -154,12 +155,18 @@ class VocaLDMDataset(Dataset):
         reference_filename = item['reference_filename']
         
         # Create a batch-friendly item structure
-        return {
+        result = {
             'imitation': imitation,
             'reference': reference,
             'imitation_filename': imitation_filename,
             'reference_filename': reference_filename
         }
+        
+        # Include mel_reference if it exists (using AudioLDM's original processing)
+        if 'mel_reference' in item:
+            result['mel_reference'] = item['mel_reference']
+            
+        return result
 
 class VocaLDMModule(pl.LightningModule):
     """
@@ -199,7 +206,7 @@ class VocaLDMModule(pl.LightningModule):
         
         # Load AudioLDM model
         model_source = self.config.audioldm_checkpoint or self.config.audioldm_model
-        self.audioldm = load_audioldm_model(model_source, device=self.device)
+        self.audioldm = load_audioldm_model_with_qvim_cond(model_source, device=self.device)
         
         # CRITICAL FIX: Use our completely training-compatible checkpoint function and class
         # The original checkpoint function is causing "One of the differentiated Tensors does not require grad" errors
@@ -473,6 +480,8 @@ class VocaLDMModule(pl.LightningModule):
         
         # Decode the latent space to get waveform
         mel = self.audioldm.decode_first_stage(samples)
+        # Show shape of mel
+        print(f"Decoded mel shape: {mel.shape}")
         
         # Extract waveform
         waveform = self.audioldm.mel_spectrogram_to_waveform(mel)
@@ -1262,7 +1271,9 @@ def train_vocaldm(args):
         full_ds = VimSketchDataset(
             dataset_path,
             sample_rate=args.sample_rate,
-            duration=args.duration
+            audioldm_sample_rate=args.audioldm_sample_rate,
+            duration=args.duration,
+            use_original_audioldm_mel=True  # Use AudioLDM's original processing
         )
         print(f"Successfully loaded dataset with {len(full_ds)} samples")
     except Exception as e:
@@ -1454,7 +1465,7 @@ def train_vocaldm(args):
         log_every_n_steps=10,
         val_check_interval=args.val_check_interval,
         accumulate_grad_batches=args.gradient_accumulation_steps,  # Gradient accumulation for memory optimization
-        gradient_clip_val=1.0,  # Add gradient clipping to stabilize training with mixed precision
+        gradient_clip_val=1.0,  # Add gradient clipping to stabilize training
         inference_mode=False,  # Needed to avoid inference mode issues with gradient flow
         num_sanity_val_steps=-1,  # Run full validation at start for baseline metrics
         enable_checkpointing=True,  # Ensure we save the best model based on validation loss

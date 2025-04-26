@@ -1,0 +1,45 @@
+{
+  "os": "Linux-5.15.167.4-microsoft-standard-WSL2-x86_64-with-glibc2.39",
+  "python": "CPython 3.10.16",
+  "startedAt": "2025-04-25T23:53:38.781847Z",
+  "args": [
+    "--batch_size",
+    "2"
+  ],
+  "program": "/mnt/c/Users/Davy/Documents/Code/QM/CC/AudioLDM/train_vocaldm.py",
+  "codePath": "train_vocaldm.py",
+  "git": {
+    "remote": "https://github.com/davyker/vocaldm.git",
+    "commit": "7346df5ccfbb17f9283735fbf743afd325dae134"
+  },
+  "email": "davyker1@gmail.com",
+  "root": "ckpt/vocaldm",
+  "host": "DKNL",
+  "executable": "/root/miniconda3/envs/qvim-baseline/bin/python",
+  "codePathLocal": "train_vocaldm.py",
+  "cpu_count": 8,
+  "cpu_count_logical": 16,
+  "gpu": "NVIDIA GeForce RTX 4060 Laptop GPU",
+  "gpu_count": 1,
+  "disk": {
+    "/": {
+      "total": "1081101176832",
+      "used": "124879331328"
+    }
+  },
+  "memory": {
+    "total": "16345546752"
+  },
+  "cpu": {
+    "count": 8,
+    "countLogical": 16
+  },
+  "gpu_nvidia": [
+    {
+      "name": "NVIDIA GeForce RTX 4060 Laptop GPU",
+      "memoryTotal": "8585740288",
+      "architecture": "Ada"
+    }
+  ],
+  "cudaVersion": "12.6"
+}

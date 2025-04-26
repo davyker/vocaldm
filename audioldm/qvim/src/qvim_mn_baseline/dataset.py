@@ -12,13 +12,38 @@ class VimSketchDataset(torch.utils.data.Dataset):
     def __init__(
             self,
             dataset_dir,
-            sample_rate=32000,  # QVIM uses 32kHz sample rate 
-            duration=10.0       # AudioLDM expects 10-second audio samples
+            sample_rate=32000,           # QVIM uses 32kHz sample rate 
+            audioldm_sample_rate=16000,  # AudioLDM uses 16kHz sample rate
+            duration=10.0,               # AudioLDM expects 10-second audio samples
+            use_original_audioldm_mel=False  # Use AudioLDM's original mel processing pipeline
     ):
         self.dataset_dir = dataset_dir
         self.sample_rate = sample_rate
+        self.audioldm_sample_rate = audioldm_sample_rate
         self.duration = duration
-
+        self.use_original_audioldm_mel = use_original_audioldm_mel
+        
+        # Initialize AudioLDM's STFT processor if using original mel processing
+        if self.use_original_audioldm_mel:
+            from audioldm.audio import TacotronSTFT
+            from audioldm.utils import default_audioldm_config
+            
+            # Get default configuration for AudioLDM
+            config = default_audioldm_config()
+            
+            # Create STFT processor
+            self.fn_STFT = TacotronSTFT(
+                config["preprocessing"]["stft"]["filter_length"],
+                config["preprocessing"]["stft"]["hop_length"],
+                config["preprocessing"]["stft"]["win_length"],
+                config["preprocessing"]["mel"]["n_mel_channels"],
+                config["preprocessing"]["audio"]["sampling_rate"],
+                config["preprocessing"]["mel"]["mel_fmin"],
+                config["preprocessing"]["mel"]["mel_fmax"],
+            )
+            
+            # Target length for AudioLDM's mel spectrograms (1024 frames for 10 seconds)
+            self.target_length = config["preprocessing"]["mel"]["target_length"]
 
         reference_filenames = pd.read_csv(
             os.path.join(dataset_dir, 'reference_file_names.csv'),
@@ -48,6 +73,7 @@ class VimSketchDataset(torch.utils.data.Dataset):
         )
 
         self.cached_files = {}
+        self.cached_mels = {}  # Cache for mel spectrograms
 
     def load_audio(self, path):
         if path not in self.cached_files:
@@ -60,6 +86,26 @@ class VimSketchDataset(torch.utils.data.Dataset):
             self.cached_files[path] = audio
         return self.__pad_or_truncate__(self.cached_files[path])
 
+    def get_mel_spectrogram(self, path):
+        """Process audio file to mel spectrogram using AudioLDM's original pipeline"""
+        if path not in self.cached_mels and self.use_original_audioldm_mel:
+            from audioldm.audio.tools import wav_to_fbank
+            
+            # Use AudioLDM's original processing pipeline
+            fbank, _, _ = wav_to_fbank(
+                path, 
+                target_length=self.target_length, 
+                fn_STFT=self.fn_STFT
+            )
+            
+            # Format as [batch, channel, time, freq] as expected by AudioLDM
+            mel = fbank.unsqueeze(0).unsqueeze(0)
+            
+            # Cache the processed mel
+            self.cached_mels[path] = mel
+            return mel
+                
+        return self.cached_mels.get(path, None)
 
     def __pad_or_truncate__(self, audio):
         fixed_length = int(self.sample_rate * self.duration)
@@ -70,9 +116,7 @@ class VimSketchDataset(torch.utils.data.Dataset):
             array = audio[:fixed_length]
         return array
 
-
     def __getitem__(self, index):
-
         row = self.all_pairs.iloc[index]
         
         # Get filenames
@@ -83,15 +127,28 @@ class VimSketchDataset(torch.utils.data.Dataset):
         # Example: "00003_000Animal_Domestic animals_pets_Cat_Growling" -> "000Animal_Domestic animals_pets_Cat_Growling"
         imitation_class = '_'.join(imitation_filename.split('_')[1:]) if '_' in imitation_filename else imitation_filename
         reference_class = '_'.join(reference_filename.split('_')[1:]) if '_' in reference_filename else reference_filename
-
-        return {
+        
+        # Paths to audio files
+        reference_path = os.path.join(self.dataset_dir, 'references', reference_filename)
+        imitation_path = os.path.join(self.dataset_dir, 'vocal_imitations', imitation_filename)
+        
+        # Create return dictionary
+        item = {
             'reference_filename': reference_filename,
             'imitation_filename': imitation_filename,
-            'reference': self.load_audio(os.path.join(self.dataset_dir, 'references', reference_filename)),
-            'imitation': self.load_audio(os.path.join(self.dataset_dir, 'vocal_imitations', imitation_filename)),
+            'reference': self.load_audio(reference_path),
+            'imitation': self.load_audio(imitation_path),
             'imitation_class': imitation_class,
             'reference_class': reference_class
         }
+        
+        # Add mel spectrograms if using AudioLDM's original processing
+        if self.use_original_audioldm_mel:
+            reference_mel = self.get_mel_spectrogram(reference_path)
+            if reference_mel is not None:
+                item['mel_reference'] = reference_mel
+        
+        return item
 
     def __len__(self):
         return len(self.all_pairs)

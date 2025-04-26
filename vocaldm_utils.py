@@ -27,7 +27,7 @@ AUDIOLDM_REPO_MAP = {
 
 VERBOSE = False
 
-def load_audioldm_model(model_name_or_path, device=None):
+def load_audioldm_model_with_qvim_cond(model_name_or_path, device=None):
     """
     Load an AudioLDM model from a model name or local checkpoint path
     
@@ -129,7 +129,7 @@ def cleanup_resources():
         torch.cuda.empty_cache()
     print("Resources cleaned up")
 
-def waveform_to_mel(waveform, audioldm_model=None, target_shape=(1, 64, 64), src_sr=32000, target_sr=16000):
+def waveform_to_mel(waveform, audioldm_model=None, target_shape=(1, 64, 1024), src_sr=32000, target_sr=16000):
     """
     Convert raw waveform to mel spectrogram in the format expected by AudioLDM
     
@@ -228,9 +228,9 @@ def waveform_to_mel(waveform, audioldm_model=None, target_shape=(1, 64, 64), src
     
     # AudioLDM expects 1024 time frames for 10-second audio
     # If the target shape has width != 1024 and it's 64, we should adjust it
-    if width != 1024 and width == 64:
-        print("Warning: Target width 64 is incorrect for AudioLDM. Adjusting to 1024.")
-        target_shape = (channels, height, 1024)
+    # if width != 1024 and width == 64:
+    #     print("Warning: Target width 64 is incorrect for AudioLDM. Adjusting to 1024.")
+    #     target_shape = (channels, height, 1024)
     
     # Our mel is in format [batch, 1, n_mels, time]
     # Just check time dimension and use AudioLDM's pad_spec directly
@@ -248,6 +248,8 @@ def waveform_to_mel(waveform, audioldm_model=None, target_shape=(1, 64, 64), src
             # Need to cut
             mel = mel[:, :, :, :target_shape[2]]
     
+    # Swap f and t axes (last two axes)
+    mel = mel.permute(0, 1, 3, 2)  # [batch_size, n_mels, time, 1]
     print(f"Final mel spectrogram shape: {mel.shape}") if VERBOSE else None
     return mel
 
