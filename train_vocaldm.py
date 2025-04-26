@@ -1727,7 +1727,7 @@ if __name__ == "__main__":
     parser.add_argument("--val_split", type=float, default=0.1, help="Validation split ratio")
     parser.add_argument("--val_check_interval", type=float, default=1.0, help="Validation check interval (fraction of epoch or integer steps)")
     parser.add_argument("--gradient_clip_val", type=float, default=1.0, help="Gradient clipping value")
-    parser.add_argument("--param_names_contain", type=str, default=['film', 'emb_layers'], help="Parameter names to include in training (comma-separated)")
+    parser.add_argument("--param_names_contain", type=str, nargs='*', default=['film', 'emb_layers'], help="Parameter names to include in training (space-separated). Use --param_names_contain '' to train only the adapter.")
 
     # Data processing
     parser.add_argument("--sample_rate", type=int, default=32000, help="Audio sample rate for QVIM (32kHz)")
