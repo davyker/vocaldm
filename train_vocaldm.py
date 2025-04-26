@@ -198,6 +198,59 @@ class VocaLDMModule(pl.LightningModule):
         """Check if this process is the global zero rank (or single process)"""
         return (torch.distributed.is_initialized() and torch.distributed.get_rank() == 0) or not torch.distributed.is_initialized()
         
+    def on_after_backward(self):
+        """Monitor gradient magnitudes after backward pass to detect vanishing gradients"""
+        # Only log every 10 steps to avoid flooding logs
+        if self.global_step % 10 == 0:
+            # Track adapter gradients
+            adapter_grads = []
+            for name, param in self.adapter.named_parameters():
+                if param.grad is not None:
+                    grad_norm = param.grad.norm().item()
+                    adapter_grads.append(grad_norm)
+                    
+                    # Log specific layer gradients for debugging
+                    if self.global_step % 100 == 0 and self.is_global_zero and self.logger:
+                        self.logger.experiment.log({f"grad/adapter_{name}": grad_norm})
+            
+            # Track FiLM gradients
+            film_grads = []
+            for name, param in self.audioldm.named_parameters():
+                if param.requires_grad and param.grad is not None:
+                    if any(x in name for x in self.param_names_contain):
+                        grad_norm = param.grad.norm().item()
+                        film_grads.append(grad_norm)
+                        
+                        # Log specific layer gradients for debugging
+                        if self.global_step % 100 == 0 and self.is_global_zero and self.logger:
+                            self.logger.experiment.log({f"grad/film_{name}": grad_norm})
+            
+            # Log gradient statistics
+            if self.is_global_zero and self.logger:
+                if adapter_grads:
+                    self.logger.experiment.log({
+                        "grad/adapter_mean": np.mean(adapter_grads),
+                        "grad/adapter_median": np.median(adapter_grads),
+                        "grad/adapter_max": max(adapter_grads),
+                        "grad/adapter_min": min(adapter_grads),
+                    })
+                    
+                    # Flag abnormally small gradients
+                    if min(adapter_grads) < 1e-5:
+                        self.logger.experiment.log({"grad/adapter_vanishing": 1.0})
+                
+                if film_grads:
+                    self.logger.experiment.log({
+                        "grad/film_mean": np.mean(film_grads),
+                        "grad/film_median": np.median(film_grads),
+                        "grad/film_max": max(film_grads),
+                        "grad/film_min": min(film_grads),
+                    })
+                    
+                    # Flag abnormally small gradients
+                    if min(film_grads) < 1e-5:
+                        self.logger.experiment.log({"grad/film_vanishing": 1.0})
+        
     def initialize_models(self):
         """Initialize QVIM model, AudioLDM, and adapter"""
         # Load QVIM model
