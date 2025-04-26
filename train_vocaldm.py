@@ -758,11 +758,8 @@ class VocaLDMModule(pl.LightningModule):
             unit_norm_loss = F.mse_loss(norms, torch.ones_like(norms))
             distribution_loss = torch.mean(torch.abs(adapted_embedding.mean(dim=0)))
             
-            # Combined format loss
-            format_loss = unit_norm_loss + 0.1 * distribution_loss
-            
             # Define fallback loss
-            loss = 10.0 * structure_loss + format_loss
+            loss = 10.0 * structure_loss + unit_norm_loss + 0.1 * distribution_loss
             
             # For logging purposes
             mse_loss = unit_norm_loss
@@ -906,12 +903,9 @@ class VocaLDMModule(pl.LightningModule):
                 norms = torch.norm(adapted_embedding, p=2, dim=-1)
                 unit_norm_loss = F.mse_loss(norms, torch.ones_like(norms))
                 distribution_loss = torch.mean(torch.abs(adapted_embedding.mean(dim=0)))
-                
-                # Combined format loss
-                format_loss = unit_norm_loss + 0.1 * distribution_loss
-                
+                                
                 # Total loss
-                loss = 10.0 * structure_loss + format_loss
+                loss = 10.0 * structure_loss + unit_norm_loss + 0.1 * distribution_loss
                 
                 # For logging
                 mse_loss = unit_norm_loss
@@ -1642,7 +1636,7 @@ if __name__ == "__main__":
     parser.add_argument("--run_name", type=str, default=None, help="Run name for wandb")
     parser.add_argument("--seed", type=int, default=46, help="Random seed for reproducibility")
     parser.add_argument("--debug_autograd", action="store_true", help="Enable autograd anomaly detection")
-    parser.add_argument("--save_autograd_graph", action="store_true", default=True, help="Save autograd graph for debugging")
+    parser.add_argument("--save_autograd_graph", action="store_true", help="Save autograd graph for debugging")
     
     # Paths
     parser.add_argument("--audioldm_model", type=str, default="audioldm-m-full", 
