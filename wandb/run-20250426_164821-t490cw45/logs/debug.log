@@ -1,0 +1,22 @@
+2025-04-26 16:48:21,582 INFO    MainThread:82628 [wandb_setup.py:_flush():67] Current SDK version is 0.19.9
+2025-04-26 16:48:21,582 INFO    MainThread:82628 [wandb_setup.py:_flush():67] Configure stats pid to 82628
+2025-04-26 16:48:21,582 INFO    MainThread:82628 [wandb_setup.py:_flush():67] Loading settings from /root/.config/wandb/settings
+2025-04-26 16:48:21,583 INFO    MainThread:82628 [wandb_setup.py:_flush():67] Loading settings from /mnt/c/Users/Davy/Documents/Code/QM/CC/AudioLDM/wandb/settings
+2025-04-26 16:48:21,583 INFO    MainThread:82628 [wandb_setup.py:_flush():67] Loading settings from environment variables
+2025-04-26 16:48:21,583 INFO    MainThread:82628 [wandb_init.py:setup_run_log_directory():662] Logging user logs to ./wandb/run-20250426_164821-t490cw45/logs/debug.log
+2025-04-26 16:48:21,585 INFO    MainThread:82628 [wandb_init.py:setup_run_log_directory():663] Logging internal logs to ./wandb/run-20250426_164821-t490cw45/logs/debug-internal.log
+2025-04-26 16:48:21,585 INFO    MainThread:82628 [wandb_init.py:init():781] calling init triggers
+2025-04-26 16:48:21,585 INFO    MainThread:82628 [wandb_init.py:init():786] wandb.init called with sweep_config: {}
+config: {'project': 'qvim', 'num_workers': 4, 'num_gpus': 1, 'model_save_path': None, 'dataset_path': 'audioldm/qvim/data', 'pretrained_name': 'mn10_as', 'random_seed': None, 'continue_from': 'audioldm/qvim/baseline-ckpt/baseline.ckpt', 'final_eval_dataset': 'val', 'val_split': 0.9999999, 'batch_size': 16, 'n_epochs': 100, 'early_stopping_patience': 10, 'early_stopping_min_delta': 0.0, 'weight_decay': 0.0, 'max_lr': 0.0, 'min_lr': 0.0, 'warmup_epochs': 1, 'rampdown_epochs': 17, 'initial_tau': 0.07, 'tau_trainable': True, 'lr_schedule': 'cosine', 'duration': 10.0, 'pin_memory': True, 'sample_rate': 32000, 'window_size': 800, 'hop_size': 320, 'n_fft': 1024, 'n_mels': 128, 'freqm': 8, 'timem': 300, 'fmin': 0, 'fmax': None, 'fmin_aug_range': 10, 'fmax_aug_range': 2000, '_wandb': {}}
+2025-04-26 16:48:21,585 INFO    MainThread:82628 [wandb_init.py:init():809] starting backend
+2025-04-26 16:48:21,585 INFO    MainThread:82628 [wandb_init.py:init():813] sending inform_init request
+2025-04-26 16:48:21,596 INFO    MainThread:82628 [backend.py:_multiprocessing_setup():101] multiprocessing start_methods=fork,spawn,forkserver, using: spawn
+2025-04-26 16:48:21,597 INFO    MainThread:82628 [wandb_init.py:init():823] backend started and connected
+2025-04-26 16:48:21,599 INFO    MainThread:82628 [wandb_init.py:init():915] updated telemetry
+2025-04-26 16:48:21,674 INFO    MainThread:82628 [wandb_init.py:init():939] communicating run to backend with 90.0 second timeout
+2025-04-26 16:48:22,959 INFO    MainThread:82628 [wandb_init.py:init():1014] starting run threads in backend
+2025-04-26 16:48:23,154 INFO    MainThread:82628 [wandb_run.py:_console_start():2454] atexit reg
+2025-04-26 16:48:23,155 INFO    MainThread:82628 [wandb_run.py:_redirect():2306] redirect: wrap_raw
+2025-04-26 16:48:23,155 INFO    MainThread:82628 [wandb_run.py:_redirect():2371] Wrapping output streams.
+2025-04-26 16:48:23,155 INFO    MainThread:82628 [wandb_run.py:_redirect():2394] Redirects installed.
+2025-04-26 16:48:23,157 INFO    MainThread:82628 [wandb_init.py:init():1056] run started, returning control to user process

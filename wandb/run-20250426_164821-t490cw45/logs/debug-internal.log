@@ -1,0 +1,7 @@
+{"time":"2025-04-26T16:48:21.601937009+01:00","level":"INFO","msg":"stream: starting","core version":"0.19.9","symlink path":"wandb/run-20250426_164821-t490cw45/logs/debug-core.log"}
+{"time":"2025-04-26T16:48:22.291916976+01:00","level":"INFO","msg":"created new stream","id":"t490cw45"}
+{"time":"2025-04-26T16:48:22.292119638+01:00","level":"INFO","msg":"stream: started","id":"t490cw45"}
+{"time":"2025-04-26T16:48:22.292139685+01:00","level":"INFO","msg":"writer: Do: started","stream_id":"t490cw45"}
+{"time":"2025-04-26T16:48:22.292162838+01:00","level":"INFO","msg":"handler: started","stream_id":"t490cw45"}
+{"time":"2025-04-26T16:48:22.292174664+01:00","level":"INFO","msg":"sender: started","stream_id":"t490cw45"}
+{"time":"2025-04-26T16:48:23.015926077+01:00","level":"INFO","msg":"Starting system monitor"}

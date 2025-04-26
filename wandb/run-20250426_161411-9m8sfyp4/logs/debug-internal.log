@@ -23,3 +23,4 @@
 {"time":"2025-04-26T16:42:54.232300304+01:00","level":"WARN","msg":"runwork: taking a long time","seconds":600.000045196,"work":"WorkRecord(*service_go_proto.Record_Stats); Control(always_send:true)"}
 {"time":"2025-04-26T16:42:54.233245704+01:00","level":"WARN","msg":"runwork: taking a long time","seconds":600.004158322,"work":"WorkRecord(*service_go_proto.Record_Stats); Control(always_send:true)"}
 {"time":"2025-04-26T16:43:56.708893896+01:00","level":"INFO","msg":"api: retrying error","error":"Post \"https://api.wandb.ai/graphql\": net/http: request canceled (Client.Timeout exceeded while awaiting headers)"}
+{"time":"2025-04-26T16:45:19.278300217+01:00","level":"INFO","msg":"api: retrying error","error":"Post \"https://api.wandb.ai/graphql\": net/http: request canceled (Client.Timeout exceeded while awaiting headers)"}

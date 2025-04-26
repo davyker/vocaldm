@@ -457,7 +457,7 @@ def train(config, model_factory=None):
         ckpt_path = config.continue_from
         print(f"\n----- Continuing training from checkpoint: {ckpt_path} -----")
         # Load only the model weights from checkpoint, not callback states
-        checkpoint = torch.load(ckpt_path, map_location="cpu")
+        checkpoint = torch.load(ckpt_path, map_location="cpu", weights_only=False)
         pl_module.load_state_dict(checkpoint["state_dict"])
         print("Model weights loaded from checkpoint (without callback states)")
     

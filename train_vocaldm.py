@@ -187,7 +187,7 @@ class VocaLDMModule(pl.LightningModule):
         self.initialize_models()
         
         # Selectively freeze/unfreeze parameters
-        self.freeze_model_except_film_layers()
+        self.freeze_model_except_adapter_and_film_layers()
         
         # Training metrics
         self.train_step_outputs = []
@@ -327,7 +327,7 @@ class VocaLDMModule(pl.LightningModule):
         print(f"Parameter names saved to: {params_file}")
         print(f"Simplified parameter blocks saved to: {simplified_file}")
     
-    def freeze_model_except_film_layers(self):
+    def freeze_model_except_adapter_and_film_layers(self):
         """
         Freeze all parameters except:
         1. The adapter (which needs to be trained)
