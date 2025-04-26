@@ -33,4 +33,6 @@ Monitored metric val/loss did not improve in the last 10 records. Best score: 0.
 
 ----- Final Evaluation on VimSketch Validation Split -----
 LOCAL_RANK: 0 - CUDA_VISIBLE_DEVICES: [0]
-Validation DataLoader 0:   0%|▌                                                                                                                                                              | 3/779 [00:00<02:58,  4.34it/s]
+Validation DataLoader 0:   2%|██▍                                                                                                                                                           | 12/779 [00:21<22:44,  0.56it/s]
+
+Detected KeyboardInterrupt, attempting graceful shutdown ...

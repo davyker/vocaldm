@@ -780,11 +780,11 @@ class VocaLDMModule(pl.LightningModule):
         # Get optimizer
         optimizer = self.optimizers()
         
-        # Show initial parameter group information on first step
-        if self.global_step == 0:
-            print("Optimizer parameter groups:")
-            for i, group in enumerate(optimizer.param_groups):
-                print(f"  Group {i}: lr={group['lr']}, weight_decay={group['weight_decay']}, {len(group['params'])} parameters")
+        # # Show initial parameter group information on first step
+        # if self.global_step == 0:
+        #     print("Optimizer parameter groups:")
+        #     for i, group in enumerate(optimizer.param_groups):
+        #         print(f"  Group {i}: lr={group['lr']}, weight_decay={group['weight_decay']}, {len(group['params'])} parameters")
         
         # Get current learning rates and weight decay values
         adapter_lr = optimizer.param_groups[0]['lr']
@@ -1452,7 +1452,7 @@ def train_vocaldm(args):
         log_every_n_steps=10,
         val_check_interval=args.val_check_interval,
         accumulate_grad_batches=args.gradient_accumulation_steps,  # Gradient accumulation for memory optimization
-        gradient_clip_val=1.0,  # Add gradient clipping to stabilize training
+        gradient_clip_val=args.gradient_clip_val,  # Add gradient clipping to stabilize training
         inference_mode=False,  # Needed to avoid inference mode issues with gradient flow
         num_sanity_val_steps=-1,  # Run full validation at start for baseline metrics
         enable_checkpointing=True,  # Ensure we save the best model based on validation loss
@@ -1679,7 +1679,7 @@ if __name__ == "__main__":
     parser.add_argument("--patience", type=int, default=8, help="Patience for early stopping")
     parser.add_argument("--val_split", type=float, default=0.1, help="Validation split ratio")
     parser.add_argument("--val_check_interval", type=float, default=1.0, help="Validation check interval (fraction of epoch or integer steps)")
-    
+    parser.add_argument("--gradient_clip_val", type=float, default=1.0, help="Gradient clipping value")
     # Data processing
     parser.add_argument("--sample_rate", type=int, default=32000, help="Audio sample rate for QVIM (32kHz)")
     parser.add_argument("--audioldm_sample_rate", type=int, default=16000, help="Audio sample rate for AudioLDM (16kHz)")
