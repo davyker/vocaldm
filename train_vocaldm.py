@@ -178,7 +178,7 @@ class VocaLDMModule(pl.LightningModule):
         self.config = config
         self.save_hyperparameters(config)
         # self.param_names_contain = ['film', 'emb_layers']
-        self.param_names_contain = []
+        self.param_names_contain = config.param_names_contain
         
         # Store current loss values for scheduler
         self.current_train_loss = float('inf')
@@ -1680,6 +1680,8 @@ if __name__ == "__main__":
     parser.add_argument("--val_split", type=float, default=0.1, help="Validation split ratio")
     parser.add_argument("--val_check_interval", type=float, default=1.0, help="Validation check interval (fraction of epoch or integer steps)")
     parser.add_argument("--gradient_clip_val", type=float, default=1.0, help="Gradient clipping value")
+    parser.add_argument("--param_names_contain", type=str, default=['film', 'emb_layers'], help="Parameter names to include in training (comma-separated)")
+
     # Data processing
     parser.add_argument("--sample_rate", type=int, default=32000, help="Audio sample rate for QVIM (32kHz)")
     parser.add_argument("--audioldm_sample_rate", type=int, default=16000, help="Audio sample rate for AudioLDM (16kHz)")
