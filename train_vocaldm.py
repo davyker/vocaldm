@@ -1652,7 +1652,7 @@ if __name__ == "__main__":
                        help="Disable gradient checkpointing to avoid gradient issues")
     parser.add_argument("--audioldm_checkpoint", type=str, default=None, 
                        help="Path to AudioLDM checkpoint (if not using model name)")
-    parser.add_argument("--qvim_checkpoint", type=str, default="audioldm/qvim/baseline-checkpoint/baseline.ckpt", 
+    parser.add_argument("--qvim_checkpoint", type=str, default="audioldm/qvim/baseline-ckpt/baseline.ckpt", 
                        help="Path to QVIM checkpoint")
     parser.add_argument("--dataset_path", type=str, default="audioldm/qvim/data", 
                        help="Path to dataset directory")
