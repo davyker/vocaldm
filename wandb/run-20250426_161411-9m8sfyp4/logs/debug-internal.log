@@ -1,0 +1,8 @@
+{"time":"2025-04-26T16:14:11.425715418+01:00","level":"INFO","msg":"stream: starting","core version":"0.19.9","symlink path":"wandb/run-20250426_161411-9m8sfyp4/logs/debug-core.log"}
+{"time":"2025-04-26T16:14:12.011836968+01:00","level":"INFO","msg":"created new stream","id":"9m8sfyp4"}
+{"time":"2025-04-26T16:14:12.012106796+01:00","level":"INFO","msg":"stream: started","id":"9m8sfyp4"}
+{"time":"2025-04-26T16:14:12.012135039+01:00","level":"INFO","msg":"writer: Do: started","stream_id":"9m8sfyp4"}
+{"time":"2025-04-26T16:14:12.012164476+01:00","level":"INFO","msg":"handler: started","stream_id":"9m8sfyp4"}
+{"time":"2025-04-26T16:14:12.012226324+01:00","level":"INFO","msg":"sender: started","stream_id":"9m8sfyp4"}
+{"time":"2025-04-26T16:14:12.82660658+01:00","level":"INFO","msg":"Starting system monitor"}
+{"time":"2025-04-26T16:27:46.764171321+01:00","level":"INFO","msg":"api: retrying error","error":"Post \"https://api.wandb.ai/files/davyker-queen-mary-university-of-london/qvim/9m8sfyp4/file_stream\": unexpected EOF"}

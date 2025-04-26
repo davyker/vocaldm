@@ -1,0 +1,15 @@
+1. QVIM Adapter Creation
+    - We created an adapter (QVIMAdapter) that transforms 960-dimensional QVIM embeddings into 512-dimensional embeddings
+  suitable for AudioLDM's conditioning mechanism
+    - The adapter includes normalization and dimensionality reduction through a neural network
+  2. AudioLDM Conditioning Mechanism Modification
+    - We modified AudioLDM's conditioning pipeline to accept QVIM embeddings
+    - Added a special conditioning key ("qvim_embedding") to bypass CLAP text processing
+    - Updated the get_learned_conditioning method to handle various formats of QVIM embeddings
+  3. End-to-End Pipeline Integration
+    - Created the imitation_to_audio function that:
+        - Takes a vocal imitation audio file as input
+      - Extracts QVIM embeddings using the pre-trained QVIM model
+      - Adapts these embeddings to AudioLDM's format
+      - Generates classifier-free guidance unconditional embeddings
+      - Uses AudioLDM's diffusion process to generate audio with these embeddings

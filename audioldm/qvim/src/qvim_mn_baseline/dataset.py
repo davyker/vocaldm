@@ -98,8 +98,9 @@ class VimSketchDataset(torch.utils.data.Dataset):
                 fn_STFT=self.fn_STFT
             )
             
-            # Format as [batch, channel, time, freq] as expected by AudioLDM
-            mel = fbank.unsqueeze(0).unsqueeze(0)
+            # Format as [channel, time, freq] as expected by AudioLDM
+            # Do NOT add an extra batch dimension, as batching will be done by the DataLoader
+            mel = fbank.unsqueeze(0)  # Add only channel dimension
             
             # Cache the processed mel
             self.cached_mels[path] = mel

@@ -32,6 +32,7 @@ Create paired batches: (imitation, reference, CLAP-embedding)
 
 2.2 Model Configuration
 
+Use same CLAP checkpoint the AudioLDM uses by defeault.
 Freeze QVIM backbone entirely
 Freeze CLAP model entirely
 Only train the new projection layer

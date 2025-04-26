@@ -1,0 +1,140 @@
+Dataset directory ready at audioldm/qvim/data/Vim_Sketch_Dataset
+Dataset directory ready at audioldm/qvim/data
+Successfully loaded dataset with 12453 samples
+Training with 20 samples, validating with 4 samples
+Loading QVIM model from audioldm/qvim/models_vimsketch_longer/dulcet-leaf-31/best-loss-checkpoint.ckpt
+Loading QVIM model from audioldm/qvim/models_vimsketch_longer/dulcet-leaf-31/best-loss-checkpoint.ckpt
+Warning: FMAX is None setting to 15000
+Initializing QVIM adapter: QVIM dim=960, AudioLDM dim=512
+Loading AudioLDM model: audioldm-m-full
+Load AudioLDM: %s audioldm-m-full
+DiffusionWrapper has 415.95 M params.
+Some weights of the model checkpoint at roberta-base were not used when initializing RobertaModel: ['lm_head.bias', 'lm_head.layer_norm.weight', 'lm_head.decoder.weight', 'lm_head.layer_norm.bias', 'lm_head.dense.bias', 'lm_head.dense.weight']
+- This IS expected if you are initializing RobertaModel from the checkpoint of a model trained on another task or with another architecture (e.g. initializing a BertForSequenceClassification model from a BertForPreTraining model).
+- This IS NOT expected if you are initializing RobertaModel from the checkpoint of a model that you expect to be exactly identical (initializing a BertForSequenceClassification model from a BertForSequenceClassification model).
+Replacing checkpoint function and CheckpointFunction class with training-compatible versions
+Searching for and disabling ALL gradient checkpointing in the model...
+Disabled gradient checkpointing in 0 modules
+Unfroze 0 FiLM parameter tensors
+Total FiLM parameters ufrozen: 0
+Adapter has 1511936 trainable parameters
+Total trainable parameters: 1511936
+Modules in train mode: 8
+Modules in eval mode: 2250
+Using guidance scale scheduler: 1.0 → 3.0
+  Warmup: 10.0% of training, Rampup: 40.0% of training
+Saving checkpoints to run-specific directory: ckpt/vocaldm/wise-gorge-112
+GPU available: True (cuda), used: True
+TPU available: False, using: 0 TPU cores
+HPU available: False, using: 0 HPUs
+`Trainer(val_check_interval=1.0)` was configured so validation will run at the end of the training epoch..
+Parameter names saved to: ckpt/vocaldm/wise-gorge-112/model_parameters.txt
+Simplified parameter blocks saved to: ckpt/vocaldm/wise-gorge-112/simplified_parameters.txt
+
+===== Running initial validation for baseline metrics =====
+LOCAL_RANK: 0 - CUDA_VISIBLE_DEVICES: [0]
+Validation DataLoader 0:  50%|████████████████████████████████████████████████████████████████████████▌                                                                        | 1/2 [00:02<00:02,  0.50it/s]Decoded mel shape: torch.Size([2, 1, 1024, 64])
+DDIM Sampler: 100%|████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 100/100 [00:26<00:00,  3.77it/s]
+LOCAL_RANK: 0 - CUDA_VISIBLE_DEVICES: [0]██████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 100/100 [00:26<00:00,  3.82it/s]
+Generated audio max abs value: 0.1506
+Saved audio files for epoch 0, sample 0 to ckpt/vocaldm/wise-gorge-112/audio_logging
+Generated audio max abs value: 0.3335
+Saved audio files for epoch 0, sample 1 to ckpt/vocaldm/wise-gorge-112/audio_logging
+Validation DataLoader 0: 100%|█████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 2/2 [00:29<00:00,  0.07it/s]
+Saved improved adapter and FiLM parameters to ckpt/vocaldm/wise-gorge-112/vocaldm_checkpoint_val_loss_0.1936.pt
+Validation DataLoader 0: 100%|█████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 2/2 [00:30<00:00,  0.07it/s]
+┏━━━━━━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
+┃[1m [0m[1m     Validate metric     [0m[1m [0m┃[1m [0m[1m      DataLoader 0       [0m[1m [0m┃
+┡━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━┩
+│[36m [0m[36m     val/cosine_loss     [0m[36m [0m│[35m [0m[35m           0.0           [0m[35m [0m│
+│[36m [0m[36m     val/epoch_loss      [0m[36m [0m│[35m [0m[35m   0.19356565177440643   [0m[35m [0m│
+│[36m [0m[36m        val/loss         [0m[36m [0m│[35m [0m[35m   0.19356565177440643   [0m[35m [0m│
+│[36m [0m[36m      val/mse_loss       [0m[36m [0m│[35m [0m[35m   0.19356565177440643   [0m[35m [0m│
+│[36m [0m[36m        val_loss         [0m[36m [0m│[35m [0m[35m   0.19356565177440643   [0m[35m [0m│
+└───────────────────────────┴───────────────────────────┘
+Initial validation loss: 0.193566
+===== Initial validation complete =====
+
+  | Name       | Type            | Params | Mode
+-------------------------------------------------------
+0 | qvim_model | QVIMModule      | 9.8 M  | eval
+1 | adapter    | QVIMAdapter     | 1.5 M  | train
+2 | audioldm   | LatentDiffusion | 726 M  | eval
+-------------------------------------------------------
+1.5 M     Trainable params
+735 M     Non-trainable params
+737 M     Total params
+2,949.710 Total estimated model params size (MB)
+7         Modules in train mode
+2250      Modules in eval mode
+
+Sanity Checking DataLoader 0:  50%|██████████████████████████████████████████████████████████████████████                                                                      | 1/2 [00:00<00:00,  1.89it/s]Decoded mel shape: torch.Size([2, 1, 1024, 64])
+DDIM Sampler: 100%|████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 100/100 [00:24<00:00,  4.03it/s]
+DDIM Sampler: 100%|████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 100/100 [00:25<00:00,  3.94it/s]
+Generated audio max abs value: 0.6372
+Saved audio files for epoch 0, sample 0 to ckpt/vocaldm/wise-gorge-112/audio_logging
+Generated audio max abs value: 0.2184
+Saved audio files for epoch 0, sample 1 to ckpt/vocaldm/wise-gorge-112/audio_logging
+Sanity Checking DataLoader 0: 100%|████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 2/2 [00:26<00:00,  0.08it/s]
+Saved improved adapter and FiLM parameters to ckpt/vocaldm/wise-gorge-112/vocaldm_checkpoint_val_loss_0.1742.pt
+Epoch 0:   0%|                                                                                                                                                                        | 0/10 [00:00<?, ?it/s]diffusion_loss requires_grad: True
+Checking gradient paths:
+Component requires_grad check: {'squared_diff': True, 'model_output': True, 'target': False}
+Visualizing autograd computation graph...
+Autograd graph saved to debug/autograd_graph.png
+FiLM conditioning graph saved to debug/film_conditioning_graph.png
+Optimizer parameter groups:
+  Group 0: lr=1e-05, weight_decay=0.001, 8 parameters
+  Group 1: lr=5e-06, weight_decay=1e-05, 0 parameters
+Epoch 0: 100%|██████████████████████████████████████████████████████████████████████████████████████| 10/10 [00:52<00:00,  0.19it/s, v_num=p5iz, train/loss=0.134, train/adapter_lr=1e-5, train/film_lr=5e-6]Decoded mel shape: torch.Size([2, 1, 1024, 64])
+Generated audio max abs value: 0.4501█████████████████████████████████████████████████████████████████▌                                                                        | 1/2 [00:00<00:00,  3.01it/s]
+Metric val/loss improved. New best score: 0.156
+Epoch 0, global step 10: 'val/loss' reached 0.15562 (best 0.15562), saving model to '/mnt/c/Users/Davy/Documents/Code/QM/CC/AudioLDM/ckpt/vocaldm/wise-gorge-112/vocaldm-epoch=00-val_loss=0.1556.ckpt' as top 1
+Saved audio files for epoch 0, sample 0 to ckpt/vocaldm/wise-gorge-112/audio_logging
+Generated audio max abs value: 0.5178
+Saved audio files for epoch 0, sample 1 to ckpt/vocaldm/wise-gorge-112/audio_logging
+
+Saved improved adapter and FiLM parameters to ckpt/vocaldm/wise-gorge-112/vocaldm_checkpoint_val_loss_0.1556.pt████████████████████████████████████████████████████████████████| 2/2 [00:27<00:00,  0.07it/s]
+Epoch 1: 100%|████████████████████████████████████████████████████████████████| 10/10 [00:09<00:00,  1.03it/s, v_num=p5iz, train/loss=0.141, train/adapter_lr=9.98e-6, train/film_lr=4.99e-6, val/loss=0.156]Decoded mel shape: torch.Size([2, 1, 1024, 64])
+Generated audio max abs value: 0.5524█████████████████████████████████████████████████████████████████▌                                                                        | 1/2 [00:00<00:00,  2.51it/s]
+DDIM Sampler: 100%|████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 100/100 [00:24<00:00,  4.12it/s]
+Epoch 1, global step 20: 'val/loss' was not in top 1
+DDIM Sampler: 100%|████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 100/100 [00:23<00:00,  4.17it/s]
+Saved audio files for epoch 1, sample 0 to ckpt/vocaldm/wise-gorge-112/audio_logging
+Generated audio max abs value: 0.1745
+Saved audio files for epoch 1, sample 1 to ckpt/vocaldm/wise-gorge-112/audio_logging
+Epoch 2: 100%|████████████████████████████████████████████████████████████████| 10/10 [00:08<00:00,  1.14it/s, v_num=p5iz, train/loss=0.0233, train/adapter_lr=9.9e-6, train/film_lr=4.96e-6, val/loss=0.290]Decoded mel shape: torch.Size([2, 1, 1024, 64])
+Generated audio max abs value: 0.6160█████████████████████████████████████████████████████████████████▌                                                                        | 1/2 [00:00<00:00,  3.01it/s]
+Epoch 2, global step 30: 'val/loss' was not in top 1
+DDIM Sampler: 100%|████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 100/100 [00:25<00:00,  3.93it/s]
+Saved audio files for epoch 2, sample 0 to ckpt/vocaldm/wise-gorge-112/audio_logging
+Generated audio max abs value: 0.4972
+Saved audio files for epoch 2, sample 1 to ckpt/vocaldm/wise-gorge-112/audio_logging
+Epoch 3: 100%|████████████████████████████████████████████████████████████████| 10/10 [00:07<00:00,  1.29it/s, v_num=p5iz, train/loss=0.0695, train/adapter_lr=9.78e-6, train/film_lr=4.9e-6, val/loss=0.378]Decoded mel shape: torch.Size([2, 1, 1024, 64])
+Generated audio max abs value: 0.5071█████████████████████████████████████████████████████████████████▌                                                                        | 1/2 [00:00<00:00,  2.62it/s]
+Metric val/loss improved by 0.104 >= min_delta = 0.0. New best score: 0.052
+Epoch 3, global step 40: 'val/loss' reached 0.05212 (best 0.05212), saving model to '/mnt/c/Users/Davy/Documents/Code/QM/CC/AudioLDM/ckpt/vocaldm/wise-gorge-112/vocaldm-epoch=03-val_loss=0.0521.ckpt' as top 1
+Saved audio files for epoch 3, sample 0 to ckpt/vocaldm/wise-gorge-112/audio_logging
+Generated audio max abs value: 0.7296
+Saved audio files for epoch 3, sample 1 to ckpt/vocaldm/wise-gorge-112/audio_logging
+
+Saved improved adapter and FiLM parameters to ckpt/vocaldm/wise-gorge-112/vocaldm_checkpoint_val_loss_0.0521.pt████████████████████████████████████████████████████████████████| 2/2 [00:27<00:00,  0.07it/s]
+Epoch 4: 100%|███████████████████████████████████████████████████████████████| 10/10 [00:08<00:00,  1.16it/s, v_num=p5iz, train/loss=0.124, train/adapter_lr=9.61e-6, train/film_lr=4.83e-6, val/loss=0.0521]Decoded mel shape: torch.Size([2, 1, 1024, 64])
+Generated audio max abs value: 0.4717█████████████████████████████████████████████████████████████████▌                                                                        | 1/2 [00:00<00:00,  2.61it/s]
+DDIM Sampler: 100%|████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 100/100 [00:24<00:00,  4.05it/s]
+Epoch 4, global step 50: 'val/loss' was not in top 1
+DDIM Sampler: 100%|████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 100/100 [00:24<00:00,  4.04it/s]
+Saved audio files for epoch 4, sample 0 to ckpt/vocaldm/wise-gorge-112/audio_logging
+Generated audio max abs value: 0.5628
+Saved audio files for epoch 4, sample 1 to ckpt/vocaldm/wise-gorge-112/audio_logging
+Epoch 5: 100%|████████████████████████████████████████████████████████████████| 10/10 [00:08<00:00,  1.18it/s, v_num=p5iz, train/loss=0.0439, train/adapter_lr=9.4e-6, train/film_lr=4.73e-6, val/loss=0.209]Decoded mel shape: torch.Size([2, 1, 1024, 64])
+Generated audio max abs value: 0.3171█████████████████████████████████████████████████████████████████▌                                                                        | 1/2 [00:00<00:00,  3.21it/s]
+Epoch 5, global step 60: 'val/loss' was not in top 1
+DDIM Sampler:  21%|████████████████████████████████▏                                                                                                                        | 21/100 [00:05<00:22,  3.56it/s]
+Saved audio files for epoch 5, sample 0 to ckpt/vocaldm/wise-gorge-112/audio_logging
+Generated audio max abs value: 0.7842
+Saved audio files for epoch 5, sample 1 to ckpt/vocaldm/wise-gorge-112/audio_logging
+Epoch 6: 100%|██████████████████████████████████████████████████████████████| 10/10 [00:07<00:00,  1.28it/s, v_num=p5iz, train/loss=0.00327, train/adapter_lr=9.14e-6, train/film_lr=4.62e-6, val/loss=0.199]Resources cleaned up
+Validation DataLoader 0:  50%|████████████████████████████████████████████████████████████████████████▌                                                                        | 1/2 [00:00<00:00,  3.09it/s]
+
+Detected KeyboardInterrupt, attempting graceful shutdown ...                                                                                                                | 21/100 [00:05<00:21,  3.61it/s]

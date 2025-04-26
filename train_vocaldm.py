@@ -509,18 +509,8 @@ class VocaLDMModule(pl.LightningModule):
             qvim_embedding = extract_qvim_embedding(reference, self.qvim_model, audio_type="sound")  # Use reference audio with sound type
             qvim_embedding = qvim_embedding.detach()  # Make sure it's detached
             
-            # Process reference audio to mel spectrograms and encode it
-            if reference.dim() == 2:  # [batch_size, samples]
-                from vocaldm_utils import waveform_to_mel
-                mel_reference = waveform_to_mel(
-                    reference, 
-                    audioldm_model=self.audioldm,
-                    target_shape=(1, 64, 1024),  # AudioLDM's expected mel dimensions for 10s audio
-                    src_sr=self.config.sample_rate,       # QVIM sample rate (32kHz)
-                    target_sr=self.config.audioldm_sample_rate  # AudioLDM sample rate (16kHz)
-                )
-            else:
-                mel_reference = reference
+            # Use pre-processed mel_reference - we need to ensure it exists in the dataset
+            mel_reference = batch['mel_reference']
                 
             # Encode the reference spectrogram - no grad needed for VAE encoding
             z_reference = self.audioldm.encode_first_stage(mel_reference)
@@ -841,18 +831,8 @@ class VocaLDMModule(pl.LightningModule):
             # Adapt the embeddings using our trainable adapter (in eval mode for validation)
             adapted_embedding = self.adapter(qvim_embedding)
             
-            # Process reference audio to mel spectrograms and encode it
-            if reference.dim() == 2:  # [batch_size, samples]
-                from vocaldm_utils import waveform_to_mel
-                mel_reference = waveform_to_mel(
-                    reference, 
-                    audioldm_model=self.audioldm,
-                    target_shape=(1, 64, 1024),  # AudioLDM's expected mel dimensions for 10s audio
-                    src_sr=self.config.sample_rate,       # QVIM sample rate (32kHz)
-                    target_sr=self.config.audioldm_sample_rate  # AudioLDM sample rate (16kHz)
-                )
-            else:
-                mel_reference = reference
+            # Use pre-processed mel_reference - we need to ensure it exists in the dataset
+            mel_reference = batch['mel_reference']
                 
             # Encode the reference spectrogram
             z_reference = self.audioldm.encode_first_stage(mel_reference)
@@ -1297,6 +1277,7 @@ def train_vocaldm(args):
     train_dataset = VocaLDMDataset(
         train_ds,
         sample_rate=args.sample_rate,
+        audioldm_sample_rate=args.audioldm_sample_rate,
         duration=args.duration,
         max_items=args.max_items  # For debugging/testing
     )
@@ -1304,6 +1285,7 @@ def train_vocaldm(args):
     val_dataset = VocaLDMDataset(
         val_ds,
         sample_rate=args.sample_rate,
+        audioldm_sample_rate=args.audioldm_sample_rate,
         duration=args.duration,
         max_items=args.max_items // 5 if args.max_items else None  # For debugging/testing
     )

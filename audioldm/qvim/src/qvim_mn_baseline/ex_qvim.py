@@ -337,7 +337,7 @@ def train(config, model_factory=None):
     
     # Create train/validation split from same dataset (better for diffusion conditioning)
     dataset_size = len(full_ds)
-    val_size = int(dataset_size * 0.15)  # Use 15% of data for validation
+    val_size = int(dataset_size * config.val_split)  # Use 15% of data for validation
     train_size = dataset_size - val_size
     
     # Use random_split for better generalization
@@ -448,8 +448,7 @@ def train(config, model_factory=None):
         callbacks=callbacks,
         enable_progress_bar=True,
         log_every_n_steps=1,
-        enable_checkpointing=True,
-        check_val_every_n_epoch=1  # Prevent validation before first epoch ####### REMOVE THIS #########
+        enable_checkpointing=True
     )
 
     # Determine if we're continuing training from a checkpoint
@@ -462,11 +461,10 @@ def train(config, model_factory=None):
         pl_module.load_state_dict(checkpoint["state_dict"])
         print("Model weights loaded from checkpoint (without callback states)")
     
-    # Comment out initial validation to avoid validation before training ######## UNCOMMENT THIS #########
-    # trainer.validate(
-    #     pl_module,
-    #     dataloaders=val_dl
-    # )
+    trainer.validate(
+        pl_module,
+        dataloaders=val_dl
+    )
 
     # Train with in-domain validation
     # No need to pass ckpt_path if we've already loaded the model above
@@ -518,6 +516,8 @@ if __name__ == '__main__':
                         help="Path to checkpoint file to continue training from")
     parser.add_argument('--final_eval_dataset', type=str, default="val", choices=["dev", "val"],
                         help="Dataset to use for final evaluation: 'dev' (QVIM-DEV) or 'val' (VimSketch val split)")
+    parser.add_argument('--val_split', type=float, default=0.15,
+                        help="Fraction of the dataset to use for validation.")
     parser.add_argument('--batch_size', type=int, default=64,
                         help="Number of samples per batch.")
     parser.add_argument('--n_epochs', type=int, default=100,

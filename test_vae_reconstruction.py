@@ -70,6 +70,7 @@ def test_vae_reconstruction(audio_file, model_name="audioldm-m-full", save_dir_r
         print(f"Reconstructed mel shape: {mel_recon.shape}")
         
         # Convert to waveform - same as train_vocaldm.py "mel_spectrogram_to_waveform"
+        mel_recon = mel_recon.permute(0, 1, 3, 4)  # Change to [bs, 1, f, t] format
         waveform_recon = audioldm.mel_spectrogram_to_waveform(mel_recon)
         print(f"Reconstructed waveform shape: {waveform_recon.shape}")
     
@@ -106,11 +107,11 @@ def test_vae_reconstruction(audio_file, model_name="audioldm-m-full", save_dir_r
     
     plt.subplot(2, 1, 1)
     plt.title("Original Waveform")
-    plt.plot(waveform_input[0].numpy())
+    plt.plot(waveform_input[0])
     
     plt.subplot(2, 1, 2)
     plt.title("Reconstructed Waveform")
-    plt.plot(waveform_recon[0])
+    plt.plot(waveform_recon[0, 0])
     
     plt.tight_layout()
     plt.savefig(os.path.join(save_dir, "waveform_comparison.png"))

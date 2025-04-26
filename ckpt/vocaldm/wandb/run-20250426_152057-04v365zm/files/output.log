@@ -1,0 +1,81 @@
+Dataset directory ready at audioldm/qvim/data/Vim_Sketch_Dataset
+Dataset directory ready at audioldm/qvim/data
+Successfully loaded dataset with 12453 samples
+Training with 20 samples, validating with 4 samples
+Loading QVIM model from audioldm/qvim/models_vimsketch_longer/dulcet-leaf-31/best-loss-checkpoint.ckpt
+Loading QVIM model from audioldm/qvim/models_vimsketch_longer/dulcet-leaf-31/best-loss-checkpoint.ckpt
+Warning: FMAX is None setting to 15000
+Initializing QVIM adapter: QVIM dim=960, AudioLDM dim=512
+Loading AudioLDM model: audioldm-m-full
+Load AudioLDM: %s audioldm-m-full
+DiffusionWrapper has 415.95 M params.
+Some weights of the model checkpoint at roberta-base were not used when initializing RobertaModel: ['lm_head.decoder.weight', 'lm_head.layer_norm.weight', 'lm_head.layer_norm.bias', 'lm_head.dense.bias', 'lm_head.bias', 'lm_head.dense.weight']
+- This IS expected if you are initializing RobertaModel from the checkpoint of a model trained on another task or with another architecture (e.g. initializing a BertForSequenceClassification model from a BertForPreTraining model).
+- This IS NOT expected if you are initializing RobertaModel from the checkpoint of a model that you expect to be exactly identical (initializing a BertForSequenceClassification model from a BertForSequenceClassification model).
+Replacing checkpoint function and CheckpointFunction class with training-compatible versions
+Searching for and disabling ALL gradient checkpointing in the model...
+Disabled gradient checkpointing in 0 modules
+Unfroze 0 FiLM parameter tensors
+Total FiLM parameters ufrozen: 0
+Adapter has 1511936 trainable parameters
+Total trainable parameters: 1511936
+Modules in train mode: 8
+Modules in eval mode: 2250
+Using guidance scale scheduler: 1.0 → 3.0
+  Warmup: 10.0% of training, Rampup: 40.0% of training
+Saving checkpoints to run-specific directory: ckpt/vocaldm/denim-star-111
+GPU available: True (cuda), used: True
+TPU available: False, using: 0 TPU cores
+HPU available: False, using: 0 HPUs
+`Trainer(val_check_interval=1.0)` was configured so validation will run at the end of the training epoch..
+Parameter names saved to: ckpt/vocaldm/denim-star-111/model_parameters.txt
+Simplified parameter blocks saved to: ckpt/vocaldm/denim-star-111/simplified_parameters.txt
+
+===== Running initial validation for baseline metrics =====
+LOCAL_RANK: 0 - CUDA_VISIBLE_DEVICES: [0]
+Validation DataLoader 0:   0%|                                                                                                                                                         | 0/2 [00:00<?, ?it/s]Training failed with error: Expected 3D (unbatched) or 4D (batched) input to conv2d, but got input of size: [2, 1, 1, 1024, 64]
+Traceback (most recent call last):
+  File "/mnt/c/Users/Davy/Documents/Code/QM/CC/AudioLDM/train_vocaldm.py", line 1470, in train_vocaldm
+    initial_results = trainer.validate(model, val_loader)
+  File "/root/miniconda3/envs/qvim-baseline/lib/python3.10/site-packages/pytorch_lightning/trainer/trainer.py", line 664, in validate
+    return call._call_and_handle_interrupt(
+  File "/root/miniconda3/envs/qvim-baseline/lib/python3.10/site-packages/pytorch_lightning/trainer/call.py", line 48, in _call_and_handle_interrupt
+    return trainer_fn(*args, **kwargs)
+  File "/root/miniconda3/envs/qvim-baseline/lib/python3.10/site-packages/pytorch_lightning/trainer/trainer.py", line 706, in _validate_impl
+    results = self._run(model, ckpt_path=ckpt_path)
+  File "/root/miniconda3/envs/qvim-baseline/lib/python3.10/site-packages/pytorch_lightning/trainer/trainer.py", line 1012, in _run
+    results = self._run_stage()
+  File "/root/miniconda3/envs/qvim-baseline/lib/python3.10/site-packages/pytorch_lightning/trainer/trainer.py", line 1049, in _run_stage
+    return self._evaluation_loop.run()
+  File "/root/miniconda3/envs/qvim-baseline/lib/python3.10/site-packages/pytorch_lightning/loops/utilities.py", line 179, in _decorator
+    return loop_run(self, *args, **kwargs)
+  File "/root/miniconda3/envs/qvim-baseline/lib/python3.10/site-packages/pytorch_lightning/loops/evaluation_loop.py", line 145, in run
+    self._evaluation_step(batch, batch_idx, dataloader_idx, dataloader_iter)
+  File "/root/miniconda3/envs/qvim-baseline/lib/python3.10/site-packages/pytorch_lightning/loops/evaluation_loop.py", line 437, in _evaluation_step
+    output = call._call_strategy_hook(trainer, hook_name, *step_args)
+  File "/root/miniconda3/envs/qvim-baseline/lib/python3.10/site-packages/pytorch_lightning/trainer/call.py", line 328, in _call_strategy_hook
+    output = fn(*args, **kwargs)
+  File "/root/miniconda3/envs/qvim-baseline/lib/python3.10/site-packages/pytorch_lightning/strategies/strategy.py", line 412, in validation_step
+    return self.lightning_module.validation_step(*args, **kwargs)
+  File "/mnt/c/Users/Davy/Documents/Code/QM/CC/AudioLDM/train_vocaldm.py", line 838, in validation_step
+    z_reference = self.audioldm.encode_first_stage(mel_reference)
+  File "/mnt/c/Users/Davy/Documents/Code/QM/CC/AudioLDM/audioldm/ldm.py", line 265, in encode_first_stage
+    return self.first_stage_model.encode(x)
+  File "/mnt/c/Users/Davy/Documents/Code/QM/CC/AudioLDM/audioldm/variational_autoencoder/autoencoder.py", line 52, in encode
+    h = self.encoder(x)
+  File "/root/miniconda3/envs/qvim-baseline/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1739, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+  File "/root/miniconda3/envs/qvim-baseline/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1750, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/mnt/c/Users/Davy/Documents/Code/QM/CC/AudioLDM/audioldm/variational_autoencoder/modules.py", line 523, in forward
+    hs = [self.conv_in(x)]
+  File "/root/miniconda3/envs/qvim-baseline/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1739, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+  File "/root/miniconda3/envs/qvim-baseline/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1750, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/root/miniconda3/envs/qvim-baseline/lib/python3.10/site-packages/torch/nn/modules/conv.py", line 554, in forward
+    return self._conv_forward(input, self.weight, self.bias)
+  File "/root/miniconda3/envs/qvim-baseline/lib/python3.10/site-packages/torch/nn/modules/conv.py", line 549, in _conv_forward
+    return F.conv2d(
+RuntimeError: Expected 3D (unbatched) or 4D (batched) input to conv2d, but got input of size: [2, 1, 1, 1024, 64]
+Resources cleaned up

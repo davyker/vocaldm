@@ -95,6 +95,7 @@ def test_audioldm_vae_original(audio_file, model_name="audioldm-m-full", save_di
     audioldm_sample_rate = config["preprocessing"]["audio"]["sampling_rate"]
     
     # Convert to int16 format
+    print(f"Original waveform shape: {waveform_input.shape}")
     waveform_input = waveform_input.numpy()
     # waveform_input = (waveform_input * 32768).astype(np.int16)
     sf.write(input_path, waveform_input, audioldm_sample_rate, format='WAV')
@@ -123,7 +124,7 @@ def test_audioldm_vae_original(audio_file, model_name="audioldm-m-full", save_di
     
     plt.subplot(2, 1, 1)
     plt.title("Original Waveform")
-    plt.plot(waveform_input if isinstance(waveform_input, np.ndarray) else waveform_input[0])
+    plt.plot(waveform_input)
     
     plt.subplot(2, 1, 2)
     plt.title("Reconstructed Waveform")

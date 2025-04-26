@@ -1,0 +1,57 @@
+{
+  "os": "Linux-5.15.167.4-microsoft-standard-WSL2-x86_64-with-glibc2.39",
+  "python": "CPython 3.10.16",
+  "startedAt": "2025-04-26T15:13:04.265170Z",
+  "args": [
+    "--num_workers",
+    "4",
+    "--continue_from",
+    "audioldm/qvim/models_vimsketch_longer/dulcet-leaf-31/best-loss-checkpoint.ckpt",
+    "--val_split",
+    "0.9999999",
+    "--batch_size",
+    "16",
+    "--max_lr",
+    "0",
+    "--min_lr",
+    "0",
+    "--weight_decay",
+    "0"
+  ],
+  "program": "/mnt/c/Users/Davy/Documents/Code/QM/CC/AudioLDM/audioldm/qvim/src/qvim_mn_baseline/ex_qvim.py",
+  "codePath": "audioldm/qvim/src/qvim_mn_baseline/ex_qvim.py",
+  "git": {
+    "remote": "https://github.com/davyker/vocaldm.git",
+    "commit": "4eebda5b128b9a3d5d69fad7d4d3e1291c91c0ee"
+  },
+  "email": "davyker1@gmail.com",
+  "root": ".",
+  "host": "DKNL",
+  "executable": "/root/miniconda3/envs/qvim-baseline/bin/python",
+  "codePathLocal": "audioldm/qvim/src/qvim_mn_baseline/ex_qvim.py",
+  "cpu_count": 8,
+  "cpu_count_logical": 16,
+  "gpu": "NVIDIA GeForce RTX 4060 Laptop GPU",
+  "gpu_count": 1,
+  "disk": {
+    "/": {
+      "total": "1081101176832",
+      "used": "124775583744"
+    }
+  },
+  "memory": {
+    "total": "16345546752"
+  },
+  "cpu": {
+    "count": 8,
+    "countLogical": 16
+  },
+  "gpu_nvidia": [
+    {
+      "name": "NVIDIA GeForce RTX 4060 Laptop GPU",
+      "memoryTotal": "8585740288",
+      "architecture": "Ada"
+    }
+  ],
+  "cudaVersion": "12.6"
+}
