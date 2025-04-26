@@ -20,3 +20,4 @@ config: {'project': 'qvim', 'num_workers': 4, 'num_gpus': 1, 'model_save_path': 
 2025-04-26 16:14:12,915 INFO    MainThread:67971 [wandb_run.py:_redirect():2371] Wrapping output streams.
 2025-04-26 16:14:12,915 INFO    MainThread:67971 [wandb_run.py:_redirect():2394] Redirects installed.
 2025-04-26 16:14:12,917 INFO    MainThread:67971 [wandb_init.py:init():1056] run started, returning control to user process
+2025-04-26 16:40:41,336 INFO    MsgRouterThr:67971 [mailbox.py:close():129] [no run ID] Closing mailbox, abandoning 3 handles.

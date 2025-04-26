@@ -13,3 +13,13 @@
 {"time":"2025-04-26T16:34:51.984220407+01:00","level":"INFO","msg":"api: retrying error","error":"Post \"https://api.wandb.ai/graphql\": net/http: request canceled (Client.Timeout exceeded while awaiting headers)"}
 {"time":"2025-04-26T16:35:40.876758147+01:00","level":"INFO","msg":"api: retrying error","error":"Post \"https://api.wandb.ai/graphql\": context deadline exceeded"}
 {"time":"2025-04-26T16:36:44.991912613+01:00","level":"INFO","msg":"api: retrying error","error":"Post \"https://api.wandb.ai/graphql\": net/http: request canceled (Client.Timeout exceeded while awaiting headers)"}
+{"time":"2025-04-26T16:37:50.575343999+01:00","level":"INFO","msg":"api: retrying error","error":"Post \"https://api.wandb.ai/files/davyker-queen-mary-university-of-london/qvim/9m8sfyp4/file_stream\": net/http: request canceled while waiting for connection (Client.Timeout exceeded while awaiting headers)"}
+{"time":"2025-04-26T16:38:14.99827141+01:00","level":"INFO","msg":"api: retrying error","error":"Post \"https://api.wandb.ai/graphql\": net/http: request canceled (Client.Timeout exceeded while awaiting headers)"}
+{"time":"2025-04-26T16:39:45.000120012+01:00","level":"INFO","msg":"api: retrying error","error":"Post \"https://api.wandb.ai/graphql\": context deadline exceeded"}
+{"time":"2025-04-26T16:41:10.829240238+01:00","level":"INFO","msg":"api: retrying error","error":"Post \"https://api.wandb.ai/graphql\": net/http: request canceled (Client.Timeout exceeded while awaiting headers)"}
+{"time":"2025-04-26T16:42:24.59280378+01:00","level":"WARN","msg":"sender: taking a long time","seconds":600.006774507,"work":"WorkRecord(*service_go_proto.Request_StopStatus); Control(local:true mailbox_slot:\"hgdkwsztgm0x\" connection_id:\"127.0.0.1:50362\")"}
+{"time":"2025-04-26T16:42:34.188027186+01:00","level":"INFO","msg":"api: retrying error","error":"Post \"https://api.wandb.ai/graphql\": context deadline exceeded"}
+{"time":"2025-04-26T16:42:46.640323924+01:00","level":"WARN","msg":"runwork: taking a long time","seconds":600.000153229,"work":"WorkRecord(*service_go_proto.Record_OutputRaw); Control(connection_id:\"127.0.0.1:50362\")"}
+{"time":"2025-04-26T16:42:54.232300304+01:00","level":"WARN","msg":"runwork: taking a long time","seconds":600.000045196,"work":"WorkRecord(*service_go_proto.Record_Stats); Control(always_send:true)"}
+{"time":"2025-04-26T16:42:54.233245704+01:00","level":"WARN","msg":"runwork: taking a long time","seconds":600.004158322,"work":"WorkRecord(*service_go_proto.Record_Stats); Control(always_send:true)"}
+{"time":"2025-04-26T16:43:56.708893896+01:00","level":"INFO","msg":"api: retrying error","error":"Post \"https://api.wandb.ai/graphql\": net/http: request canceled (Client.Timeout exceeded while awaiting headers)"}

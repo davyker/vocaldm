@@ -177,8 +177,8 @@ class VocaLDMModule(pl.LightningModule):
         super().__init__()
         self.config = config
         self.save_hyperparameters(config)
-        # self.param_names_contain = ['film', 'emb_layers']
-        self.param_names_contain = []
+        self.param_names_contain = ['film', 'emb_layers']
+        # self.param_names_contain = []
         
         # Store current loss values for scheduler
         self.current_train_loss = float('inf')
