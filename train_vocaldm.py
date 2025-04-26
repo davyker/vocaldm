@@ -192,6 +192,11 @@ class VocaLDMModule(pl.LightningModule):
         # Training metrics
         self.train_step_outputs = []
         self.validation_step_outputs = []
+    
+    @property
+    def is_global_zero(self):
+        """Check if this process is the global zero rank (or single process)"""
+        return (torch.distributed.is_initialized() and torch.distributed.get_rank() == 0) or not torch.distributed.is_initialized()
         
     def initialize_models(self):
         """Initialize QVIM model, AudioLDM, and adapter"""
@@ -791,8 +796,8 @@ class VocaLDMModule(pl.LightningModule):
         self.log('train/adapter_lr', adapter_lr, prog_bar=True, batch_size=imitation.shape[0])
         self.log('train/film_lr', film_lr, prog_bar=True, batch_size=imitation.shape[0])
         
-        # Direct WandB logging for reliable charts
-        if self.logger and hasattr(self.logger, 'experiment'):
+        # Direct WandB logging for reliable charts - only on rank 0
+        if self.is_global_zero and self.logger and hasattr(self.logger, 'experiment'):
             self.logger.experiment.log({
                 'train/loss': loss.item(),
                 'train/mse_loss': mse_loss.item(),
@@ -918,8 +923,8 @@ class VocaLDMModule(pl.LightningModule):
         self.log('val/cosine_loss', cosine_loss, batch_size=imitation.shape[0])
         self.log('val/mse_loss', mse_loss, batch_size=imitation.shape[0])
         
-        # Direct WandB logging for reliable charts
-        if self.logger and hasattr(self.logger, 'experiment'):
+        # Direct WandB logging for reliable charts - only on rank 0
+        if self.is_global_zero and self.logger and hasattr(self.logger, 'experiment'):
             self.logger.experiment.log({
                 'val/loss': loss.item(),
                 'val/mse_loss': mse_loss.item(),
@@ -1051,8 +1056,8 @@ class VocaLDMModule(pl.LightningModule):
                 
                 print(f"Saved audio files for epoch {self.current_epoch}, sample {i} to {audio_dir}")
                 
-                # Log to wandb if available
-                if self.logger and hasattr(self.logger, 'experiment'):
+                # Log to wandb if available - only on rank 0
+                if self.is_global_zero and self.logger and hasattr(self.logger, 'experiment'):
                     try:
                         self.logger.experiment.log({
                             f"audio/epoch_{self.current_epoch}_sample_{i}_imitation": wandb.Audio(
@@ -1195,6 +1200,10 @@ def save_vocaldm_checkpoint(model, path, val_loss=None, epoch=None, global_step=
     
     return path
 
+def is_global_zero():
+    """Helper function to check if this process is the global zero rank (or single process)"""
+    return (torch.distributed.is_initialized() and torch.distributed.get_rank() == 0) or not torch.distributed.is_initialized()
+
 def train_vocaldm(args):
     """Main training function"""
     # Set random seed for reproducibility
@@ -1212,17 +1221,17 @@ def train_vocaldm(args):
         # Enable CUDA error handling to catch errors early
         os.environ['CUDA_LAUNCH_BLOCKING'] = '1'
     
-    # Initialize wandb logger with proper configuration
+    # Initialize wandb logger only on rank 0 for multi-GPU training
     wandb_logger = WandbLogger(
         project=args.project,
         name=args.run_name,
         config=args,
         log_model=args.wandb_log_model,
         save_dir=args.checkpoint_dir
-    )
+    ) if is_global_zero() else None
     
     # Define run_id and run_dir once to use throughout the function
-    if wandb_logger and wandb_logger.experiment:
+    if is_global_zero() and wandb_logger and wandb_logger.experiment:
         run_id = wandb_logger.experiment.name
     else:
         run_id = time.strftime("%Y%m%d_%H%M%S")
@@ -1438,7 +1447,7 @@ def train_vocaldm(args):
         callbacks=callbacks,
         accelerator='auto',
         devices=args.num_gpus if torch.cuda.is_available() else None,  # 'all' or specific number of GPUs
-        strategy='auto',  # Let PyTorch Lightning auto-select the appropriate strategy
+        strategy='ddp',  # Explicitly use ddp for multi-GPU
         precision=32,  # Use full precision to avoid type mismatches
         log_every_n_steps=10,
         val_check_interval=args.val_check_interval,
@@ -1465,8 +1474,8 @@ def train_vocaldm(args):
         print("\n===== Running initial validation for baseline metrics =====")
         initial_results = trainer.validate(model, val_loader)
         
-        # Log initial metrics to WandB explicitly
-        if wandb_logger and hasattr(wandb_logger, 'experiment'):
+        # Log initial metrics to WandB explicitly - only on rank 0
+        if is_global_zero() and wandb_logger and hasattr(wandb_logger, 'experiment'):
             initial_val_loss = initial_results[0].get('val/loss', 0.0)
             wandb_logger.experiment.log({
                 'val/loss': initial_val_loss,
@@ -1506,8 +1515,8 @@ def train_vocaldm(args):
             compat_path = os.path.join(args.checkpoint_dir, "qvim_adapter.pt")
             torch.save(model.adapter.state_dict(), compat_path)
             
-            # Log the models to wandb
-            if wandb_logger and wandb_logger.experiment:
+            # Log the models to wandb - only on rank 0
+            if is_global_zero() and wandb_logger and wandb_logger.experiment:
                 try:
                     # Upload complete checkpoint
                     wandb_logger.experiment.log_artifact(
@@ -1587,8 +1596,8 @@ def train_vocaldm(args):
         # Clean up resources
         cleanup_resources()
         
-        # Close wandb run properly
-        if wandb_logger and wandb_logger.experiment:
+        # Close wandb run properly - only on rank 0
+        if is_global_zero() and wandb_logger and wandb_logger.experiment:
             wandb_logger.experiment.finish()
             print("Wandb logging finalized")
 
@@ -1643,7 +1652,7 @@ if __name__ == "__main__":
                        help="Disable gradient checkpointing to avoid gradient issues")
     parser.add_argument("--audioldm_checkpoint", type=str, default=None, 
                        help="Path to AudioLDM checkpoint (if not using model name)")
-    parser.add_argument("--qvim_checkpoint", type=str, default="audioldm/qvim/models_vimsketch_longer/dulcet-leaf-31/best-loss-checkpoint.ckpt", 
+    parser.add_argument("--qvim_checkpoint", type=str, default="audioldm/qvim/baseline-checkpoint/baseline.ckpt", 
                        help="Path to QVIM checkpoint")
     parser.add_argument("--dataset_path", type=str, default="audioldm/qvim/data", 
                        help="Path to dataset directory")

@@ -180,7 +180,7 @@ def load_qvim_model(checkpoint_path):
        Loaded QVIM model
    """
    # Load the saved checkpoint
-   checkpoint = torch.load(checkpoint_path, map_location='cpu')
+   checkpoint = torch.load(checkpoint_path, map_location='cpu', weights_only=False)
    
    # Import QVIMModule from the right location
    from audioldm.qvim.src.qvim_mn_baseline.ex_qvim import QVIMModule
