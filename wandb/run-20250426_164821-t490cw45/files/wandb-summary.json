@@ -1,0 +1,1 @@
+{"val/ndcg":0.7425646781921387,"_timestamp":1.7456848726110108e+09,"train/lr":0,"_wandb":{"runtime":2372},"lr":0,"val/loss":0.18786175549030304,"_runtime":2371.014505059,"_step":34,"lr-AdamW":0,"epoch":11,"val/mrr":0.6614401936531067,"trainer/global_step":11,"val/tau":0.06999975442886353,"train/tau":0.07000000029802322,"train/loss":0}

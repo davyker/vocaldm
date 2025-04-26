@@ -177,8 +177,8 @@ class VocaLDMModule(pl.LightningModule):
         super().__init__()
         self.config = config
         self.save_hyperparameters(config)
-        self.param_names_contain = ['film', 'emb_layers']
-        # self.param_names_contain = []
+        # self.param_names_contain = ['film', 'emb_layers']
+        self.param_names_contain = []
         
         # Store current loss values for scheduler
         self.current_train_loss = float('inf')
@@ -516,7 +516,6 @@ class VocaLDMModule(pl.LightningModule):
             z_reference = self.audioldm.encode_first_stage(mel_reference)
             z_reference = self.audioldm.get_first_stage_encoding(z_reference).detach()
         
-        # CRITICAL FIX: Move these operations outside no_grad to preserve gradient flow
         # Sample noise and timestep
         b, *_ = z_reference.shape
         t = torch.randint(0, self.audioldm.num_timesteps, (b,), device=self.device).long()
@@ -524,9 +523,6 @@ class VocaLDMModule(pl.LightningModule):
         
         # Forward diffusion to get noisy latent - MUST have gradient tracking for backprop
         z_noisy = self.audioldm.q_sample(z_reference, t, noise=noise)
-        
-        # # Ensure z_noisy has requires_grad=True for backprop
-        # z_noisy = z_noisy.detach().requires_grad_(True)
         
         # Important: For the parts that need gradients, run them outside torch.no_grad()
         # This is the adapter part that transforms QVIM embeddings
