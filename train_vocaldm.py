@@ -177,8 +177,16 @@ class VocaLDMModule(pl.LightningModule):
         super().__init__()
         self.config = config
         self.save_hyperparameters(config)
-        # self.param_names_contain = ['film', 'emb_layers']
-        self.param_names_contain = config.param_names_contain
+        
+        # Parse parameter names to include in training
+        if config.param_names_contain == 'adapter-only':
+            # Special case: only train the adapter, not any FiLM layers
+            self.param_names_contain = []
+            self.adapter_only = True
+        else:
+            # Normal case: parse comma-separated list
+            self.param_names_contain = [x.strip() for x in config.param_names_contain.split(',')]
+            self.adapter_only = False
         
         # Store current loss values for scheduler
         self.current_train_loss = float('inf')
@@ -200,8 +208,12 @@ class VocaLDMModule(pl.LightningModule):
         
     def on_after_backward(self):
         """Monitor gradient magnitudes after backward pass to detect vanishing gradients"""
-        # Only log every 10 steps to avoid flooding logs
-        if self.global_step % 10 == 0:
+        # Only track gradients if explicitly enabled
+        if not hasattr(self.config, 'track_gradients') or not self.config.track_gradients:
+            return
+            
+        # Log gradients every step (as originally set)
+        if self.global_step % 1 == 0:
             # Track adapter gradients
             adapter_grads = []
             for name, param in self.adapter.named_parameters():
@@ -210,7 +222,7 @@ class VocaLDMModule(pl.LightningModule):
                     adapter_grads.append(grad_norm)
                     
                     # Log specific layer gradients for debugging
-                    if self.global_step % 100 == 0 and self.is_global_zero and self.logger:
+                    if self.global_step % 1 == 0 and self.is_global_zero and self.logger:
                         self.logger.experiment.log({f"grad/adapter_{name}": grad_norm})
             
             # Track FiLM gradients
@@ -222,7 +234,7 @@ class VocaLDMModule(pl.LightningModule):
                         film_grads.append(grad_norm)
                         
                         # Log specific layer gradients for debugging
-                        if self.global_step % 100 == 0 and self.is_global_zero and self.logger:
+                        if self.global_step % 1 == 0 and self.is_global_zero and self.logger:
                             self.logger.experiment.log({f"grad/film_{name}": grad_norm})
             
             # Log gradient statistics
@@ -428,20 +440,26 @@ class VocaLDMModule(pl.LightningModule):
         film_params = []
         film_param_count = 0
         
-        # Find and unfreeze parameters in the diffusion model that handle conditioning
-        # AudioLDM typically has conditioning projection layers in the model
-        for name, module in self.audioldm.named_modules():
-            # Look for FiLM conditioning layers - typically linear projections in the time embedder
-            # or parameters with 'cond' in their name
-            if any(x in name for x in self.param_names_contain): # Removed 'time_embed'
-                print(f"Unfreezing FiLM parameters in: {name}") if args.debug_autograd else None
-                for param_name, param in module.named_parameters():
-                    param.requires_grad = True
-                    film_params.append(param)
-                    film_param_count += param.numel()
-                
-                # Set this specific module to train mode even though the parent model is in eval mode
-                module.train()
+        # Skip this step entirely in adapter-only mode
+        if not self.adapter_only and self.param_names_contain:
+            # Find and unfreeze parameters in the diffusion model that handle conditioning
+            # AudioLDM typically has conditioning projection layers in the model
+            for name, module in self.audioldm.named_modules():
+                # Look for FiLM conditioning layers - typically linear projections in the time embedder
+                # or parameters with 'cond' in their name
+                if any(x in name for x in self.param_names_contain): # Removed 'time_embed'
+                    print(f"Unfreezing FiLM parameters in: {name}") if args.debug_autograd else None
+                    for param_name, param in module.named_parameters():
+                        param.requires_grad = True
+                        film_params.append(param)
+                        film_param_count += param.numel()
+                    
+                    # Set this specific module to train mode even though the parent model is in eval mode
+                    module.train()
+            
+            if not film_params:
+                print(f"WARNING: No FiLM parameters found matching any of: {self.param_names_contain}")
+                print("Check your --param_names_contain argument if this was unexpected.")
         
         # # Extra check: also look for 'film_emb' directly in model parameters
         # for name, param in self.audioldm.named_parameters():
@@ -1727,7 +1745,7 @@ if __name__ == "__main__":
     parser.add_argument("--val_split", type=float, default=0.1, help="Validation split ratio")
     parser.add_argument("--val_check_interval", type=float, default=1.0, help="Validation check interval (fraction of epoch or integer steps)")
     parser.add_argument("--gradient_clip_val", type=float, default=1.0, help="Gradient clipping value")
-    parser.add_argument("--param_names_contain", type=str, nargs='*', default=['film', 'emb_layers'], help="Parameter names to include in training (space-separated). Use --param_names_contain '' to train only the adapter.")
+    parser.add_argument("--param_names_contain", type=str, default='film,emb_layers', help="Comma-separated parameter names to include in training. Use 'adapter-only' to train only the adapter.")
 
     # Data processing
     parser.add_argument("--sample_rate", type=int, default=32000, help="Audio sample rate for QVIM (32kHz)")
@@ -1750,6 +1768,7 @@ if __name__ == "__main__":
     parser.add_argument("--max_items", type=int, default=None, help="Maximum number of items to use (for debugging)")
     parser.add_argument("--wandb_log_model", action="store_true", help="Automatically upload model checkpoints to WandB (can be large files)")
     parser.add_argument("--num_gpus", type=str, default="auto", help="Number of GPUs to use for training ('auto' or specific number)")
+    parser.add_argument("--track_gradients", action="store_true", help="Enable gradient magnitude tracking and logging to detect vanishing gradients")
     
     args = parser.parse_args()
     
