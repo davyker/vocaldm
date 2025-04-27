@@ -762,7 +762,7 @@ class VocaLDMModule(pl.LightningModule):
             diffusion_loss = squared_diff.mean()
             
             # Verify the loss has gradients properly attached
-            if self.global_step == 0 and batch_idx == 0:
+            if self.global_step == 0 and batch_idx == 0 and hasattr(self.config, 'debug_autograd') and self.config.debug_autograd:
                 print(f"diffusion_loss requires_grad: {diffusion_loss.requires_grad}")
                 print(f"Checking gradient paths:")
                 
