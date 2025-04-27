@@ -1179,6 +1179,11 @@ class VocaLDMModule(pl.LightningModule):
             eps=1e-8
         )
         
+        # Apply gradient normalization if requested
+        if hasattr(self.config, 'normalize_gradients') and self.config.normalize_gradients:
+            print("Gradient normalization enabled - all gradients will be normalized to unit norm before optimizer steps")
+            optimizer = GradientNormalizerOptimizer(optimizer)
+        
         # Configure learning rate scheduler
         if self.config.lr_scheduler == "cosine":
             scheduler = torch.optim.lr_scheduler.CosineAnnealingLR(
@@ -1268,6 +1273,58 @@ def save_vocaldm_checkpoint(model, path, val_loss=None, epoch=None, global_step=
 def is_global_zero():
     """Helper function to check if this process is the global zero rank (or single process)"""
     return (torch.distributed.is_initialized() and torch.distributed.get_rank() == 0) or not torch.distributed.is_initialized()
+
+class GradientNormalizerOptimizer(torch.optim.Optimizer):
+    """
+    Optimizer wrapper that normalizes gradients to unit norm before each step.
+    This can help with training stability when gradient magnitudes vary widely.
+    """
+    def __init__(self, optimizer):
+        self.optimizer = optimizer
+        self.param_groups = optimizer.param_groups
+        self.state = optimizer.state
+        self._step_supports_amp_scaling = hasattr(optimizer, "_step_supports_amp_scaling")
+        
+    def zero_grad(self, set_to_none=False):
+        self.optimizer.zero_grad(set_to_none=set_to_none)
+        
+    def add_param_group(self, param_group):
+        self.optimizer.add_param_group(param_group)
+        
+    def step(self, closure=None):
+        """
+        Performs a single optimization step, normalizing gradients first.
+        """
+        # Normalize all gradients to unit norm if they are non-zero
+        for group in self.param_groups:
+            for p in group['params']:
+                if p.grad is not None:
+                    grad_norm = p.grad.norm()
+                    if grad_norm > 0:
+                        p.grad.data.div_(grad_norm)
+        
+        # Perform the actual optimization step
+        return self.optimizer.step(closure)
+    
+    def __repr__(self):
+        return f"GradientNormalizer({self.optimizer.__repr__()})"
+    
+    # Support for PyTorch AMP
+    def _maybe_scale_loss(self, *args, **kwargs):
+        if hasattr(self.optimizer, "_maybe_scale_loss"):
+            return self.optimizer._maybe_scale_loss(*args, **kwargs)
+        return args[0]
+
+    # Support for Lightning unscaling if using AMP
+    def _unscale_grads(self, *args, **kwargs):
+        if hasattr(self.optimizer, "_unscale_grads"):
+            return self.optimizer._unscale_grads(*args, **kwargs)
+
+    # Support for AMP if available
+    def _step_supports_amp_scaling(self, *args, **kwargs):
+        if hasattr(self.optimizer, "_step_supports_amp_scaling"):
+            return self.optimizer._step_supports_amp_scaling(*args, **kwargs)
+        return False
 
 def train_vocaldm(args):
     """Main training function"""
@@ -1769,6 +1826,7 @@ if __name__ == "__main__":
     parser.add_argument("--wandb_log_model", action="store_true", help="Automatically upload model checkpoints to WandB (can be large files)")
     parser.add_argument("--num_gpus", type=str, default="auto", help="Number of GPUs to use for training ('auto' or specific number)")
     parser.add_argument("--track_gradients", action="store_true", help="Enable gradient magnitude tracking and logging to detect vanishing gradients")
+    parser.add_argument("--normalize_gradients", action="store_true", help="Normalize gradients to unit norm before each optimizer step")
     
     args = parser.parse_args()
     
