@@ -1283,6 +1283,7 @@ class GradientNormalizerOptimizer(torch.optim.Optimizer):
         self.optimizer = optimizer
         self.param_groups = optimizer.param_groups
         self.state = optimizer.state
+        self.defaults = optimizer.defaults
         self._step_supports_amp_scaling = hasattr(optimizer, "_step_supports_amp_scaling")
         
     def zero_grad(self, set_to_none=False):
