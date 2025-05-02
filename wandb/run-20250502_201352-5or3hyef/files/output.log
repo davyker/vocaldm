@@ -1,0 +1,700 @@
+Using 16bit Automatic Mixed Precision (AMP)
+GPU available: True (cuda), used: True
+TPU available: False, using: 0 TPU cores
+HPU available: False, using: 0 HPUs
+LOCAL_RANK: 0 - CUDA_VISIBLE_DEVICES: [0]
+Validation DataLoader 0:   0%|                                                                                                                                                                                                         | 0/1867 [00:00<?, ?it/s]
+[VALIDATION] Batch 0 - Processing validation data
+[VALIDATION] Imitation shape: torch.Size([1, 320000]), Reference shape: torch.Size([1, 320000])
+[VALIDATION] Imitation: min=-0.8460, max=1.0018
+[VALIDATION] Reference: min=-0.9751, max=0.9976
+[CLAP PIPELINE] Input audio shape: torch.Size([1, 320000])
+[CLAP PIPELINE] Input audio stats: min=-0.9751, max=0.9976, mean=-0.0001, std=0.2598
+[CLAP PIPELINE] After resampling: shape=torch.Size([1, 160000])
+[CLAP PIPELINE] After resampling stats: min=-0.9692, max=0.9917, mean=-0.0001, std=0.2598
+[CLAP PIPELINE] Processing 1 samples individually
+[CLAP PIPELINE] Removed 0 trailing zeros from sample 0
+[CLAP PIPELINE] Sample 0 shape: torch.Size([1, 160000])
+[CLAP PIPELINE] Sample 0: 9998/160000 near-zero values
+[DEBUG MEL] Input audio_data shape: torch.Size([480000])
+[DEBUG MEL] Input audio stats: min=-0.9736, max=1.0039, mean=-0.0001
+[DEBUG MEL] Using audio_cfg: sr=48000, n_fft=1024, hop=480
+[DEBUG MEL] Pre-log mel: shape=torch.Size([64, 1001]), NaNs=0, Infs=0, Zeros=1079
+[DEBUG MEL] Pre-log mel stats: min=0.00000000, max=18576.00000000
+[DEBUG MEL] Post-log mel: NaNs=0, Infs=0
+[DEBUG MEL] Post-log mel stats: min=-37.31, max=42.69
+[CLAP PIPELINE] About to call get_audio_embedding with 1 waveform dicts
+[HIDDEN LAYER] spectrogram_extractor: shape=torch.Size([1, 1, 1001, 513]), min=0.0000, max=22892.9141, mean=25.8521, std=480.8925
+[HIDDEN LAYER] logmel_extractor: shape=torch.Size([1, 1, 1001, 64]), min=-53.8038, max=26.1962, mean=-28.7475, std=22.5059
+[HIDDEN LAYER] bn0: shape=torch.Size([1, 64, 1001, 1]), min=-1.7844, max=2.8992, mean=0.2017, std=0.8872
+[HIDDEN LAYER] patch_embed.proj: shape=torch.Size([1, 128, 64, 64]), min=-1.0410, max=1.5127, mean=-0.0190, std=0.1797
+[PATCH EMBED] NaN count: 0, Inf count: 0
+[PATCH EMBED] Percentiles: min=-1.0410, max=1.5127
+[PATCH EMBED] Near-zero values: 102/524288 (0.02%)
+[HIDDEN LAYER] patch_embed: shape=torch.Size([1, 4096, 128]), min=-4.6831, max=4.6855, mean=0.0076, std=0.5987
+[HIDDEN LAYER] pos_drop: shape=torch.Size([1, 4096, 128]), min=-4.6831, max=4.6855, mean=0.0076, std=0.5987
+[HIDDEN LAYER] layer_0.block_0: shape=torch.Size([1, 4096, 128]), min=-4.7217, max=5.1516, mean=0.1247, std=0.7450
+[HIDDEN LAYER] layer_0.block_1: shape=torch.Size([1, 4096, 128]), min=-7.6656, max=6.2042, mean=0.1513, std=0.9418
+[HIDDEN LAYER] layer_0: shape=torch.Size([1, 1024, 256]), min=-5.9766, max=4.8203, mean=-0.0145, std=0.8257
+[HIDDEN LAYER] layer_1.block_0: shape=torch.Size([1, 1024, 256]), min=-7.8828, max=5.5039, mean=-0.0097, std=0.9053
+[HIDDEN LAYER] layer_1.block_1: shape=torch.Size([1, 1024, 256]), min=-8.6484, max=16.3438, mean=-0.0044, std=1.2373
+[HIDDEN LAYER] layer_1: shape=torch.Size([1, 256, 512]), min=-6.0156, max=6.1719, mean=-0.0015, std=0.8735
+[HIDDEN LAYER] layer_2.block_0: shape=torch.Size([1, 256, 512]), min=-6.0430, max=6.4141, mean=-0.0008, std=0.8643
+[HIDDEN LAYER] layer_2.block_1: shape=torch.Size([1, 256, 512]), min=-6.4219, max=7.1680, mean=0.0027, std=0.9292
+[HIDDEN LAYER] layer_2.block_2: shape=torch.Size([1, 256, 512]), min=-6.1016, max=8.0703, mean=0.0137, std=0.9976
+[HIDDEN LAYER] layer_2.block_3: shape=torch.Size([1, 256, 512]), min=-6.4922, max=8.6719, mean=0.0203, std=1.0605
+[HIDDEN LAYER] layer_2.block_4: shape=torch.Size([1, 256, 512]), min=-6.3125, max=9.1250, mean=0.0264, std=1.1426
+[HIDDEN LAYER] layer_2.block_5: shape=torch.Size([1, 256, 512]), min=-6.3516, max=18.0312, mean=0.0279, std=1.1992
+[HIDDEN LAYER] layer_2.block_6: shape=torch.Size([1, 256, 512]), min=-6.0547, max=39.5625, mean=0.0374, std=1.2520
+[HIDDEN LAYER] layer_2.block_7: shape=torch.Size([1, 256, 512]), min=-6.5625, max=85.7500, mean=0.0469, std=1.3545
+[HIDDEN LAYER] layer_2.block_8: shape=torch.Size([1, 256, 512]), min=-8.8750, max=150.8750, mean=0.0587, std=1.7520
+[HIDDEN LAYER] layer_2.block_9: shape=torch.Size([1, 256, 512]), min=-9.8438, max=196.6250, mean=0.0595, std=2.0879
+[HIDDEN LAYER] layer_2.block_10: shape=torch.Size([1, 256, 512]), min=-19.1719, max=201.2500, mean=0.0570, std=2.2383
+[HIDDEN LAYER] layer_2.block_11: shape=torch.Size([1, 256, 512]), min=-32.2812, max=140.5000, mean=0.0363, std=2.0156
+[HIDDEN LAYER] layer_2: shape=torch.Size([1, 64, 1024]), min=-5.1953, max=156.5000, mean=0.0095, std=1.6875
+[HIDDEN LAYER] layer_3.block_0: shape=torch.Size([1, 64, 1024]), min=-15.8281, max=216.0000, mean=0.0322, std=2.5312
+[HIDDEN LAYER] layer_3.block_1: shape=torch.Size([1, 64, 1024]), min=-102.5625, max=298.5000, mean=0.0477, std=4.0469
+[HIDDEN LAYER] layer_3: shape=torch.Size([1, 64, 1024]), min=-102.5625, max=298.5000, mean=0.0477, std=4.0469
+[HIDDEN LAYER] final_norm: shape=torch.Size([1, 64, 1024]), min=-5.2678, max=5.7124, mean=-0.0338, std=0.9439
+[HIDDEN LAYER] avgpool: shape=torch.Size([1, 1024, 1]), min=-2.1321, max=1.9733, mean=-0.0338, std=0.6024
+[HIDDEN LAYER] avgpool: shape=torch.Size([1, 527, 1]), min=-12.2578, max=3.8203, mean=-6.2930, std=1.9346
+[CLAP PIPELINE] Final embeddings batch shape: torch.Size([1, 512])
+[CLAP PIPELINE] CLAP embedding shape: torch.Size([1, 512])
+[CLAP PIPELINE] CLAP embedding seems valid (no NaN/Inf)
+[CLAP PIPELINE] CLAP embedding stats: min=-0.1406, max=0.1421, mean=-0.0016, std=0.0442
+[CLAP PIPELINE] CLAP embedding norms: min=1.0000, max=1.0000, mean=1.0000
+[VALIDATION] Shapes: y_im torch.Size([1, 512]), y_ref torch.Size([1, 512]), y_clap torch.Size([1, 512])
+[VALIDATION] Norms: y_im 1.0000, y_ref 1.0000, y_clap 1.0000
+Validation DataLoader 0:   0%|                                                                                                                                                                                               | 1/1867 [00:12<6:27:19,  0.08it/s]
+[VALIDATION] Batch 1 - Processing validation data
+[VALIDATION] Imitation shape: torch.Size([1, 320000]), Reference shape: torch.Size([1, 320000])
+[VALIDATION] Imitation: min=-0.9942, max=0.9894
+[VALIDATION] Reference: min=-0.9515, max=1.0022
+[CLAP PIPELINE] Input audio shape: torch.Size([1, 320000])
+[CLAP PIPELINE] Input audio stats: min=-0.9515, max=1.0022, mean=-0.0000, std=0.0170
+[CLAP PIPELINE] After resampling: shape=torch.Size([1, 160000])
+[CLAP PIPELINE] After resampling stats: min=-0.9478, max=1.0039, mean=-0.0000, std=0.0170
+[CLAP PIPELINE] Processing 1 samples individually
+[CLAP PIPELINE] Removed 150951 trailing zeros from sample 0
+[CLAP PIPELINE] Sample 0 shape: torch.Size([1, 9049])
+[CLAP PIPELINE] Sample 0: 1048/9049 near-zero values
+[DEBUG MEL] Input audio_data shape: torch.Size([480000])
+[DEBUG MEL] Input audio stats: min=-0.9624, max=1.0107, mean=-0.0003
+[DEBUG MEL] Using audio_cfg: sr=48000, n_fft=1024, hop=480
+[DEBUG MEL] Pre-log mel: shape=torch.Size([64, 1001]), NaNs=0, Infs=0, Zeros=8395
+[DEBUG MEL] Pre-log mel stats: min=0.00000000, max=13344.00000000
+[DEBUG MEL] Post-log mel: NaNs=0, Infs=0
+[DEBUG MEL] Post-log mel stats: min=-38.75, max=41.25
+[CLAP PIPELINE] About to call get_audio_embedding with 1 waveform dicts
+[HIDDEN LAYER] spectrogram_extractor: shape=torch.Size([1, 1, 1001, 513]), min=0.0000, max=10033.8613, mean=1.9218, std=92.1643
+[HIDDEN LAYER] logmel_extractor: shape=torch.Size([1, 1, 1001, 64]), min=-60.0218, max=19.9782, mean=-56.9211, std=9.7552
+[HIDDEN LAYER] bn0: shape=torch.Size([1, 64, 1001, 1]), min=-2.0385, max=2.9652, mean=-0.9893, std=1.0092
+[HIDDEN LAYER] patch_embed.proj: shape=torch.Size([1, 128, 64, 64]), min=-1.2959, max=1.3613, mean=0.0344, std=0.2223
+[PATCH EMBED] NaN count: 0, Inf count: 0
+[PATCH EMBED] Percentiles: min=-1.2959, max=1.3613
+[PATCH EMBED] Near-zero values: 56/524288 (0.01%)
+[HIDDEN LAYER] patch_embed: shape=torch.Size([1, 4096, 128]), min=-5.4125, max=5.8942, mean=-0.1217, std=0.5362
+[HIDDEN LAYER] pos_drop: shape=torch.Size([1, 4096, 128]), min=-5.4125, max=5.8942, mean=-0.1217, std=0.5362
+[HIDDEN LAYER] layer_0.block_0: shape=torch.Size([1, 4096, 128]), min=-6.2565, max=5.8770, mean=-0.4447, std=0.7372
+[HIDDEN LAYER] layer_0.block_1: shape=torch.Size([1, 4096, 128]), min=-7.6110, max=6.9912, mean=-0.5382, std=0.9387
+[HIDDEN LAYER] layer_0: shape=torch.Size([1, 1024, 256]), min=-6.3398, max=5.0742, mean=0.3096, std=0.8252
+[HIDDEN LAYER] layer_1.block_0: shape=torch.Size([1, 1024, 256]), min=-6.4766, max=6.1562, mean=0.3572, std=0.8696
+[HIDDEN LAYER] layer_1.block_1: shape=torch.Size([1, 1024, 256]), min=-7.4961, max=16.7188, mean=0.3604, std=1.2393
+[HIDDEN LAYER] layer_1: shape=torch.Size([1, 256, 512]), min=-6.3477, max=6.1992, mean=-0.0097, std=0.9136
+[HIDDEN LAYER] layer_2.block_0: shape=torch.Size([1, 256, 512]), min=-6.5117, max=6.6289, mean=-0.0065, std=0.8926
+[HIDDEN LAYER] layer_2.block_1: shape=torch.Size([1, 256, 512]), min=-6.7539, max=7.5078, mean=-0.0023, std=0.9463
+[HIDDEN LAYER] layer_2.block_2: shape=torch.Size([1, 256, 512]), min=-6.8750, max=7.7891, mean=0.0105, std=1.0293
+[HIDDEN LAYER] layer_2.block_3: shape=torch.Size([1, 256, 512]), min=-6.7695, max=7.9062, mean=0.0186, std=1.0830
+[HIDDEN LAYER] layer_2.block_4: shape=torch.Size([1, 256, 512]), min=-6.6719, max=14.1250, mean=0.0133, std=1.1709
+[HIDDEN LAYER] layer_2.block_5: shape=torch.Size([1, 256, 512]), min=-6.9570, max=22.6562, mean=0.0148, std=1.2480
+[HIDDEN LAYER] layer_2.block_6: shape=torch.Size([1, 256, 512]), min=-6.4648, max=41.2812, mean=0.0307, std=1.3252
+[HIDDEN LAYER] layer_2.block_7: shape=torch.Size([1, 256, 512]), min=-7.1953, max=85.0000, mean=0.0407, std=1.4707
+[HIDDEN LAYER] layer_2.block_8: shape=torch.Size([1, 256, 512]), min=-9.7578, max=153.7500, mean=0.0527, std=1.8496
+[HIDDEN LAYER] layer_2.block_9: shape=torch.Size([1, 256, 512]), min=-11.8906, max=184.2500, mean=0.0604, std=2.0859
+[HIDDEN LAYER] layer_2.block_10: shape=torch.Size([1, 256, 512]), min=-24.2656, max=180.7500, mean=0.0554, std=2.1641
+[HIDDEN LAYER] layer_2.block_11: shape=torch.Size([1, 256, 512]), min=-38.3750, max=116.5000, mean=0.0590, std=2.0273
+[HIDDEN LAYER] layer_2: shape=torch.Size([1, 64, 1024]), min=-5.1445, max=163.1250, mean=0.0154, std=1.8271
+[HIDDEN LAYER] layer_3.block_0: shape=torch.Size([1, 64, 1024]), min=-18.8125, max=229.2500, mean=0.0415, std=2.6914
+[HIDDEN LAYER] layer_3.block_1: shape=torch.Size([1, 64, 1024]), min=-96.0625, max=316.7500, mean=0.0559, std=4.0312
+[HIDDEN LAYER] layer_3: shape=torch.Size([1, 64, 1024]), min=-96.0625, max=316.7500, mean=0.0559, std=4.0312
+[HIDDEN LAYER] final_norm: shape=torch.Size([1, 64, 1024]), min=-4.9197, max=4.4726, mean=-0.0375, std=0.7790
+[HIDDEN LAYER] avgpool: shape=torch.Size([1, 1024, 1]), min=-2.0581, max=1.4623, mean=-0.0375, std=0.5661
+[HIDDEN LAYER] avgpool: shape=torch.Size([1, 527, 1]), min=-11.0547, max=6.6055, mean=-3.8984, std=1.9844
+[CLAP PIPELINE] Final embeddings batch shape: torch.Size([1, 512])
+[CLAP PIPELINE] CLAP embedding shape: torch.Size([1, 512])
+[CLAP PIPELINE] CLAP embedding seems valid (no NaN/Inf)
+[CLAP PIPELINE] CLAP embedding stats: min=-0.1375, max=0.1293, mean=0.0022, std=0.0442
+[CLAP PIPELINE] CLAP embedding norms: min=1.0000, max=1.0000, mean=1.0000
+[VALIDATION] Shapes: y_im torch.Size([1, 512]), y_ref torch.Size([1, 512]), y_clap torch.Size([1, 512])
+[VALIDATION] Norms: y_im 1.0000, y_ref 1.0000, y_clap 1.0000
+Validation DataLoader 0:   0%|▏                                                                                                                                                                                             | 2/1867 [00:39<10:19:54,  0.05it/s]
+[VALIDATION] Batch 2 - Processing validation data
+[VALIDATION] Imitation shape: torch.Size([1, 320000]), Reference shape: torch.Size([1, 320000])
+[VALIDATION] Imitation: min=-0.9974, max=0.8604
+[VALIDATION] Reference: min=-0.9783, max=0.9732
+[CLAP PIPELINE] Input audio shape: torch.Size([1, 320000])
+[CLAP PIPELINE] Input audio stats: min=-0.9783, max=0.9732, mean=-0.0000, std=0.0987
+[CLAP PIPELINE] After resampling: shape=torch.Size([1, 160000])
+[CLAP PIPELINE] After resampling stats: min=-0.9448, max=0.9648, mean=-0.0000, std=0.0987
+[CLAP PIPELINE] Processing 1 samples individually
+[CLAP PIPELINE] Removed 50916 trailing zeros from sample 0
+[CLAP PIPELINE] Sample 0 shape: torch.Size([1, 109084])
+[CLAP PIPELINE] Sample 0: 21526/109084 near-zero values
+[DEBUG MEL] Input audio_data shape: torch.Size([480000])
+[DEBUG MEL] Input audio stats: min=-0.9678, max=0.9644, mean=-0.0000
+[DEBUG MEL] Using audio_cfg: sr=48000, n_fft=1024, hop=480
+[DEBUG MEL] Pre-log mel: shape=torch.Size([64, 1001]), NaNs=0, Infs=0, Zeros=22764
+[DEBUG MEL] Pre-log mel stats: min=0.00000000, max=32992.00000000
+[DEBUG MEL] Post-log mel: NaNs=0, Infs=0
+[DEBUG MEL] Post-log mel stats: min=-34.82, max=45.18
+[CLAP PIPELINE] About to call get_audio_embedding with 1 waveform dicts
+[HIDDEN LAYER] spectrogram_extractor: shape=torch.Size([1, 1, 1001, 513]), min=0.0000, max=19879.2578, mean=3.7256, std=123.5342
+[HIDDEN LAYER] logmel_extractor: shape=torch.Size([1, 1, 1001, 64]), min=-55.4630, max=24.5370, mean=-44.4208, std=15.9298
+[HIDDEN LAYER] bn0: shape=torch.Size([1, 64, 1001, 1]), min=-1.8522, max=2.4774, mean=-0.4535, std=1.0461
+[HIDDEN LAYER] patch_embed.proj: shape=torch.Size([1, 128, 64, 64]), min=-1.0664, max=1.4131, mean=0.0106, std=0.1978
+[PATCH EMBED] NaN count: 0, Inf count: 0
+[PATCH EMBED] Percentiles: min=-1.0664, max=1.4131
+[PATCH EMBED] Near-zero values: 28/524288 (0.01%)
+[HIDDEN LAYER] patch_embed: shape=torch.Size([1, 4096, 128]), min=-5.0075, max=4.7443, mean=-0.0750, std=0.5749
+[HIDDEN LAYER] pos_drop: shape=torch.Size([1, 4096, 128]), min=-5.0075, max=4.7443, mean=-0.0750, std=0.5749
+[HIDDEN LAYER] layer_0.block_0: shape=torch.Size([1, 4096, 128]), min=-5.8069, max=5.3726, mean=-0.2210, std=0.8078
+[HIDDEN LAYER] layer_0.block_1: shape=torch.Size([1, 4096, 128]), min=-7.9978, max=6.4702, mean=-0.2616, std=1.0041
+[HIDDEN LAYER] layer_0: shape=torch.Size([1, 1024, 256]), min=-5.8633, max=5.0625, mean=0.1785, std=0.8232
+[HIDDEN LAYER] layer_1.block_0: shape=torch.Size([1, 1024, 256]), min=-6.7031, max=7.1094, mean=0.2025, std=0.9116
+[HIDDEN LAYER] layer_1.block_1: shape=torch.Size([1, 1024, 256]), min=-7.5000, max=16.6250, mean=0.1981, std=1.2588
+[HIDDEN LAYER] layer_1: shape=torch.Size([1, 256, 512]), min=-5.9844, max=8.2969, mean=-0.0071, std=0.8994
+[HIDDEN LAYER] layer_2.block_0: shape=torch.Size([1, 256, 512]), min=-6.6055, max=7.3828, mean=-0.0029, std=0.9023
+[HIDDEN LAYER] layer_2.block_1: shape=torch.Size([1, 256, 512]), min=-7.1953, max=7.5586, mean=-0.0007, std=0.9771
+[HIDDEN LAYER] layer_2.block_2: shape=torch.Size([1, 256, 512]), min=-7.3633, max=7.3750, mean=0.0107, std=1.0508
+[HIDDEN LAYER] layer_2.block_3: shape=torch.Size([1, 256, 512]), min=-7.5430, max=8.1328, mean=0.0210, std=1.1055
+[HIDDEN LAYER] layer_2.block_4: shape=torch.Size([1, 256, 512]), min=-7.6055, max=13.8125, mean=0.0227, std=1.1875
+[HIDDEN LAYER] layer_2.block_5: shape=torch.Size([1, 256, 512]), min=-7.4141, max=23.0469, mean=0.0237, std=1.2617
+[HIDDEN LAYER] layer_2.block_6: shape=torch.Size([1, 256, 512]), min=-7.2578, max=36.0000, mean=0.0294, std=1.3223
+[HIDDEN LAYER] layer_2.block_7: shape=torch.Size([1, 256, 512]), min=-7.3320, max=75.8750, mean=0.0400, std=1.4580
+[HIDDEN LAYER] layer_2.block_8: shape=torch.Size([1, 256, 512]), min=-8.4531, max=145.6250, mean=0.0544, std=1.9033
+[HIDDEN LAYER] layer_2.block_9: shape=torch.Size([1, 256, 512]), min=-16.1875, max=181.0000, mean=0.0630, std=2.2070
+[HIDDEN LAYER] layer_2.block_10: shape=torch.Size([1, 256, 512]), min=-29.9062, max=182.5000, mean=0.0588, std=2.3887
+[HIDDEN LAYER] layer_2.block_11: shape=torch.Size([1, 256, 512]), min=-45.2500, max=122.2500, mean=0.0593, std=2.5137
+[HIDDEN LAYER] layer_2: shape=torch.Size([1, 64, 1024]), min=-6.9609, max=164.2500, mean=0.0143, std=2.3887
+[HIDDEN LAYER] layer_3.block_0: shape=torch.Size([1, 64, 1024]), min=-23.1875, max=237.2500, mean=0.0420, std=3.6367
+[HIDDEN LAYER] layer_3.block_1: shape=torch.Size([1, 64, 1024]), min=-112.5000, max=335.0000, mean=0.0660, std=5.9492
+[HIDDEN LAYER] layer_3: shape=torch.Size([1, 64, 1024]), min=-112.5000, max=335.0000, mean=0.0660, std=5.9492
+[HIDDEN LAYER] final_norm: shape=torch.Size([1, 64, 1024]), min=-2.8533, max=2.9876, mean=-0.0380, std=0.5066
+[HIDDEN LAYER] avgpool: shape=torch.Size([1, 1024, 1]), min=-0.9177, max=1.5022, mean=-0.0380, std=0.3282
+[HIDDEN LAYER] avgpool: shape=torch.Size([1, 527, 1]), min=-7.4883, max=3.3457, mean=-4.1992, std=1.0615
+[CLAP PIPELINE] Final embeddings batch shape: torch.Size([1, 512])
+[CLAP PIPELINE] CLAP embedding shape: torch.Size([1, 512])
+[CLAP PIPELINE] CLAP embedding seems valid (no NaN/Inf)
+[CLAP PIPELINE] CLAP embedding stats: min=-0.1472, max=0.1501, mean=0.0015, std=0.0442
+[CLAP PIPELINE] CLAP embedding norms: min=1.0000, max=1.0000, mean=1.0000
+[VALIDATION] Shapes: y_im torch.Size([1, 512]), y_ref torch.Size([1, 512]), y_clap torch.Size([1, 512])
+[VALIDATION] Norms: y_im 1.0000, y_ref 1.0000, y_clap 1.0000
+Validation DataLoader 0:   0%|▎                                                                                                                                                                                             | 3/1867 [01:09<11:57:23,  0.04it/s]
+[VALIDATION] Batch 3 - Processing validation data
+[VALIDATION] Imitation shape: torch.Size([1, 320000]), Reference shape: torch.Size([1, 320000])
+[VALIDATION] Imitation: min=-1.0061, max=0.8718
+[VALIDATION] Reference: min=-0.7937, max=1.0061
+[CLAP PIPELINE] Input audio shape: torch.Size([1, 320000])
+[CLAP PIPELINE] Input audio stats: min=-0.7937, max=1.0061, mean=-0.0000, std=0.1177
+[CLAP PIPELINE] After resampling: shape=torch.Size([1, 160000])
+[CLAP PIPELINE] After resampling stats: min=-0.7939, max=0.9849, mean=-0.0000, std=0.1177
+[CLAP PIPELINE] Processing 1 samples individually
+[CLAP PIPELINE] Removed 39821 trailing zeros from sample 0
+[CLAP PIPELINE] Sample 0 shape: torch.Size([1, 120179])
+[CLAP PIPELINE] Sample 0: 2978/120179 near-zero values
+[DEBUG MEL] Input audio_data shape: torch.Size([480000])
+[DEBUG MEL] Input audio stats: min=-0.7939, max=0.9995, mean=-0.0000
+[DEBUG MEL] Using audio_cfg: sr=48000, n_fft=1024, hop=480
+[DEBUG MEL] Pre-log mel: shape=torch.Size([64, 1001]), NaNs=0, Infs=0, Zeros=16289
+[DEBUG MEL] Pre-log mel stats: min=0.00000000, max=15952.00000000
+[DEBUG MEL] Post-log mel: NaNs=0, Infs=0
+[DEBUG MEL] Post-log mel stats: min=-37.97, max=42.03
+[CLAP PIPELINE] About to call get_audio_embedding with 1 waveform dicts
+[HIDDEN LAYER] spectrogram_extractor: shape=torch.Size([1, 1, 1001, 513]), min=0.0000, max=21778.5781, mean=5.3242, std=165.3208
+[HIDDEN LAYER] logmel_extractor: shape=torch.Size([1, 1, 1001, 64]), min=-55.5988, max=24.4012, mean=-35.7159, std=19.6236
+[HIDDEN LAYER] bn0: shape=torch.Size([1, 64, 1001, 1]), min=-1.8577, max=2.4667, mean=-0.0930, std=0.9386
+[HIDDEN LAYER] patch_embed.proj: shape=torch.Size([1, 128, 64, 64]), min=-1.0674, max=1.4072, mean=-0.0050, std=0.1794
+[PATCH EMBED] NaN count: 0, Inf count: 0
+[PATCH EMBED] Percentiles: min=-1.0674, max=1.4072
+[PATCH EMBED] Near-zero values: 128/524288 (0.02%)
+[HIDDEN LAYER] patch_embed: shape=torch.Size([1, 4096, 128]), min=-4.5738, max=4.3840, mean=-0.0300, std=0.5642
+[HIDDEN LAYER] pos_drop: shape=torch.Size([1, 4096, 128]), min=-4.5738, max=4.3840, mean=-0.0300, std=0.5642
+[HIDDEN LAYER] layer_0.block_0: shape=torch.Size([1, 4096, 128]), min=-5.3519, max=5.0728, mean=-0.0328, std=0.7614
+[HIDDEN LAYER] layer_0.block_1: shape=torch.Size([1, 4096, 128]), min=-7.7446, max=5.7191, mean=-0.0480, std=0.9674
+[HIDDEN LAYER] layer_0: shape=torch.Size([1, 1024, 256]), min=-5.8516, max=5.0078, mean=0.0884, std=0.7769
+[HIDDEN LAYER] layer_1.block_0: shape=torch.Size([1, 1024, 256]), min=-6.7031, max=6.4219, mean=0.1150, std=0.8726
+[HIDDEN LAYER] layer_1.block_1: shape=torch.Size([1, 1024, 256]), min=-7.4297, max=16.6406, mean=0.1105, std=1.2148
+[HIDDEN LAYER] layer_1: shape=torch.Size([1, 256, 512]), min=-5.9062, max=6.3633, mean=-0.0050, std=0.8350
+[HIDDEN LAYER] layer_2.block_0: shape=torch.Size([1, 256, 512]), min=-5.9805, max=5.8867, mean=-0.0025, std=0.8340
+[HIDDEN LAYER] layer_2.block_1: shape=torch.Size([1, 256, 512]), min=-6.0781, max=6.2852, mean=-0.0001, std=0.9014
+[HIDDEN LAYER] layer_2.block_2: shape=torch.Size([1, 256, 512]), min=-6.0781, max=7.4141, mean=0.0119, std=0.9668
+[HIDDEN LAYER] layer_2.block_3: shape=torch.Size([1, 256, 512]), min=-6.2383, max=8.1484, mean=0.0190, std=1.0273
+[HIDDEN LAYER] layer_2.block_4: shape=torch.Size([1, 256, 512]), min=-6.2422, max=9.1797, mean=0.0263, std=1.0977
+[HIDDEN LAYER] layer_2.block_5: shape=torch.Size([1, 256, 512]), min=-6.2656, max=15.3438, mean=0.0271, std=1.1572
+[HIDDEN LAYER] layer_2.block_6: shape=torch.Size([1, 256, 512]), min=-6.0000, max=27.7500, mean=0.0350, std=1.2090
+[HIDDEN LAYER] layer_2.block_7: shape=torch.Size([1, 256, 512]), min=-5.8555, max=65.5625, mean=0.0462, std=1.3145
+[HIDDEN LAYER] layer_2.block_8: shape=torch.Size([1, 256, 512]), min=-7.8125, max=135.7500, mean=0.0586, std=1.7070
+[HIDDEN LAYER] layer_2.block_9: shape=torch.Size([1, 256, 512]), min=-13.6719, max=166.8750, mean=0.0695, std=2.0098
+[HIDDEN LAYER] layer_2.block_10: shape=torch.Size([1, 256, 512]), min=-26.9688, max=166.8750, mean=0.0715, std=2.1875
+[HIDDEN LAYER] layer_2.block_11: shape=torch.Size([1, 256, 512]), min=-41.3125, max=107.1250, mean=0.0620, std=2.2383
+[HIDDEN LAYER] layer_2: shape=torch.Size([1, 64, 1024]), min=-5.0508, max=164.1250, mean=0.0187, std=2.0977
+[HIDDEN LAYER] layer_3.block_0: shape=torch.Size([1, 64, 1024]), min=-21.0938, max=236.1250, mean=0.0422, std=3.1523
+[HIDDEN LAYER] layer_3.block_1: shape=torch.Size([1, 64, 1024]), min=-111.7500, max=331.7500, mean=0.0594, std=5.0078
+[HIDDEN LAYER] layer_3: shape=torch.Size([1, 64, 1024]), min=-111.7500, max=331.7500, mean=0.0594, std=5.0078
+[HIDDEN LAYER] final_norm: shape=torch.Size([1, 64, 1024]), min=-4.8581, max=5.2333, mean=-0.0322, std=0.9628
+[HIDDEN LAYER] avgpool: shape=torch.Size([1, 1024, 1]), min=-2.0876, max=1.8159, mean=-0.0322, std=0.5990
+[HIDDEN LAYER] avgpool: shape=torch.Size([1, 527, 1]), min=-10.1016, max=6.8320, mean=-4.0430, std=2.0059
+[CLAP PIPELINE] Final embeddings batch shape: torch.Size([1, 512])
+[CLAP PIPELINE] CLAP embedding shape: torch.Size([1, 512])
+[CLAP PIPELINE] CLAP embedding seems valid (no NaN/Inf)
+[CLAP PIPELINE] CLAP embedding stats: min=-0.1226, max=0.1364, mean=-0.0012, std=0.0442
+[CLAP PIPELINE] CLAP embedding norms: min=1.0000, max=1.0000, mean=1.0000
+[VALIDATION] Shapes: y_im torch.Size([1, 512]), y_ref torch.Size([1, 512]), y_clap torch.Size([1, 512])
+[VALIDATION] Norms: y_im 1.0000, y_ref 1.0000, y_clap 1.0000
+Validation DataLoader 0:   0%|▍                                                                                                                                                                                              | 4/1867 [01:13<9:32:50,  0.05it/s]
+[VALIDATION] Batch 4 - Processing validation data
+[VALIDATION] Imitation shape: torch.Size([1, 320000]), Reference shape: torch.Size([1, 320000])
+[VALIDATION] Imitation: min=-0.5586, max=0.9999
+[VALIDATION] Reference: min=-0.9994, max=0.9963
+[CLAP PIPELINE] Input audio shape: torch.Size([1, 320000])
+[CLAP PIPELINE] Input audio stats: min=-0.9994, max=0.9963, mean=0.0246, std=0.3379
+[CLAP PIPELINE] After resampling: shape=torch.Size([1, 160000])
+[CLAP PIPELINE] After resampling stats: min=-0.9888, max=0.9971, mean=0.0246, std=0.3381
+[CLAP PIPELINE] Processing 1 samples individually
+[CLAP PIPELINE] Removed 63824 trailing zeros from sample 0
+[CLAP PIPELINE] Sample 0 shape: torch.Size([1, 96176])
+[CLAP PIPELINE] Sample 0: 129/96176 near-zero values
+[DEBUG MEL] Input audio_data shape: torch.Size([480000])
+[DEBUG MEL] Input audio stats: min=-0.9976, max=0.9971, mean=0.0246
+[DEBUG MEL] Using audio_cfg: sr=48000, n_fft=1024, hop=480
+[DEBUG MEL] Pre-log mel: shape=torch.Size([64, 1001]), NaNs=0, Infs=0, Zeros=25476
+[DEBUG MEL] Pre-log mel stats: min=0.00000000, max=15472.00000000
+[DEBUG MEL] Post-log mel: NaNs=0, Infs=0
+[DEBUG MEL] Post-log mel stats: min=-38.10, max=41.90
+[CLAP PIPELINE] About to call get_audio_embedding with 1 waveform dicts
+[HIDDEN LAYER] spectrogram_extractor: shape=torch.Size([1, 1, 1001, 513]), min=0.0000, max=17242.3789, mean=41.7382, std=661.2885
+[HIDDEN LAYER] logmel_extractor: shape=torch.Size([1, 1, 1001, 64]), min=-55.3387, max=24.6613, mean=-33.5514, std=24.0015
+[HIDDEN LAYER] bn0: shape=torch.Size([1, 64, 1001, 1]), min=-1.8471, max=2.8327, mean=0.0003, std=1.0838
+[HIDDEN LAYER] patch_embed.proj: shape=torch.Size([1, 128, 64, 64]), min=-1.0645, max=1.5029, mean=-0.0093, std=0.1871
+[PATCH EMBED] NaN count: 0, Inf count: 0
+[PATCH EMBED] Percentiles: min=-1.0645, max=1.5029
+[PATCH EMBED] Near-zero values: 120/524288 (0.02%)
+[HIDDEN LAYER] patch_embed: shape=torch.Size([1, 4096, 128]), min=-3.4793, max=4.1636, mean=-0.0090, std=0.5422
+[HIDDEN LAYER] pos_drop: shape=torch.Size([1, 4096, 128]), min=-3.4793, max=4.1636, mean=-0.0090, std=0.5422
+[HIDDEN LAYER] layer_0.block_0: shape=torch.Size([1, 4096, 128]), min=-3.8148, max=5.1697, mean=0.0365, std=0.7841
+[HIDDEN LAYER] layer_0.block_1: shape=torch.Size([1, 4096, 128]), min=-7.4967, max=6.6301, mean=0.0336, std=0.9941
+[HIDDEN LAYER] layer_0: shape=torch.Size([1, 1024, 256]), min=-5.9062, max=4.9805, mean=0.0424, std=0.7817
+[HIDDEN LAYER] layer_1.block_0: shape=torch.Size([1, 1024, 256]), min=-6.7188, max=5.2969, mean=0.0655, std=0.8608
+[HIDDEN LAYER] layer_1.block_1: shape=torch.Size([1, 1024, 256]), min=-8.1875, max=16.6250, mean=0.0602, std=1.2432
+[HIDDEN LAYER] layer_1: shape=torch.Size([1, 256, 512]), min=-6.0703, max=6.2539, mean=-0.0022, std=0.8481
+[HIDDEN LAYER] layer_2.block_0: shape=torch.Size([1, 256, 512]), min=-6.0195, max=6.1953, mean=0.0028, std=0.8433
+[HIDDEN LAYER] layer_2.block_1: shape=torch.Size([1, 256, 512]), min=-6.0547, max=6.2539, mean=0.0089, std=0.9058
+[HIDDEN LAYER] layer_2.block_2: shape=torch.Size([1, 256, 512]), min=-6.5977, max=7.1250, mean=0.0262, std=0.9854
+[HIDDEN LAYER] layer_2.block_3: shape=torch.Size([1, 256, 512]), min=-7.1367, max=7.9141, mean=0.0387, std=1.0352
+[HIDDEN LAYER] layer_2.block_4: shape=torch.Size([1, 256, 512]), min=-7.7266, max=12.0547, mean=0.0419, std=1.1143
+[HIDDEN LAYER] layer_2.block_5: shape=torch.Size([1, 256, 512]), min=-7.2070, max=20.0781, mean=0.0433, std=1.1787
+[HIDDEN LAYER] layer_2.block_6: shape=torch.Size([1, 256, 512]), min=-8.6328, max=44.8125, mean=0.0534, std=1.2578
+[HIDDEN LAYER] layer_2.block_7: shape=torch.Size([1, 256, 512]), min=-7.9648, max=86.6250, mean=0.0588, std=1.4238
+[HIDDEN LAYER] layer_2.block_8: shape=torch.Size([1, 256, 512]), min=-8.8750, max=160.7500, mean=0.0768, std=1.8691
+[HIDDEN LAYER] layer_2.block_9: shape=torch.Size([1, 256, 512]), min=-12.6406, max=200.5000, mean=0.0867, std=2.1836
+[HIDDEN LAYER] layer_2.block_10: shape=torch.Size([1, 256, 512]), min=-24.7969, max=200.8750, mean=0.0875, std=2.3652
+[HIDDEN LAYER] layer_2.block_11: shape=torch.Size([1, 256, 512]), min=-38.8125, max=139.2500, mean=0.0780, std=2.3203
+[HIDDEN LAYER] layer_2: shape=torch.Size([1, 64, 1024]), min=-7.6953, max=152.7500, mean=0.0202, std=2.2988
+[HIDDEN LAYER] layer_3.block_0: shape=torch.Size([1, 64, 1024]), min=-21.9219, max=227.5000, mean=0.0443, std=3.4863
+[HIDDEN LAYER] layer_3.block_1: shape=torch.Size([1, 64, 1024]), min=-123.5000, max=333.0000, mean=0.0689, std=5.8359
+[HIDDEN LAYER] layer_3: shape=torch.Size([1, 64, 1024]), min=-123.5000, max=333.0000, mean=0.0689, std=5.8359
+[HIDDEN LAYER] final_norm: shape=torch.Size([1, 64, 1024]), min=-5.0405, max=4.5821, mean=-0.0381, std=0.6177
+[HIDDEN LAYER] avgpool: shape=torch.Size([1, 1024, 1]), min=-1.3793, max=1.5525, mean=-0.0381, std=0.3719
+[HIDDEN LAYER] avgpool: shape=torch.Size([1, 527, 1]), min=-7.5781, max=2.8945, mean=-3.5352, std=1.3721
+[CLAP PIPELINE] Final embeddings batch shape: torch.Size([1, 512])
+[CLAP PIPELINE] CLAP embedding shape: torch.Size([1, 512])
+[CLAP PIPELINE] CLAP embedding seems valid (no NaN/Inf)
+[CLAP PIPELINE] CLAP embedding stats: min=-0.1240, max=0.1210, mean=0.0006, std=0.0442
+[CLAP PIPELINE] CLAP embedding norms: min=1.0000, max=1.0000, mean=1.0000
+[VALIDATION] Shapes: y_im torch.Size([1, 512]), y_ref torch.Size([1, 512]), y_clap torch.Size([1, 512])
+[VALIDATION] Norms: y_im 1.0000, y_ref 1.0000, y_clap 1.0000
+Validation DataLoader 0:   0%|▌                                                                                                                                                                                              | 5/1867 [01:24<8:45:02,  0.06it/s]
+[VALIDATION] Batch 5 - Processing validation data
+[VALIDATION] Imitation shape: torch.Size([1, 320000]), Reference shape: torch.Size([1, 320000])
+[VALIDATION] Imitation: min=-0.9995, max=0.9186
+[VALIDATION] Reference: min=-0.9782, max=0.6285
+[CLAP PIPELINE] Input audio shape: torch.Size([1, 320000])
+[CLAP PIPELINE] Input audio stats: min=-0.9782, max=0.6285, mean=-0.0000, std=0.0403
+[CLAP PIPELINE] After resampling: shape=torch.Size([1, 160000])
+[CLAP PIPELINE] After resampling stats: min=-0.8354, max=0.4902, mean=-0.0000, std=0.0275
+[CLAP PIPELINE] Processing 1 samples individually
+[CLAP PIPELINE] Removed 53130 trailing zeros from sample 0
+[CLAP PIPELINE] Sample 0 shape: torch.Size([1, 106870])
+[CLAP PIPELINE] Sample 0: 3253/106870 near-zero values
+[DEBUG MEL] Input audio_data shape: torch.Size([480000])
+[DEBUG MEL] Input audio stats: min=-0.8301, max=0.5347, mean=-0.0000
+[DEBUG MEL] Using audio_cfg: sr=48000, n_fft=1024, hop=480
+[DEBUG MEL] Pre-log mel: shape=torch.Size([64, 1001]), NaNs=0, Infs=0, Zeros=21248
+[DEBUG MEL] Pre-log mel stats: min=0.00000000, max=338.50000000
+[DEBUG MEL] Post-log mel: NaNs=0, Infs=0
+[DEBUG MEL] Post-log mel stats: min=-54.70, max=25.30
+[CLAP PIPELINE] About to call get_audio_embedding with 1 waveform dicts
+[HIDDEN LAYER] spectrogram_extractor: shape=torch.Size([1, 1, 1001, 513]), min=0.0000, max=138.6431, mean=0.2819, std=1.6119
+[HIDDEN LAYER] logmel_extractor: shape=torch.Size([1, 1, 1001, 64]), min=-75.7765, max=4.2235, mean=-40.6673, std=28.2014
+[HIDDEN LAYER] bn0: shape=torch.Size([1, 64, 1001, 1]), min=-2.6826, max=1.9813, mean=-0.3397, std=1.1948
+[HIDDEN LAYER] patch_embed.proj: shape=torch.Size([1, 128, 64, 64]), min=-1.3926, max=0.9834, mean=0.0063, std=0.2002
+[PATCH EMBED] NaN count: 0, Inf count: 0
+[PATCH EMBED] Percentiles: min=-1.3926, max=0.9834
+[PATCH EMBED] Near-zero values: 21/524288 (0.00%)
+[HIDDEN LAYER] patch_embed: shape=torch.Size([1, 4096, 128]), min=-3.8671, max=3.9989, mean=-0.0258, std=0.5468
+[HIDDEN LAYER] pos_drop: shape=torch.Size([1, 4096, 128]), min=-3.8671, max=3.9989, mean=-0.0258, std=0.5468
+[HIDDEN LAYER] layer_0.block_0: shape=torch.Size([1, 4096, 128]), min=-4.1966, max=4.5600, mean=-0.0657, std=0.7779
+[HIDDEN LAYER] layer_0.block_1: shape=torch.Size([1, 4096, 128]), min=-8.1213, max=4.6801, mean=-0.1311, std=1.0020
+[HIDDEN LAYER] layer_0: shape=torch.Size([1, 1024, 256]), min=-6.3047, max=5.3242, mean=0.1103, std=0.7456
+[HIDDEN LAYER] layer_1.block_0: shape=torch.Size([1, 1024, 256]), min=-6.1953, max=5.3984, mean=0.1440, std=0.8457
+[HIDDEN LAYER] layer_1.block_1: shape=torch.Size([1, 1024, 256]), min=-7.0898, max=16.0781, mean=0.1647, std=1.1787
+[HIDDEN LAYER] layer_1: shape=torch.Size([1, 256, 512]), min=-6.1680, max=6.4688, mean=0.0013, std=0.7759
+[HIDDEN LAYER] layer_2.block_0: shape=torch.Size([1, 256, 512]), min=-6.3086, max=6.0586, mean=0.0062, std=0.7671
+[HIDDEN LAYER] layer_2.block_1: shape=torch.Size([1, 256, 512]), min=-6.8281, max=6.1758, mean=0.0114, std=0.8423
+[HIDDEN LAYER] layer_2.block_2: shape=torch.Size([1, 256, 512]), min=-7.1992, max=6.1367, mean=0.0182, std=0.9248
+[HIDDEN LAYER] layer_2.block_3: shape=torch.Size([1, 256, 512]), min=-7.8086, max=9.2969, mean=0.0275, std=0.9839
+[HIDDEN LAYER] layer_2.block_4: shape=torch.Size([1, 256, 512]), min=-7.6875, max=16.0312, mean=0.0371, std=1.0518
+[HIDDEN LAYER] layer_2.block_5: shape=torch.Size([1, 256, 512]), min=-7.1953, max=26.1250, mean=0.0366, std=1.1113
+[HIDDEN LAYER] layer_2.block_6: shape=torch.Size([1, 256, 512]), min=-6.9414, max=40.2500, mean=0.0424, std=1.1816
+[HIDDEN LAYER] layer_2.block_7: shape=torch.Size([1, 256, 512]), min=-7.3711, max=85.0000, mean=0.0485, std=1.3252
+[HIDDEN LAYER] layer_2.block_8: shape=torch.Size([1, 256, 512]), min=-8.9531, max=155.0000, mean=0.0596, std=1.7617
+[HIDDEN LAYER] layer_2.block_9: shape=torch.Size([1, 256, 512]), min=-18.5625, max=197.7500, mean=0.0711, std=2.1113
+[HIDDEN LAYER] layer_2.block_10: shape=torch.Size([1, 256, 512]), min=-32.5625, max=202.2500, mean=0.0778, std=2.3770
+[HIDDEN LAYER] layer_2.block_11: shape=torch.Size([1, 256, 512]), min=-48.5000, max=141.7500, mean=0.0733, std=2.5898
+[HIDDEN LAYER] layer_2: shape=torch.Size([1, 64, 1024]), min=-7.3711, max=166.7500, mean=0.0190, std=2.3320
+[HIDDEN LAYER] layer_3.block_0: shape=torch.Size([1, 64, 1024]), min=-23.4844, max=242.6250, mean=0.0457, std=3.6387
+[HIDDEN LAYER] layer_3.block_1: shape=torch.Size([1, 64, 1024]), min=-129.6250, max=343.0000, mean=0.0699, std=6.1289
+[HIDDEN LAYER] layer_3: shape=torch.Size([1, 64, 1024]), min=-129.6250, max=343.0000, mean=0.0699, std=6.1289
+[HIDDEN LAYER] final_norm: shape=torch.Size([1, 64, 1024]), min=-4.5709, max=5.9327, mean=-0.0363, std=0.6967
+[HIDDEN LAYER] avgpool: shape=torch.Size([1, 1024, 1]), min=-1.3025, max=1.5103, mean=-0.0363, std=0.3675
+[HIDDEN LAYER] avgpool: shape=torch.Size([1, 527, 1]), min=-9.3906, max=1.3564, mean=-4.1289, std=1.2998
+[CLAP PIPELINE] Final embeddings batch shape: torch.Size([1, 512])
+[CLAP PIPELINE] CLAP embedding shape: torch.Size([1, 512])
+[CLAP PIPELINE] CLAP embedding seems valid (no NaN/Inf)
+[CLAP PIPELINE] CLAP embedding stats: min=-0.1633, max=0.1363, mean=-0.0011, std=0.0442
+[CLAP PIPELINE] CLAP embedding norms: min=1.0000, max=1.0000, mean=1.0000
+[VALIDATION] Shapes: y_im torch.Size([1, 512]), y_ref torch.Size([1, 512]), y_clap torch.Size([1, 512])
+[VALIDATION] Norms: y_im 1.0000, y_ref 1.0000, y_clap 1.0000
+Validation DataLoader 0:   0%|▌                                                                                                                                                                                              | 6/1867 [01:40<8:37:07,  0.06it/s]
+[VALIDATION] Batch 6 - Processing validation data
+[VALIDATION] Imitation shape: torch.Size([1, 320000]), Reference shape: torch.Size([1, 320000])
+[VALIDATION] Imitation: min=-0.9642, max=0.9850
+[VALIDATION] Reference: min=-0.9922, max=0.9958
+[CLAP PIPELINE] Input audio shape: torch.Size([1, 320000])
+[CLAP PIPELINE] Input audio stats: min=-0.9922, max=0.9958, mean=-0.0065, std=0.3450
+[CLAP PIPELINE] After resampling: shape=torch.Size([1, 160000])
+[CLAP PIPELINE] After resampling stats: min=-0.9897, max=1.0088, mean=-0.0065, std=0.3450
+[CLAP PIPELINE] Processing 1 samples individually
+[CLAP PIPELINE] Removed 29573 trailing zeros from sample 0
+[CLAP PIPELINE] Sample 0 shape: torch.Size([1, 130427])
+[CLAP PIPELINE] Sample 0: 12700/130427 near-zero values
+[DEBUG MEL] Input audio_data shape: torch.Size([480000])
+[DEBUG MEL] Input audio stats: min=-1.0010, max=1.0225, mean=-0.0065
+[DEBUG MEL] Using audio_cfg: sr=48000, n_fft=1024, hop=480
+[DEBUG MEL] Pre-log mel: shape=torch.Size([64, 1001]), NaNs=496, Infs=61, Zeros=12830
+[DEBUG MEL] Post-log mel: NaNs=64064, Infs=0
+[CLAP PIPELINE] About to call get_audio_embedding with 1 waveform dicts
+[HIDDEN LAYER] spectrogram_extractor: shape=torch.Size([1, 1, 1001, 513]), min=0.0000, max=67409.1406, mean=47.0003, std=1088.9706
+[HIDDEN LAYER] logmel_extractor: shape=torch.Size([1, 1, 1001, 64]), min=nan, max=nan, mean=nan, std=nan
+[HIDDEN LAYER] bn0: shape=torch.Size([1, 64, 1001, 1]), min=nan, max=nan, mean=nan, std=nan
+[HIDDEN LAYER] patch_embed.proj: shape=torch.Size([1, 128, 64, 64]), min=nan, max=nan, mean=nan, std=nan
+[PATCH EMBED] NaN count: 524288, Inf count: 0
+[HIDDEN LAYER] patch_embed: shape=torch.Size([1, 4096, 128]), min=nan, max=nan, mean=nan, std=nan
+[HIDDEN LAYER] pos_drop: shape=torch.Size([1, 4096, 128]), min=nan, max=nan, mean=nan, std=nan
+[HIDDEN LAYER] layer_0.block_0: shape=torch.Size([1, 4096, 128]), min=nan, max=nan, mean=nan, std=nan
+[HIDDEN LAYER] layer_0.block_1: shape=torch.Size([1, 4096, 128]), min=nan, max=nan, mean=nan, std=nan
+[HIDDEN LAYER] layer_0: shape=torch.Size([1, 1024, 256]), min=nan, max=nan, mean=nan, std=nan
+[HIDDEN LAYER] layer_1.block_0: shape=torch.Size([1, 1024, 256]), min=nan, max=nan, mean=nan, std=nan
+[HIDDEN LAYER] layer_1.block_1: shape=torch.Size([1, 1024, 256]), min=nan, max=nan, mean=nan, std=nan
+[HIDDEN LAYER] layer_1: shape=torch.Size([1, 256, 512]), min=nan, max=nan, mean=nan, std=nan
+[HIDDEN LAYER] layer_2.block_0: shape=torch.Size([1, 256, 512]), min=nan, max=nan, mean=nan, std=nan
+[HIDDEN LAYER] layer_2.block_1: shape=torch.Size([1, 256, 512]), min=nan, max=nan, mean=nan, std=nan
+[HIDDEN LAYER] layer_2.block_2: shape=torch.Size([1, 256, 512]), min=nan, max=nan, mean=nan, std=nan
+[HIDDEN LAYER] layer_2.block_3: shape=torch.Size([1, 256, 512]), min=nan, max=nan, mean=nan, std=nan
+[HIDDEN LAYER] layer_2.block_4: shape=torch.Size([1, 256, 512]), min=nan, max=nan, mean=nan, std=nan
+[HIDDEN LAYER] layer_2.block_5: shape=torch.Size([1, 256, 512]), min=nan, max=nan, mean=nan, std=nan
+[HIDDEN LAYER] layer_2.block_6: shape=torch.Size([1, 256, 512]), min=nan, max=nan, mean=nan, std=nan
+[HIDDEN LAYER] layer_2.block_7: shape=torch.Size([1, 256, 512]), min=nan, max=nan, mean=nan, std=nan
+[HIDDEN LAYER] layer_2.block_8: shape=torch.Size([1, 256, 512]), min=nan, max=nan, mean=nan, std=nan
+[HIDDEN LAYER] layer_2.block_9: shape=torch.Size([1, 256, 512]), min=nan, max=nan, mean=nan, std=nan
+[HIDDEN LAYER] layer_2.block_10: shape=torch.Size([1, 256, 512]), min=nan, max=nan, mean=nan, std=nan
+[HIDDEN LAYER] layer_2.block_11: shape=torch.Size([1, 256, 512]), min=nan, max=nan, mean=nan, std=nan
+[HIDDEN LAYER] layer_2: shape=torch.Size([1, 64, 1024]), min=nan, max=nan, mean=nan, std=nan
+[HIDDEN LAYER] layer_3.block_0: shape=torch.Size([1, 64, 1024]), min=nan, max=nan, mean=nan, std=nan
+[HIDDEN LAYER] layer_3.block_1: shape=torch.Size([1, 64, 1024]), min=nan, max=nan, mean=nan, std=nan
+[HIDDEN LAYER] layer_3: shape=torch.Size([1, 64, 1024]), min=nan, max=nan, mean=nan, std=nan
+[HIDDEN LAYER] final_norm: shape=torch.Size([1, 64, 1024]), min=nan, max=nan, mean=nan, std=nan
+[HIDDEN LAYER] avgpool: shape=torch.Size([1, 1024, 1]), min=nan, max=nan, mean=nan, std=nan
+[HIDDEN LAYER] avgpool: shape=torch.Size([1, 527, 1]), min=nan, max=nan, mean=nan, std=nan
+[CLAP PIPELINE] Final embeddings batch shape: torch.Size([1, 512])
+[CLAP PIPELINE] CLAP embedding shape: torch.Size([1, 512])
+[CLAP PIPELINE] WARNING: CLAP embedding has 512/512 NaN values and 0/512 Inf values
+[CLAP PIPELINE] CLAP embedding stats: min=nan, max=nan, mean=nan, std=nan
+[CLAP PIPELINE] CLAP embedding norms: min=nan, max=nan, mean=nan
+[VALIDATION] Shapes: y_im torch.Size([1, 512]), y_ref torch.Size([1, 512]), y_clap torch.Size([1, 512])
+[VALIDATION] Norms: y_im 1.0000, y_ref 1.0000, y_clap nan
+[VALIDATION] WARNING: y_clap has 512/512 NaN and 0/512 Inf
+[VALIDATION] WARNING: NaN found in log_softmax outputs:
+[VALIDATION]   - C_qvim_log: 0/1 NaN values
+[VALIDATION]   - C_ref_clap_log: 1/1 NaN values
+[VALIDATION]   - C_im_clap_log: 1/1 NaN values
+Validation DataLoader 0:   0%|▋                                                                                                                                                                                              | 7/1867 [01:57<8:41:18,  0.06it/s]
+[VALIDATION] Batch 7 - Processing validation data
+[VALIDATION] Imitation shape: torch.Size([1, 320000]), Reference shape: torch.Size([1, 320000])
+[VALIDATION] Imitation: min=-0.9989, max=0.9939
+[VALIDATION] Reference: min=-0.9893, max=1.0040
+[CLAP PIPELINE] Input audio shape: torch.Size([1, 320000])
+[CLAP PIPELINE] Input audio stats: min=-0.9893, max=1.0040, mean=0.0002, std=0.0502
+[CLAP PIPELINE] After resampling: shape=torch.Size([1, 160000])
+[CLAP PIPELINE] After resampling stats: min=-0.9502, max=0.9209, mean=0.0002, std=0.0501
+[CLAP PIPELINE] Processing 1 samples individually
+[CLAP PIPELINE] Removed 157794 trailing zeros from sample 0
+[CLAP PIPELINE] Sample 0 shape: torch.Size([1, 2206])
+[CLAP PIPELINE] Sample 0: 31/2206 near-zero values
+[DEBUG MEL] Input audio_data shape: torch.Size([480000])
+[DEBUG MEL] Input audio stats: min=-0.9678, max=0.9673, mean=0.0153
+[DEBUG MEL] Using audio_cfg: sr=48000, n_fft=1024, hop=480
+[DEBUG MEL] Pre-log mel: shape=torch.Size([64, 1001]), NaNs=0, Infs=0, Zeros=448
+[DEBUG MEL] Pre-log mel stats: min=0.00000000, max=59296.00000000
+[DEBUG MEL] Post-log mel: NaNs=0, Infs=0
+[DEBUG MEL] Post-log mel stats: min=-32.27, max=47.73
+[CLAP PIPELINE] About to call get_audio_embedding with 1 waveform dicts
+[HIDDEN LAYER] spectrogram_extractor: shape=torch.Size([1, 1, 1001, 513]), min=0.0000, max=59571.9141, mean=69.5474, std=1361.2445
+[HIDDEN LAYER] logmel_extractor: shape=torch.Size([1, 1, 1001, 64]), min=-49.7265, max=30.2735, mean=-19.9096, std=19.2276
+[HIDDEN LAYER] bn0: shape=torch.Size([1, 64, 1001, 1]), min=-1.6177, max=2.9284, mean=0.5831, std=0.7906
+[HIDDEN LAYER] patch_embed.proj: shape=torch.Size([1, 128, 64, 64]), min=-1.0479, max=1.6582, mean=-0.0350, std=0.1823
+[PATCH EMBED] NaN count: 0, Inf count: 0
+[PATCH EMBED] Percentiles: min=-1.0479, max=1.6582
+[PATCH EMBED] Near-zero values: 47/524288 (0.01%)
+[HIDDEN LAYER] patch_embed: shape=torch.Size([1, 4096, 128]), min=-4.6835, max=4.6188, mean=0.0526, std=0.6533
+[HIDDEN LAYER] pos_drop: shape=torch.Size([1, 4096, 128]), min=-4.6835, max=4.6188, mean=0.0526, std=0.6533
+[HIDDEN LAYER] layer_0.block_0: shape=torch.Size([1, 4096, 128]), min=-5.5303, max=5.2830, mean=0.3192, std=0.8195
+[HIDDEN LAYER] layer_0.block_1: shape=torch.Size([1, 4096, 128]), min=-7.4173, max=6.8491, mean=0.3761, std=1.0171
+[HIDDEN LAYER] layer_0: shape=torch.Size([1, 1024, 256]), min=-5.9375, max=5.6367, mean=-0.1344, std=0.8882
+[HIDDEN LAYER] layer_1.block_0: shape=torch.Size([1, 1024, 256]), min=-6.4805, max=5.7422, mean=-0.1819, std=0.9570
+[HIDDEN LAYER] layer_1.block_1: shape=torch.Size([1, 1024, 256]), min=-7.2344, max=12.5781, mean=-0.2141, std=1.2393
+[HIDDEN LAYER] layer_1: shape=torch.Size([1, 256, 512]), min=-5.8789, max=5.9375, mean=0.0006, std=0.9468
+[HIDDEN LAYER] layer_2.block_0: shape=torch.Size([1, 256, 512]), min=-6.8750, max=5.9648, mean=0.0066, std=0.9365
+[HIDDEN LAYER] layer_2.block_1: shape=torch.Size([1, 256, 512]), min=-7.7305, max=6.4375, mean=0.0091, std=1.0049
+[HIDDEN LAYER] layer_2.block_2: shape=torch.Size([1, 256, 512]), min=-8.3516, max=7.2344, mean=0.0166, std=1.0898
+[HIDDEN LAYER] layer_2.block_3: shape=torch.Size([1, 256, 512]), min=-8.4141, max=7.6797, mean=0.0124, std=1.1543
+[HIDDEN LAYER] layer_2.block_4: shape=torch.Size([1, 256, 512]), min=-7.6523, max=6.6172, mean=0.0132, std=1.2314
+[HIDDEN LAYER] layer_2.block_5: shape=torch.Size([1, 256, 512]), min=-7.0039, max=11.7500, mean=0.0122, std=1.2705
+[HIDDEN LAYER] layer_2.block_6: shape=torch.Size([1, 256, 512]), min=-6.7109, max=24.1250, mean=0.0175, std=1.2949
+[HIDDEN LAYER] layer_2.block_7: shape=torch.Size([1, 256, 512]), min=-6.7031, max=62.2500, mean=0.0193, std=1.3936
+[HIDDEN LAYER] layer_2.block_8: shape=torch.Size([1, 256, 512]), min=-7.6484, max=131.7500, mean=0.0300, std=1.6709
+[HIDDEN LAYER] layer_2.block_9: shape=torch.Size([1, 256, 512]), min=-9.2734, max=163.7500, mean=0.0351, std=1.8770
+[HIDDEN LAYER] layer_2.block_10: shape=torch.Size([1, 256, 512]), min=-13.2969, max=162.1250, mean=0.0332, std=1.9658
+[HIDDEN LAYER] layer_2.block_11: shape=torch.Size([1, 256, 512]), min=-25.2188, max=100.4375, mean=0.0197, std=1.9424
+[HIDDEN LAYER] layer_2: shape=torch.Size([1, 64, 1024]), min=-5.7891, max=143.2500, mean=0.0109, std=1.6602
+[HIDDEN LAYER] layer_3.block_0: shape=torch.Size([1, 64, 1024]), min=-17.4375, max=207.7500, mean=0.0357, std=2.5605
+[HIDDEN LAYER] layer_3.block_1: shape=torch.Size([1, 64, 1024]), min=-84.0000, max=285.0000, mean=0.0527, std=4.0508
+[HIDDEN LAYER] layer_3: shape=torch.Size([1, 64, 1024]), min=-84.0000, max=285.0000, mean=0.0527, std=4.0508
+[HIDDEN LAYER] final_norm: shape=torch.Size([1, 64, 1024]), min=-5.2472, max=4.9726, mean=-0.0344, std=0.8744
+[HIDDEN LAYER] avgpool: shape=torch.Size([1, 1024, 1]), min=-1.7410, max=1.7306, mean=-0.0344, std=0.6070
+[HIDDEN LAYER] avgpool: shape=torch.Size([1, 527, 1]), min=-10.4766, max=4.0312, mean=-4.1523, std=1.9395
+[CLAP PIPELINE] Final embeddings batch shape: torch.Size([1, 512])
+[CLAP PIPELINE] CLAP embedding shape: torch.Size([1, 512])
+[CLAP PIPELINE] CLAP embedding seems valid (no NaN/Inf)
+[CLAP PIPELINE] CLAP embedding stats: min=-0.1499, max=0.1548, mean=0.0006, std=0.0442
+[CLAP PIPELINE] CLAP embedding norms: min=1.0000, max=1.0000, mean=1.0000
+[VALIDATION] Shapes: y_im torch.Size([1, 512]), y_ref torch.Size([1, 512]), y_clap torch.Size([1, 512])
+[VALIDATION] Norms: y_im 1.0000, y_ref 1.0000, y_clap 1.0000
+Validation DataLoader 0:   0%|▊                                                                                                                                                                                              | 8/1867 [02:13<8:38:19,  0.06it/s]
+[VALIDATION] Batch 8 - Processing validation data
+[VALIDATION] Imitation shape: torch.Size([1, 320000]), Reference shape: torch.Size([1, 320000])
+[VALIDATION] Imitation: min=-0.9399, max=1.0021
+[VALIDATION] Reference: min=-0.9285, max=0.9992
+[CLAP PIPELINE] Input audio shape: torch.Size([1, 320000])
+[CLAP PIPELINE] Input audio stats: min=-0.9285, max=0.9992, mean=-0.0009, std=0.0743
+[CLAP PIPELINE] After resampling: shape=torch.Size([1, 160000])
+[CLAP PIPELINE] After resampling stats: min=-0.9150, max=1.0010, mean=-0.0009, std=0.0743
+[CLAP PIPELINE] Processing 1 samples individually
+[CLAP PIPELINE] Removed 129720 trailing zeros from sample 0
+[CLAP PIPELINE] Sample 0 shape: torch.Size([1, 30280])
+[CLAP PIPELINE] Sample 0: 420/30280 near-zero values
+[DEBUG MEL] Input audio_data shape: torch.Size([480000])
+[DEBUG MEL] Input audio stats: min=-0.9292, max=1.0010, mean=-0.0045
+[DEBUG MEL] Using audio_cfg: sr=48000, n_fft=1024, hop=480
+[DEBUG MEL] Pre-log mel: shape=torch.Size([64, 1001]), NaNs=0, Infs=0, Zeros=3734
+[DEBUG MEL] Pre-log mel stats: min=0.00000000, max=20528.00000000
+[DEBUG MEL] Post-log mel: NaNs=0, Infs=0
+[DEBUG MEL] Post-log mel stats: min=-36.88, max=43.12
+[CLAP PIPELINE] About to call get_audio_embedding with 1 waveform dicts
+[HIDDEN LAYER] spectrogram_extractor: shape=torch.Size([1, 1, 1001, 513]), min=0.0000, max=16068.0293, mean=10.5762, std=183.3353
+[HIDDEN LAYER] logmel_extractor: shape=torch.Size([1, 1, 1001, 64]), min=-55.5323, max=24.4677, mean=-24.9879, std=22.3702
+[HIDDEN LAYER] bn0: shape=torch.Size([1, 64, 1001, 1]), min=-1.8550, max=2.4719, mean=0.3566, std=0.7834
+[HIDDEN LAYER] patch_embed.proj: shape=torch.Size([1, 128, 64, 64]), min=-1.0664, max=1.4102, mean=-0.0252, std=0.1671
+[PATCH EMBED] NaN count: 0, Inf count: 0
+[PATCH EMBED] Percentiles: min=-1.0664, max=1.4102
+[PATCH EMBED] Near-zero values: 34/524288 (0.01%)
+[HIDDEN LAYER] patch_embed: shape=torch.Size([1, 4096, 128]), min=-4.0737, max=4.1095, mean=0.0287, std=0.5693
+[HIDDEN LAYER] pos_drop: shape=torch.Size([1, 4096, 128]), min=-4.0737, max=4.1095, mean=0.0287, std=0.5693
+[HIDDEN LAYER] layer_0.block_0: shape=torch.Size([1, 4096, 128]), min=-5.0488, max=5.0730, mean=0.2130, std=0.7445
+[HIDDEN LAYER] layer_0.block_1: shape=torch.Size([1, 4096, 128]), min=-7.5910, max=5.8042, mean=0.2363, std=0.9527
+[HIDDEN LAYER] layer_0: shape=torch.Size([1, 1024, 256]), min=-5.9102, max=5.0000, mean=-0.0430, std=0.7715
+[HIDDEN LAYER] layer_1.block_0: shape=torch.Size([1, 1024, 256]), min=-6.7070, max=5.1797, mean=-0.0325, std=0.8838
+[HIDDEN LAYER] layer_1.block_1: shape=torch.Size([1, 1024, 256]), min=-7.4336, max=16.5312, mean=-0.0305, std=1.1875
+[HIDDEN LAYER] layer_1: shape=torch.Size([1, 256, 512]), min=-5.8750, max=6.3789, mean=0.0027, std=0.8394
+[HIDDEN LAYER] layer_2.block_0: shape=torch.Size([1, 256, 512]), min=-6.1172, max=5.8281, mean=0.0027, std=0.8389
+[HIDDEN LAYER] layer_2.block_1: shape=torch.Size([1, 256, 512]), min=-6.3203, max=6.2305, mean=0.0038, std=0.9189
+[HIDDEN LAYER] layer_2.block_2: shape=torch.Size([1, 256, 512]), min=-7.0391, max=7.3906, mean=0.0103, std=0.9966
+[HIDDEN LAYER] layer_2.block_3: shape=torch.Size([1, 256, 512]), min=-7.2578, max=8.0547, mean=0.0132, std=1.0557
+[HIDDEN LAYER] layer_2.block_4: shape=torch.Size([1, 256, 512]), min=-8.4531, max=9.4219, mean=0.0127, std=1.1357
+[HIDDEN LAYER] layer_2.block_5: shape=torch.Size([1, 256, 512]), min=-8.0938, max=15.5469, mean=0.0129, std=1.1963
+[HIDDEN LAYER] layer_2.block_6: shape=torch.Size([1, 256, 512]), min=-7.6758, max=29.0000, mean=0.0204, std=1.2441
+[HIDDEN LAYER] layer_2.block_7: shape=torch.Size([1, 256, 512]), min=-6.9922, max=58.9375, mean=0.0288, std=1.3350
+[HIDDEN LAYER] layer_2.block_8: shape=torch.Size([1, 256, 512]), min=-8.9531, max=139.7500, mean=0.0439, std=1.7070
+[HIDDEN LAYER] layer_2.block_9: shape=torch.Size([1, 256, 512]), min=-14.6641, max=185.2500, mean=0.0515, std=1.9854
+[HIDDEN LAYER] layer_2.block_10: shape=torch.Size([1, 256, 512]), min=-26.3750, max=188.7500, mean=0.0464, std=2.0781
+[HIDDEN LAYER] layer_2.block_11: shape=torch.Size([1, 256, 512]), min=-40.1562, max=130.5000, mean=0.0280, std=2.0215
+[HIDDEN LAYER] layer_2: shape=torch.Size([1, 64, 1024]), min=-4.9453, max=160.6250, mean=0.0109, std=1.5391
+[HIDDEN LAYER] layer_3.block_0: shape=torch.Size([1, 64, 1024]), min=-19.8281, max=233.2500, mean=0.0336, std=2.3418
+[HIDDEN LAYER] layer_3.block_1: shape=torch.Size([1, 64, 1024]), min=-102.7500, max=326.0000, mean=0.0467, std=3.5176
+[HIDDEN LAYER] layer_3: shape=torch.Size([1, 64, 1024]), min=-102.7500, max=326.0000, mean=0.0467, std=3.5176
+[HIDDEN LAYER] final_norm: shape=torch.Size([1, 64, 1024]), min=-6.2761, max=6.6067, mean=-0.0312, std=1.0820
+[HIDDEN LAYER] avgpool: shape=torch.Size([1, 1024, 1]), min=-2.5191, max=2.2772, mean=-0.0312, std=0.7189
+[HIDDEN LAYER] avgpool: shape=torch.Size([1, 527, 1]), min=-11.8828, max=3.3594, mean=-5.0273, std=2.5195
+[CLAP PIPELINE] Final embeddings batch shape: torch.Size([1, 512])
+[CLAP PIPELINE] CLAP embedding shape: torch.Size([1, 512])
+[CLAP PIPELINE] CLAP embedding seems valid (no NaN/Inf)
+[CLAP PIPELINE] CLAP embedding stats: min=-0.1262, max=0.1312, mean=-0.0010, std=0.0442
+[CLAP PIPELINE] CLAP embedding norms: min=1.0000, max=1.0000, mean=1.0000
+[VALIDATION] Shapes: y_im torch.Size([1, 512]), y_ref torch.Size([1, 512]), y_clap torch.Size([1, 512])
+[VALIDATION] Norms: y_im 1.0000, y_ref 1.0000, y_clap 1.0000
+Validation DataLoader 0:   0%|▉                                                                                                                                                                                              | 9/1867 [02:27<8:28:50,  0.06it/s]
+[VALIDATION] Batch 9 - Processing validation data
+[VALIDATION] Imitation shape: torch.Size([1, 320000]), Reference shape: torch.Size([1, 320000])
+[VALIDATION] Imitation: min=-1.0310, max=0.9746
+[VALIDATION] Reference: min=-0.9640, max=0.5638
+[CLAP PIPELINE] Input audio shape: torch.Size([1, 320000])
+[CLAP PIPELINE] Input audio stats: min=-0.9640, max=0.5638, mean=0.0001, std=0.0611
+[CLAP PIPELINE] After resampling: shape=torch.Size([1, 160000])
+[CLAP PIPELINE] After resampling stats: min=-0.9619, max=0.5381, mean=0.0001, std=0.0578
+[CLAP PIPELINE] Processing 1 samples individually
+[CLAP PIPELINE] Removed 64501 trailing zeros from sample 0
+[CLAP PIPELINE] Sample 0 shape: torch.Size([1, 95499])
+[CLAP PIPELINE] Sample 0: 1077/95499 near-zero values
+[DEBUG MEL] Input audio_data shape: torch.Size([480000])
+[DEBUG MEL] Input audio stats: min=-0.9756, max=0.5405, mean=0.0001
+[DEBUG MEL] Using audio_cfg: sr=48000, n_fft=1024, hop=480
+[DEBUG MEL] Pre-log mel: shape=torch.Size([64, 1001]), NaNs=0, Infs=0, Zeros=25792
+[DEBUG MEL] Pre-log mel stats: min=0.00000000, max=3942.00000000
+[DEBUG MEL] Post-log mel: NaNs=0, Infs=0
+[DEBUG MEL] Post-log mel stats: min=-44.04, max=35.96
+[CLAP PIPELINE] About to call get_audio_embedding with 1 waveform dicts
+[HIDDEN LAYER] spectrogram_extractor: shape=torch.Size([1, 1, 1001, 513]), min=0.0000, max=5149.4585, mean=1.4516, std=26.8969
+[HIDDEN LAYER] logmel_extractor: shape=torch.Size([1, 1, 1001, 64]), min=-59.8480, max=20.1520, mean=-35.5996, std=23.0191
+[HIDDEN LAYER] bn0: shape=torch.Size([1, 64, 1001, 1]), min=-2.0314, max=2.1325, mean=-0.0963, std=1.0892
+[HIDDEN LAYER] patch_embed.proj: shape=torch.Size([1, 128, 64, 64]), min=-1.1348, max=1.2246, mean=-0.0047, std=0.1866
+[PATCH EMBED] NaN count: 0, Inf count: 0
+[PATCH EMBED] Percentiles: min=-1.1348, max=1.2246
+[PATCH EMBED] Near-zero values: 18/524288 (0.00%)
+[HIDDEN LAYER] patch_embed: shape=torch.Size([1, 4096, 128]), min=-3.5897, max=4.0221, mean=-0.0116, std=0.5430
+[HIDDEN LAYER] pos_drop: shape=torch.Size([1, 4096, 128]), min=-3.5897, max=4.0221, mean=-0.0116, std=0.5430
+[HIDDEN LAYER] layer_0.block_0: shape=torch.Size([1, 4096, 128]), min=-4.2865, max=4.8404, mean=-0.0023, std=0.8029
+[HIDDEN LAYER] layer_0.block_1: shape=torch.Size([1, 4096, 128]), min=-7.9776, max=5.2339, mean=-0.0360, std=1.0170
+[HIDDEN LAYER] layer_0: shape=torch.Size([1, 1024, 256]), min=-5.5781, max=5.0938, mean=0.0614, std=0.7422
+[HIDDEN LAYER] layer_1.block_0: shape=torch.Size([1, 1024, 256]), min=-6.6328, max=5.8672, mean=0.0818, std=0.8423
+[HIDDEN LAYER] layer_1.block_1: shape=torch.Size([1, 1024, 256]), min=-7.4492, max=16.8125, mean=0.0850, std=1.1982
+[HIDDEN LAYER] layer_1: shape=torch.Size([1, 256, 512]), min=-6.3047, max=6.4141, mean=-0.0014, std=0.7954
+[HIDDEN LAYER] layer_2.block_0: shape=torch.Size([1, 256, 512]), min=-6.4336, max=6.1289, mean=0.0025, std=0.7939
+[HIDDEN LAYER] layer_2.block_1: shape=torch.Size([1, 256, 512]), min=-6.6484, max=5.9492, mean=0.0038, std=0.8462
+[HIDDEN LAYER] layer_2.block_2: shape=torch.Size([1, 256, 512]), min=-6.7422, max=6.4375, mean=0.0133, std=0.9365
+[HIDDEN LAYER] layer_2.block_3: shape=torch.Size([1, 256, 512]), min=-7.3516, max=7.1484, mean=0.0218, std=0.9980
+[HIDDEN LAYER] layer_2.block_4: shape=torch.Size([1, 256, 512]), min=-7.6992, max=12.8125, mean=0.0266, std=1.0879
+[HIDDEN LAYER] layer_2.block_5: shape=torch.Size([1, 256, 512]), min=-7.0078, max=21.3750, mean=0.0242, std=1.1494
+[HIDDEN LAYER] layer_2.block_6: shape=torch.Size([1, 256, 512]), min=-8.3125, max=38.5625, mean=0.0320, std=1.2480
+[HIDDEN LAYER] layer_2.block_7: shape=torch.Size([1, 256, 512]), min=-7.5547, max=74.6250, mean=0.0371, std=1.4121
+[HIDDEN LAYER] layer_2.block_8: shape=torch.Size([1, 256, 512]), min=-8.3594, max=136.3750, mean=0.0487, std=1.8506
+[HIDDEN LAYER] layer_2.block_9: shape=torch.Size([1, 256, 512]), min=-13.6953, max=163.7500, mean=0.0555, std=2.1504
+[HIDDEN LAYER] layer_2.block_10: shape=torch.Size([1, 256, 512]), min=-26.0625, max=158.0000, mean=0.0539, std=2.3066
+[HIDDEN LAYER] layer_2.block_11: shape=torch.Size([1, 256, 512]), min=-40.1875, max=93.5625, mean=0.0428, std=2.2656
+[HIDDEN LAYER] layer_2: shape=torch.Size([1, 64, 1024]), min=-9.6250, max=160.2500, mean=0.0204, std=2.2070
+[HIDDEN LAYER] layer_3.block_0: shape=torch.Size([1, 64, 1024]), min=-21.3750, max=230.8750, mean=0.0454, std=3.4180
+[HIDDEN LAYER] layer_3.block_1: shape=torch.Size([1, 64, 1024]), min=-117.1875, max=325.7500, mean=0.0706, std=5.7852
+[HIDDEN LAYER] layer_3: shape=torch.Size([1, 64, 1024]), min=-117.1875, max=325.7500, mean=0.0706, std=5.7852
+[HIDDEN LAYER] final_norm: shape=torch.Size([1, 64, 1024]), min=-4.2672, max=4.3919, mean=-0.0368, std=0.6227
+[HIDDEN LAYER] avgpool: shape=torch.Size([1, 1024, 1]), min=-1.4193, max=1.5402, mean=-0.0368, std=0.3756
+[HIDDEN LAYER] avgpool: shape=torch.Size([1, 527, 1]), min=-7.7383, max=3.8945, mean=-3.1133, std=1.2959
+[CLAP PIPELINE] Final embeddings batch shape: torch.Size([1, 512])
+[CLAP PIPELINE] CLAP embedding shape: torch.Size([1, 512])
+[CLAP PIPELINE] CLAP embedding seems valid (no NaN/Inf)
+[CLAP PIPELINE] CLAP embedding stats: min=-0.1311, max=0.1358, mean=0.0004, std=0.0442
+[CLAP PIPELINE] CLAP embedding norms: min=1.0000, max=1.0000, mean=1.0000
+[VALIDATION] Shapes: y_im torch.Size([1, 512]), y_ref torch.Size([1, 512]), y_clap torch.Size([1, 512])
+[VALIDATION] Norms: y_im 1.0000, y_ref 1.0000, y_clap 1.0000
+Validation DataLoader 0:   1%|█                                                                                                                                                                                             | 10/1867 [02:36<8:03:48,  0.06it/s]
+[VALIDATION] Batch 10 - Processing validation data
+[VALIDATION] Imitation shape: torch.Size([1, 320000]), Reference shape: torch.Size([1, 320000])
+[VALIDATION] Imitation: min=-0.9288, max=1.0148
+[VALIDATION] Reference: min=-0.9982, max=0.8683
+[CLAP PIPELINE] Input audio shape: torch.Size([1, 320000])
+[CLAP PIPELINE] Input audio stats: min=-0.9982, max=0.8683, mean=-0.0054, std=0.0859
+[CLAP PIPELINE] After resampling: shape=torch.Size([1, 160000])
+[CLAP PIPELINE] After resampling stats: min=-0.9937, max=0.8677, mean=-0.0054, std=0.0859
+[CLAP PIPELINE] Processing 1 samples individually
+[CLAP PIPELINE] Removed 127119 trailing zeros from sample 0
+[CLAP PIPELINE] Sample 0 shape: torch.Size([1, 32881])
+[CLAP PIPELINE] Sample 0: 2438/32881 near-zero values
+[DEBUG MEL] Input audio_data shape: torch.Size([480000])
+[DEBUG MEL] Input audio stats: min=-1.0049, max=0.8677, mean=-0.0214
+[DEBUG MEL] Using audio_cfg: sr=48000, n_fft=1024, hop=480
+[DEBUG MEL] Pre-log mel: shape=torch.Size([64, 1001]), NaNs=0, Infs=0, Zeros=11453
+[DEBUG MEL] Pre-log mel stats: min=0.00000000, max=7212.00000000
+[DEBUG MEL] Post-log mel: NaNs=0, Infs=0
+[DEBUG MEL] Post-log mel stats: min=-41.42, max=38.58
+[CLAP PIPELINE] About to call get_audio_embedding with 1 waveform dicts
+[HIDDEN LAYER] spectrogram_extractor: shape=torch.Size([1, 1, 1001, 513]), min=0.0000, max=6732.6416, mean=11.4815, std=82.8706
+[HIDDEN LAYER] logmel_extractor: shape=torch.Size([1, 1, 1001, 64]), min=-58.6726, max=21.3274, mean=-25.6156, std=26.9512
+[HIDDEN LAYER] bn0: shape=torch.Size([1, 64, 1001, 1]), min=-1.9834, max=2.2250, mean=0.3272, std=0.9767
+[HIDDEN LAYER] patch_embed.proj: shape=torch.Size([1, 128, 64, 64]), min=-1.1045, max=1.3115, mean=-0.0237, std=0.1798
+[PATCH EMBED] NaN count: 0, Inf count: 0
+[PATCH EMBED] Percentiles: min=-1.1045, max=1.3115
+[PATCH EMBED] Near-zero values: 31/524288 (0.01%)
+[HIDDEN LAYER] patch_embed: shape=torch.Size([1, 4096, 128]), min=-5.2577, max=4.3070, mean=0.0350, std=0.5690
+[HIDDEN LAYER] pos_drop: shape=torch.Size([1, 4096, 128]), min=-5.2577, max=4.3070, mean=0.0350, std=0.5690
+[HIDDEN LAYER] layer_0.block_0: shape=torch.Size([1, 4096, 128]), min=-5.8245, max=5.0297, mean=0.2347, std=0.7938
+[HIDDEN LAYER] layer_0.block_1: shape=torch.Size([1, 4096, 128]), min=-7.9176, max=5.3703, mean=0.2499, std=1.0020
+[HIDDEN LAYER] layer_0: shape=torch.Size([1, 1024, 256]), min=-5.7500, max=5.0820, mean=-0.0546, std=0.7896
+[HIDDEN LAYER] layer_1.block_0: shape=torch.Size([1, 1024, 256]), min=-6.6289, max=5.1719, mean=-0.0589, std=0.8770
+[HIDDEN LAYER] layer_1.block_1: shape=torch.Size([1, 1024, 256]), min=-7.5938, max=16.8281, mean=-0.0686, std=1.1982
+[HIDDEN LAYER] layer_1: shape=torch.Size([1, 256, 512]), min=-6.1094, max=6.4766, mean=0.0020, std=0.8535
+[HIDDEN LAYER] layer_2.block_0: shape=torch.Size([1, 256, 512]), min=-6.7109, max=6.2578, mean=0.0077, std=0.8428
+[HIDDEN LAYER] layer_2.block_1: shape=torch.Size([1, 256, 512]), min=-7.2578, max=6.4883, mean=0.0072, std=0.9136
+[HIDDEN LAYER] layer_2.block_2: shape=torch.Size([1, 256, 512]), min=-7.1641, max=7.0820, mean=0.0127, std=0.9897
+[HIDDEN LAYER] layer_2.block_3: shape=torch.Size([1, 256, 512]), min=-7.4492, max=7.3555, mean=0.0164, std=1.0488
+[HIDDEN LAYER] layer_2.block_4: shape=torch.Size([1, 256, 512]), min=-7.3945, max=11.6406, mean=0.0201, std=1.1064
+[HIDDEN LAYER] layer_2.block_5: shape=torch.Size([1, 256, 512]), min=-7.5781, max=19.0469, mean=0.0193, std=1.1611
+[HIDDEN LAYER] layer_2.block_6: shape=torch.Size([1, 256, 512]), min=-7.4414, max=35.4375, mean=0.0284, std=1.2227
+[HIDDEN LAYER] layer_2.block_7: shape=torch.Size([1, 256, 512]), min=-6.8438, max=80.3750, mean=0.0385, std=1.3701
+[HIDDEN LAYER] layer_2.block_8: shape=torch.Size([1, 256, 512]), min=-8.1875, max=140.7500, mean=0.0532, std=1.7451
+[HIDDEN LAYER] layer_2.block_9: shape=torch.Size([1, 256, 512]), min=-16.3594, max=174.2500, mean=0.0598, std=2.0312
+[HIDDEN LAYER] layer_2.block_10: shape=torch.Size([1, 256, 512]), min=-30.1250, max=171.2500, mean=0.0630, std=2.2227
+[HIDDEN LAYER] layer_2.block_11: shape=torch.Size([1, 256, 512]), min=-45.0312, max=108.1250, mean=0.0511, std=2.3203
+[HIDDEN LAYER] layer_2: shape=torch.Size([1, 64, 1024]), min=-5.2188, max=159.7500, mean=0.0200, std=2.3477
+[HIDDEN LAYER] layer_3.block_0: shape=torch.Size([1, 64, 1024]), min=-21.8438, max=235.2500, mean=0.0461, std=3.5605
+[HIDDEN LAYER] layer_3.block_1: shape=torch.Size([1, 64, 1024]), min=-117.9375, max=334.5000, mean=0.0676, std=5.7383
+[HIDDEN LAYER] layer_3: shape=torch.Size([1, 64, 1024]), min=-117.9375, max=334.5000, mean=0.0676, std=5.7383
+[HIDDEN LAYER] final_norm: shape=torch.Size([1, 64, 1024]), min=-5.9402, max=5.2192, mean=-0.0353, std=0.7970
+[HIDDEN LAYER] avgpool: shape=torch.Size([1, 1024, 1]), min=-1.9898, max=1.5133, mean=-0.0353, std=0.4500
+[HIDDEN LAYER] avgpool: shape=torch.Size([1, 527, 1]), min=-7.5156, max=3.5215, mean=-2.8457, std=1.5137
+[CLAP PIPELINE] Final embeddings batch shape: torch.Size([1, 512])
+[CLAP PIPELINE] CLAP embedding shape: torch.Size([1, 512])
+[CLAP PIPELINE] CLAP embedding seems valid (no NaN/Inf)
+[CLAP PIPELINE] CLAP embedding stats: min=-0.1488, max=0.1225, mean=0.0032, std=0.0441
+[CLAP PIPELINE] CLAP embedding norms: min=1.0000, max=1.0000, mean=1.0000
+[VALIDATION] Shapes: y_im torch.Size([1, 512]), y_ref torch.Size([1, 512]), y_clap torch.Size([1, 512])
+[VALIDATION] Norms: y_im 1.0000, y_ref 1.0000, y_clap 1.0000
+Validation DataLoader 0:   1%|█                                                                                                                                                                                             | 11/1867 [02:48<7:52:49,  0.07it/s]
+[VALIDATION] Batch 11 - Processing validation data
+[VALIDATION] Imitation shape: torch.Size([1, 320000]), Reference shape: torch.Size([1, 320000])
+[VALIDATION] Imitation: min=-0.4827, max=0.9970
+[VALIDATION] Reference: min=-0.9793, max=0.9997
+[CLAP PIPELINE] Input audio shape: torch.Size([1, 320000])
+[CLAP PIPELINE] Input audio stats: min=-0.9793, max=0.9997, mean=0.0003, std=0.1813
+[CLAP PIPELINE] After resampling: shape=torch.Size([1, 160000])
+[CLAP PIPELINE] After resampling stats: min=-0.9644, max=0.9917, mean=0.0003, std=0.1813
+[CLAP PIPELINE] Processing 1 samples individually
+
+Detected KeyboardInterrupt, attempting graceful shutdown ...

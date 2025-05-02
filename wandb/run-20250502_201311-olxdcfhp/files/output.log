@@ -1,0 +1,151 @@
+Using 16bit Automatic Mixed Precision (AMP)
+GPU available: True (cuda), used: True
+TPU available: False, using: 0 TPU cores
+HPU available: False, using: 0 HPUs
+LOCAL_RANK: 0 - CUDA_VISIBLE_DEVICES: [0]
+Validation DataLoader 0:   0%|                                                                                                                                                                                                         | 0/1867 [00:00<?, ?it/s]
+[VALIDATION] Batch 0 - Processing validation data
+[VALIDATION] Imitation shape: torch.Size([1, 320000]), Reference shape: torch.Size([1, 320000])
+[VALIDATION] Imitation: min=-0.8460, max=1.0018
+[VALIDATION] Reference: min=-0.9751, max=0.9976
+[CLAP PIPELINE] Input audio shape: torch.Size([1, 320000])
+[CLAP PIPELINE] Input audio stats: min=-0.9751, max=0.9976, mean=-0.0001, std=0.2598
+[CLAP PIPELINE] After resampling: shape=torch.Size([1, 160000])
+[CLAP PIPELINE] After resampling stats: min=-0.9692, max=0.9917, mean=-0.0001, std=0.2598
+[CLAP PIPELINE] Processing 1 samples individually
+[CLAP PIPELINE] Removed 0 trailing zeros from sample 0
+[CLAP PIPELINE] Sample 0 shape: torch.Size([1, 160000])
+[CLAP PIPELINE] Sample 0: 9998/160000 near-zero values
+[DEBUG MEL] Input audio_data shape: torch.Size([480000])
+[DEBUG MEL] Input audio stats: min=-0.9736, max=1.0039, mean=-0.0001
+[DEBUG MEL] Using audio_cfg: sr=48000, n_fft=1024, hop=480
+[DEBUG MEL] Pre-log mel: shape=torch.Size([64, 1001]), NaNs=0, Infs=0, Zeros=1079
+[DEBUG MEL] Pre-log mel stats: min=0.00000000, max=18576.00000000
+[DEBUG MEL] Post-log mel: NaNs=0, Infs=0
+[DEBUG MEL] Post-log mel stats: min=-37.31, max=42.69
+[CLAP PIPELINE] About to call get_audio_embedding with 1 waveform dicts
+[HIDDEN LAYER] spectrogram_extractor: shape=torch.Size([1, 1, 1001, 513]), min=0.0000, max=22892.9141, mean=25.8521, std=480.8925
+[HIDDEN LAYER] logmel_extractor: shape=torch.Size([1, 1, 1001, 64]), min=-53.8038, max=26.1962, mean=-28.7475, std=22.5059
+[HIDDEN LAYER] bn0: shape=torch.Size([1, 64, 1001, 1]), min=-1.7844, max=2.8992, mean=0.2017, std=0.8872
+[HIDDEN LAYER] patch_embed.proj: shape=torch.Size([1, 128, 64, 64]), min=-1.0410, max=1.5127, mean=-0.0190, std=0.1797
+[PATCH EMBED] NaN count: 0, Inf count: 0
+Traceback (most recent call last):
+  File "/mnt/c/Users/Davy/Documents/Code/QM/CC/AudioLDM/train_qvim_clap_alignment_old_method.py", line 798, in <module>
+    train(args)
+  File "/mnt/c/Users/Davy/Documents/Code/QM/CC/AudioLDM/train_qvim_clap_alignment_old_method.py", line 693, in train
+    qvim_train(config, model_factory)
+  File "/mnt/c/Users/Davy/Documents/Code/QM/CC/AudioLDM/audioldm/qvim/src/qvim_mn_baseline/ex_qvim.py", line 464, in train
+    trainer.validate(
+  File "/root/miniconda3/envs/qvim-baseline/lib/python3.10/site-packages/pytorch_lightning/trainer/trainer.py", line 664, in validate
+    return call._call_and_handle_interrupt(
+  File "/root/miniconda3/envs/qvim-baseline/lib/python3.10/site-packages/pytorch_lightning/trainer/call.py", line 48, in _call_and_handle_interrupt
+    return trainer_fn(*args, **kwargs)
+  File "/root/miniconda3/envs/qvim-baseline/lib/python3.10/site-packages/pytorch_lightning/trainer/trainer.py", line 706, in _validate_impl
+    results = self._run(model, ckpt_path=ckpt_path)
+  File "/root/miniconda3/envs/qvim-baseline/lib/python3.10/site-packages/pytorch_lightning/trainer/trainer.py", line 1012, in _run
+    results = self._run_stage()
+  File "/root/miniconda3/envs/qvim-baseline/lib/python3.10/site-packages/pytorch_lightning/trainer/trainer.py", line 1049, in _run_stage
+    return self._evaluation_loop.run()
+  File "/root/miniconda3/envs/qvim-baseline/lib/python3.10/site-packages/pytorch_lightning/loops/utilities.py", line 179, in _decorator
+    return loop_run(self, *args, **kwargs)
+  File "/root/miniconda3/envs/qvim-baseline/lib/python3.10/site-packages/pytorch_lightning/loops/evaluation_loop.py", line 145, in run
+    self._evaluation_step(batch, batch_idx, dataloader_idx, dataloader_iter)
+  File "/root/miniconda3/envs/qvim-baseline/lib/python3.10/site-packages/pytorch_lightning/loops/evaluation_loop.py", line 437, in _evaluation_step
+    output = call._call_strategy_hook(trainer, hook_name, *step_args)
+  File "/root/miniconda3/envs/qvim-baseline/lib/python3.10/site-packages/pytorch_lightning/trainer/call.py", line 328, in _call_strategy_hook
+    output = fn(*args, **kwargs)
+  File "/root/miniconda3/envs/qvim-baseline/lib/python3.10/site-packages/pytorch_lightning/strategies/strategy.py", line 412, in validation_step
+    return self.lightning_module.validation_step(*args, **kwargs)
+  File "/mnt/c/Users/Davy/Documents/Code/QM/CC/AudioLDM/train_qvim_clap_alignment_old_method.py", line 544, in validation_step
+    y_clap = self.forward_clap(batch['reference'])
+  File "/mnt/c/Users/Davy/Documents/Code/QM/CC/AudioLDM/train_qvim_clap_alignment_old_method.py", line 381, in forward_clap
+    embedding = self.clap_model.model.get_audio_embedding(audio_dict_list)
+  File "/mnt/c/Users/Davy/Documents/Code/QM/CC/AudioLDM/audioldm/clap/open_clip/model.py", line 778, in get_audio_embedding
+    self.encode_audio(input_dict, device=device)["embedding"]
+  File "/mnt/c/Users/Davy/Documents/Code/QM/CC/AudioLDM/audioldm/clap/open_clip/model.py", line 616, in encode_audio
+    return self.audio_branch(
+  File "/root/miniconda3/envs/qvim-baseline/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1739, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+  File "/root/miniconda3/envs/qvim-baseline/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1750, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/mnt/c/Users/Davy/Documents/Code/QM/CC/AudioLDM/audioldm/clap/open_clip/htsat.py", line 1149, in forward
+    output_dict = self.forward_features(x)
+  File "/mnt/c/Users/Davy/Documents/Code/QM/CC/AudioLDM/audioldm/clap/open_clip/htsat.py", line 1016, in forward_features
+    x = self.patch_embed(x, longer_idx=longer_idx)
+  File "/root/miniconda3/envs/qvim-baseline/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1739, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+  File "/root/miniconda3/envs/qvim-baseline/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1845, in _call_impl
+    return inner()
+  File "/root/miniconda3/envs/qvim-baseline/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1793, in inner
+    result = forward_call(*args, **kwargs)
+  File "/mnt/c/Users/Davy/Documents/Code/QM/CC/AudioLDM/audioldm/clap/open_clip/htsat.py", line 196, in forward
+    x = self.proj(x)
+  File "/root/miniconda3/envs/qvim-baseline/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1739, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+  File "/root/miniconda3/envs/qvim-baseline/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1845, in _call_impl
+    return inner()
+  File "/root/miniconda3/envs/qvim-baseline/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1806, in inner
+    hook_result = hook(self, args, result)
+  File "/mnt/c/Users/Davy/Documents/Code/QM/CC/AudioLDM/train_qvim_clap_alignment_old_method.py", line 122, in hook
+    print(f"[PATCH EMBED] Percentiles: 0%={q_min:.4f}, 25%={q_25:.4f}, 50%={q_50:.4f}, 75%={q_75:.4f}, 100%={q_max:.4f}")
+NameError: name 'q_25' is not defined
+Traceback (most recent call last):
+  File "/mnt/c/Users/Davy/Documents/Code/QM/CC/AudioLDM/train_qvim_clap_alignment_old_method.py", line 798, in <module>
+    train(args)
+  File "/mnt/c/Users/Davy/Documents/Code/QM/CC/AudioLDM/train_qvim_clap_alignment_old_method.py", line 693, in train
+    qvim_train(config, model_factory)
+  File "/mnt/c/Users/Davy/Documents/Code/QM/CC/AudioLDM/audioldm/qvim/src/qvim_mn_baseline/ex_qvim.py", line 464, in train
+    trainer.validate(
+  File "/root/miniconda3/envs/qvim-baseline/lib/python3.10/site-packages/pytorch_lightning/trainer/trainer.py", line 664, in validate
+    return call._call_and_handle_interrupt(
+  File "/root/miniconda3/envs/qvim-baseline/lib/python3.10/site-packages/pytorch_lightning/trainer/call.py", line 48, in _call_and_handle_interrupt
+    return trainer_fn(*args, **kwargs)
+  File "/root/miniconda3/envs/qvim-baseline/lib/python3.10/site-packages/pytorch_lightning/trainer/trainer.py", line 706, in _validate_impl
+    results = self._run(model, ckpt_path=ckpt_path)
+  File "/root/miniconda3/envs/qvim-baseline/lib/python3.10/site-packages/pytorch_lightning/trainer/trainer.py", line 1012, in _run
+    results = self._run_stage()
+  File "/root/miniconda3/envs/qvim-baseline/lib/python3.10/site-packages/pytorch_lightning/trainer/trainer.py", line 1049, in _run_stage
+    return self._evaluation_loop.run()
+  File "/root/miniconda3/envs/qvim-baseline/lib/python3.10/site-packages/pytorch_lightning/loops/utilities.py", line 179, in _decorator
+    return loop_run(self, *args, **kwargs)
+  File "/root/miniconda3/envs/qvim-baseline/lib/python3.10/site-packages/pytorch_lightning/loops/evaluation_loop.py", line 145, in run
+    self._evaluation_step(batch, batch_idx, dataloader_idx, dataloader_iter)
+  File "/root/miniconda3/envs/qvim-baseline/lib/python3.10/site-packages/pytorch_lightning/loops/evaluation_loop.py", line 437, in _evaluation_step
+    output = call._call_strategy_hook(trainer, hook_name, *step_args)
+  File "/root/miniconda3/envs/qvim-baseline/lib/python3.10/site-packages/pytorch_lightning/trainer/call.py", line 328, in _call_strategy_hook
+    output = fn(*args, **kwargs)
+  File "/root/miniconda3/envs/qvim-baseline/lib/python3.10/site-packages/pytorch_lightning/strategies/strategy.py", line 412, in validation_step
+    return self.lightning_module.validation_step(*args, **kwargs)
+  File "/mnt/c/Users/Davy/Documents/Code/QM/CC/AudioLDM/train_qvim_clap_alignment_old_method.py", line 544, in validation_step
+    y_clap = self.forward_clap(batch['reference'])
+  File "/mnt/c/Users/Davy/Documents/Code/QM/CC/AudioLDM/train_qvim_clap_alignment_old_method.py", line 381, in forward_clap
+    embedding = self.clap_model.model.get_audio_embedding(audio_dict_list)
+  File "/mnt/c/Users/Davy/Documents/Code/QM/CC/AudioLDM/audioldm/clap/open_clip/model.py", line 778, in get_audio_embedding
+    self.encode_audio(input_dict, device=device)["embedding"]
+  File "/mnt/c/Users/Davy/Documents/Code/QM/CC/AudioLDM/audioldm/clap/open_clip/model.py", line 616, in encode_audio
+    return self.audio_branch(
+  File "/root/miniconda3/envs/qvim-baseline/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1739, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+  File "/root/miniconda3/envs/qvim-baseline/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1750, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/mnt/c/Users/Davy/Documents/Code/QM/CC/AudioLDM/audioldm/clap/open_clip/htsat.py", line 1149, in forward
+    output_dict = self.forward_features(x)
+  File "/mnt/c/Users/Davy/Documents/Code/QM/CC/AudioLDM/audioldm/clap/open_clip/htsat.py", line 1016, in forward_features
+    x = self.patch_embed(x, longer_idx=longer_idx)
+  File "/root/miniconda3/envs/qvim-baseline/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1739, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+  File "/root/miniconda3/envs/qvim-baseline/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1845, in _call_impl
+    return inner()
+  File "/root/miniconda3/envs/qvim-baseline/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1793, in inner
+    result = forward_call(*args, **kwargs)
+  File "/mnt/c/Users/Davy/Documents/Code/QM/CC/AudioLDM/audioldm/clap/open_clip/htsat.py", line 196, in forward
+    x = self.proj(x)
+  File "/root/miniconda3/envs/qvim-baseline/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1739, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+  File "/root/miniconda3/envs/qvim-baseline/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1845, in _call_impl
+    return inner()
+  File "/root/miniconda3/envs/qvim-baseline/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1806, in inner
+    hook_result = hook(self, args, result)
+  File "/mnt/c/Users/Davy/Documents/Code/QM/CC/AudioLDM/train_qvim_clap_alignment_old_method.py", line 122, in hook
+    print(f"[PATCH EMBED] Percentiles: 0%={q_min:.4f}, 25%={q_25:.4f}, 50%={q_50:.4f}, 75%={q_75:.4f}, 100%={q_max:.4f}")
+NameError: name 'q_25' is not defined

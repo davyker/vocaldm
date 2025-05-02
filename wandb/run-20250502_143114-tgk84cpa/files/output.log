@@ -1,0 +1,78 @@
+Using 16bit Automatic Mixed Precision (AMP)
+GPU available: True (cuda), used: True
+TPU available: False, using: 0 TPU cores
+HPU available: False, using: 0 HPUs
+LOCAL_RANK: 0 - CUDA_VISIBLE_DEVICES: [0]
+Validation DataLoader 0:   0%|                                                                                                                                                                                                          | 0/467 [00:00<?, ?it/s]
+[VALIDATION] Batch 0 - Processing validation data
+[VALIDATION] Imitation shape: torch.Size([4, 320000]), Reference shape: torch.Size([4, 320000])
+[VALIDATION] Imitation: min=-1.0061, max=1.0018
+[VALIDATION] Reference: min=-0.9783, max=1.0061
+[CLAP PIPELINE] Input audio shape: torch.Size([4, 320000])
+[CLAP PIPELINE] Input audio stats: min=-0.9783, max=1.0061, mean=-0.0000, std=0.1511
+[CLAP PIPELINE] After resampling: shape=torch.Size([4, 160000])
+[CLAP PIPELINE] After resampling stats: min=-0.9692, max=1.0039, mean=-0.0000, std=0.1511
+Traceback (most recent call last):
+  File "/mnt/c/Users/Davy/Documents/Code/QM/CC/AudioLDM/train_qvim_clap_alignment.py", line 612, in <module>
+    train(args)
+  File "/mnt/c/Users/Davy/Documents/Code/QM/CC/AudioLDM/train_qvim_clap_alignment.py", line 510, in train
+    qvim_train(config, model_factory)
+  File "/mnt/c/Users/Davy/Documents/Code/QM/CC/AudioLDM/audioldm/qvim/src/qvim_mn_baseline/ex_qvim.py", line 464, in train
+    trainer.validate(
+  File "/root/miniconda3/envs/qvim-baseline/lib/python3.10/site-packages/pytorch_lightning/trainer/trainer.py", line 664, in validate
+    return call._call_and_handle_interrupt(
+  File "/root/miniconda3/envs/qvim-baseline/lib/python3.10/site-packages/pytorch_lightning/trainer/call.py", line 48, in _call_and_handle_interrupt
+    return trainer_fn(*args, **kwargs)
+  File "/root/miniconda3/envs/qvim-baseline/lib/python3.10/site-packages/pytorch_lightning/trainer/trainer.py", line 706, in _validate_impl
+    results = self._run(model, ckpt_path=ckpt_path)
+  File "/root/miniconda3/envs/qvim-baseline/lib/python3.10/site-packages/pytorch_lightning/trainer/trainer.py", line 1012, in _run
+    results = self._run_stage()
+  File "/root/miniconda3/envs/qvim-baseline/lib/python3.10/site-packages/pytorch_lightning/trainer/trainer.py", line 1049, in _run_stage
+    return self._evaluation_loop.run()
+  File "/root/miniconda3/envs/qvim-baseline/lib/python3.10/site-packages/pytorch_lightning/loops/utilities.py", line 179, in _decorator
+    return loop_run(self, *args, **kwargs)
+  File "/root/miniconda3/envs/qvim-baseline/lib/python3.10/site-packages/pytorch_lightning/loops/evaluation_loop.py", line 145, in run
+    self._evaluation_step(batch, batch_idx, dataloader_idx, dataloader_iter)
+  File "/root/miniconda3/envs/qvim-baseline/lib/python3.10/site-packages/pytorch_lightning/loops/evaluation_loop.py", line 437, in _evaluation_step
+    output = call._call_strategy_hook(trainer, hook_name, *step_args)
+  File "/root/miniconda3/envs/qvim-baseline/lib/python3.10/site-packages/pytorch_lightning/trainer/call.py", line 328, in _call_strategy_hook
+    output = fn(*args, **kwargs)
+  File "/root/miniconda3/envs/qvim-baseline/lib/python3.10/site-packages/pytorch_lightning/strategies/strategy.py", line 412, in validation_step
+    return self.lightning_module.validation_step(*args, **kwargs)
+  File "/mnt/c/Users/Davy/Documents/Code/QM/CC/AudioLDM/train_qvim_clap_alignment.py", line 409, in validation_step
+    y_clap = self.forward_clap(batch['reference'])
+  File "/mnt/c/Users/Davy/Documents/Code/QM/CC/AudioLDM/train_qvim_clap_alignment.py", line 165, in forward_clap
+    for i in range(batch_size):
+UnboundLocalError: local variable 'batch_size' referenced before assignment
+Traceback (most recent call last):
+  File "/mnt/c/Users/Davy/Documents/Code/QM/CC/AudioLDM/train_qvim_clap_alignment.py", line 612, in <module>
+    train(args)
+  File "/mnt/c/Users/Davy/Documents/Code/QM/CC/AudioLDM/train_qvim_clap_alignment.py", line 510, in train
+    qvim_train(config, model_factory)
+  File "/mnt/c/Users/Davy/Documents/Code/QM/CC/AudioLDM/audioldm/qvim/src/qvim_mn_baseline/ex_qvim.py", line 464, in train
+    trainer.validate(
+  File "/root/miniconda3/envs/qvim-baseline/lib/python3.10/site-packages/pytorch_lightning/trainer/trainer.py", line 664, in validate
+    return call._call_and_handle_interrupt(
+  File "/root/miniconda3/envs/qvim-baseline/lib/python3.10/site-packages/pytorch_lightning/trainer/call.py", line 48, in _call_and_handle_interrupt
+    return trainer_fn(*args, **kwargs)
+  File "/root/miniconda3/envs/qvim-baseline/lib/python3.10/site-packages/pytorch_lightning/trainer/trainer.py", line 706, in _validate_impl
+    results = self._run(model, ckpt_path=ckpt_path)
+  File "/root/miniconda3/envs/qvim-baseline/lib/python3.10/site-packages/pytorch_lightning/trainer/trainer.py", line 1012, in _run
+    results = self._run_stage()
+  File "/root/miniconda3/envs/qvim-baseline/lib/python3.10/site-packages/pytorch_lightning/trainer/trainer.py", line 1049, in _run_stage
+    return self._evaluation_loop.run()
+  File "/root/miniconda3/envs/qvim-baseline/lib/python3.10/site-packages/pytorch_lightning/loops/utilities.py", line 179, in _decorator
+    return loop_run(self, *args, **kwargs)
+  File "/root/miniconda3/envs/qvim-baseline/lib/python3.10/site-packages/pytorch_lightning/loops/evaluation_loop.py", line 145, in run
+    self._evaluation_step(batch, batch_idx, dataloader_idx, dataloader_iter)
+  File "/root/miniconda3/envs/qvim-baseline/lib/python3.10/site-packages/pytorch_lightning/loops/evaluation_loop.py", line 437, in _evaluation_step
+    output = call._call_strategy_hook(trainer, hook_name, *step_args)
+  File "/root/miniconda3/envs/qvim-baseline/lib/python3.10/site-packages/pytorch_lightning/trainer/call.py", line 328, in _call_strategy_hook
+    output = fn(*args, **kwargs)
+  File "/root/miniconda3/envs/qvim-baseline/lib/python3.10/site-packages/pytorch_lightning/strategies/strategy.py", line 412, in validation_step
+    return self.lightning_module.validation_step(*args, **kwargs)
+  File "/mnt/c/Users/Davy/Documents/Code/QM/CC/AudioLDM/train_qvim_clap_alignment.py", line 409, in validation_step
+    y_clap = self.forward_clap(batch['reference'])
+  File "/mnt/c/Users/Davy/Documents/Code/QM/CC/AudioLDM/train_qvim_clap_alignment.py", line 165, in forward_clap
+    for i in range(batch_size):
+UnboundLocalError: local variable 'batch_size' referenced before assignment

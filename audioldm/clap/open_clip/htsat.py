@@ -868,7 +868,7 @@ class HTSAT_Swin_Transformer(nn.Module):
         pad_mode = "reflect"
         ref = 1.0
         amin = 1e-10
-        top_db = None
+        top_db = 80  # Changed from None to 80 to prevent -inf values in mel spectrograms
         self.interpolate_ratio = 32  # Downsampled ratio
         # Spectrogram extractor
         self.spectrogram_extractor = Spectrogram(

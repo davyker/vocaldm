@@ -1,0 +1,15 @@
+{"time":"2025-05-02T13:51:04.093522802+01:00","level":"INFO","msg":"stream: starting","core version":"0.19.9","symlink path":"wandb/run-20250502_135104-3dsidw00/logs/debug-core.log"}
+{"time":"2025-05-02T13:51:04.579263581+01:00","level":"INFO","msg":"created new stream","id":"3dsidw00"}
+{"time":"2025-05-02T13:51:04.579526109+01:00","level":"INFO","msg":"stream: started","id":"3dsidw00"}
+{"time":"2025-05-02T13:51:04.579551057+01:00","level":"INFO","msg":"writer: Do: started","stream_id":"3dsidw00"}
+{"time":"2025-05-02T13:51:04.579583219+01:00","level":"INFO","msg":"handler: started","stream_id":"3dsidw00"}
+{"time":"2025-05-02T13:51:04.579581571+01:00","level":"INFO","msg":"sender: started","stream_id":"3dsidw00"}
+{"time":"2025-05-02T13:51:05.131438482+01:00","level":"INFO","msg":"Starting system monitor"}
+{"time":"2025-05-02T13:59:34.296699028+01:00","level":"INFO","msg":"stream: closing","id":"3dsidw00"}
+{"time":"2025-05-02T13:59:34.296782388+01:00","level":"INFO","msg":"Stopping system monitor"}
+{"time":"2025-05-02T13:59:34.297132822+01:00","level":"INFO","msg":"Stopped system monitor"}
+{"time":"2025-05-02T13:59:35.040036806+01:00","level":"INFO","msg":"fileTransfer: Close: file transfer manager closed"}
+{"time":"2025-05-02T13:59:35.272073527+01:00","level":"INFO","msg":"handler: closed","stream_id":"3dsidw00"}
+{"time":"2025-05-02T13:59:35.272087199+01:00","level":"INFO","msg":"writer: Close: closed","stream_id":"3dsidw00"}
+{"time":"2025-05-02T13:59:35.272123118+01:00","level":"INFO","msg":"sender: closed","stream_id":"3dsidw00"}
+{"time":"2025-05-02T13:59:35.27544045+01:00","level":"INFO","msg":"stream: closed","id":"3dsidw00"}

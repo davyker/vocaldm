@@ -26,7 +26,7 @@ from audioldm.qvim.src.qvim_mn_baseline.utils import NAME_TO_WIDTH
 from audioldm.qvim.src.qvim_mn_baseline.ex_qvim import QVIMModule, train as qvim_train
 
 # Import CLAP components
-from audioldm.clap.encoders import CLAPAudioEmbeddingClassifierFreev2
+from audioldm.clap.training.data import get_audio_features
 
 # Silence warnings
 warnings.filterwarnings("ignore")
@@ -38,7 +38,7 @@ class QVIMCLAPModule(QVIMModule):
     Extends the original QVIMModule with direct CLAP alignment objectives
     """
 
-    def __init__(self, config):
+    def __init__(self, config, clap_model=None):
         # Initialize parent QVIMModule with 512d output directly
         # Override pretrained_name to use our own modified copy that outputs 512d
         config.output_dim = 512  # Add this attribute to config
@@ -60,20 +60,131 @@ class QVIMCLAPModule(QVIMModule):
         initial_cross_temp = torch.zeros((1,)) + config.initial_tau
         self.cross_temp = torch.nn.Parameter(initial_cross_temp, requires_grad=True)
         
-        # Load CLAP model (frozen) - MUST use 16kHz due to hard-coded assertion
-        self.clap_model = CLAPAudioEmbeddingClassifierFreev2(
-            pretrained_path=config.clap_checkpoint,
-            sampling_rate=16000,  # CLAP requires exactly 16kHz - hard assertion in encoders.py
-            embed_mode="audio",
-            amodel=config.clap_model,
-            unconditional_prob=0.0  # No need for unconditional samples during training
-        )
+        # Use the provided CLAP model from AudioLDM
+        if clap_model is None:
+            raise ValueError("CLAP model must be provided. It should be extracted from AudioLDM.")
+            
+        self.clap_model = clap_model
         
-        # Freeze CLAP model
+        # Make sure model is in eval mode
+        self.clap_model.eval()
+        
+        # Ensure CLAP model is frozen (no gradient updates)
         for param in self.clap_model.parameters():
             param.requires_grad = False
             
-        self.clap_model.eval()
+        # Cache for validation batch CLAP embeddings
+        self.val_clap_cache = {}
+            
+        # Initialize embedding caches for training and validation
+        # Use dictionaries with filename hashes as keys
+        self.clap_train_cache = {}
+        self.clap_val_cache = {}
+            
+        # Register hooks to monitor hidden layer activations
+        if hasattr(self.config, 'debug') and self.config.debug:
+            self.activation_hooks = []
+            
+            def hook_fn(name):
+                def hook(module, input, output):
+                    # Handle tuple outputs (from some layers that return multiple values)
+                    if isinstance(output, tuple):
+                        x = output[0]  # Get the first element (usually the main tensor)
+                    else:
+                        x = output
+                        
+                    # Print statistics
+                    print(f"[HIDDEN LAYER] {name}: shape={x.shape}, "
+                          f"min={x.min().item():.4f}, max={x.max().item():.4f}, "
+                          f"mean={x.mean().item():.4f}, std={x.std().item():.4f}")
+                    
+                    # Return original output unchanged
+                    return output
+                return hook
+            
+            # Add hooks to audio branch layers
+            if hasattr(self.clap_model.model, 'audio_branch'):
+                audio_branch = self.clap_model.model.audio_branch
+                
+                # Monitor all significant components in the audio processing pipeline
+                
+                # Spectrogram extraction
+                if hasattr(audio_branch, 'spectrogram_extractor'):
+                    self.activation_hooks.append(
+                        audio_branch.spectrogram_extractor.register_forward_hook(hook_fn('spectrogram_extractor'))
+                    )
+                
+                # Log-mel extraction
+                if hasattr(audio_branch, 'logmel_extractor'):
+                    self.activation_hooks.append(
+                        audio_branch.logmel_extractor.register_forward_hook(hook_fn('logmel_extractor'))
+                    )
+                
+                # Batch normalization
+                if hasattr(audio_branch, 'bn0'):
+                    self.activation_hooks.append(
+                        audio_branch.bn0.register_forward_hook(hook_fn('bn0'))
+                    )
+                
+                # Spectrogram augmentation
+                if hasattr(audio_branch, 'spec_augmenter'):
+                    self.activation_hooks.append(
+                        audio_branch.spec_augmenter.register_forward_hook(hook_fn('spec_augmenter'))
+                    )
+                
+                # Patch embedding
+                if hasattr(audio_branch, 'patch_embed'):
+                    self.activation_hooks.append(
+                        audio_branch.patch_embed.register_forward_hook(hook_fn('patch_embed'))
+                    )
+                    
+                    # Also hook into the projection layer
+                    if hasattr(audio_branch.patch_embed, 'proj'):
+                        self.activation_hooks.append(
+                            audio_branch.patch_embed.proj.register_forward_hook(hook_fn('patch_embed.proj'))
+                        )
+                
+                # Position embedding
+                if hasattr(audio_branch, 'pos_drop'):
+                    self.activation_hooks.append(
+                        audio_branch.pos_drop.register_forward_hook(hook_fn('pos_drop'))
+                    )
+                
+                # Transformer layers
+                if hasattr(audio_branch, 'layers'):
+                    for i, layer in enumerate(audio_branch.layers):
+                        self.activation_hooks.append(
+                            layer.register_forward_hook(hook_fn(f'layer_{i}'))
+                        )
+                        
+                        # Add hooks for the transformer blocks within each layer
+                        if hasattr(layer, 'blocks'):
+                            for j, block in enumerate(layer.blocks):
+                                self.activation_hooks.append(
+                                    block.register_forward_hook(hook_fn(f'layer_{i}.block_{j}'))
+                                )
+                
+                # Final normalization
+                if hasattr(audio_branch, 'norm'):
+                    self.activation_hooks.append(
+                        audio_branch.norm.register_forward_hook(hook_fn('final_norm'))
+                    )
+                    
+                # Average pooling
+                if hasattr(audio_branch, 'avgpool'):
+                    self.activation_hooks.append(
+                        audio_branch.avgpool.register_forward_hook(hook_fn('avgpool'))
+                    )
+                
+                print(f"[CLAP SETUP] Registered {len(self.activation_hooks)} hooks for hidden layer monitoring")
+            
+        # Debug info
+        if hasattr(self.config, 'debug') and self.config.debug:
+            print(f"[CLAP SETUP] Using AudioLDM CLAP model: {self.clap_model.__class__.__name__}")
+            if hasattr(self.clap_model, 'model') and hasattr(self.clap_model.model, 'audio_branch'):
+                print(f"[CLAP SETUP] Audio branch type: {self.clap_model.model.audio_branch.__class__.__name__}")
+                print(f"[CLAP SETUP] Audio config: {self.clap_model.model_cfg['audio_cfg'] if hasattr(self.clap_model, 'model_cfg') else 'N/A'}")
+            print(f"[CLAP SETUP] CLAP embed mode: {self.clap_model.embed_mode}")
     
     def _create_mobilenet_with_custom_loading(self, pretrained_name, width_mult, output_dim=512):
         """
@@ -159,7 +270,7 @@ class QVIMCLAPModule(QVIMModule):
                     print(f"[CLAP PIPELINE] WARNING: After resampling: {nan_count}/{audio_16k.numel()} NaN values and {inf_count}/{audio_16k.numel()} Inf values")
             
             # ----------------- WAVEFORM PROCESSING -----------------
-            # Process audio one sample at a time as CLAPAudioEmbeddingClassifierFreev2 expects
+            # Process audio one sample at a time as CLAP expects
             
             # Save the current batch size
             batch_size = audio_16k.size(0)
@@ -173,22 +284,76 @@ class QVIMCLAPModule(QVIMModule):
             # Save original embed_mode
             original_embed_mode = self.clap_model.embed_mode
             
+            # Force audio embedding mode
+            self.clap_model.embed_mode = "audio"
+            
             for i in range(batch_size):
-                # Extract single waveform and process it individually
+                # Extract single waveform
                 single_waveform = audio_16k[i:i+1]  # Keep batch dimension [1, samples]
+                
+                # Trim trailing zeros from the waveform
+                epsilon = 1e-3  # Threshold for considering a value as "zero"
+                waveform = single_waveform.squeeze(0)  # Remove batch dim for processing
+                
+                # Find where the trailing near-zeros start
+                idx = len(waveform) - 1
+                while idx >= 0 and torch.abs(waveform[idx]) < epsilon:
+                    idx -= 1
+                
+                # Add 1 to include the last non-zero sample
+                trimmed_length = idx + 1
+                
+                # Create trimmed waveform
+                if trimmed_length < len(waveform):
+                    trimmed_waveform = waveform[:trimmed_length]
+                    # Add small Gaussian noise for numerical stability
+                    trimmed_waveform = trimmed_waveform + torch.randn_like(trimmed_waveform) * 1e-5
+                    single_waveform = trimmed_waveform.unsqueeze(0)  # Add batch dimension back
+                    
+                    if hasattr(self.config, 'debug') and self.config.debug:
+                        print(f"[CLAP PIPELINE] Removed {len(waveform)-trimmed_length} trailing zeros from sample {i}")
+                else:
+                    # Add small Gaussian noise for numerical stability
+                    waveform = waveform + torch.randn_like(waveform) * 1e-5
+                    single_waveform = waveform.unsqueeze(0)  # Add batch dimension back
+                    
+                    if hasattr(self.config, 'debug') and self.config.debug:
+                        print(f"[CLAP PIPELINE] Removed 0 trailing zeros from sample {i}")
                 
                 if hasattr(self.config, 'debug') and self.config.debug and i == 0:
                     print(f"[CLAP PIPELINE] Sample 0 shape: {single_waveform.shape}")
+                    near_zero_count = (torch.abs(single_waveform.squeeze(0)) < epsilon).sum().item()
+                    print(f"[CLAP PIPELINE] Sample 0: {near_zero_count}/{single_waveform.numel()} near-zero values")
                 
-                # Set embed_mode to audio for this call
-                self.clap_model.embed_mode = "audio"
+                # Use AudioLDM's CLAP model to get audio embedding
+                # First, we need to convert to the expected format (48kHz)
+                audio_dict_list = []
                 
-                # Call forward with a single sample
-                # CLAPAudioEmbeddingClassifierFreev2 will properly process this
-                embedding = self.clap_model(single_waveform)
+                # This step is from AudioLDM's CLAP implementation - it resamples to 48kHz
+                single_waveform_48k = torchaudio.functional.resample(
+                    single_waveform, 
+                    orig_freq=16000, 
+                    new_freq=48000
+                )
                 
-                # Remove the middle dimension [1, 1, embed_dim] -> [1, embed_dim]
-                embedding = embedding.squeeze(1)
+                # Convert to list format expected by get_audio_features
+                waveforms = [w for w in self.clap_model.batch_to_list(single_waveform_48k)]
+                
+                # Create audio dictionary for each waveform
+                for wf in waveforms:
+                    audio_dict = {}
+                    audio_dict = get_audio_features(
+                        audio_dict,
+                        wf,
+                        480000,  # Max audio length
+                        data_truncating="fusion",
+                        data_filling="repeatpad",
+                        audio_cfg=self.clap_model.model_cfg["audio_cfg"]
+                    )
+                    audio_dict_list.append(audio_dict)
+                
+                # Get audio embedding directly using the model's audio embedding method
+                embedding = self.clap_model.model.get_audio_embedding(audio_dict_list)
                 
                 # Add to our list
                 embeddings_list.append(embedding)
@@ -198,6 +363,9 @@ class QVIMCLAPModule(QVIMModule):
             
             # Concatenate all embeddings into a single batch tensor
             clap_embedding = torch.cat(embeddings_list, dim=0)
+            
+            # Add an extra dimension to match expected shape [batch_size, 1, embed_dim]
+            clap_embedding = clap_embedding.unsqueeze(1)
             
             if hasattr(self.config, 'debug') and self.config.debug:
                 print(f"[CLAP PIPELINE] Final embeddings batch shape: {clap_embedding.shape}")
@@ -217,15 +385,17 @@ class QVIMCLAPModule(QVIMModule):
                 print(f"[CLAP PIPELINE] CLAP embedding stats: min={clap_embedding.min().item():.4f}, max={clap_embedding.max().item():.4f}, mean={clap_embedding.mean().item():.4f}, std={clap_embedding.std().item():.4f}")
                 
                 # Check if any embeddings are all zeros
-                zero_rows = (torch.abs(clap_embedding).sum(dim=1) < 1e-6).sum().item()
+                zero_rows = (torch.abs(clap_embedding).sum(dim=(1,2)) < 1e-6).sum().item()
                 if zero_rows > 0:
                     print(f"[CLAP PIPELINE] WARNING: {zero_rows}/{clap_embedding.shape[0]} CLAP embeddings are all zeros")
                 
                 # Check norms of embeddings
-                norms = torch.norm(clap_embedding, dim=1)
+                norms = torch.norm(clap_embedding, dim=2).mean(dim=1)
                 print(f"[CLAP PIPELINE] CLAP embedding norms: min={norms.min().item():.4f}, max={norms.max().item():.4f}, mean={norms.mean().item():.4f}")
                 
-        return clap_embedding
+        # Remove the middle dimension for compatibility with the rest of the code
+        # [batch_size, 1, embed_dim] -> [batch_size, embed_dim]
+        return clap_embedding.squeeze(1)
 
     def training_step(self, batch, batch_idx):
         # Store current batch for use in lr_scheduler_step
@@ -348,8 +518,18 @@ class QVIMCLAPModule(QVIMModule):
         # Get QVIM embeddings
         y_imitation, y_reference = self.forward(batch['imitation'], batch['reference'])
         
-        # Get CLAP embeddings
-        y_clap = self.forward_clap(batch['reference'])
+        # Get CLAP embeddings (using cache if available)
+        if batch_idx in self.val_clap_cache:
+            # Use cached embeddings
+            y_clap = self.val_clap_cache[batch_idx].to(y_reference.device)
+            if hasattr(self.config, 'debug') and self.config.debug:
+                print(f"[VALIDATION] Using cached CLAP embeddings for batch {batch_idx}")
+        else:
+            # Generate new embeddings and cache them
+            y_clap = self.forward_clap(batch['reference'])
+            self.val_clap_cache[batch_idx] = y_clap.detach().cpu()  # Store on CPU to save GPU memory
+            if hasattr(self.config, 'debug') and self.config.debug:
+                print(f"[VALIDATION] Generated and cached new CLAP embeddings for batch {batch_idx}")
         
         # Debug embeddings
         if hasattr(self.config, 'debug') and self.config.debug:
@@ -444,10 +624,34 @@ def train(config):
     if not hasattr(config, 'pin_memory'):
         setattr(config, 'pin_memory', True)
     
+    print(f"Loading AudioLDM model: {config.audioldm_model}")
+    
+    # Import necessary modules
+    from audioldm.pipeline import build_model
+    
+    # Build the AudioLDM model
+    try:
+        audioldm_model = build_model(model_name=config.audioldm_model)
+        print(f"AudioLDM model loaded successfully")
+    except Exception as e:
+        print(f"Error loading AudioLDM model: {e}")
+        exit(1)
+    
+    # Extract the CLAP model from AudioLDM
+    clap_model = audioldm_model.cond_stage_model
+    if clap_model is None:
+        print("Failed to extract CLAP model from AudioLDM")
+        exit(1)
+        
+    print(f"Extracted CLAP model: {clap_model.__class__.__name__}")
+    if hasattr(config, 'debug') and config.debug:
+        if hasattr(clap_model, 'model') and hasattr(clap_model.model, 'audio_branch'):
+            print(f"CLAP audio branch: {clap_model.model.audio_branch.__class__.__name__}")
+    
     # Use the existing train function with our custom module
-    # Create a factory function to instantiate our module instead of QVIMModule
+    # Create a factory function to instantiate our module with the extracted CLAP model
     def model_factory(config):
-        return QVIMCLAPModule(config)
+        return QVIMCLAPModule(config, clap_model=clap_model)
         
     # Call the existing training function with our factory function
     qvim_train(config, model_factory)
@@ -468,12 +672,11 @@ if __name__ == '__main__':
     parser.add_argument('--dataset_path', type=str, default='audioldm/qvim/data',
                         help="Path to the data sets.")
 
-    # CLAP Configuration
-    parser.add_argument('--clap_checkpoint', type=str, 
-                        default="",  # Add default path to CLAP checkpoint
-                        help="Path to CLAP checkpoint.")
-    parser.add_argument('--clap_model', type=str, default="HTSAT-tiny",
-                        help="CLAP model architecture to use.")
+    # AudioLDM Configuration
+    parser.add_argument('--audioldm_model', type=str, default="audioldm-m-full",
+                        choices=["audioldm-s-full", "audioldm-m-full", "audioldm-l-full", 
+                                "audioldm-s-full-v2", "audioldm-m-text-ft", "audioldm-s-text-ft"],
+                        help="AudioLDM model to use for alignment. CLAP will be taken directly from this model.")
 
     # Encoder architecture
     parser.add_argument('--pretrained_name', type=str, default="mn10_as",
@@ -486,6 +689,8 @@ if __name__ == '__main__':
                         help="Path to checkpoint file to continue training from")
     parser.add_argument('--final_eval_dataset', type=str, default="val", choices=["dev", "val"],
                         help="Dataset to use for final evaluation: 'dev' (QVIM-DEV) or 'val' (VimSketch val split)")
+    parser.add_argument('--val_split', type=float, default=0.15,
+                        help="Fraction of the dataset to use for validation.")    
     parser.add_argument('--batch_size', type=int, default=64,
                         help="Number of samples per batch.")
     parser.add_argument('--n_epochs', type=int, default=100,

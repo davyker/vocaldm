@@ -1,0 +1,23 @@
+2025-05-02 14:31:14,268 INFO    MainThread:20415 [wandb_setup.py:_flush():67] Current SDK version is 0.19.9
+2025-05-02 14:31:14,268 INFO    MainThread:20415 [wandb_setup.py:_flush():67] Configure stats pid to 20415
+2025-05-02 14:31:14,269 INFO    MainThread:20415 [wandb_setup.py:_flush():67] Loading settings from /root/.config/wandb/settings
+2025-05-02 14:31:14,269 INFO    MainThread:20415 [wandb_setup.py:_flush():67] Loading settings from /mnt/c/Users/Davy/Documents/Code/QM/CC/AudioLDM/wandb/settings
+2025-05-02 14:31:14,269 INFO    MainThread:20415 [wandb_setup.py:_flush():67] Loading settings from environment variables
+2025-05-02 14:31:14,269 INFO    MainThread:20415 [wandb_init.py:setup_run_log_directory():662] Logging user logs to ./wandb/run-20250502_143114-tgk84cpa/logs/debug.log
+2025-05-02 14:31:14,270 INFO    MainThread:20415 [wandb_init.py:setup_run_log_directory():663] Logging internal logs to ./wandb/run-20250502_143114-tgk84cpa/logs/debug-internal.log
+2025-05-02 14:31:14,270 INFO    MainThread:20415 [wandb_init.py:init():781] calling init triggers
+2025-05-02 14:31:14,271 INFO    MainThread:20415 [wandb_init.py:init():786] wandb.init called with sweep_config: {}
+config: {'project': 'qvim-clap-alignment', 'num_workers': 2, 'pin_memory': True, 'model_save_path': 'audioldm/qvim/models_clap_aligned', 'dataset_path': 'audioldm/qvim/data', 'clap_checkpoint': '', 'clap_model': 'HTSAT-base', 'pretrained_name': 'mn10_as', 'random_seed': 42, 'continue_from': None, 'final_eval_dataset': 'val', 'val_split': 0.15, 'batch_size': 4, 'n_epochs': 100, 'early_stopping_patience': 10, 'early_stopping_min_delta': 0.0, 'weight_decay': 0.0003, 'max_lr': 0.0003, 'min_lr': 2.5e-05, 'warmup_epochs': 1, 'rampdown_epochs': 22, 'initial_tau': 0.07, 'tau_trainable': True, 'lr_schedule': 'cosine', 'debug': True, 'max_items': 50, 'duration': 10.0, 'sample_rate': 32000, 'window_size': 800, 'hop_size': 320, 'n_fft': 1024, 'n_mels': 128, 'freqm': 8, 'timem': 300, 'fmin': 0, 'fmax': None, 'fmin_aug_range': 10, 'fmax_aug_range': 2000, 'output_dim': 512, '_wandb': {}}
+2025-05-02 14:31:14,271 INFO    MainThread:20415 [wandb_init.py:init():809] starting backend
+2025-05-02 14:31:14,271 INFO    MainThread:20415 [wandb_init.py:init():813] sending inform_init request
+2025-05-02 14:31:14,280 INFO    MainThread:20415 [backend.py:_multiprocessing_setup():101] multiprocessing start_methods=fork,spawn,forkserver, using: spawn
+2025-05-02 14:31:14,281 INFO    MainThread:20415 [wandb_init.py:init():823] backend started and connected
+2025-05-02 14:31:14,284 INFO    MainThread:20415 [wandb_init.py:init():915] updated telemetry
+2025-05-02 14:31:14,370 INFO    MainThread:20415 [wandb_init.py:init():939] communicating run to backend with 90.0 second timeout
+2025-05-02 14:31:15,473 INFO    MainThread:20415 [wandb_init.py:init():1014] starting run threads in backend
+2025-05-02 14:31:15,709 INFO    MainThread:20415 [wandb_run.py:_console_start():2454] atexit reg
+2025-05-02 14:31:15,709 INFO    MainThread:20415 [wandb_run.py:_redirect():2306] redirect: wrap_raw
+2025-05-02 14:31:15,710 INFO    MainThread:20415 [wandb_run.py:_redirect():2371] Wrapping output streams.
+2025-05-02 14:31:15,710 INFO    MainThread:20415 [wandb_run.py:_redirect():2394] Redirects installed.
+2025-05-02 14:31:15,712 INFO    MainThread:20415 [wandb_init.py:init():1056] run started, returning control to user process
+2025-05-02 14:31:20,976 INFO    MsgRouterThr:20415 [mailbox.py:close():129] [no run ID] Closing mailbox, abandoning 1 handles.

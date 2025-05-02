@@ -417,6 +417,11 @@ def sample_prop(sizefile, inputs, proportion, is_local=True):
 
 
 def get_mel(audio_data, audio_cfg):
+    # Debug: print input audio stats
+    # print(f"[DEBUG MEL] Input audio_data shape: {audio_data.shape}")
+    # print(f"[DEBUG MEL] Input audio stats: min={audio_data.min().item():.4f}, max={audio_data.max().item():.4f}, mean={audio_data.mean().item():.4f}")
+    # print(f"[DEBUG MEL] Using audio_cfg: sr={audio_cfg['sample_rate']}, n_fft={audio_cfg['window_size']}, hop={audio_cfg['hop_size']}")
+    
     # mel shape: (n_mels, T)
     mel = torchaudio.transforms.MelSpectrogram(
         sample_rate=audio_cfg["sample_rate"],
@@ -433,6 +438,15 @@ def get_mel(audio_data, audio_cfg):
         f_max=audio_cfg["fmax"],
     ).to(audio_data.device)
     mel = mel(audio_data)
+    
+    # Debug: check for NaNs in mel before log transform
+    nan_count = torch.isnan(mel).sum().item()
+    inf_count = torch.isinf(mel).sum().item()
+    zero_count = (mel == 0).sum().item()
+    # print(f"[DEBUG MEL] Pre-log mel: shape={mel.shape}, NaNs={nan_count}, Infs={inf_count}, Zeros={zero_count}")
+    # if not nan_count and not inf_count:
+        # print(f"[DEBUG MEL] Pre-log mel stats: min={mel.min().item():.8f}, max={mel.max().item():.8f}")
+    
     # Align to librosa:
     # librosa_melspec = librosa.feature.melspectrogram(
     #     waveform,
@@ -449,8 +463,28 @@ def get_mel(audio_data, audio_cfg):
     #     f_min=audio_cfg['fmin'],
     #     f_max=audio_cfg['fmax']
     # )
-    # we use log mel spectrogram as input
-    mel = torchaudio.transforms.AmplitudeToDB(top_db=None)(mel)
+    # we use log mel spectrogram as input with standard top_db=80 to prevent -Inf values
+    mel = torchaudio.transforms.AmplitudeToDB(top_db=80)(mel)
+    
+    # Debug: check for NaNs in mel after log transform
+    nan_count = torch.isnan(mel).sum().item()
+    inf_count = torch.isinf(mel).sum().item()
+    # print(f"[DEBUG MEL] Post-log mel: NaNs={nan_count}, Infs={inf_count}")
+    # if not nan_count and not inf_count:
+        # print(f"[DEBUG MEL] Post-log mel stats: min={mel.min().item():.2f}, max={mel.max().item():.2f}")
+    
+    # # Quick visualization of mel spectrogram with matplotlib
+    # try:
+    #     import matplotlib.pyplot as plt
+    #     plt.figure(figsize=(10, 4))
+    #     plt.imshow(mel.cpu().numpy(), aspect='auto', origin='lower')
+    #     plt.title('Mel Spectrogram')
+    #     plt.colorbar(format='%+2.0f dB')
+    #     plt.tight_layout()
+    #     plt.show()
+    # except Exception as e:
+    #     print(f"[DEBUG MEL] Visualization error: {e}")
+    
     return mel.T  # (T, n_mels)
 
 

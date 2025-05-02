@@ -1,0 +1,15 @@
+{"time":"2025-05-02T19:55:38.373406929+01:00","level":"INFO","msg":"stream: starting","core version":"0.19.9","symlink path":"wandb/run-20250502_195538-mrl3xilb/logs/debug-core.log"}
+{"time":"2025-05-02T19:55:38.79562334+01:00","level":"INFO","msg":"created new stream","id":"mrl3xilb"}
+{"time":"2025-05-02T19:55:38.795929813+01:00","level":"INFO","msg":"stream: started","id":"mrl3xilb"}
+{"time":"2025-05-02T19:55:38.79607296+01:00","level":"INFO","msg":"handler: started","stream_id":"mrl3xilb"}
+{"time":"2025-05-02T19:55:38.795954496+01:00","level":"INFO","msg":"writer: Do: started","stream_id":"mrl3xilb"}
+{"time":"2025-05-02T19:55:38.796061257+01:00","level":"INFO","msg":"sender: started","stream_id":"mrl3xilb"}
+{"time":"2025-05-02T19:55:39.332283818+01:00","level":"INFO","msg":"Starting system monitor"}
+{"time":"2025-05-02T20:07:47.065467254+01:00","level":"INFO","msg":"stream: closing","id":"mrl3xilb"}
+{"time":"2025-05-02T20:07:47.065520357+01:00","level":"INFO","msg":"Stopping system monitor"}
+{"time":"2025-05-02T20:07:47.06586845+01:00","level":"INFO","msg":"Stopped system monitor"}
+{"time":"2025-05-02T20:07:47.993917525+01:00","level":"INFO","msg":"fileTransfer: Close: file transfer manager closed"}
+{"time":"2025-05-02T20:07:48.392681328+01:00","level":"INFO","msg":"handler: closed","stream_id":"mrl3xilb"}
+{"time":"2025-05-02T20:07:48.392745575+01:00","level":"INFO","msg":"writer: Close: closed","stream_id":"mrl3xilb"}
+{"time":"2025-05-02T20:07:48.392816638+01:00","level":"INFO","msg":"sender: closed","stream_id":"mrl3xilb"}
+{"time":"2025-05-02T20:07:48.397213578+01:00","level":"INFO","msg":"stream: closed","id":"mrl3xilb"}

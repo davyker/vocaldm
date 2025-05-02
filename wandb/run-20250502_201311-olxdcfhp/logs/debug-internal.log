@@ -1,0 +1,15 @@
+{"time":"2025-05-02T20:13:11.089154911+01:00","level":"INFO","msg":"stream: starting","core version":"0.19.9","symlink path":"wandb/run-20250502_201311-olxdcfhp/logs/debug-core.log"}
+{"time":"2025-05-02T20:13:11.509186606+01:00","level":"INFO","msg":"created new stream","id":"olxdcfhp"}
+{"time":"2025-05-02T20:13:11.509413326+01:00","level":"INFO","msg":"stream: started","id":"olxdcfhp"}
+{"time":"2025-05-02T20:13:11.50944302+01:00","level":"INFO","msg":"writer: Do: started","stream_id":"olxdcfhp"}
+{"time":"2025-05-02T20:13:11.509479658+01:00","level":"INFO","msg":"sender: started","stream_id":"olxdcfhp"}
+{"time":"2025-05-02T20:13:11.509478975+01:00","level":"INFO","msg":"handler: started","stream_id":"olxdcfhp"}
+{"time":"2025-05-02T20:13:12.085051175+01:00","level":"INFO","msg":"Starting system monitor"}
+{"time":"2025-05-02T20:13:22.175458379+01:00","level":"INFO","msg":"stream: closing","id":"olxdcfhp"}
+{"time":"2025-05-02T20:13:22.175587774+01:00","level":"INFO","msg":"Stopping system monitor"}
+{"time":"2025-05-02T20:13:22.176079518+01:00","level":"INFO","msg":"Stopped system monitor"}
+{"time":"2025-05-02T20:13:22.815926416+01:00","level":"INFO","msg":"fileTransfer: Close: file transfer manager closed"}
+{"time":"2025-05-02T20:13:23.077583454+01:00","level":"INFO","msg":"handler: closed","stream_id":"olxdcfhp"}
+{"time":"2025-05-02T20:13:23.077629743+01:00","level":"INFO","msg":"writer: Close: closed","stream_id":"olxdcfhp"}
+{"time":"2025-05-02T20:13:23.07768479+01:00","level":"INFO","msg":"sender: closed","stream_id":"olxdcfhp"}
+{"time":"2025-05-02T20:13:23.082446255+01:00","level":"INFO","msg":"stream: closed","id":"olxdcfhp"}

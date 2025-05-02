@@ -1,0 +1,15 @@
+{"time":"2025-05-02T14:10:26.805763474+01:00","level":"INFO","msg":"stream: starting","core version":"0.19.9","symlink path":"wandb/run-20250502_141026-sypsgoud/logs/debug-core.log"}
+{"time":"2025-05-02T14:10:27.218037381+01:00","level":"INFO","msg":"created new stream","id":"sypsgoud"}
+{"time":"2025-05-02T14:10:27.218355539+01:00","level":"INFO","msg":"stream: started","id":"sypsgoud"}
+{"time":"2025-05-02T14:10:27.218428417+01:00","level":"INFO","msg":"handler: started","stream_id":"sypsgoud"}
+{"time":"2025-05-02T14:10:27.218417151+01:00","level":"INFO","msg":"writer: Do: started","stream_id":"sypsgoud"}
+{"time":"2025-05-02T14:10:27.218480295+01:00","level":"INFO","msg":"sender: started","stream_id":"sypsgoud"}
+{"time":"2025-05-02T14:10:27.753513914+01:00","level":"INFO","msg":"Starting system monitor"}
+{"time":"2025-05-02T14:10:32.0643689+01:00","level":"INFO","msg":"stream: closing","id":"sypsgoud"}
+{"time":"2025-05-02T14:10:32.06446774+01:00","level":"INFO","msg":"Stopping system monitor"}
+{"time":"2025-05-02T14:10:32.064949381+01:00","level":"INFO","msg":"Stopped system monitor"}
+{"time":"2025-05-02T14:10:32.675704079+01:00","level":"INFO","msg":"fileTransfer: Close: file transfer manager closed"}
+{"time":"2025-05-02T14:10:32.936277876+01:00","level":"INFO","msg":"handler: closed","stream_id":"sypsgoud"}
+{"time":"2025-05-02T14:10:32.936326347+01:00","level":"INFO","msg":"writer: Close: closed","stream_id":"sypsgoud"}
+{"time":"2025-05-02T14:10:32.936390613+01:00","level":"INFO","msg":"sender: closed","stream_id":"sypsgoud"}
+{"time":"2025-05-02T14:10:32.940381058+01:00","level":"INFO","msg":"stream: closed","id":"sypsgoud"}

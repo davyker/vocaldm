@@ -1,0 +1,593 @@
+Using 16bit Automatic Mixed Precision (AMP)
+GPU available: True (cuda), used: True
+TPU available: False, using: 0 TPU cores
+HPU available: False, using: 0 HPUs
+LOCAL_RANK: 0 - CUDA_VISIBLE_DEVICES: [0]
+Validation DataLoader 0:   0%|                                                                                                                                                                                                          | 0/117 [00:00<?, ?it/s]
+[VALIDATION] Batch 0 - Processing validation data
+[VALIDATION] Imitation shape: torch.Size([16, 320000]), Reference shape: torch.Size([16, 320000])
+[VALIDATION] Imitation: min=-1.0314, max=1.0148
+[VALIDATION] Reference: min=-1.0045, max=1.0061
+[CLAP PIPELINE] Input audio shape: torch.Size([16, 320000])
+[CLAP PIPELINE] Input audio stats: min=-1.0045, max=1.0061, mean=-0.0009, std=0.2030
+[CLAP PIPELINE] After resampling: shape=torch.Size([16, 160000])
+[CLAP PIPELINE] After resampling stats: min=-1.0049, max=1.0166, mean=-0.0009, std=0.2028
+[CLAP PIPELINE] Processing 16 samples individually
+[CLAP PIPELINE] Sample 0 shape: torch.Size([1, 160000])
+[CLAP PIPELINE] Final embeddings batch shape: torch.Size([16, 512])
+[CLAP PIPELINE] CLAP embedding shape: torch.Size([16, 512])
+[CLAP PIPELINE] WARNING: CLAP embedding has 8192/8192 NaN values and 0/8192 Inf values
+[CLAP PIPELINE] CLAP embedding stats: min=nan, max=nan, mean=nan, std=nan
+[CLAP PIPELINE] CLAP embedding norms: min=nan, max=nan, mean=nan
+[VALIDATION] Shapes: y_im torch.Size([16, 512]), y_ref torch.Size([16, 512]), y_clap torch.Size([16, 512])
+[VALIDATION] Norms: y_im 1.0000, y_ref 1.0000, y_clap nan
+[VALIDATION] WARNING: y_clap has 8192/8192 NaN and 0/8192 Inf
+[VALIDATION] WARNING: NaN found in log_softmax outputs:
+[VALIDATION]   - C_qvim_log: 0/256 NaN values
+[VALIDATION]   - C_ref_clap_log: 256/256 NaN values
+[VALIDATION]   - C_im_clap_log: 256/256 NaN values
+Validation DataLoader 0:   1%|█▋                                                                                                                                                                                                | 1/117 [00:03<05:55,  0.33it/s]
+[VALIDATION] Batch 1 - Processing validation data
+[VALIDATION] Imitation shape: torch.Size([16, 320000]), Reference shape: torch.Size([16, 320000])
+[VALIDATION] Imitation: min=-1.2777, max=1.2719
+[VALIDATION] Reference: min=-1.0236, max=1.0003
+[CLAP PIPELINE] Input audio shape: torch.Size([16, 320000])
+[CLAP PIPELINE] Input audio stats: min=-1.0236, max=1.0003, mean=-0.0002, std=0.1129
+[CLAP PIPELINE] After resampling: shape=torch.Size([16, 160000])
+[CLAP PIPELINE] After resampling stats: min=-1.0039, max=1.0000, mean=-0.0002, std=0.1102
+[CLAP PIPELINE] Processing 16 samples individually
+[CLAP PIPELINE] Sample 0 shape: torch.Size([1, 160000])
+[CLAP PIPELINE] Final embeddings batch shape: torch.Size([16, 512])
+[CLAP PIPELINE] CLAP embedding shape: torch.Size([16, 512])
+[CLAP PIPELINE] WARNING: CLAP embedding has 8192/8192 NaN values and 0/8192 Inf values
+[CLAP PIPELINE] CLAP embedding stats: min=nan, max=nan, mean=nan, std=nan
+[CLAP PIPELINE] CLAP embedding norms: min=nan, max=nan, mean=nan
+[VALIDATION] Shapes: y_im torch.Size([16, 512]), y_ref torch.Size([16, 512]), y_clap torch.Size([16, 512])
+[VALIDATION] Norms: y_im 1.0000, y_ref 1.0000, y_clap nan
+[VALIDATION] WARNING: y_clap has 8192/8192 NaN and 0/8192 Inf
+[VALIDATION] WARNING: NaN found in log_softmax outputs:
+[VALIDATION]   - C_qvim_log: 0/256 NaN values
+[VALIDATION]   - C_ref_clap_log: 256/256 NaN values
+[VALIDATION]   - C_im_clap_log: 256/256 NaN values
+Validation DataLoader 0:   2%|███▎                                                                                                                                                                                              | 2/117 [00:04<04:01,  0.48it/s]
+[VALIDATION] Batch 2 - Processing validation data
+[VALIDATION] Imitation shape: torch.Size([16, 320000]), Reference shape: torch.Size([16, 320000])
+[VALIDATION] Imitation: min=-1.0125, max=1.0050
+[VALIDATION] Reference: min=-1.0308, max=1.0208
+[CLAP PIPELINE] Input audio shape: torch.Size([16, 320000])
+[CLAP PIPELINE] Input audio stats: min=-1.0308, max=1.0208, mean=-0.0005, std=0.1703
+[CLAP PIPELINE] After resampling: shape=torch.Size([16, 160000])
+[CLAP PIPELINE] After resampling stats: min=-1.0732, max=1.0781, mean=-0.0005, std=0.1691
+[CLAP PIPELINE] Processing 16 samples individually
+[CLAP PIPELINE] Sample 0 shape: torch.Size([1, 160000])
+[CLAP PIPELINE] Final embeddings batch shape: torch.Size([16, 512])
+[CLAP PIPELINE] CLAP embedding shape: torch.Size([16, 512])
+[CLAP PIPELINE] WARNING: CLAP embedding has 8192/8192 NaN values and 0/8192 Inf values
+[CLAP PIPELINE] CLAP embedding stats: min=nan, max=nan, mean=nan, std=nan
+[CLAP PIPELINE] CLAP embedding norms: min=nan, max=nan, mean=nan
+[VALIDATION] Shapes: y_im torch.Size([16, 512]), y_ref torch.Size([16, 512]), y_clap torch.Size([16, 512])
+[VALIDATION] Norms: y_im 1.0000, y_ref 1.0000, y_clap nan
+[VALIDATION] WARNING: y_clap has 8192/8192 NaN and 0/8192 Inf
+[VALIDATION] WARNING: NaN found in log_softmax outputs:
+[VALIDATION]   - C_qvim_log: 0/256 NaN values
+[VALIDATION]   - C_ref_clap_log: 256/256 NaN values
+[VALIDATION]   - C_im_clap_log: 256/256 NaN values
+Validation DataLoader 0:   3%|████▉                                                                                                                                                                                             | 3/117 [00:05<03:43,  0.51it/s]
+[VALIDATION] Batch 3 - Processing validation data
+[VALIDATION] Imitation shape: torch.Size([16, 320000]), Reference shape: torch.Size([16, 320000])
+[VALIDATION] Imitation: min=-1.0299, max=1.0151
+[VALIDATION] Reference: min=-1.0533, max=1.0435
+[CLAP PIPELINE] Input audio shape: torch.Size([16, 320000])
+[CLAP PIPELINE] Input audio stats: min=-1.0533, max=1.0435, mean=0.0002, std=0.1273
+[CLAP PIPELINE] After resampling: shape=torch.Size([16, 160000])
+[CLAP PIPELINE] After resampling stats: min=-1.0244, max=1.0635, mean=0.0002, std=0.1257
+[CLAP PIPELINE] Processing 16 samples individually
+[CLAP PIPELINE] Sample 0 shape: torch.Size([1, 160000])
+[CLAP PIPELINE] Final embeddings batch shape: torch.Size([16, 512])
+[CLAP PIPELINE] CLAP embedding shape: torch.Size([16, 512])
+[CLAP PIPELINE] WARNING: CLAP embedding has 8192/8192 NaN values and 0/8192 Inf values
+[CLAP PIPELINE] CLAP embedding stats: min=nan, max=nan, mean=nan, std=nan
+[CLAP PIPELINE] CLAP embedding norms: min=nan, max=nan, mean=nan
+[VALIDATION] Shapes: y_im torch.Size([16, 512]), y_ref torch.Size([16, 512]), y_clap torch.Size([16, 512])
+[VALIDATION] Norms: y_im 1.0000, y_ref 1.0000, y_clap nan
+[VALIDATION] WARNING: y_clap has 8192/8192 NaN and 0/8192 Inf
+[VALIDATION] WARNING: NaN found in log_softmax outputs:
+[VALIDATION]   - C_qvim_log: 0/256 NaN values
+[VALIDATION]   - C_ref_clap_log: 256/256 NaN values
+[VALIDATION]   - C_im_clap_log: 256/256 NaN values
+Validation DataLoader 0:   3%|██████▋                                                                                                                                                                                           | 4/117 [00:06<03:11,  0.59it/s]
+[VALIDATION] Batch 4 - Processing validation data
+[VALIDATION] Imitation shape: torch.Size([16, 320000]), Reference shape: torch.Size([16, 320000])
+[VALIDATION] Imitation: min=-1.0137, max=1.0009
+[VALIDATION] Reference: min=-1.0461, max=1.0366
+[CLAP PIPELINE] Input audio shape: torch.Size([16, 320000])
+[CLAP PIPELINE] Input audio stats: min=-1.0461, max=1.0366, mean=-0.0004, std=0.1556
+[CLAP PIPELINE] After resampling: shape=torch.Size([16, 160000])
+[CLAP PIPELINE] After resampling stats: min=-1.0977, max=1.1162, mean=-0.0004, std=0.1548
+[CLAP PIPELINE] Processing 16 samples individually
+[CLAP PIPELINE] Sample 0 shape: torch.Size([1, 160000])
+[CLAP PIPELINE] Final embeddings batch shape: torch.Size([16, 512])
+[CLAP PIPELINE] CLAP embedding shape: torch.Size([16, 512])
+[CLAP PIPELINE] WARNING: CLAP embedding has 8192/8192 NaN values and 0/8192 Inf values
+[CLAP PIPELINE] CLAP embedding stats: min=nan, max=nan, mean=nan, std=nan
+[CLAP PIPELINE] CLAP embedding norms: min=nan, max=nan, mean=nan
+[VALIDATION] Shapes: y_im torch.Size([16, 512]), y_ref torch.Size([16, 512]), y_clap torch.Size([16, 512])
+[VALIDATION] Norms: y_im 1.0000, y_ref 1.0000, y_clap nan
+[VALIDATION] WARNING: y_clap has 8192/8192 NaN and 0/8192 Inf
+[VALIDATION] WARNING: NaN found in log_softmax outputs:
+[VALIDATION]   - C_qvim_log: 0/256 NaN values
+[VALIDATION]   - C_ref_clap_log: 256/256 NaN values
+[VALIDATION]   - C_im_clap_log: 256/256 NaN values
+Validation DataLoader 0:   4%|████████▎                                                                                                                                                                                         | 5/117 [00:09<03:27,  0.54it/s]
+[VALIDATION] Batch 5 - Processing validation data
+[VALIDATION] Imitation shape: torch.Size([16, 320000]), Reference shape: torch.Size([16, 320000])
+[VALIDATION] Imitation: min=-1.0164, max=1.0120
+[VALIDATION] Reference: min=-1.0055, max=0.9995
+[CLAP PIPELINE] Input audio shape: torch.Size([16, 320000])
+[CLAP PIPELINE] Input audio stats: min=-1.0055, max=0.9995, mean=0.0002, std=0.1208
+[CLAP PIPELINE] After resampling: shape=torch.Size([16, 160000])
+[CLAP PIPELINE] After resampling stats: min=-1.0547, max=1.0146, mean=0.0002, std=0.1205
+[CLAP PIPELINE] Processing 16 samples individually
+[CLAP PIPELINE] Sample 0 shape: torch.Size([1, 160000])
+[CLAP PIPELINE] Final embeddings batch shape: torch.Size([16, 512])
+[CLAP PIPELINE] CLAP embedding shape: torch.Size([16, 512])
+[CLAP PIPELINE] WARNING: CLAP embedding has 8192/8192 NaN values and 0/8192 Inf values
+[CLAP PIPELINE] CLAP embedding stats: min=nan, max=nan, mean=nan, std=nan
+[CLAP PIPELINE] CLAP embedding norms: min=nan, max=nan, mean=nan
+[VALIDATION] Shapes: y_im torch.Size([16, 512]), y_ref torch.Size([16, 512]), y_clap torch.Size([16, 512])
+[VALIDATION] Norms: y_im 1.0000, y_ref 1.0000, y_clap nan
+[VALIDATION] WARNING: y_clap has 8192/8192 NaN and 0/8192 Inf
+[VALIDATION] WARNING: NaN found in log_softmax outputs:
+[VALIDATION]   - C_qvim_log: 0/256 NaN values
+[VALIDATION]   - C_ref_clap_log: 256/256 NaN values
+[VALIDATION]   - C_im_clap_log: 256/256 NaN values
+Validation DataLoader 0:   5%|█████████▉                                                                                                                                                                                        | 6/117 [00:10<03:11,  0.58it/s]
+[VALIDATION] Batch 6 - Processing validation data
+[VALIDATION] Imitation shape: torch.Size([16, 320000]), Reference shape: torch.Size([16, 320000])
+[VALIDATION] Imitation: min=-1.0174, max=1.0257
+[VALIDATION] Reference: min=-1.0570, max=1.0732
+[CLAP PIPELINE] Input audio shape: torch.Size([16, 320000])
+[CLAP PIPELINE] Input audio stats: min=-1.0570, max=1.0732, mean=0.0000, std=0.1006
+[CLAP PIPELINE] After resampling: shape=torch.Size([16, 160000])
+[CLAP PIPELINE] After resampling stats: min=-1.0791, max=1.0430, mean=0.0000, std=0.0999
+[CLAP PIPELINE] Processing 16 samples individually
+[CLAP PIPELINE] Sample 0 shape: torch.Size([1, 160000])
+[CLAP PIPELINE] Final embeddings batch shape: torch.Size([16, 512])
+[CLAP PIPELINE] CLAP embedding shape: torch.Size([16, 512])
+[CLAP PIPELINE] WARNING: CLAP embedding has 8192/8192 NaN values and 0/8192 Inf values
+[CLAP PIPELINE] CLAP embedding stats: min=nan, max=nan, mean=nan, std=nan
+[CLAP PIPELINE] CLAP embedding norms: min=nan, max=nan, mean=nan
+[VALIDATION] Shapes: y_im torch.Size([16, 512]), y_ref torch.Size([16, 512]), y_clap torch.Size([16, 512])
+[VALIDATION] Norms: y_im 1.0000, y_ref 1.0000, y_clap nan
+[VALIDATION] WARNING: y_clap has 8192/8192 NaN and 0/8192 Inf
+[VALIDATION] WARNING: NaN found in log_softmax outputs:
+[VALIDATION]   - C_qvim_log: 0/256 NaN values
+[VALIDATION]   - C_ref_clap_log: 256/256 NaN values
+[VALIDATION]   - C_im_clap_log: 256/256 NaN values
+Validation DataLoader 0:   6%|███████████▌                                                                                                                                                                                      | 7/117 [00:12<03:18,  0.56it/s]
+[VALIDATION] Batch 7 - Processing validation data
+[VALIDATION] Imitation shape: torch.Size([16, 320000]), Reference shape: torch.Size([16, 320000])
+[VALIDATION] Imitation: min=-1.0186, max=1.0354
+[VALIDATION] Reference: min=-1.0070, max=1.0069
+[CLAP PIPELINE] Input audio shape: torch.Size([16, 320000])
+[CLAP PIPELINE] Input audio stats: min=-1.0070, max=1.0069, mean=-0.0002, std=0.1184
+[CLAP PIPELINE] After resampling: shape=torch.Size([16, 160000])
+[CLAP PIPELINE] After resampling stats: min=-1.0059, max=1.0449, mean=-0.0002, std=0.1184
+[CLAP PIPELINE] Processing 16 samples individually
+[CLAP PIPELINE] Sample 0 shape: torch.Size([1, 160000])
+[CLAP PIPELINE] Final embeddings batch shape: torch.Size([16, 512])
+[CLAP PIPELINE] CLAP embedding shape: torch.Size([16, 512])
+[CLAP PIPELINE] WARNING: CLAP embedding has 8192/8192 NaN values and 0/8192 Inf values
+[CLAP PIPELINE] CLAP embedding stats: min=nan, max=nan, mean=nan, std=nan
+[CLAP PIPELINE] CLAP embedding norms: min=nan, max=nan, mean=nan
+[VALIDATION] Shapes: y_im torch.Size([16, 512]), y_ref torch.Size([16, 512]), y_clap torch.Size([16, 512])
+[VALIDATION] Norms: y_im 1.0000, y_ref 1.0000, y_clap nan
+[VALIDATION] WARNING: y_clap has 8192/8192 NaN and 0/8192 Inf
+[VALIDATION] WARNING: NaN found in log_softmax outputs:
+[VALIDATION]   - C_qvim_log: 0/256 NaN values
+[VALIDATION]   - C_ref_clap_log: 256/256 NaN values
+[VALIDATION]   - C_im_clap_log: 256/256 NaN values
+Validation DataLoader 0:   7%|█████████████▎                                                                                                                                                                                    | 8/117 [00:13<03:04,  0.59it/s]
+[VALIDATION] Batch 8 - Processing validation data
+[VALIDATION] Imitation shape: torch.Size([16, 320000]), Reference shape: torch.Size([16, 320000])
+[VALIDATION] Imitation: min=-1.0127, max=1.0056
+[VALIDATION] Reference: min=-1.0832, max=1.0496
+[CLAP PIPELINE] Input audio shape: torch.Size([16, 320000])
+[CLAP PIPELINE] Input audio stats: min=-1.0832, max=1.0496, mean=-0.0006, std=0.1400
+[CLAP PIPELINE] After resampling: shape=torch.Size([16, 160000])
+[CLAP PIPELINE] After resampling stats: min=-1.0732, max=1.0781, mean=-0.0006, std=0.1398
+[CLAP PIPELINE] Processing 16 samples individually
+[CLAP PIPELINE] Sample 0 shape: torch.Size([1, 160000])
+[CLAP PIPELINE] Final embeddings batch shape: torch.Size([16, 512])
+[CLAP PIPELINE] CLAP embedding shape: torch.Size([16, 512])
+[CLAP PIPELINE] WARNING: CLAP embedding has 8192/8192 NaN values and 0/8192 Inf values
+[CLAP PIPELINE] CLAP embedding stats: min=nan, max=nan, mean=nan, std=nan
+[CLAP PIPELINE] CLAP embedding norms: min=nan, max=nan, mean=nan
+[VALIDATION] Shapes: y_im torch.Size([16, 512]), y_ref torch.Size([16, 512]), y_clap torch.Size([16, 512])
+[VALIDATION] Norms: y_im 1.0000, y_ref 1.0000, y_clap nan
+[VALIDATION] WARNING: y_clap has 8192/8192 NaN and 0/8192 Inf
+[VALIDATION] WARNING: NaN found in log_softmax outputs:
+[VALIDATION]   - C_qvim_log: 0/256 NaN values
+[VALIDATION]   - C_ref_clap_log: 256/256 NaN values
+[VALIDATION]   - C_im_clap_log: 256/256 NaN values
+Validation DataLoader 0:   8%|██████████████▉                                                                                                                                                                                   | 9/117 [00:16<03:13,  0.56it/s]
+[VALIDATION] Batch 9 - Processing validation data
+[VALIDATION] Imitation shape: torch.Size([16, 320000]), Reference shape: torch.Size([16, 320000])
+[VALIDATION] Imitation: min=-1.0138, max=1.0522
+[VALIDATION] Reference: min=-1.0533, max=1.0435
+[CLAP PIPELINE] Input audio shape: torch.Size([16, 320000])
+[CLAP PIPELINE] Input audio stats: min=-1.0533, max=1.0435, mean=-0.0002, std=0.1113
+[CLAP PIPELINE] After resampling: shape=torch.Size([16, 160000])
+[CLAP PIPELINE] After resampling stats: min=-1.0068, max=1.0635, mean=-0.0002, std=0.1111
+[CLAP PIPELINE] Processing 16 samples individually
+[CLAP PIPELINE] Sample 0 shape: torch.Size([1, 160000])
+[CLAP PIPELINE] Final embeddings batch shape: torch.Size([16, 512])
+[CLAP PIPELINE] CLAP embedding shape: torch.Size([16, 512])
+[CLAP PIPELINE] WARNING: CLAP embedding has 8192/8192 NaN values and 0/8192 Inf values
+[CLAP PIPELINE] CLAP embedding stats: min=nan, max=nan, mean=nan, std=nan
+[CLAP PIPELINE] CLAP embedding norms: min=nan, max=nan, mean=nan
+[VALIDATION] Shapes: y_im torch.Size([16, 512]), y_ref torch.Size([16, 512]), y_clap torch.Size([16, 512])
+[VALIDATION] Norms: y_im 1.0000, y_ref 1.0000, y_clap nan
+[VALIDATION] WARNING: y_clap has 8192/8192 NaN and 0/8192 Inf
+[VALIDATION] WARNING: NaN found in log_softmax outputs:
+[VALIDATION]   - C_qvim_log: 0/256 NaN values
+[VALIDATION]   - C_ref_clap_log: 256/256 NaN values
+[VALIDATION]   - C_im_clap_log: 256/256 NaN values
+Validation DataLoader 0:   9%|████████████████▍                                                                                                                                                                                | 10/117 [00:17<03:08,  0.57it/s]
+[VALIDATION] Batch 10 - Processing validation data
+[VALIDATION] Imitation shape: torch.Size([16, 320000]), Reference shape: torch.Size([16, 320000])
+[VALIDATION] Imitation: min=-1.2221, max=1.2218
+[VALIDATION] Reference: min=-1.3156, max=1.3559
+[CLAP PIPELINE] Input audio shape: torch.Size([16, 320000])
+[CLAP PIPELINE] Input audio stats: min=-1.3156, max=1.3559, mean=-0.0009, std=0.1192
+[CLAP PIPELINE] After resampling: shape=torch.Size([16, 160000])
+[CLAP PIPELINE] After resampling stats: min=-1.2871, max=1.2734, mean=-0.0009, std=0.1183
+[CLAP PIPELINE] Processing 16 samples individually
+[CLAP PIPELINE] Sample 0 shape: torch.Size([1, 160000])
+[CLAP PIPELINE] Final embeddings batch shape: torch.Size([16, 512])
+[CLAP PIPELINE] CLAP embedding shape: torch.Size([16, 512])
+[CLAP PIPELINE] WARNING: CLAP embedding has 8192/8192 NaN values and 0/8192 Inf values
+[CLAP PIPELINE] CLAP embedding stats: min=nan, max=nan, mean=nan, std=nan
+[CLAP PIPELINE] CLAP embedding norms: min=nan, max=nan, mean=nan
+[VALIDATION] Shapes: y_im torch.Size([16, 512]), y_ref torch.Size([16, 512]), y_clap torch.Size([16, 512])
+[VALIDATION] Norms: y_im 1.0000, y_ref 1.0000, y_clap nan
+[VALIDATION] WARNING: y_clap has 8192/8192 NaN and 0/8192 Inf
+[VALIDATION] WARNING: NaN found in log_softmax outputs:
+[VALIDATION]   - C_qvim_log: 0/256 NaN values
+[VALIDATION]   - C_ref_clap_log: 256/256 NaN values
+[VALIDATION]   - C_im_clap_log: 256/256 NaN values
+Validation DataLoader 0:   9%|██████████████████▏                                                                                                                                                                              | 11/117 [00:20<03:14,  0.55it/s]
+[VALIDATION] Batch 11 - Processing validation data
+[VALIDATION] Imitation shape: torch.Size([16, 320000]), Reference shape: torch.Size([16, 320000])
+[VALIDATION] Imitation: min=-1.0082, max=1.0082
+[VALIDATION] Reference: min=-1.1485, max=1.0776
+[CLAP PIPELINE] Input audio shape: torch.Size([16, 320000])
+[CLAP PIPELINE] Input audio stats: min=-1.1485, max=1.0776, mean=0.0001, std=0.1268
+[CLAP PIPELINE] After resampling: shape=torch.Size([16, 160000])
+[CLAP PIPELINE] After resampling stats: min=-1.0498, max=1.0098, mean=0.0001, std=0.1256
+[CLAP PIPELINE] Processing 16 samples individually
+[CLAP PIPELINE] Sample 0 shape: torch.Size([1, 160000])
+[CLAP PIPELINE] Final embeddings batch shape: torch.Size([16, 512])
+[CLAP PIPELINE] CLAP embedding shape: torch.Size([16, 512])
+[CLAP PIPELINE] WARNING: CLAP embedding has 8192/8192 NaN values and 0/8192 Inf values
+[CLAP PIPELINE] CLAP embedding stats: min=nan, max=nan, mean=nan, std=nan
+[CLAP PIPELINE] CLAP embedding norms: min=nan, max=nan, mean=nan
+[VALIDATION] Shapes: y_im torch.Size([16, 512]), y_ref torch.Size([16, 512]), y_clap torch.Size([16, 512])
+[VALIDATION] Norms: y_im 1.0000, y_ref 1.0000, y_clap nan
+[VALIDATION] WARNING: y_clap has 8192/8192 NaN and 0/8192 Inf
+[VALIDATION] WARNING: NaN found in log_softmax outputs:
+[VALIDATION]   - C_qvim_log: 0/256 NaN values
+[VALIDATION]   - C_ref_clap_log: 256/256 NaN values
+[VALIDATION]   - C_im_clap_log: 256/256 NaN values
+Validation DataLoader 0:  10%|███████████████████▊                                                                                                                                                                             | 12/117 [00:21<03:05,  0.56it/s]
+[VALIDATION] Batch 12 - Processing validation data
+[VALIDATION] Imitation shape: torch.Size([16, 320000]), Reference shape: torch.Size([16, 320000])
+[VALIDATION] Imitation: min=-1.0460, max=1.0421
+[VALIDATION] Reference: min=-1.3521, max=1.4693
+[CLAP PIPELINE] Input audio shape: torch.Size([16, 320000])
+[CLAP PIPELINE] Input audio stats: min=-1.3521, max=1.4693, mean=-0.0006, std=0.1409
+[CLAP PIPELINE] After resampling: shape=torch.Size([16, 160000])
+[CLAP PIPELINE] After resampling stats: min=-1.2793, max=1.3047, mean=-0.0006, std=0.1394
+[CLAP PIPELINE] Processing 16 samples individually
+[CLAP PIPELINE] Sample 0 shape: torch.Size([1, 160000])
+[CLAP PIPELINE] Final embeddings batch shape: torch.Size([16, 512])
+[CLAP PIPELINE] CLAP embedding shape: torch.Size([16, 512])
+[CLAP PIPELINE] WARNING: CLAP embedding has 8192/8192 NaN values and 0/8192 Inf values
+[CLAP PIPELINE] CLAP embedding stats: min=nan, max=nan, mean=nan, std=nan
+[CLAP PIPELINE] CLAP embedding norms: min=nan, max=nan, mean=nan
+[VALIDATION] Shapes: y_im torch.Size([16, 512]), y_ref torch.Size([16, 512]), y_clap torch.Size([16, 512])
+[VALIDATION] Norms: y_im 1.0000, y_ref 1.0000, y_clap nan
+[VALIDATION] WARNING: y_clap has 8192/8192 NaN and 0/8192 Inf
+[VALIDATION] WARNING: NaN found in log_softmax outputs:
+[VALIDATION]   - C_qvim_log: 0/256 NaN values
+[VALIDATION]   - C_ref_clap_log: 256/256 NaN values
+[VALIDATION]   - C_im_clap_log: 256/256 NaN values
+Validation DataLoader 0:  11%|█████████████████████▍                                                                                                                                                                           | 13/117 [00:23<03:05,  0.56it/s]
+[VALIDATION] Batch 13 - Processing validation data
+[VALIDATION] Imitation shape: torch.Size([16, 320000]), Reference shape: torch.Size([16, 320000])
+[VALIDATION] Imitation: min=-1.0154, max=1.0392
+[VALIDATION] Reference: min=-1.0326, max=1.0162
+[CLAP PIPELINE] Input audio shape: torch.Size([16, 320000])
+[CLAP PIPELINE] Input audio stats: min=-1.0326, max=1.0162, mean=-0.0009, std=0.1514
+[CLAP PIPELINE] After resampling: shape=torch.Size([16, 160000])
+[CLAP PIPELINE] After resampling stats: min=-0.9985, max=1.0000, mean=-0.0009, std=0.1512
+[CLAP PIPELINE] Processing 16 samples individually
+[CLAP PIPELINE] Sample 0 shape: torch.Size([1, 160000])
+[CLAP PIPELINE] Final embeddings batch shape: torch.Size([16, 512])
+[CLAP PIPELINE] CLAP embedding shape: torch.Size([16, 512])
+[CLAP PIPELINE] WARNING: CLAP embedding has 8192/8192 NaN values and 0/8192 Inf values
+[CLAP PIPELINE] CLAP embedding stats: min=nan, max=nan, mean=nan, std=nan
+[CLAP PIPELINE] CLAP embedding norms: min=nan, max=nan, mean=nan
+[VALIDATION] Shapes: y_im torch.Size([16, 512]), y_ref torch.Size([16, 512]), y_clap torch.Size([16, 512])
+[VALIDATION] Norms: y_im 1.0000, y_ref 1.0000, y_clap nan
+[VALIDATION] WARNING: y_clap has 8192/8192 NaN and 0/8192 Inf
+[VALIDATION] WARNING: NaN found in log_softmax outputs:
+[VALIDATION]   - C_qvim_log: 0/256 NaN values
+[VALIDATION]   - C_ref_clap_log: 256/256 NaN values
+[VALIDATION]   - C_im_clap_log: 256/256 NaN values
+Validation DataLoader 0:  12%|███████████████████████                                                                                                                                                                          | 14/117 [00:24<02:57,  0.58it/s]
+[VALIDATION] Batch 14 - Processing validation data
+[VALIDATION] Imitation shape: torch.Size([16, 320000]), Reference shape: torch.Size([16, 320000])
+[VALIDATION] Imitation: min=-1.0249, max=1.0568
+[VALIDATION] Reference: min=-1.0258, max=1.0366
+[CLAP PIPELINE] Input audio shape: torch.Size([16, 320000])
+[CLAP PIPELINE] Input audio stats: min=-1.0258, max=1.0366, mean=-0.0001, std=0.1371
+[CLAP PIPELINE] After resampling: shape=torch.Size([16, 160000])
+[CLAP PIPELINE] After resampling stats: min=-1.0439, max=1.0000, mean=-0.0001, std=0.1349
+[CLAP PIPELINE] Processing 16 samples individually
+[CLAP PIPELINE] Sample 0 shape: torch.Size([1, 160000])
+[CLAP PIPELINE] Final embeddings batch shape: torch.Size([16, 512])
+[CLAP PIPELINE] CLAP embedding shape: torch.Size([16, 512])
+[CLAP PIPELINE] WARNING: CLAP embedding has 8192/8192 NaN values and 0/8192 Inf values
+[CLAP PIPELINE] CLAP embedding stats: min=nan, max=nan, mean=nan, std=nan
+[CLAP PIPELINE] CLAP embedding norms: min=nan, max=nan, mean=nan
+[VALIDATION] Shapes: y_im torch.Size([16, 512]), y_ref torch.Size([16, 512]), y_clap torch.Size([16, 512])
+[VALIDATION] Norms: y_im 1.0000, y_ref 1.0000, y_clap nan
+[VALIDATION] WARNING: y_clap has 8192/8192 NaN and 0/8192 Inf
+[VALIDATION] WARNING: NaN found in log_softmax outputs:
+[VALIDATION]   - C_qvim_log: 0/256 NaN values
+[VALIDATION]   - C_ref_clap_log: 256/256 NaN values
+[VALIDATION]   - C_im_clap_log: 256/256 NaN values
+Validation DataLoader 0:  13%|████████████████████████▋                                                                                                                                                                        | 15/117 [00:26<02:59,  0.57it/s]
+[VALIDATION] Batch 15 - Processing validation data
+[VALIDATION] Imitation shape: torch.Size([16, 320000]), Reference shape: torch.Size([16, 320000])
+[VALIDATION] Imitation: min=-1.1137, max=1.1713
+[VALIDATION] Reference: min=-1.0767, max=1.0207
+[CLAP PIPELINE] Input audio shape: torch.Size([16, 320000])
+[CLAP PIPELINE] Input audio stats: min=-1.0767, max=1.0207, mean=-0.0013, std=0.1429
+[CLAP PIPELINE] After resampling: shape=torch.Size([16, 160000])
+[CLAP PIPELINE] After resampling stats: min=-1.0049, max=1.0000, mean=-0.0013, std=0.1407
+[CLAP PIPELINE] Processing 16 samples individually
+[CLAP PIPELINE] Sample 0 shape: torch.Size([1, 160000])
+[CLAP PIPELINE] Final embeddings batch shape: torch.Size([16, 512])
+[CLAP PIPELINE] CLAP embedding shape: torch.Size([16, 512])
+[CLAP PIPELINE] WARNING: CLAP embedding has 8192/8192 NaN values and 0/8192 Inf values
+[CLAP PIPELINE] CLAP embedding stats: min=nan, max=nan, mean=nan, std=nan
+[CLAP PIPELINE] CLAP embedding norms: min=nan, max=nan, mean=nan
+[VALIDATION] Shapes: y_im torch.Size([16, 512]), y_ref torch.Size([16, 512]), y_clap torch.Size([16, 512])
+[VALIDATION] Norms: y_im 1.0000, y_ref 1.0000, y_clap nan
+[VALIDATION] WARNING: y_clap has 8192/8192 NaN and 0/8192 Inf
+[VALIDATION] WARNING: NaN found in log_softmax outputs:
+[VALIDATION]   - C_qvim_log: 0/256 NaN values
+[VALIDATION]   - C_ref_clap_log: 256/256 NaN values
+[VALIDATION]   - C_im_clap_log: 256/256 NaN values
+Validation DataLoader 0:  14%|██████████████████████████▍                                                                                                                                                                      | 16/117 [00:27<02:54,  0.58it/s]
+[VALIDATION] Batch 16 - Processing validation data
+[VALIDATION] Imitation shape: torch.Size([16, 320000]), Reference shape: torch.Size([16, 320000])
+[VALIDATION] Imitation: min=-1.0131, max=1.0243
+[VALIDATION] Reference: min=-1.0767, max=1.0207
+[CLAP PIPELINE] Input audio shape: torch.Size([16, 320000])
+[CLAP PIPELINE] Input audio stats: min=-1.0767, max=1.0207, mean=-0.0011, std=0.0966
+[CLAP PIPELINE] After resampling: shape=torch.Size([16, 160000])
+[CLAP PIPELINE] After resampling stats: min=-1.0859, max=0.9966, mean=-0.0011, std=0.0949
+[CLAP PIPELINE] Processing 16 samples individually
+[CLAP PIPELINE] Sample 0 shape: torch.Size([1, 160000])
+[CLAP PIPELINE] Final embeddings batch shape: torch.Size([16, 512])
+[CLAP PIPELINE] CLAP embedding shape: torch.Size([16, 512])
+[CLAP PIPELINE] WARNING: CLAP embedding has 8192/8192 NaN values and 0/8192 Inf values
+[CLAP PIPELINE] CLAP embedding stats: min=nan, max=nan, mean=nan, std=nan
+[CLAP PIPELINE] CLAP embedding norms: min=nan, max=nan, mean=nan
+[VALIDATION] Shapes: y_im torch.Size([16, 512]), y_ref torch.Size([16, 512]), y_clap torch.Size([16, 512])
+[VALIDATION] Norms: y_im 1.0000, y_ref 1.0000, y_clap nan
+[VALIDATION] WARNING: y_clap has 8192/8192 NaN and 0/8192 Inf
+[VALIDATION] WARNING: NaN found in log_softmax outputs:
+[VALIDATION]   - C_qvim_log: 0/256 NaN values
+[VALIDATION]   - C_ref_clap_log: 256/256 NaN values
+[VALIDATION]   - C_im_clap_log: 256/256 NaN values
+Validation DataLoader 0:  15%|████████████████████████████                                                                                                                                                                     | 17/117 [00:30<02:59,  0.56it/s]
+[VALIDATION] Batch 17 - Processing validation data
+[VALIDATION] Imitation shape: torch.Size([16, 320000]), Reference shape: torch.Size([16, 320000])
+[VALIDATION] Imitation: min=-1.0398, max=1.0416
+[VALIDATION] Reference: min=-1.0082, max=1.0056
+[CLAP PIPELINE] Input audio shape: torch.Size([16, 320000])
+[CLAP PIPELINE] Input audio stats: min=-1.0082, max=1.0056, mean=-0.0018, std=0.1853
+[CLAP PIPELINE] After resampling: shape=torch.Size([16, 160000])
+[CLAP PIPELINE] After resampling stats: min=-1.0283, max=1.0166, mean=-0.0018, std=0.1833
+[CLAP PIPELINE] Processing 16 samples individually
+[CLAP PIPELINE] Sample 0 shape: torch.Size([1, 160000])
+[CLAP PIPELINE] Final embeddings batch shape: torch.Size([16, 512])
+[CLAP PIPELINE] CLAP embedding shape: torch.Size([16, 512])
+[CLAP PIPELINE] WARNING: CLAP embedding has 8192/8192 NaN values and 0/8192 Inf values
+[CLAP PIPELINE] CLAP embedding stats: min=nan, max=nan, mean=nan, std=nan
+[CLAP PIPELINE] CLAP embedding norms: min=nan, max=nan, mean=nan
+[VALIDATION] Shapes: y_im torch.Size([16, 512]), y_ref torch.Size([16, 512]), y_clap torch.Size([16, 512])
+[VALIDATION] Norms: y_im 1.0000, y_ref 1.0000, y_clap nan
+[VALIDATION] WARNING: y_clap has 8192/8192 NaN and 0/8192 Inf
+[VALIDATION] WARNING: NaN found in log_softmax outputs:
+[VALIDATION]   - C_qvim_log: 0/256 NaN values
+[VALIDATION]   - C_ref_clap_log: 256/256 NaN values
+[VALIDATION]   - C_im_clap_log: 256/256 NaN values
+Validation DataLoader 0:  15%|█████████████████████████████▋                                                                                                                                                                   | 18/117 [00:32<02:58,  0.56it/s]
+[VALIDATION] Batch 18 - Processing validation data
+[VALIDATION] Imitation shape: torch.Size([16, 320000]), Reference shape: torch.Size([16, 320000])
+[VALIDATION] Imitation: min=-1.1176, max=1.1830
+[VALIDATION] Reference: min=-1.1685, max=1.2134
+[CLAP PIPELINE] Input audio shape: torch.Size([16, 320000])
+[CLAP PIPELINE] Input audio stats: min=-1.1685, max=1.2134, mean=-0.0001, std=0.1079
+[CLAP PIPELINE] After resampling: shape=torch.Size([16, 160000])
+[CLAP PIPELINE] After resampling stats: min=-1.2793, max=1.2266, mean=-0.0001, std=0.1074
+[CLAP PIPELINE] Processing 16 samples individually
+[CLAP PIPELINE] Sample 0 shape: torch.Size([1, 160000])
+[CLAP PIPELINE] Final embeddings batch shape: torch.Size([16, 512])
+[CLAP PIPELINE] CLAP embedding shape: torch.Size([16, 512])
+[CLAP PIPELINE] WARNING: CLAP embedding has 8192/8192 NaN values and 0/8192 Inf values
+[CLAP PIPELINE] CLAP embedding stats: min=nan, max=nan, mean=nan, std=nan
+[CLAP PIPELINE] CLAP embedding norms: min=nan, max=nan, mean=nan
+[VALIDATION] Shapes: y_im torch.Size([16, 512]), y_ref torch.Size([16, 512]), y_clap torch.Size([16, 512])
+[VALIDATION] Norms: y_im 1.0000, y_ref 1.0000, y_clap nan
+[VALIDATION] WARNING: y_clap has 8192/8192 NaN and 0/8192 Inf
+[VALIDATION] WARNING: NaN found in log_softmax outputs:
+[VALIDATION]   - C_qvim_log: 0/256 NaN values
+[VALIDATION]   - C_ref_clap_log: 256/256 NaN values
+[VALIDATION]   - C_im_clap_log: 256/256 NaN values
+Validation DataLoader 0:  16%|███████████████████████████████▎                                                                                                                                                                 | 19/117 [00:34<02:57,  0.55it/s]
+[VALIDATION] Batch 19 - Processing validation data
+[VALIDATION] Imitation shape: torch.Size([16, 320000]), Reference shape: torch.Size([16, 320000])
+[VALIDATION] Imitation: min=-1.0305, max=1.0203
+[VALIDATION] Reference: min=-1.0416, max=1.0553
+[CLAP PIPELINE] Input audio shape: torch.Size([16, 320000])
+[CLAP PIPELINE] Input audio stats: min=-1.0416, max=1.0553, mean=0.0008, std=0.1524
+[CLAP PIPELINE] After resampling: shape=torch.Size([16, 160000])
+[CLAP PIPELINE] After resampling stats: min=-1.0088, max=0.9971, mean=0.0008, std=0.1515
+[CLAP PIPELINE] Processing 16 samples individually
+[CLAP PIPELINE] Sample 0 shape: torch.Size([1, 160000])
+[CLAP PIPELINE] Final embeddings batch shape: torch.Size([16, 512])
+[CLAP PIPELINE] CLAP embedding shape: torch.Size([16, 512])
+[CLAP PIPELINE] WARNING: CLAP embedding has 8192/8192 NaN values and 0/8192 Inf values
+[CLAP PIPELINE] CLAP embedding stats: min=nan, max=nan, mean=nan, std=nan
+[CLAP PIPELINE] CLAP embedding norms: min=nan, max=nan, mean=nan
+[VALIDATION] Shapes: y_im torch.Size([16, 512]), y_ref torch.Size([16, 512]), y_clap torch.Size([16, 512])
+[VALIDATION] Norms: y_im 1.0000, y_ref 1.0000, y_clap nan
+[VALIDATION] WARNING: y_clap has 8192/8192 NaN and 0/8192 Inf
+[VALIDATION] WARNING: NaN found in log_softmax outputs:
+[VALIDATION]   - C_qvim_log: 0/256 NaN values
+[VALIDATION]   - C_ref_clap_log: 256/256 NaN values
+[VALIDATION]   - C_im_clap_log: 256/256 NaN values
+Validation DataLoader 0:  17%|████████████████████████████████▉                                                                                                                                                                | 20/117 [00:36<02:55,  0.55it/s]
+[VALIDATION] Batch 20 - Processing validation data
+[VALIDATION] Imitation shape: torch.Size([16, 320000]), Reference shape: torch.Size([16, 320000])
+[VALIDATION] Imitation: min=-1.0453, max=1.0507
+[VALIDATION] Reference: min=-1.4047, max=1.3210
+[CLAP PIPELINE] Input audio shape: torch.Size([16, 320000])
+[CLAP PIPELINE] Input audio stats: min=-1.4047, max=1.3210, mean=-0.0006, std=0.1330
+[CLAP PIPELINE] After resampling: shape=torch.Size([16, 160000])
+[CLAP PIPELINE] After resampling stats: min=-1.2100, max=1.2090, mean=-0.0006, std=0.1321
+[CLAP PIPELINE] Processing 16 samples individually
+[CLAP PIPELINE] Sample 0 shape: torch.Size([1, 160000])
+[CLAP PIPELINE] Final embeddings batch shape: torch.Size([16, 512])
+[CLAP PIPELINE] CLAP embedding shape: torch.Size([16, 512])
+[CLAP PIPELINE] WARNING: CLAP embedding has 8192/8192 NaN values and 0/8192 Inf values
+[CLAP PIPELINE] CLAP embedding stats: min=nan, max=nan, mean=nan, std=nan
+[CLAP PIPELINE] CLAP embedding norms: min=nan, max=nan, mean=nan
+[VALIDATION] Shapes: y_im torch.Size([16, 512]), y_ref torch.Size([16, 512]), y_clap torch.Size([16, 512])
+[VALIDATION] Norms: y_im 1.0000, y_ref 1.0000, y_clap nan
+[VALIDATION] WARNING: y_clap has 8192/8192 NaN and 0/8192 Inf
+[VALIDATION] WARNING: NaN found in log_softmax outputs:
+[VALIDATION]   - C_qvim_log: 0/256 NaN values
+[VALIDATION]   - C_ref_clap_log: 256/256 NaN values
+[VALIDATION]   - C_im_clap_log: 256/256 NaN values
+Validation DataLoader 0:  18%|██████████████████████████████████▋                                                                                                                                                              | 21/117 [00:38<02:55,  0.55it/s]
+[VALIDATION] Batch 21 - Processing validation data
+[VALIDATION] Imitation shape: torch.Size([16, 320000]), Reference shape: torch.Size([16, 320000])
+[VALIDATION] Imitation: min=-1.0840, max=1.1075
+[VALIDATION] Reference: min=-1.0406, max=1.0040
+[CLAP PIPELINE] Input audio shape: torch.Size([16, 320000])
+[CLAP PIPELINE] Input audio stats: min=-1.0406, max=1.0040, mean=-0.0004, std=0.1337
+[CLAP PIPELINE] After resampling: shape=torch.Size([16, 160000])
+[CLAP PIPELINE] After resampling stats: min=-1.0859, max=0.9956, mean=-0.0004, std=0.1335
+[CLAP PIPELINE] Processing 16 samples individually
+[CLAP PIPELINE] Sample 0 shape: torch.Size([1, 160000])
+[CLAP PIPELINE] Final embeddings batch shape: torch.Size([16, 512])
+[CLAP PIPELINE] CLAP embedding shape: torch.Size([16, 512])
+[CLAP PIPELINE] WARNING: CLAP embedding has 8192/8192 NaN values and 0/8192 Inf values
+[CLAP PIPELINE] CLAP embedding stats: min=nan, max=nan, mean=nan, std=nan
+[CLAP PIPELINE] CLAP embedding norms: min=nan, max=nan, mean=nan
+[VALIDATION] Shapes: y_im torch.Size([16, 512]), y_ref torch.Size([16, 512]), y_clap torch.Size([16, 512])
+[VALIDATION] Norms: y_im 1.0000, y_ref 1.0000, y_clap nan
+[VALIDATION] WARNING: y_clap has 8192/8192 NaN and 0/8192 Inf
+[VALIDATION] WARNING: NaN found in log_softmax outputs:
+[VALIDATION]   - C_qvim_log: 0/256 NaN values
+[VALIDATION]   - C_ref_clap_log: 256/256 NaN values
+[VALIDATION]   - C_im_clap_log: 256/256 NaN values
+Validation DataLoader 0:  19%|████████████████████████████████████▎                                                                                                                                                            | 22/117 [00:39<02:51,  0.55it/s]
+[VALIDATION] Batch 22 - Processing validation data
+[VALIDATION] Imitation shape: torch.Size([16, 320000]), Reference shape: torch.Size([16, 320000])
+[VALIDATION] Imitation: min=-1.0059, max=1.0051
+[VALIDATION] Reference: min=-1.0640, max=1.0268
+[CLAP PIPELINE] Input audio shape: torch.Size([16, 320000])
+[CLAP PIPELINE] Input audio stats: min=-1.0640, max=1.0268, mean=-0.0006, std=0.1459
+[CLAP PIPELINE] After resampling: shape=torch.Size([16, 160000])
+[CLAP PIPELINE] After resampling stats: min=-1.0977, max=1.1162, mean=-0.0006, std=0.1450
+[CLAP PIPELINE] Processing 16 samples individually
+[CLAP PIPELINE] Sample 0 shape: torch.Size([1, 160000])
+[CLAP PIPELINE] Final embeddings batch shape: torch.Size([16, 512])
+[CLAP PIPELINE] CLAP embedding shape: torch.Size([16, 512])
+[CLAP PIPELINE] WARNING: CLAP embedding has 8192/8192 NaN values and 0/8192 Inf values
+[CLAP PIPELINE] CLAP embedding stats: min=nan, max=nan, mean=nan, std=nan
+[CLAP PIPELINE] CLAP embedding norms: min=nan, max=nan, mean=nan
+[VALIDATION] Shapes: y_im torch.Size([16, 512]), y_ref torch.Size([16, 512]), y_clap torch.Size([16, 512])
+[VALIDATION] Norms: y_im 1.0000, y_ref 1.0000, y_clap nan
+[VALIDATION] WARNING: y_clap has 8192/8192 NaN and 0/8192 Inf
+[VALIDATION] WARNING: NaN found in log_softmax outputs:
+[VALIDATION]   - C_qvim_log: 0/256 NaN values
+[VALIDATION]   - C_ref_clap_log: 256/256 NaN values
+[VALIDATION]   - C_im_clap_log: 256/256 NaN values
+Validation DataLoader 0:  20%|█████████████████████████████████████▉                                                                                                                                                           | 23/117 [00:41<02:48,  0.56it/s]
+[VALIDATION] Batch 23 - Processing validation data
+[VALIDATION] Imitation shape: torch.Size([16, 320000]), Reference shape: torch.Size([16, 320000])
+[VALIDATION] Imitation: min=-1.0959, max=1.1547
+[VALIDATION] Reference: min=-1.4978, max=1.4350
+[CLAP PIPELINE] Input audio shape: torch.Size([16, 320000])
+[CLAP PIPELINE] Input audio stats: min=-1.4978, max=1.4350, mean=-0.0002, std=0.1379
+[CLAP PIPELINE] After resampling: shape=torch.Size([16, 160000])
+[CLAP PIPELINE] After resampling stats: min=-1.1836, max=1.0947, mean=-0.0002, std=0.1265
+[CLAP PIPELINE] Processing 16 samples individually
+[CLAP PIPELINE] Sample 0 shape: torch.Size([1, 160000])
+[CLAP PIPELINE] Final embeddings batch shape: torch.Size([16, 512])
+[CLAP PIPELINE] CLAP embedding shape: torch.Size([16, 512])
+[CLAP PIPELINE] WARNING: CLAP embedding has 8192/8192 NaN values and 0/8192 Inf values
+[CLAP PIPELINE] CLAP embedding stats: min=nan, max=nan, mean=nan, std=nan
+[CLAP PIPELINE] CLAP embedding norms: min=nan, max=nan, mean=nan
+[VALIDATION] Shapes: y_im torch.Size([16, 512]), y_ref torch.Size([16, 512]), y_clap torch.Size([16, 512])
+[VALIDATION] Norms: y_im 1.0000, y_ref 1.0000, y_clap nan
+[VALIDATION] WARNING: y_clap has 8192/8192 NaN and 0/8192 Inf
+[VALIDATION] WARNING: NaN found in log_softmax outputs:
+[VALIDATION]   - C_qvim_log: 0/256 NaN values
+[VALIDATION]   - C_ref_clap_log: 256/256 NaN values
+[VALIDATION]   - C_im_clap_log: 256/256 NaN values
+Validation DataLoader 0:  21%|███████████████████████████████████████▌                                                                                                                                                         | 24/117 [00:42<02:45,  0.56it/s]
+[VALIDATION] Batch 24 - Processing validation data
+[VALIDATION] Imitation shape: torch.Size([16, 320000]), Reference shape: torch.Size([16, 320000])
+[VALIDATION] Imitation: min=-1.0139, max=1.0435
+[VALIDATION] Reference: min=-1.3521, max=1.4693
+[CLAP PIPELINE] Input audio shape: torch.Size([16, 320000])
+[CLAP PIPELINE] Input audio stats: min=-1.3521, max=1.4693, mean=0.0002, std=0.1294
+[CLAP PIPELINE] After resampling: shape=torch.Size([16, 160000])
+[CLAP PIPELINE] After resampling stats: min=-1.2793, max=1.3047, mean=0.0002, std=0.1266
+[CLAP PIPELINE] Processing 16 samples individually
+[CLAP PIPELINE] Sample 0 shape: torch.Size([1, 160000])
+[CLAP PIPELINE] Final embeddings batch shape: torch.Size([16, 512])
+[CLAP PIPELINE] CLAP embedding shape: torch.Size([16, 512])
+[CLAP PIPELINE] WARNING: CLAP embedding has 8192/8192 NaN values and 0/8192 Inf values
+[CLAP PIPELINE] CLAP embedding stats: min=nan, max=nan, mean=nan, std=nan
+[CLAP PIPELINE] CLAP embedding norms: min=nan, max=nan, mean=nan
+[VALIDATION] Shapes: y_im torch.Size([16, 512]), y_ref torch.Size([16, 512]), y_clap torch.Size([16, 512])
+[VALIDATION] Norms: y_im 1.0000, y_ref 1.0000, y_clap nan
+[VALIDATION] WARNING: y_clap has 8192/8192 NaN and 0/8192 Inf
+[VALIDATION] WARNING: NaN found in log_softmax outputs:
+[VALIDATION]   - C_qvim_log: 0/256 NaN values
+[VALIDATION]   - C_ref_clap_log: 256/256 NaN values
+[VALIDATION]   - C_im_clap_log: 256/256 NaN values
+Validation DataLoader 0:  21%|█████████████████████████████████████████▏                                                                                                                                                       | 25/117 [00:44<02:42,  0.56it/s]
+[VALIDATION] Batch 25 - Processing validation data
+[VALIDATION] Imitation shape: torch.Size([16, 320000]), Reference shape: torch.Size([16, 320000])
+[VALIDATION] Imitation: min=-1.3364, max=1.2490
+[VALIDATION] Reference: min=-1.3156, max=1.3559
+[CLAP PIPELINE] Input audio shape: torch.Size([16, 320000])
+[CLAP PIPELINE] Input audio stats: min=-1.3156, max=1.3559, mean=-0.0005, std=0.1207
+[CLAP PIPELINE] After resampling: shape=torch.Size([16, 160000])
+[CLAP PIPELINE] After resampling stats: min=-1.2871, max=1.2734, mean=-0.0005, std=0.1201
+[CLAP PIPELINE] Processing 16 samples individually
+[CLAP PIPELINE] Sample 0 shape: torch.Size([1, 160000])
+
+Detected KeyboardInterrupt, attempting graceful shutdown ...
