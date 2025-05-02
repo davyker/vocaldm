@@ -43,7 +43,7 @@ ckpt/vocaldm/
 
 ## Usage
 
-There is not yet a checkpoint for VocalDM which produces the desired output.
+There is not yet a checkpoint for VocalDM which produces the desired output. Some unaligned outputs can be found in vocaldm-test-gens
 
 ## Model Architecture
 
