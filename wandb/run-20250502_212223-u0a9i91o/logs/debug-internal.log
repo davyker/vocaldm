@@ -5,3 +5,4 @@
 {"time":"2025-05-02T21:22:24.326522048+01:00","level":"INFO","msg":"handler: started","stream_id":"u0a9i91o"}
 {"time":"2025-05-02T21:22:24.326827876+01:00","level":"INFO","msg":"sender: started","stream_id":"u0a9i91o"}
 {"time":"2025-05-02T21:22:24.975581182+01:00","level":"INFO","msg":"Starting system monitor"}
+{"time":"2025-05-02T23:26:18.35056879+01:00","level":"INFO","msg":"api: retrying error","error":"Post \"https://api.wandb.ai/graphql\": net/http: request canceled (Client.Timeout exceeded while awaiting headers)"}

@@ -21,4 +21,4 @@ LOCAL_RANK: 0 - CUDA_VISIBLE_DEVICES: [0]
 820.007   Total estimated model params size (MB)
 419       Modules in train mode
 555       Modules in eval mode
-Epoch 0:   1%|█▉                                                                                                                                                                                                                           | 56/6227 [15:22<28:14:53,  0.06it/s, v_num=i91o, train/loss=0.413, lr=0.0104]
+Epoch 0:   7%|████████████████▎                                                                                                                                                                                                          | 464/6227 [2:17:51<28:32:17,  0.06it/s, v_num=i91o, train/loss=0.280, lr=0.013]
